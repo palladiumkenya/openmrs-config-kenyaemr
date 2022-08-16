@@ -1,0 +1,135 @@
+{
+	"name": "POC TPT Discontinuation Form v1.0",
+	"pages": [
+		{
+			"label": "TPT Discontinuation",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit date:",
+							"type": "encounterDatetime",
+							"required": "true",
+							"default": "",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
+						},
+						{
+							"type": "encounterProvider",
+							"label": "Provider:",
+							"id": "provider",
+							"required": "true",
+							"default": "",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						},
+						{
+							"type": "encounterLocation",
+							"label": "Location:",
+							"id": "location",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							}
+						}
+					]
+				},
+				{
+					"label": "Discontinue TPT",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Reason for discontinuation:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Treatment completed"
+									},
+									{
+										"concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Lost to followup"
+									},
+									{
+										"concept": "159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Discontinued"
+									},
+									{
+										"concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Died"
+									},
+									{
+										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transferred Out"
+									},
+									{
+										"concept": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Active TB Disease - ATB"
+									},
+									{
+										"concept": "102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Adverse drug reaction - ADR"
+									},
+									{
+										"concept": "159598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Poor adherence - PA"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Others - OTR"
+									}
+								]
+							},
+							"id": "__znzIMD1zC"
+						},
+						{
+							"label": "Discontinuation Date:",
+							"type": "encounterDate",
+							"id": "discondate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Discontinuation Date should be greater than the encounter date."
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"uuid": "xxxx",
+	"referencedForms": [
+		{
+			"ref": {
+				"uuid": "86324b04-9d61-47b0-96cf-87b320bfe2e3",
+				"display": "component_encounter-details v1.0"
+			},
+			"formName": "component_encounter-details v1.0",
+			"alias": "visitDetails"
+		}
+	]
+}

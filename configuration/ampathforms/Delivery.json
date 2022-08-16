@@ -1,0 +1,976 @@
+{
+	"name": "Delivery",
+	"description": "Delivery",
+	"version": "1",
+	"published": true,
+	"uuid": "496c7cc3-0eea-4e84-a04c-2292949e2f7f",
+	"retired": false,
+	"encounter": "MCH Mother Consultation",
+	"pages": [
+		{
+			"label": "Delivery",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Admission Number:",
+							"type": "obs",
+							"id": "admNumber",
+							"questionOptions": {
+								"concept": "162054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							}
+						}
+					]
+				},
+				{
+					"label": "Delivery and Baby Observations",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Gestation at birth (in weeks):",
+							"type": "obs",
+							"id": "gestation",
+							"questionOptions": {
+								"concept": "1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							}
+						},
+						{
+							"label": "Duration of Labor (Hours):",
+							"type": "obs",
+							"id": "durationOfLabour",
+							"questionOptions": {
+								"concept": "159616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							}
+						},
+						{
+							"label": "Mode of Delivery:",
+							"type": "obs",
+							"id": "deliveryMode",
+							"questionOptions": {
+								"concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Spontaneous vaginal delivery(SVD)"
+									},
+									{
+										"concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Cesarean section(CS)"
+									},
+									{
+										"concept": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Breech delivery"
+									},
+									{
+										"concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Assisted vaginal delivery(AVD)"
+									}
+								]
+							}
+						},
+						{
+							"label": "Date and time of Delivery:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended",
+								"concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "deliveryDateTime",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"required": "true"
+						},
+						{
+							"label": "Placenta complete?",
+							"type": "obs",
+							"id": "placentaComplete",
+							"questionOptions": {
+								"concept": "163454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "163455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "163456AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Blood Loss:",
+							"type": "obs",
+							"id": "bloodLoss",
+							"questionOptions": {
+								"concept": "162092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "None"
+									},
+									{
+										"concept": "1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Mild"
+									},
+									{
+										"concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Moderate"
+									},
+									{
+										"concept": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Severe"
+									}
+								]
+							}
+						},
+						{
+							"label": "Condition of Mother after delivery:",
+							"type": "obs",
+							"id": "maternalOutcome",
+							"questionOptions": {
+								"concept": "1856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Alive"
+									},
+									{
+										"concept": "134612AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Dead"
+									}
+								]
+							}
+						},
+						{
+							"label": "Resuscitation Done:",
+							"type": "obs",
+							"id": "resuscitation",
+							"questionOptions": {
+								"concept": "162131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(maternalOutcome) || maternalOutcome === '160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Maternal death audited?",
+							"type": "obs",
+							"id": "maternalDeathAudited",
+							"questionOptions": {
+								"concept": "1602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(maternalOutcome) || maternalOutcome === '160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Delivery complications ?",
+							"type": "obs",
+							"id": "deliveryComplications",
+							"questionOptions": {
+								"concept": "120216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unknown"
+									}
+								]
+							}
+						},
+						{
+							"label": "Place of Delivery:",
+							"type": "obs",
+							"id": "placeOfDelivery",
+							"questionOptions": {
+								"concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Home"
+									},
+									{
+										"concept": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Facility"
+									},
+									{
+										"concept": "1601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Born Before Arrival"
+									}
+								]
+							}
+						},
+						{
+							"label": "Select delivery complications ?",
+							"type": "obs",
+							"id": "specificComplications",
+							"questionOptions": {
+								"concept": "1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unknown"
+									},
+									{
+										"concept": "113195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Ruptured Uterus"
+									},
+									{
+										"concept": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Eclampsia"
+									},
+									{
+										"concept": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "APH"
+									},
+									{
+										"concept": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "PPH"
+									},
+									{
+										"concept": "115036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Obstructed Labor"
+									},
+									{
+										"concept": "130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Puerperal sepsis"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(deliveryComplications) || deliveryComplications !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Other delivery complications",
+							"type": "obs",
+							"id": "otherComplications",
+							"questionOptions": {
+								"concept": "162093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(deliveryComplications) || deliveryComplications !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Delivery Conducted By:",
+							"type": "obs",
+							"id": "deliveryConductedBy",
+							"questionOptions": {
+								"concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							}
+						},
+						{
+							"label": "Cadre :",
+							"type": "obs",
+							"id": "deliveryConductedByCadre",
+							"questionOptions": {
+								"concept": "1573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Clinical officer/Doctor"
+									},
+									{
+										"concept": "1578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Midwife"
+									},
+									{
+										"concept": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Nurse"
+									},
+									{
+										"concept": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Traditional Birth Attendant"
+									},
+									{
+										"concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Community Health Care Worker"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Delivery Outcome & Baby details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Delivery Outcome",
+							"type": "obs",
+							"id": "deliveryOutcome",
+							"questionOptions": {
+								"concept": "159949AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "159913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Single"
+									},
+									{
+										"concept": "159914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Twins"
+									},
+									{
+										"concept": "159915AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Triplets"
+									}
+								]
+							}
+						},
+						{
+							"label": "Baby details",
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "162588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "repeating"
+							},
+							"questions": [
+								{
+									"label": "Baby's name:",
+									"type": "obs",
+									"id": "name",
+									"questionOptions": {
+										"concept": "1586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "text"
+									}
+								},
+								{
+									"label": "Sex :",
+									"type": "obs",
+									"id": "sex",
+									"questionOptions": {
+										"concept": "1587AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Male"
+											},
+											{
+												"concept": "1535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Female"
+											}
+										]
+									}
+								},
+								{
+									"label": "Birth weight (kg) :",
+									"type": "obs",
+									"id": "birthWeight",
+									"questionOptions": {
+										"concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "number"
+									}
+								},
+								{
+									"label": "Condition of the baby:",
+									"type": "obs",
+									"id": "babyCondition",
+									"questionOptions": {
+										"concept": "159917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Live birth"
+											},
+											{
+												"concept": "159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Fresh still birth"
+											},
+											{
+												"concept": "135436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Macerated still birth"
+											}
+										]
+									}
+								},
+								{
+									"label": "Birth with deformity ?",
+									"type": "obs",
+									"id": "babyDeformed",
+									"questionOptions": {
+										"concept": "164122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											},
+											{
+												"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "N/A"
+											}
+										]
+									}
+								},
+								{
+									"label": "TEO given at birth ?",
+									"type": "obs",
+									"id": "babyTEOAtBirth",
+									"questionOptions": {
+										"concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											},
+											{
+												"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "N/A"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Initiated BF in less than 1 hour:",
+									"type": "obs",
+									"id": "babyInitiatedBF",
+									"questionOptions": {
+										"concept": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											},
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Apgar Score (1 min):",
+									"type": "obs",
+									"id": "babyApgarScore1Min",
+									"questionOptions": {
+										"concept": "159603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "number"
+									},
+									"hide": {
+										"hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Apgar Score (5 min):",
+									"type": "obs",
+									"id": "babyAScore5Min",
+									"questionOptions": {
+										"concept": "159604AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "number"
+									},
+									"hide": {
+										"hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Apgar Score (10 min):",
+									"type": "obs",
+									"id": "babyApgarScore10Min",
+									"questionOptions": {
+										"concept": "159605AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "number"
+									},
+									"hide": {
+										"hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								}
+							],
+							"id": "babyDetails"
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "Other Delivery Details",
+			"sections": [
+				{
+					"label": "HIV Testing",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "HIV testing",
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "repeating"
+							},
+							"questions": [
+								{
+									"label": "Kit Name",
+									"type": "obs",
+									"id": "kitName",
+									"questionOptions": {
+										"concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
+												"label": "Dual Kit"
+											},
+											{
+												"concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+												"label": "Determine"
+											},
+											{
+												"concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+												"label": "First Response"
+											}
+										]
+									}
+								},
+								{
+									"label": "Lot Number",
+									"type": "obs",
+									"id": "lotNumber",
+									"questionOptions": {
+										"concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4",
+										"rendering": "text"
+									}
+								},
+								{
+									"label": "Expiry Date",
+									"type": "obs",
+									"id": "expiryDate",
+									"questionOptions": {
+										"concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "date"
+									},
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "true"
+										}
+									]
+								},
+								{
+									"label": "HIV Test Results:",
+									"type": "obs",
+									"id": "hivTestResult",
+									"questionOptions": {
+										"concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Invalid"
+											},
+											{
+												"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Positive"
+											},
+											{
+												"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Negative"
+											}
+										]
+									}
+								},
+								{
+									"label": "Syphilis Test results",
+									"type": "obs",
+									"id": "syphilisTestResults",
+									"questionOptions": {
+										"concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Positive"
+											},
+											{
+												"concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Negative"
+											}
+										]
+									}
+								}
+							],
+							"id": "hivTesting"
+						},
+						{
+							"label": "Final Results:",
+							"type": "obs",
+							"id": "hivFinalResult",
+							"questionOptions": {
+								"concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Inconclusive"
+									},
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Positive"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Negative"
+									}
+								]
+							}
+						},
+						{
+							"label": "On HAART",
+							"type": "obs",
+							"id": "OnHaART",
+							"questionOptions": {
+								"concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Current Regimen",
+							"type": "obs",
+							"id": "CurreNTRegimen",
+							"questionOptions": {
+								"concept": "164855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Results given to client?",
+							"type": "obs",
+							"id": "resultsGiven",
+							"questionOptions": {
+								"concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Has the client's partner been tested for HIV? Partner HIV Status:",
+							"type": "obs",
+							"id": "partnerTested",
+							"questionOptions": {
+								"concept": "161557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Partner HIV Status:",
+							"type": "obs",
+							"id": "partnerHIVStatus",
+							"questionOptions": {
+								"concept": "1436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unknown"
+									},
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HIV Positive"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HIV Negative"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(partnerTested) || partnerTested === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "ART & Prophylaxis",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Mother's prophylaxis given during this visit?",
+							"type": "obs",
+							"id": "prophylaxisUsed",
+							"questionOptions": {
+								"concept": "1109AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Cotrimoxazole"
+									},
+									{
+										"concept": "74250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Dapsone"
+									},
+									{
+										"concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "None"
+									}
+								]
+							}
+						},
+						{
+							"label": "AZT for the baby dispensed?",
+							"type": "obs",
+							"id": "aztDispensed",
+							"questionOptions": {
+								"concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "N/A"
+									}
+								]
+							}
+						},
+						{
+							"label": "NVP for the baby dispensed?",
+							"type": "obs",
+							"id": "nvpDispensed",
+							"questionOptions": {
+								"concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "N/A"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Referral",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Referred to?",
+							"type": "obs",
+							"id": "referredTo",
+							"questionOptions": {
+								"concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Another Health Facility"
+									},
+									{
+										"concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Community Unit"
+									},
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "N/A"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Clinical Notes",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Next appointment date:",
+							"type": "obs",
+							"id": "returnVisitDate",
+							"required": "true",
+							"questionOptions": {
+								"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								}
+							]
+						},
+						{
+							"label": "Clinical notes",
+							"type": "obs",
+							"id": "clinicalNotes",
+							"questionOptions": {
+								"concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": [
+		{
+			"ref": {
+				"uuid": "d3612955-4377-410b-800e-001dfe55a55c",
+				"display": "component_common_form_header_v1.0"
+			},
+			"formName": "component_common_form_header_v1.0",
+			"alias": "encDetails"
+		}
+	]
+}

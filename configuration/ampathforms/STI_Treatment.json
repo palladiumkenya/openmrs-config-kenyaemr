@@ -1,0 +1,563 @@
+{
+	"name": "STI Treatment",
+	"description": "STI Treatment",
+	"version": "1",
+	"published": true,
+	"uuid": "xxxx",
+	"retired": false,
+	"encounter": "KP STI Detailed treatment",
+	"pages": [
+		{
+			"label": "STI Treatment",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit Details",
+							"isExpanded": "true",
+							"questions": [
+								{
+									"label": "Date:",
+									"type": "encounterDatetime",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "false"
+										}
+									],
+									"id": "encDate"
+								},
+								{
+									"label": "Provider:",
+									"type": "encounterProvider",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"id": "encProvider "
+								},
+								{
+									"label": "Location:",
+									"type": "encounterLocation",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"id": "encLocation"
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Visit Information",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Reason for Visit :",
+							"type": "obs",
+							"id": "visitReason",
+							"questionOptions": {
+								"concept": "164082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Symptomatic"
+									},
+									{
+										"concept": "5006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Asymptomatic"
+									},
+									{
+										"concept": "163139AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Quartely Screening"
+									},
+									{
+										"concept": "160523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Follow up"
+									}
+								]
+							}
+						},
+						{
+							"label": "New client in programme?",
+							"type": "obs",
+							"id": "newClient",
+							"questionOptions": {
+								"concept": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Type of Syndrome/ Infection",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Sexually Transmitted Infections (tick as appropriate)",
+							"type": "obs",
+							"id": "sexTransInfect",
+							"questionOptions": {
+								"concept": "b39992a0-7d5b-4b72-b551-9e0970ae49fa",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "145762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Genital Ulcer Disease"
+									},
+									{
+										"concept": "130644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Pelvic Inflammation Disease"
+									},
+									{
+										"concept": "120939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Candidiasis"
+									},
+									{
+										"concept": "123529AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Urethral Discharge/Urethritis"
+									},
+									{
+										"concept": "139505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Genital Warts"
+									},
+									{
+										"concept": "116995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Cervicitis"
+									},
+									{
+										"concept": "112493AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Syphilis"
+									},
+									{
+										"concept": "117829AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Herpes Genitalia"
+									},
+									{
+										"concept": "130309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Pharyngeal Discharge"
+									},
+									{
+										"concept": "121809AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Vaginitis"
+									},
+									{
+										"concept": "155080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Anal Warts"
+									},
+									{
+										"concept": "148895AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Anal Discharge"
+									},
+									{
+										"concept": "148902AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Anal Rectal Ulcer"
+									},
+									{
+										"concept": "110172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Pharyngeal Ulcer"
+									},
+									{
+										"concept": "114732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Orchitis"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other(Specify)"
+									}
+								]
+							}
+						},
+						{
+							"label": "Other Syndrome",
+							"type": "obs",
+							"id": "otherSyndrome",
+							"questionOptions": {
+								"concept": "d7f01f09-1e8b-4129-bdf6-dbae6e9aa69c",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(sexTransInfect) || !arrayContains(sexTransInfect,'5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+							}
+						}
+					]
+				},
+				{
+					"label": "Drug Prescription",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Drug (tick as appropriate) ",
+							"type": "obs",
+							"id": "drug",
+							"questionOptions": {
+								"concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "75842AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Erythromycin"
+									},
+									{
+										"concept": "73041AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Ceftriaxone"
+									},
+									{
+										"concept": "82228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Podophyllin"
+									},
+									{
+										"concept": "73449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Ciprofloxacin"
+									},
+									{
+										"concept": "70245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Acyclovir Tablets"
+									},
+									{
+										"concept": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Paracetamol"
+									},
+									{
+										"concept": "72039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Benzathine"
+									},
+									{
+										"concept": "84221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Spectinomycin"
+									},
+									{
+										"concept": "77897AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Brufen"
+									},
+									{
+										"concept": "73006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Cefixime"
+									},
+									{
+										"concept": "100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Inj. Gentamycin"
+									},
+									{
+										"concept": "71160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Amoxycillin"
+									},
+									{
+										"concept": "75222AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Doxycycline"
+									},
+									{
+										"concept": "73624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Clotrimazole Pessaries"
+									},
+									{
+										"concept": "71780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Azithromycin"
+									},
+									{
+										"concept": "f131249c-0c14-4f6c-9128-31b8c2ad7966",
+										"label": "Avirax Cream"
+									},
+									{
+										"concept": "84297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Anusol Suppositories"
+									},
+									{
+										"concept": "294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Amplicox"
+									},
+									{
+										"concept": "79782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Metronidazole"
+									},
+									{
+										"concept": "76488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Fluconazole"
+									},
+									{
+										"concept": "431AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Buscopan"
+									},
+									{
+										"concept": "f1070ce1-e527-45ab-9db8-0a5a4afd4dd7",
+										"label": "avirax tablets"
+									},
+									{
+										"concept": "181e14de-720d-47d8-b5ca-85b65f3c7db7",
+										"label": "Acyclovir Cream"
+									},
+									{
+										"concept": "7dee4749-efbd-450f-85f1-b01b607993ff",
+										"label": "Clozole cream"
+									},
+									{
+										"concept": "4c8c7fc3-b0f3-4977-b460-37d100e7fade",
+										"label": "Other (Specify)"
+									}
+								]
+							}
+						},
+						{
+							"label": "Other Drug",
+							"type": "obs",
+							"id": "otherDrug",
+							"questionOptions": {
+								"concept": "163101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(drug) || !arrayContains(drug,'4c8c7fc3-b0f3-4977-b460-37d100e7fade')"
+							}
+						}
+					]
+				},
+				{
+					"label": "Examination and Referrals",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Was genital Examination done?",
+							"type": "obs",
+							"id": "genitalExam",
+							"questionOptions": {
+								"concept": "163743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Client referred for Lab investigation?",
+							"type": "obs",
+							"id": "referredLab",
+							"questionOptions": {
+								"concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Lab investigation form number:",
+							"type": "obs",
+							"id": "labFormNumber",
+							"questionOptions": {
+								"concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "referredLab !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Client referred to other health facility?",
+							"type": "obs",
+							"id": "referredFacility",
+							"questionOptions": {
+								"concept": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Health Facility name:",
+							"type": "obs",
+							"id": "referredFacilityName",
+							"questionOptions": {
+								"concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "referredFacility !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Partner referral done?",
+							"type": "obs",
+							"id": "partnerReferral",
+							"questionOptions": {
+								"concept": "890a488f-6a1d-4b27-a5f4-054c59782cc2",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Commodities",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Given Lubricants?",
+							"type": "obs",
+							"id": "lubricantsGiven",
+							"questionOptions": {
+								"concept": "6fb34a18-82eb-4b7f-9710-f580a3718cef",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Number of Lubricants:",
+							"type": "obs",
+							"id": "numberOfLubricants",
+							"questionOptions": {
+								"concept": "163169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number",
+								"max": "100",
+								"min": "1"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "lubricantsGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Given Condoms?",
+							"type": "obs",
+							"id": "givenCondoms",
+							"questionOptions": {
+								"concept": "159777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Number of condoms:",
+							"type": "obs",
+							"id": "numberOfCondoms",
+							"questionOptions": {
+								"concept": "771638d9-9600-4a6b-8e5d-c6dcdedbc9cd",
+								"rendering": "number",
+								"max": "100",
+								"min": "1"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "givenCondoms !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Clinical Comments",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Clinical provider's Comments:",
+							"type": "obs",
+							"id": "clinicalProviderComments",
+							"questionOptions": {
+								"concept": "162749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						},
+						{
+							"label": "Clinical provider's name:",
+							"type": "obs",
+							"id": "clinicalProviderName",
+							"questionOptions": {
+								"concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							}
+						},
+						{
+							"label": "Date of next visit:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+									"message": "Next visit date should not be in the past."
+								}
+							],
+							"id": "returnVisitDate",
+							"required": "true"
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

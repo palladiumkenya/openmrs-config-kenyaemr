@@ -1,0 +1,578 @@
+{
+	"name": "VMMC Circumcision Procedure Form",
+	"description": "VMMC Circumcision Procedure Form",
+	"version": "1",
+	"published": true,
+	"uuid": "5ee93f48-960b-11ec-b909-0242ac120002",
+	"retired": false,
+	"encounter": "VMMC Procedure",
+	"pages": [
+		{
+			"label": "VMMC Procedure",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit Details",
+							"isExpanded": "true",
+							"questions": [
+								{
+									"label": "Date:",
+									"type": "encounterDatetime",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"id": "encDate",
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "false"
+										}
+									]
+								},
+								{
+									"label": "Provider:",
+									"type": "encounterProvider",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"id": "encProvider "
+								},
+								{
+									"label": "Location:",
+									"type": "encounterLocation",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"id": "encLocation"
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Method Of Circumcision",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Method:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "167118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Conventional Surgical"
+									},
+									{
+										"concept": "167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Device Circumcision"
+									}
+								]
+							},
+							"id": "circumcisionMethod",
+							"required": "Yes"
+						},
+						{
+							"label": "Conventional Surgical",
+							"type": "obs",
+							"id": "conventionalMethod",
+							"questionOptions": {
+								"concept": "167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "167121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Sleeve resection"
+									},
+									{
+										"concept": "167122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Dorsal Slit"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "circumcisionMethod != '167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Other Specify:",
+							"type": "obs",
+							"id": "conventionalSpecify",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "conventionalMethod != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Device name:",
+							"type": "obs",
+							"id": "deviceName",
+							"questionOptions": {
+								"concept": "167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "167124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Shangring"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "circumcisionMethod != '167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Other Specify:",
+							"type": "obs",
+							"id": "deviceSpecify",
+							"questionOptions": {
+								"concept": "162169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "deviceName != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Device size:",
+							"type": "obs",
+							"id": "device_size",
+							"questionOptions": {
+								"concept": "163049AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "circumcisionMethod != '167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Lot Number:",
+							"type": "obs",
+							"id": "lot_number",
+							"questionOptions": {
+								"concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "circumcisionMethod != '167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Circumcision Procedure",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Anaesthesia Type:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "164254AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "161914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Local Anaesthesia"
+									},
+									{
+										"concept": "162797AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Topical Anaesthesia"
+									}
+								]
+							},
+							"id": "anaesthesiaType",
+							"required": "Yes"
+						},
+						{
+							"label": "Anaesthesia Agent used:",
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "161909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "repeating"
+							},
+							"questions": [
+								{
+									"label": "Agents",
+									"type": "obs",
+									"id": "agents",
+									"questionOptions": {
+										"concept": "4c8c7fc3-b0f3-4977-b460-37d100e7fade",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "103960AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Lignocaine + Bupivacaine"
+											},
+											{
+												"concept": "72505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Bupivacaine"
+											},
+											{
+												"concept": "104983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Lignocaine + Prilocaine"
+											},
+											{
+												"concept": "82514AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Prilocaine"
+											},
+											{
+												"concept": "78849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Lignocaine"
+											}
+										]
+									}
+								},
+								{
+									"label": "Concentration(mg):",
+									"type": "obs",
+									"id": "concentration",
+									"questionOptions": {
+										"concept": "1444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "text"
+									}
+								},
+								{
+									"label": "Volume(ml):",
+									"type": "obs",
+									"id": "volume",
+									"questionOptions": {
+										"concept": "166650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "number"
+									}
+								}
+							],
+							"id": "volume"
+						},
+						{
+							"label": "Other Agent",
+							"type": "obs",
+							"id": "otherAgent",
+							"questionOptions": {
+								"concept": "4c8c7fc3-b0f3-4977-b460-37d100e7fade",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other Agent"
+									}
+								]
+							}
+						},
+						{
+							"label": "Specify :",
+							"type": "obs",
+							"id": "specifyAgent",
+							"questionOptions": {
+								"concept": "163047AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "otherAgent != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Time of Placement(device) or first surgical cut(conventional surgical)[time in 24 hour clock:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended",
+								"concept": "160715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "timeofPlacement",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Tme of placement should be greater than the encounter date."
+								}
+							]
+						},
+						{
+							"label": "Time of making the last slit(device) or time of wound closure (conventional surgical)[time in 24 hour clock:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended",
+								"concept": "167132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "timeofSlit",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Adverse Events",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Was there an Adverse Event post circumcision?",
+							"type": "obs",
+							"id": "adverseEvents",
+							"questionOptions": {
+								"concept": "162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "sex !== 'M'"
+							}
+						},
+						{
+							"label": "Adverse Event Post Circumcision",
+							"type": "obsGroup",
+							"id": "TypEadverseEvents",
+							"questionOptions": {
+								"rendering": "repeating",
+								"concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"hide": {
+								"hideWhenExpression": "adverseEvents !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'M'"
+							},
+							"questions": [
+								{
+									"label": "Record any Adverse Events that occurred during Circumscision Procedure",
+									"type": "obs",
+									"id": "adverseEventPain",
+									"questionOptions": {
+										"concept": "162875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Pain"
+											},
+											{
+												"concept": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Bleeding"
+											},
+											{
+												"concept": "152045AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Problems with appearance"
+											},
+											{
+												"concept": "156567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Hematoma/Swelling"
+											},
+											{
+												"concept": "139510AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Infection/Swelling"
+											},
+											{
+												"concept": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Difficulty or pain when urinating"
+											},
+											{
+												"concept": "163799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Wound disruption (without signs of hematoma or infection)"
+											}
+										]
+									}
+								},
+								{
+									"label": "Severity",
+									"type": "obs",
+									"id": "severityDisruption",
+									"questionOptions": {
+										"concept": "162760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Moderate"
+											},
+											{
+												"concept": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Severe"
+											},
+											{
+												"concept": "1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Mild"
+											}
+										]
+									}
+								},
+								{
+									"label": "Management of Adverse Events if any:",
+									"type": "obs",
+									"id": "management",
+									"questionOptions": {
+										"concept": "162749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "textarea"
+									}
+								}
+							]
+						},
+						{
+							"label": "Medication given if any:",
+							"type": "obs",
+							"id": "medsGiven",
+							"required": "true",
+							"questionOptions": {
+								"concept": "162736AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "sex !== 'M'"
+							}
+						},
+						{
+							"label": "Medication",
+							"type": "obs",
+							"id": "MedicationDispensed",
+							"questionOptions": {
+								"concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "103294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Analgesic"
+									},
+									{
+										"concept": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Antibiotics"
+									},
+									{
+										"concept": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "TTCV"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "medsGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Specify:",
+							"type": "obs",
+							"id": "OtheRMedS",
+							"questionOptions": {
+								"concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "MedicationDispensed !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Personnel in charge",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Clinician",
+							"type": "obsGroup",
+							"questionOptions": {
+								"rendering": "group",
+								"concept": "164919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "clinician",
+							"required": "Yes",
+							"questions": []
+						},
+						{
+							"label": "Assistant Clinician",
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "164524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Name of Assistant Clinician",
+									"type": "obs",
+									"id": "assistantClinician",
+									"questionOptions": {
+										"concept": "164141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "text"
+									}
+								},
+								{
+									"label": "Cadre",
+									"type": "obs",
+									"id": "assistantCadre",
+									"questionOptions": {
+										"concept": "166014AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "radio",
+										"answers": [
+											{
+												"concept": "162592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "CO"
+											},
+											{
+												"concept": "162591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "MO"
+											},
+											{
+												"concept": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Nurse"
+											}
+										]
+									}
+								}
+							],
+							"id": "__ExusJHp8s"
+						},
+						{
+							"label": "Theatre Register Number:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "167133AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "theatreNumber",
+							"required": "Yes"
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

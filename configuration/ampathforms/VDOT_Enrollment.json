@@ -1,0 +1,117 @@
+{
+	"name": "Vdot Enrollment form",
+	"description": "Vdot Enrollment Form",
+  "version": "1",
+  "published": true,
+  "uuid": "197c6ff4-059d-4440-9693-a4bc7520c7b4",
+  "retired": false,
+  "encounter": "Vdot Enrollment",
+	"pages": [
+		{
+			"label": "Vdot Enrollment",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Client Enrollment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Has consent been given?",
+							"type": "obs",
+							"id": "consentStatus",
+							"questionOptions": {
+								"concept": "161641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Reason for referral",
+							"type": "obs",
+							"id": "referralReason",
+							"questionOptions": {
+								"concept": "1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "164075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Sub optimal adherence"
+									},
+									{
+										"concept": "64132ecd-3a0f-41b8-b743-78c26af2f4b9",
+										"label": "Newly initiating ART"
+									},
+									{
+										"concept": "5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unstable Caregiver"
+									},
+									{
+										"concept": "989AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Age 0-4 years"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							}
+						},
+						{
+							"label": "Specify other reason",
+							"type": "obs",
+							"id": "otherReferralReason",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(referralReason) || !arrayContains(referralReason,'5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

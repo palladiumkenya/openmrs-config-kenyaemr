@@ -1,0 +1,141 @@
+{
+	"name": "TB Discontinuation",
+	"description": "TB Discontinuation",
+	"version": "1",
+	"published": true,
+	"uuid": "4b296dd0-f6be-4007-9eb8-d0fd4e94fb3a",
+	"retired": false,
+	"encounter": "TB Discontinuation",
+	"pages": [
+		{
+			"label": "TB Discontinuation",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "TB Discontinuation",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Treatment Outcome",
+							"type": "obs",
+							"id": "treatmentOutcome",
+							"questionOptions": {
+								"concept": "159786AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "159791AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Cured(Smear. Negative)"
+									},
+									{
+										"concept": "160035AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Treatment Completed(no smear result)"
+									},
+									{
+										"concept": "159874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Failure(Smear. Positive)"
+									},
+									{
+										"concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Dead"
+									},
+									{
+										"concept": "160031AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Defaulted"
+									},
+									{
+										"concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Lost to followup"
+									},
+									{
+										"concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Not evaluated"
+									},
+									{
+										"concept": "159976AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Moved to category 4 classification"
+									},
+									{
+										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transferred Out"
+									}
+								]
+							}
+						},
+						{
+							"label": "Treatment Outcome date",
+							"type": "obs",
+							"id": "treatmentOutcomeDate",
+							"questionOptions": {
+								"concept": "159787AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(treatmentOutcome) || treatmentOutcome === '159786AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Transferred out to:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "transferredOutTo",
+							"hide": {
+								"hideWhenExpression": "treatmentOutcome !=='159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Notes",
+							"type": "obs",
+							"id": "notes",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

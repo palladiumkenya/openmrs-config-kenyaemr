@@ -1,0 +1,257 @@
+{
+	"name": "OTZ Enrollment Form",
+	"description": "OTZ Enrollment Form",
+	"version": "1",
+	"published": true,
+	"uuid": "3ae95898-0464-11ea-8d71-362b9e155667",
+	"retired": false,
+	"encounter": "OTZ Enrollment",
+	"pages": [
+		{
+			"label": "OTZ Enrollment",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider"
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Transfer details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Is client transfer in?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "transferStatus",
+							"required": "Yes"
+						},
+						{
+							"label": "If Yes,date initially enrolled to OTZ",
+							"type": "obs",
+							"id": "dateInitiallyEnrolled",
+							"questionOptions": {
+								"concept": "160534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDetails)).isAfter((new moment(myValue)), 'day') || (new moment(encDetails)).isSame((new moment(myValue)), 'day')",
+									"message": "Return to clinic date should be greater than the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Modules previously covered",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "OTZ Orientation",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "49b9347f-d4e2-4a77-b6d6-e35be16b5145",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "orientation",
+							"hide": {
+								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "OTZ Participation",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "f3489e70-12c7-47af-8209-5143d1cd9081",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "participation",
+							"hide": {
+								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "OTZ Leadership",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "39410779-ac9e-477c-b578-4e5e1c872fd9",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "leadership",
+							"hide": {
+								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "OTZ Making decision for the future",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "b462c1b8-aa2f-4b5a-bad1-03a91fc11e0e",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "futureDecision",
+							"hide": {
+								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "OTZ Transition to Adult care",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "190dea55-186f-40c8-845d-43635eab262a",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "transitionAdultCare",
+							"hide": {
+								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "OTZ Treatment literacy",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "a85836a2-ef80-44b9-9570-79a6b63703d7",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "treatmentLiteracy",
+							"hide": {
+								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "OTZ SRH",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "7305dfba-4661-4703-b47c-c8c2620c88ae",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "srh",
+							"hide": {
+								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "OTZ Beyond the 3rd 90",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "2c3127c2-3adc-424d-b329-e424f0976dc5",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "beyondThird90",
+							"hide": {
+								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

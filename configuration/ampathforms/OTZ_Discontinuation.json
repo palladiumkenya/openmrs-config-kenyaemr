@@ -1,0 +1,155 @@
+{
+	"name": "OTZ Discontinuation Form",
+	"description": "OTZ Discontinuation Form",
+	"version": "1",
+	"published": true,
+	"uuid": "3ae955dc-0464-11ea-8d71-362b9e155667",
+	"retired": false,
+	"encounter": "OTZ Discontinuation",
+	"pages": [
+		{
+			"label": "OTZ Discontinuation",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')"
+								}
+							]
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "OTZ Discontinuation Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Reason for discontinuation:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "190dea55-186f-40c8-845d-43635eab262a",
+										"label": "Transition to Adult Care"
+									},
+									{
+										"concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Lost to followup"
+									},
+									{
+										"concept": "159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Opt out of OTZ"
+									},
+									{
+										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transferred Out"
+									},
+									{
+										"concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Died"
+									}
+								]
+							},
+							"id": "discontinuationReason",
+							"required": "Yes"
+						},
+						{
+							"label": "If Patient Died, please provide Date of Death if Known:",
+							"type": "obs",
+							"id": "patientDeathDate",
+							"questionOptions": {
+								"concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDetails)).isBefore((new moment(myValue)), 'day')",
+									"message": "Date of death should not be after the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "isEmpty(discontinuationReason) || discontinuationReason != '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Transfer to Facility:",
+							"type": "obs",
+							"id": "transferFacility",
+							"questionOptions": {
+								"concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(discontinuationReason) || discontinuationReason != '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Date Transferred Out",
+							"type": "obs",
+							"id": "transferDate",
+							"questionOptions": {
+								"concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDetails)).isBefore((new moment(myValue)), 'day')",
+									"message": "Transfer out date should not be after the encounter date."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "isEmpty(discontinuationReason) || discontinuationReason != '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

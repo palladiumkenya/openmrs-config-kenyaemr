@@ -1,0 +1,162 @@
+{
+	"name": "Preventive Services",
+	"description": "Preventive Services",
+	"version": "1",
+	"published": true,
+	"uuid": "d3ea25c7-a3e8-4f57-a6a9-e802c3565a30",
+	"retired": false,
+	"encounter": "MCH Mother Consultation",
+	"pages": [
+		{
+			"label": "Preventive Services Form",
+			"sections": [
+				{
+					"label": "Preventive Services",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "General",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Preventive Services",
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "160593AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "repeating"
+							},
+							"questions": [
+								{
+									"label": "Preventive Services",
+									"type": "obs",
+									"id": "preventiveService",
+									"questionOptions": {
+										"concept": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "TETANUS TOXOID"
+											},
+											{
+												"concept": "159610AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Malarial prophylaxis"
+											},
+											{
+												"concept": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "FOLATE / IRON"
+											},
+											{
+												"concept": "79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "MEBENDAZOLE"
+											},
+											{
+												"concept": "160428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Long-lasting insecticidal net"
+											}
+										]
+									}
+								},
+								{
+									"label": "Sequence No.",
+									"type": "obs",
+									"id": "sequenceNo",
+									"questionOptions": {
+										"concept": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "number",
+										"max": "20",
+										"min": "1"
+									}
+								},
+								{
+									"label": "Vaccine Date",
+									"type": "obs",
+									"id": "vaccinDate",
+									"questionOptions": {
+										"concept": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "date"
+									},
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "false"
+										},
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+											"message": "Vaccine date should not be greater than the encounter date."
+										}
+									]
+								},
+								{
+									"label": "Comments",
+									"type": "obs",
+									"id": "Comments",
+									"questionOptions": {
+										"concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "text"
+									}
+								},
+								{
+									"label": "Next Vaccine Date",
+									"type": "obs",
+									"id": "nextVaccineDate",
+									"questionOptions": {
+										"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "date"
+									},
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "true"
+										},
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+											"message": "Next Vaccine date should be greater than the encounter date."
+										}
+									]
+								}
+							],
+							"id": "__ttIvHszwK"
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

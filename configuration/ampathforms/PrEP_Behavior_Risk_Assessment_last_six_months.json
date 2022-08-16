@@ -1,0 +1,555 @@
+{
+	"name": "PrEP Behavior Risk Assessment in the last six months",
+	"description": "PrEP Behavior Risk Assessment in the last six months",
+	"version": "1",
+	"published": true,
+	"uuid": "40374909-05fc-4af8-b789-ed9c394ac785",
+	"retired": false,
+	"encounter": "PrEP Behavior Risk Assessment",
+	"pages": [
+		{
+			"label": "PrEP Behavior Risk Assessment",
+			"sections": [
+				{
+					"label": "PrEP Behavior Risk Assessment in the last six months",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Behavior Risk Assessment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Sex Partner HIV Status:",
+							"type": "obs",
+							"id": "partnerHivStatus",
+							"questionOptions": {
+								"concept": "1436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HIV Positive"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HIV Negative"
+									},
+									{
+										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unknown"
+									}
+								]
+							}
+						},
+						{
+							"label": "Partner Risk",
+							"type": "obs",
+							"id": "PartnerRisk",
+							"questionOptions": {
+								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "",
+										"label": "High Risk Partner"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty (partnerHivStatus) || partnerHivStatus === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || partnerHivStatus === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && partnerHivStatus !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Currently on ART:",
+							"type": "obs",
+							"id": "onArt",
+							"questionOptions": {
+								"concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(partnerHivStatus) || partnerHivStatus!='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Mark all that apply",
+							"type": "obs",
+							"id": "markAllAapply",
+							"questionOptions": {
+								"concept": "163310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "162185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Detectable viral load"
+									},
+									{
+										"concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "On ART for less than 6 months"
+									},
+									{
+										"concept": "160571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Couple is trying to concieve"
+									},
+									{
+										"concept": "159598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Suspected poor adherence"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty (partnerHivStatus) || partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Specify other reason",
+							"type": "obs",
+							"id": "soecifyReason",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty (markAllAapply) || markAllAapply !== 'c67be9a5-f497-4082-af81-11753f65ed4b'"
+							}
+						},
+						{
+							"label": "Behavior Risk of Partner (Select all that apply)",
+							"type": "obs",
+							"id": "behaviourRisks",
+							"questionOptions": {
+								"concept": "159218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "159385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Has Sex with more than one partner"
+									},
+									{
+										"concept": "141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Ongoing Intimate Partner Violence (IPV) or/and Gender Based Violence (GBV)"
+									},
+									{
+										"concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transactional sex"
+									},
+									{
+										"concept": "156660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Recent Sexually Transmitted Infection (STI) in the last 6 months"
+									},
+									{
+										"concept": "164845AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Recurrent use of Post Exposure Prophylaxis (PEP)"
+									},
+									{
+										"concept": "7e5eac79-31d5-4a31-a8ee-1b07f824aa67",
+										"label": "Recurrent sex under influence of alcohol/recreational drugs"
+									},
+									{
+										"concept": "b19493e4-1a96-4fff-bfc6-3fbca37f02ec",
+										"label": "Inconsistent or no condom use"
+									},
+									{
+										"concept": "c8ae2850-abab-4b9c-927c-129ecc2c2752",
+										"label": "Injecting drug use with shared needles and/or syringes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Assessment outcome:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "d79488b7-eb63-49ba-b99c-a52f777a1a7f",
+								"answers": [
+									{
+										"concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Risk"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Low risk"
+									}
+								]
+							},
+							"id": "assessmentOutcome",
+							"required": "true"
+						},
+						{
+							"label": "Risk education offered:",
+							"type": "obs",
+							"id": "riskReduction",
+							"questionOptions": {
+								"concept": "8bc555fe-c317-4983-af94-f42bce8a220e",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assessmentOutcome !== '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Specify risk education offered",
+							"type": "obs",
+							"id": "riskEducation",
+							"questionOptions": {
+								"concept": "98e43640-85cf-4da0-890b-e02f12631799",
+								"rendering": "textarea"
+							},
+							"hide": {
+								"hideWhenExpression": "riskReduction !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Client willing to take PrEP:",
+							"type": "obs",
+							"id": "willingPrep",
+							"questionOptions": {
+								"concept": "99d388b4-6f1c-4bc3-9e1c-0d5420635c99",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "If No,reasons?",
+							"type": "obs",
+							"id": "ifNoReason",
+							"questionOptions": {
+								"concept": "1743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "None"
+									},
+									{
+										"concept": "159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Side effects(ADR)"
+									},
+									{
+										"concept": "366aa52d-67cf-4f8a-bcef-095252b21e9e",
+										"label": "Stigma"
+									},
+									{
+										"concept": "160588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Pill burden"
+									},
+									{
+										"concept": "164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Too many HIV tests"
+									},
+									{
+										"concept": "161888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Taking pills for a long time"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "willingPrep !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "If No,Risk education offered?",
+							"type": "obs",
+							"id": "riskEductionOffered",
+							"questionOptions": {
+								"concept": "161595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "willingPrep !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Specify education offered",
+							"type": "obs",
+							"id": "specifyEducationOffered",
+							"questionOptions": {
+								"concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							},
+							"hide": {
+								"hideWhenExpression": "riskEductionOffered !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Ongoing Intimate Partner Violence (IPV) or/and Gender Based Violence (GBV)",
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "group"
+							},
+							"questions": [],
+							"id": "ongoingIpv"
+						},
+						{
+							"label": "Referral for other prevention services",
+							"type": "obs",
+							"id": "riskReductionReferral",
+							"questionOptions": {
+								"concept": "c9404c8f-cf83-4bfe-acc0-4881599c78ba",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "7197a2d9-1eeb-4ad1-9ff9-426ca0d34ed3",
+										"label": "Risk reduction counselling"
+									},
+									{
+										"concept": "159612AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Safer sex practices"
+									},
+									{
+										"concept": "162223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "VMMC"
+									},
+									{
+										"concept": "161594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Consistent and correct use of male and female Condom with compatible lubricant"
+									},
+									{
+										"concept": "39d37cb2-5b5b-468a-a598-b02a6cef1fd0",
+										"label": "Post-exposure prophylaxis"
+									},
+									{
+										"concept": "164882AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Prevention and treatment of STIs"
+									},
+									{
+										"concept": "7989d8ed-abf9-42f3-816b-c0e69406cd03",
+										"label": "Substance abuse and mental health treatment"
+									},
+									{
+										"concept": "a0608624-b613-419e-9c14-15c844c9dbe2",
+										"label": "Prevention of GBV"
+									},
+									{
+										"concept": "1459AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HIV testing and re-testing"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "willingPrep !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && riskEductionOffered!=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Other(specify)",
+							"type": "obs",
+							"id": "referralSpecify",
+							"questionOptions": {
+								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							},
+							"hide": {
+								"hideWhenExpression": "riskReductionReferral !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "HIV Positive Partner Profile",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "1. When did you establish your partner HIV+ status:",
+							"type": "obs",
+							"id": "partnerHivTestDate",
+							"questionOptions": {
+								"concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"hide": {
+								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "2. Is partner enrolled to a CCC?",
+							"type": "obs",
+							"id": "enrolledInCCC",
+							"questionOptions": {
+								"concept": "9f0ed4b8-5cdd-4ec6-bbd8-ac24604cb781",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unknown"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "3. CCC Number?",
+							"type": "obs",
+							"id": "partnersCCCNo",
+							"questionOptions": {
+								"concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "4. HIV+ partners ART start date",
+							"type": "obs",
+							"id": "artStartDate",
+							"questionOptions": {
+								"concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"hide": {
+								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "5. Duration known to be HIV- serodiscordant in Year(s)",
+							"type": "obs",
+							"id": "years",
+							"questionOptions": {
+								"concept": "164393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Duration known to be HIV- serodiscordant in Month(s)",
+							"type": "obs",
+							"id": "months",
+							"questionOptions": {
+								"concept": "4978edd0-75ab-40a9-9c07-d4bbeb43fed5",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "6. Sex without a condom with a HIV+ partner in the past 30 days",
+							"type": "obs",
+							"id": "sexWithoutCd",
+							"questionOptions": {
+								"concept": "6cb0434b-baa2-4862-aec8-9c468a7340ba",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "7. Number of living children with HIV+ partner",
+							"type": "obs",
+							"id": "numberOfChildren",
+							"questionOptions": {
+								"concept": "1825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

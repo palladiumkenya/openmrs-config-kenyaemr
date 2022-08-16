@@ -1,0 +1,129 @@
+{
+	"name": "OVC Discontinuation Form",
+	"description": "OVC Discontinuation Form",
+	"version": "1",
+	"published": true,
+	"uuid": "5cf013e8-09da-11ea-8d71-362b9e155667",
+	"retired": false,
+	"encounter": "OVC Discontinuation",
+	"pages": [
+		{
+			"label": "OVC Discontinuation ",
+			"sections": [
+				{
+					"label": "OVC Dicontinuation Form",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit Details",
+							"isExpanded": "true",
+							"questions": [
+								{
+									"label": "Date:",
+									"type": "encounterDatetime",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "false"
+										}
+									],
+									"id": "encDate"
+								},
+								{
+									"label": "Provider:",
+									"type": "encounterProvider",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"id": "encProvider "
+								},
+								{
+									"label": "Location:",
+									"type": "encounterLocation",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"id": "encLocation"
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Discontinue OVC",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Exit Reasons",
+							"type": "obs",
+							"id": "discontinuationReason",
+							"questionOptions": {
+								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "ddac1f1b-a5c7-4c62-b034-5d0b97197fd5",
+										"label": "Exit without graduation"
+									},
+									{
+										"concept": "160036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transfer out to a PEPFAR supported facility"
+									},
+									{
+										"concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Graduated out of OVC"
+									},
+									{
+										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transfer out to a non PEPFAR supported facility"
+									}
+								]
+							}
+						},
+						{
+							"label": "(if transferred out)Transfer to Facility:",
+							"type": "obs",
+							"id": "transferFacility",
+							"questionOptions": {
+								"concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": " !arrayContainsAny(['160036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], discontinuationReason)"
+							}
+						},
+						{
+							"label": "Date Transferred Out",
+							"type": "obs",
+							"id": "dateTransferredOut",
+							"questionOptions": {
+								"concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": " !arrayContainsAny(['160036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], discontinuationReason)"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

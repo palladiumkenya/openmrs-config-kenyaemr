@@ -1,0 +1,254 @@
+{
+	"name": "OVC Enrollment Form",
+	"description": "OVC Enrollment Form",
+	"version": "1",
+	"published": true,
+	"uuid": "5cf01528-09da-11ea-8d71-362b9e155667",
+	"retired": false,
+	"encounter": "OVC Enrollment",
+	"pages": [
+		{
+			"label": "OVC Enrollment",
+			"sections": [
+				{
+					"label": "OVC Enrollment Form",
+					"isExpanded": "true",
+					"id": "encDate",
+					"questions": [
+						{
+							"label": "Enrollment Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "enrollmentDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"type": "obs",
+					"label": "Care Giver",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Is care giver enrolled in this facility?",
+							"type": "obs",
+							"id": "enrolledInThisFacility",
+							"questionOptions": {
+								"concept": "163777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Name",
+							"type": "obs",
+							"id": "careGiverName",
+							"questionOptions": {
+								"concept": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "enrolledInThisFacility != '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Gender",
+							"type": "obs",
+							"id": "gender",
+							"questionOptions": {
+								"concept": "1533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Female"
+									},
+									{
+										"concept": "1534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Male"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "enrolledInThisFacility != '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Relationship to client",
+							"type": "obs",
+							"id": "relationship",
+							"questionOptions": {
+								"concept": "164352AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "974AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Uncle"
+									},
+									{
+										"concept": "972AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Sibling"
+									},
+									{
+										"concept": "1527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Parent"
+									},
+									{
+										"concept": "162722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Childrens home"
+									},
+									{
+										"concept": "975AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Aunt"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "enrolledInThisFacility != '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Telephone number",
+							"type": "obs",
+							"id": "telephoneNumber",
+							"questionOptions": {
+								"concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(myValue).length > 10 || (myValue).length <10",
+									"message": "Phone number digits should be equal to 10"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "enrolledInThisFacility != '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Child Protection Information  Management System Linkage",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Is client enrolled in CPIMS?",
+							"type": "obs",
+							"id": "enrolledCpims",
+							"questionOptions": {
+								"concept": "163766AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Provide CPIMS unique identifier",
+							"type": "obs",
+							"id": "cpimsUniqueIdentifier",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "165416AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"showDate": "false"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(myValue).length > 7 || (myValue).length < 7",
+									"message": "CPIMS unique identifier digits should not be more or less than 7"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "enrolledCpims != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Partner Offering OVC Services",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Partner offering OVC services:",
+							"type": "obs",
+							"id": "partnerOfferingServices",
+							"questionOptions": {
+								"concept": "87fc882b-94cb-4a0f-8f82-05b51b3fd2eb",
+								"rendering": "text"
+							}
+						},
+						{
+							"label": "Program model:",
+							"type": "obs",
+							"id": "programModel",
+							"questionOptions": {
+								"concept": "163775AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "1141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "OVC comprehensive"
+									},
+									{
+										"concept": "160549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "DREAMS"
+									},
+									{
+										"concept": "164128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "OVC preventive"
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

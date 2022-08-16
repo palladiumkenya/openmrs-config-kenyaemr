@@ -1,0 +1,324 @@
+{
+	"name": "VMMC Client Follow-Up Form",
+	"description": "VMMC Client Follow-Up Form",
+	"version": "1",
+	"published": true,
+	"uuid": "08873f91-7161-4f90-931d-65b131f2b12b",
+	"retired": false,
+	"encounter": "VMMC Client Follow up",
+	"pages": [
+		{
+			"label": "VMMC Client Follow-Up Form",
+			"sections": [
+				{
+					"label": "VMMC Client Follow-Up Form",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Follow-Up Information",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Type of Visit:",
+							"type": "obs",
+							"id": "ViSITtyPE",
+							"required": "true",
+							"questionOptions": {
+								"concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Scheduled"
+									},
+									{
+										"concept": "160101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unscheduled"
+									}
+								]
+							}
+						},
+						{
+							"label": "Days since last circumcision:",
+							"type": "obs",
+							"id": "DayOfOurCirc",
+							"questionOptions": {
+								"concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(ViSITtyPE) || ViSITtyPE !== '1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Days since last circumcision:",
+							"type": "obs",
+							"id": "DayOfOurCircUnsch",
+							"questionOptions": {
+								"concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(ViSITtyPE) || ViSITtyPE !== '160101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Adverse Event Post Circumcision",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Was there an Adverse Event post circumcision (during follow up)?",
+							"type": "obs",
+							"id": "adverseEvents",
+							"questionOptions": {
+								"concept": "162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "sex !== 'M'"
+							}
+						},
+						{
+							"label": "Adverse Event Post Circumcision",
+							"type": "obsGroup",
+							"id": "TypEadverseEvents",
+							"questionOptions": {
+								"rendering": "repeating",
+								"concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"hide": {
+								"hideWhenExpression": "adverseEvents !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'M'"
+							},
+							"questions": [
+								{
+									"label": "Record any Adverse Events that occurred during Circumscision Procedure",
+									"type": "obs",
+									"id": "adverseEventPain",
+									"questionOptions": {
+										"concept": "162875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Pain"
+											},
+											{
+												"concept": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Bleeding"
+											},
+											{
+												"concept": "152045AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Problems with appearance"
+											},
+											{
+												"concept": "156567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Hematoma/Swelling"
+											},
+											{
+												"concept": "139510AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Infection/Swelling"
+											},
+											{
+												"concept": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Difficulty or pain when urinating"
+											},
+											{
+												"concept": "163799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Wound disruption (without signs of hematoma or infection)"
+											}
+										]
+									}
+								},
+								{
+									"label": "Severity",
+									"type": "obs",
+									"id": "severityDisruption",
+									"questionOptions": {
+										"concept": "162760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Moderate"
+											},
+											{
+												"concept": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Severe"
+											},
+											{
+												"concept": "1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Mild"
+											}
+										]
+									}
+								},
+								{
+									"label": "Management of Adverse Events if any:",
+									"type": "obs",
+									"id": "management",
+									"questionOptions": {
+										"concept": "162749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "textarea"
+									}
+								}
+							]
+						},
+						{
+							"label": "Medication given if any:",
+							"type": "obs",
+							"id": "medsGiven",
+							"required": "true",
+							"questionOptions": {
+								"concept": "162736AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "sex !== 'M'"
+							}
+						},
+						{
+							"label": "Medication",
+							"type": "obs",
+							"id": "MedicationDispensed",
+							"questionOptions": {
+								"concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "103294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Analgesic"
+									},
+									{
+										"concept": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Antibiotics"
+									},
+									{
+										"concept": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "TTCV"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "medsGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Specify:",
+							"type": "obs",
+							"id": "OtheRMedS",
+							"questionOptions": {
+								"concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "MedicationDispensed !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Client Reviewed and Discharged by:",
+							"type": "obs",
+							"id": "DischargedByWho",
+							"required": "true",
+							"questionOptions": {
+								"concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							}
+						},
+						{
+							"label": "Cadre:",
+							"type": "obs",
+							"id": "CadreDisCharging",
+							"questionOptions": {
+								"concept": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "162592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "CO"
+									},
+									{
+										"concept": "162591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "MO"
+									},
+									{
+										"concept": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Nurse"
+									}
+								]
+							}
+						},
+						{
+							"label": "Clinical notes:",
+							"type": "obs",
+							"id": "cLinicalNotes",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

@@ -1,0 +1,592 @@
+{
+	"name": "Enhanced Adherence Screening Form v1.0",
+	"description": "Enhanced Adherence Screening",
+  	"version": "1",
+  	"published": true,
+  	"uuid": "c483f10f-d9ee-4b0d-9b8c-c24c1ec24701",
+  	"retired": false,
+  	"encounter": "Enhanced Adherence Screening",
+	"pages": [
+		{
+			"label": "Enhanced Adherence Screening",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Session details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Session Number:",
+							"type": "obs",
+							"id": "sessionNumber",
+							"questionOptions": {
+								"concept": "1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number",
+								"min": "1"
+							},
+							"failsWhenExpression": "isEmpty(sessionNumber))",
+							"message": "Required!"
+						},
+						{
+							"label": "Date of first session:",
+							"type": "obs",
+							"id": "firstSession",
+							"questionOptions": {
+								"concept": "164891AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							}
+						},
+						{
+							"label": "Pill count adherence % (from pill count):",
+							"type": "obs",
+							"id": "pillAdherence",
+							"questionOptions": {
+								"concept": "162846AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number",
+								"max": "100",
+								"min": "1"
+							}
+						}
+					]
+				},
+				{
+					"label": "Adherence assessment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Adherence rating",
+							"type": "obs",
+							"id": "adherence",
+							"questionOptions": {
+								"concept": "1658AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Good (G)"
+									},
+									{
+										"concept": "163794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Inadequate (I)"
+									},
+									{
+										"concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Poor (P)"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Viral load",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "1. Has patient received viral load result?",
+							"type": "obs",
+							"id": "receivedVlResult",
+							"questionOptions": {
+								"concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "2. Was the Viral load result suppressed (less than 1000) or unsuppressed (greater than 1000) ?",
+							"type": "obs",
+							"id": "resultStatus",
+							"questionOptions": {
+								"concept": "163310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unsuppressed"
+									},
+									{
+										"concept": "1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Suppressed"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "receivedVlResult !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "3. How does the patient feel concerning the result?",
+							"type": "obs",
+							"id": "patientFeel",
+							"questionOptions": {
+								"concept": "62c952eb-271d-46e5-9503-bb7445ce9744",
+								"rendering": "textarea"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "receivedVlResult !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "4. What does the patient think caused the high viral load?",
+							"type": "obs",
+							"id": "highVlCause",
+							"questionOptions": {
+								"concept": "e7f1b3a9-febb-4ece-abbe-df8de4912670",
+								"rendering": "textarea"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "resultStatus !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "5. Way forward:",
+							"type": "obs",
+							"id": "wayForward",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						}
+					]
+				},
+				{
+					"label": "Review adherence plan from previous session ",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "1. Does patient think adherence has improved since last session?",
+							"type": "obs",
+							"id": "imrovedAdherence",
+							"questionOptions": {
+								"concept": "1898AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "2. Have any dosses been missed?",
+							"type": "obs",
+							"id": "missedDoses",
+							"questionOptions": {
+								"concept": "160110AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": ""
+							}
+						},
+						{
+							"label": "3. Review barriers to adherence from previous session and if strategies identified have been taken up, identify other gaps and issue emerging",
+							"type": "obs",
+							"id": "barriersToAdherence",
+							"questionOptions": {
+								"concept": "163108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						}
+					]
+				},
+				{
+					"label": "Assess for possible barriers to adherence - Cognitive ",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "1. (HIV and ART Knowledge) Assess patient's knowledge about HIV and ART; correct any misconceptions",
+							"type": "obs",
+							"id": "hivKnowledge",
+							"questionOptions": {
+								"concept": "0c6d1673-a620-476b-b381-ddbcb0eeffc7",
+								"rendering": "textarea"
+							}
+						}
+					]
+				},
+				{
+					"label": "Assess for possible barriers to adherence - Behavioural ",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "1. Let the patient explan how they take their drugs, and at what time and how they store them",
+							"type": "obs",
+							"id": "takeDrugs",
+							"questionOptions": {
+								"concept": "f45c5118-5d98-4c73-b946-11242857709e",
+								"rendering": "textarea"
+							}
+						},
+						{
+							"label": "2. How does treatment fit the patient daily routines? What reminder tools are used?",
+							"type": "obs",
+							"id": "dailyRoutines",
+							"questionOptions": {
+								"concept": "39a55450-b9a3-492f-8655-6824c37c5f99",
+								"rendering": "textarea"
+							}
+						},
+						{
+							"label": "3. What does the patient do in case of visits and travels?",
+							"type": "obs",
+							"id": "visitsTravels",
+							"questionOptions": {
+								"concept": "55b0fb68-db04-44a3-91f0-7c9e7387549e",
+								"rendering": "textarea"
+							}
+						},
+						{
+							"label": "4. What does the patient do incase of Side Effects?",
+							"type": "obs",
+							"id": "sideEffects",
+							"questionOptions": {
+								"concept": "b440adac-be73-48c1-8f1b-238c0ace0d56",
+								"rendering": "textarea"
+							}
+						},
+						{
+							"label": "5. What are the most difficult situations for the patient to take drugs?",
+							"type": "obs",
+							"id": "difficultSituations",
+							"questionOptions": {
+								"concept": "b437eaf0-92b2-4f78-87d0-1b14c5fa10a0",
+								"rendering": "textarea"
+							}
+						}
+					]
+				},
+				{
+					"label": "Assess for possible barriers to adherence - Emotional ",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "1. How does the patient feel about taking drugs everyday?",
+							"type": "obs",
+							"id": "dailyIntake",
+							"questionOptions": {
+								"concept": "4b71fc6c-26c8-4fc3-a4e2-a2535110cf4d",
+								"rendering": "textarea"
+							}
+						},
+						{
+							"label": "2. Motivation. What are the patient ambitions in life? What are the 3 most important things they still want to achieve?",
+							"type": "obs",
+							"id": "lifeAmbitions",
+							"questionOptions": {
+								"concept": "5f23314e-71ee-4652-9b1c-4e0181794739",
+								"rendering": "textarea"
+							}
+						}
+					]
+				},
+				{
+					"label": "Assess for possible barriers to adherence - Socio-Economic",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "1. Does the patient have any people in their life who they can talk to about HIV status and ART?",
+							"type": "obs",
+							"id": "discloseStatus",
+							"questionOptions": {
+								"concept": "ad7a07fb-6b0c-4c5e-a953-0c748e2aa466",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "2. Discuss how the patient can enlist the support of their family, friends and/or co-workers, a treatment buddy, community or support group?",
+							"type": "obs",
+							"id": "familySupport",
+							"questionOptions": {
+								"concept": "32d1e331-a5b2-4c28-91e3-cb24c5de9b17",
+								"rendering": "textarea"
+							}
+						},
+						{
+							"label": "3. Review the patient's and family's sources of income and how well they cover their needs.",
+							"type": "obs",
+							"id": "familyIncome",
+							"questionOptions": {
+								"concept": "c4c2f908-c3c9-4b09-bbd1-cf8af36a017e",
+								"rendering": "textarea"
+							}
+						},
+						{
+							"label": "4. Does the patient have any challenges getting the clinic on regular basis?",
+							"type": "obs",
+							"id": "clinicAcess",
+							"questionOptions": {
+								"concept": "d2293d8a-f265-46f9-80e3-5d6e1acc531e",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "5. Is the patient worried about people finding out about their HIV status accidentally?",
+							"type": "obs",
+							"id": "accidentalStatus",
+							"questionOptions": {
+								"concept": "7af21f8a-a51d-435c-a434-e62e07104b90",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "6. Does the patient feel like people treat them differently when they know their HIV status?",
+							"type": "obs",
+							"id": "treatDifferently",
+							"questionOptions": {
+								"concept": "8e3af23c-cb62-45f8-96e3-e590672efa59",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "7. Does stigma making it difficult for them to take their medications on time, or for them to attend clinical appointments?",
+							"type": "obs",
+							"id": "stigmaEffect",
+							"questionOptions": {
+								"concept": "366aa52d-67cf-4f8a-bcef-095252b21e9e",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "8. Find out if the patient has tried faith healing, or if they have ever stopped taking their medicine because of religious belief",
+							"type": "obs",
+							"id": "religiousHealing",
+							"questionOptions": {
+								"concept": "6c91dbf1-030d-4946-a45d-6f747f6c867b",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Referrals and Networks ",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "1. Has the patient been referred to other services? (Nutrition, psychosocial support services, substance use treatment, etc)",
+							"type": "obs",
+							"id": "referServices",
+							"questionOptions": {
+								"concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "2. Did he/she attend the appointments?",
+							"type": "obs",
+							"id": "attendAppointments",
+							"questionOptions": {
+								"concept": "af430c90-a512-43eb-aa91-50143c385304",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "3. What was the experience? Do the referrals need to be re-organized?",
+							"type": "obs",
+							"id": "referalExperience",
+							"questionOptions": {
+								"concept": "708210ef-61c1-439c-8137-fe436c87cd11",
+								"rendering": "textarea"
+							}
+						},
+						{
+							"label": "4. Will the patient benefit from a home visit?",
+							"type": "obs",
+							"id": "homeVisit",
+							"questionOptions": {
+								"concept": "95f73a05-7c52-4a8d-b3b1-f632a41d065d",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "5. Adherence plan",
+							"type": "obs",
+							"id": "adherencePlan",
+							"questionOptions": {
+								"concept": "4342d15d-22e2-456e-bbfd-16b42b2ec8c6",
+								"rendering": "textarea"
+							}
+						}
+					]
+				},
+				{
+					"label": "Next appointment date",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Follow up Date:",
+							"type": "obs",
+							"id": "followDate",
+							"questionOptions": {
+								"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+									"message": "Follow up date should not be before encounter date"
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Morisky Medication Adherence Scale (MMAS - 4)",
+					"isExpanded": "true",
+					"questions": []
+				},
+				{
+					"label": "Morisky Medication Adherence Scale (MMAS - 8)",
+					"isExpanded": "true",
+					"questions": []
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

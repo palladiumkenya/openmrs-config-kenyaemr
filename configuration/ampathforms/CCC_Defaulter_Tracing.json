@@ -1,0 +1,301 @@
+{
+	"name": "CCC Defaulter Tracing",
+	"description": "CCC Defaulter Tracing",
+	"version": "1",
+	"published": true,
+	"uuid": "a1a62d1e-2def-11e9-b210-d663bd873d93",
+	"retired": false,
+	"encounter": "CCC Defaulter Tracing",
+	"pages": [
+		{
+			"label": "Defaulter Tracing",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended",
+								"allowFutureDates": "false"
+							},
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Tracing Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Type of tracing",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a55f9516-ddb6-47ec-b10d-cb99d1d0bd41",
+								"answers": [
+									{
+										"concept": "eb113c76-aef8-4890-a611-fe22ba003123",
+										"label": "Physical Tracing"
+									},
+									{
+										"concept": "1650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client Called"
+									},
+									{
+										"concept": "161642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Treatment Supporter"
+									}
+								]
+							},
+							"id": "tracingType",
+							"required": "true"
+						},
+						{
+							"label": "Tracing Outcome",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "160721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No Contact"
+									},
+									{
+										"concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Contact"
+									}
+								]
+							},
+							"id": "contactStatus",
+							"required": "true"
+						},
+						{
+							"label": "Date promised to come :",
+							"type": "obs",
+							"id": "bookingDate",
+							"questionOptions": {
+								"concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date",
+								"allowFutureDates": "true"
+							},
+							"hide": {
+								"hideWhenExpression": "contactStatus !== '1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Missed appointment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Reasons for missing appointment?",
+							"type": "obs",
+							"id": "missedAappointmentReasons",
+							"questionOptions": {
+								"concept": "1801AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "165610AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "COVID-19 restrictions"
+									},
+									{
+										"concept": "1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client sick at home/admitted"
+									},
+									{
+										"concept": "164349AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client stopped medications"
+									},
+									{
+										"concept": "162619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client travelled"
+									},
+									{
+										"concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client refilled drugs from another facility"
+									},
+									{
+										"concept": "160583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client is sharing drugs with partner"
+									},
+									{
+										"concept": "162192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client forgot clinic dates"
+									},
+									{
+										"concept": "165609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client has covid-19 infection"
+									},
+									{
+										"concept": "159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client has enough drugs"
+									},
+									{
+										"concept": "126240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client could not get an off from work/school"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "contactStatus !== '1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Specify :",
+							"type": "obs",
+							"id": "otherReasons",
+							"questionOptions": {
+								"concept": "163513AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "missedAappointmentReasons !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Tracing Numbering",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Please specify the attempt number since last missed appointment (i.e. 1, 2, 3)",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"max": "20",
+								"min": "1"
+							},
+							"id": "tracingNumbering",
+							"required": "true"
+						}
+					]
+				},
+				{
+					"label": "Final Outcome/True Status",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Was the final outcome reached?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "finalOutcome",
+							"required": "true"
+						},
+						{
+							"label": "Outcome",
+							"type": "obs",
+							"id": "trueStatus",
+							"questionOptions": {
+								"concept": "160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Dead"
+									},
+									{
+										"concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Lost to follow up"
+									},
+									{
+										"concept": "164435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Stopped treatment"
+									},
+									{
+										"concept": "1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Receiving ART from another clinic/Transferred"
+									},
+									{
+										"concept": "160037AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Still in care at CCC"
+									},
+									{
+										"concept": "142917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "finalOutcome !== '1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Please explain",
+							"type": "obs",
+							"id": "trueStatusOther",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "trueStatus !== '142917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Provider comments",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Comments",
+							"type": "obs",
+							"id": "providerComments",
+							"questionOptions": {
+								"concept": "160716AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

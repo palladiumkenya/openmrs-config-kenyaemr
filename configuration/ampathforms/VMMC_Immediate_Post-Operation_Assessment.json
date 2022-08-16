@@ -1,0 +1,356 @@
+{
+	"name": "VMMC Immediate Post-Operation Assessment Form",
+	"description": "VMMC Immediate Post-Operation Assessment Form",
+	"version": "1",
+	"published": true,
+	"uuid": "620b3404-9ae5-11ec-b909-0242ac120002",
+	"retired": false,
+	"encounter": "VMMC Immediate Post-Operation Assessment",
+	"pages": [
+		{
+			"label": "VMMC Immediate Post-Operation Assessment",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "VMMC Immediate Post-Operation Assessment ",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Systolic (mmHg)",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"max": "180",
+								"min": "110"
+							},
+							"id": "systolic",
+							"required": "true"
+						},
+						{
+							"label": "Diastolic (mmHg)",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"max": "110",
+								"min": "80"
+							},
+							"id": "diastolic",
+							"required": "true"
+						},
+						{
+							"label": "Pulse Rate",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"max": "100",
+								"min": "60"
+							},
+							"id": "pulse",
+							"required": "true"
+						},
+						{
+							"label": "°C",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "number",
+								"concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"max": "38",
+								"min": "34"
+							},
+							"id": "temp",
+							"required": "true"
+						},
+						{
+							"label": "Penis elevated against abdomen?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "penis-elevated",
+							"required": "true"
+						},
+						{
+							"label": "Client given post procedure instruction?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "166639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "postProcedure_instructions",
+							"required": "true"
+						},
+						{
+							"label": "Explain:",
+							"type": "obs",
+							"id": "explaiN",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "postProcedure_instructions !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Post operation medication given?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "162736AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "medsGiven",
+							"required": "true"
+						},
+						{
+							"label": "medications given",
+							"type": "obsGroup",
+							"questionOptions": {
+								"concept": "159392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Analgesic",
+									"type": "obs",
+									"id": "analgesic",
+									"questionOptions": {
+										"concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "checkbox",
+										"answers": [
+											{
+												"concept": "103294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Analgesic"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "medsGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Antibiotics",
+									"type": "obs",
+									"id": "antibiotics",
+									"questionOptions": {
+										"concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "checkbox",
+										"answers": [
+											{
+												"concept": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Antibiotics"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "medsGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "TTCV",
+									"type": "obs",
+									"id": "ttcv",
+									"questionOptions": {
+										"concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "checkbox",
+										"answers": [
+											{
+												"concept": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "TTCV"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "medsGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Other",
+									"type": "obs",
+									"id": "otHer",
+									"questionOptions": {
+										"concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "checkbox",
+										"answers": [
+											{
+												"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Other"
+											}
+										]
+									},
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "medsGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Specify:",
+									"type": "obs",
+									"id": "otherMedication",
+									"questionOptions": {
+										"concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "text"
+									},
+									"hide": {
+										"hideWhenExpression": "medsGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'&& isEmpty(medsGiven) || !arrayContains(medsGiven,'5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
+									}
+								}
+							],
+							"id": "__DJr7FDq2K"
+						},
+						{
+							"label": "Scheduled removal date:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "removalDate",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Scheduled removal date should be greater than the encounter date."
+								}
+							],
+							"required": "true"
+						},
+						{
+							"label": "Scheduled next visit(device removal/review):",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "nextVisitDate",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Scheduled removal date should be greater than the encounter date."
+								}
+							],
+							"required": "true"
+						},
+						{
+							"label": "Discharged by:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "discharged-by",
+							"required": "true"
+						},
+						{
+							"label": "Cadre:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "162592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "CO"
+									},
+									{
+										"concept": "162591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "MO"
+									},
+									{
+										"concept": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Nurse"
+									}
+								]
+							},
+							"id": "clinician_cadre",
+							"required": "true"
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

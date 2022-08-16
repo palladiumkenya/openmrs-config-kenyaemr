@@ -1,0 +1,220 @@
+{
+	"name": "Discharge",
+	"description": "Discharge",
+	"version": "1",
+	"published": true,
+	"uuid": "af273344-a5f9-11e8-98d0-529269fb1459",
+	"retired": false,
+	"encounter": "MCH Mother Consultation",
+	"pages": [
+		{
+			"label": "MCH Discharge and Referral",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Discharge",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Counselled on infant feeding ?",
+							"type": "obs",
+							"id": "counselledOnInfantFeeding",
+							"questionOptions": {
+								"concept": "161651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Vitamin A for mother dispensed?",
+							"type": "obs",
+							"id": "vitaminAdispensed",
+							"questionOptions": {
+								"concept": "161534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "N/A"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Status of the baby:",
+							"type": "obs",
+							"id": "babyStatus",
+							"questionOptions": {
+								"concept": "159926AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Dead"
+									},
+									{
+										"concept": "163016AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Alive"
+									}
+								]
+							}
+						},
+						{
+							"label": "Birth notification number :",
+							"type": "obs",
+							"id": "birthNotificationNumber",
+							"questionOptions": {
+								"concept": "162051AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							}
+						},
+						{
+							"label": "Discharge date :",
+							"type": "obs",
+							"id": "dischargeDate",
+							"questionOptions": {
+								"concept": "1641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+									"message": "Discharge date should not be before the encounter date."
+								}
+							]
+						},
+						{
+							"label": "Maternal condition",
+							"type": "obs",
+							"id": "maternalCondition",
+							"questionOptions": {
+								"concept": "162093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						}
+					]
+				},
+				{
+					"label": "Referral",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Referred from?",
+							"type": "obs",
+							"id": "referredFrom",
+							"questionOptions": {
+								"concept": "160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "N/A"
+									},
+									{
+										"concept": "1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Another Health Facility"
+									},
+									{
+										"concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Community Unit"
+									}
+								]
+							}
+						},
+						{
+							"label": "Referred to?",
+							"type": "obs",
+							"id": "referredTo",
+							"questionOptions": {
+								"concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "N/A"
+									},
+									{
+										"concept": "1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Another Health Facility"
+									},
+									{
+										"concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Community Unit"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Clinical Notes",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Clinical Notes",
+							"type": "obs",
+							"id": "clinicalNotes",
+							"questionOptions": {
+								"concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

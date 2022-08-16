@@ -1,0 +1,101 @@
+{
+	"name": "HTS Client Referral Form",
+	"description": "HTS Client Referral Form",
+	"version": "1",
+	"published": true,
+	"uuid": "9284828e-ce55-11e9-a32f-2a2ae2dbcce4",
+	"retired": false,
+	"encounter": "HTS",
+	"pages": [
+		{
+			"label": "HTS Referral",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "date",
+								"datePickerOption": "calendar"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Referral Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Facility referred to:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "text",
+								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "referredFacility",
+							"required": "true"
+						},
+						{
+							"label": "Date to be enrolled :",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "161561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "dateToBeEnrollEd",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+									"message": "Date to be enrolled can either be today or future date."
+								}
+							],
+							"required": "true"
+						},
+						{
+							"label": "Remarks:",
+							"type": "obs",
+							"id": "remarks",
+							"questionOptions": {
+								"concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

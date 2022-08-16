@@ -1,0 +1,151 @@
+{
+	"name": "Child HEI outcomes",
+	"description": "Child HEI outcomes",
+	"version": "1",
+	"published": true,
+	"uuid": "d823f1ef-0973-44ee-b113-7090dc23257b",
+	"retired": false,
+	"encounter": "MCH Child HEI Exit",
+	"pages": [
+		{
+			"label": "HEI Outcomes",
+			"sections": [
+				{
+					"label": "Outcome Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Exit Date",
+							"type": "obs",
+							"id": "heiOutcomeDate",
+							"questionOptions": {
+								"concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
+						},
+						{
+							"label": "HIV Status",
+							"type": "obs",
+							"id": "hivStatus",
+							"questionOptions": {
+								"concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Indeterminate"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Negative"
+									},
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Positive"
+									}
+								]
+							}
+						},
+						{
+							"label": "Exit Criteria",
+							"type": "obs",
+							"id": "idReasonEx",
+							"questionOptions": {
+								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Lost"
+									},
+									{
+										"concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Dead"
+									},
+									{
+										"concept": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Confirmed HIV Positive"
+									},
+									{
+										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transfer Out"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "hivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hivStatus === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Exit Criteria",
+							"type": "obs",
+							"id": "idReasonAge",
+							"questionOptions": {
+								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Lost"
+									},
+									{
+										"concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Dead"
+									},
+									{
+										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transfer Out"
+									},
+									{
+										"concept": "1403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HIV Neg age > 18 months"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "hivStatus !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hivStatus === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Exit Criteria",
+							"type": "obs",
+							"id": "idReasonTr",
+							"questionOptions": {
+								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Lost"
+									},
+									{
+										"concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Dead"
+									},
+									{
+										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transfer Out"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "hivStatus !== '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hivStatus === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

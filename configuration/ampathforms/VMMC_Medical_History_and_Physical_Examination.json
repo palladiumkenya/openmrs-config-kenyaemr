@@ -1,0 +1,1362 @@
+{
+	"name": "VMMC Medical History and Physical Examination Form",
+	"description": "VMMC Medical History and Physical Examination Form",
+	"version": "1",
+	"published": true,
+	"uuid": "d42aeb3d-d5d2-4338-a154-f75ddac78b59",
+	"retired": false,
+	"encounter": "VMMC Medical History and Examination",
+	"pages": [
+		{
+			"label": "VMMC Medical History and Physical Examination Form",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "VMMC source Info",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Assent given?",
+							"type": "obs",
+							"id": "assentGiven",
+							"required": "true",
+							"questionOptions": {
+								"concept": "167093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "age > 18 || sex !== 'M'"
+							}
+						},
+						{
+							"label": "If Yes - Parent/ Guardian Consent given? ",
+							"type": "obs",
+							"id": "ParenTConsent",
+							"required": "true",
+							"questionOptions": {
+								"concept": "162696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Consent given?",
+							"type": "obs",
+							"id": "consentGiven",
+							"required": "true",
+							"questionOptions": {
+								"concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "age < 18 || sex !== 'M'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Knowledge of HIV Status",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "HIV Status:",
+							"type": "obs",
+							"id": "patientHivStatus",
+							"required": "true",
+							"questionOptions": {
+								"concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unknown"
+									},
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Positive"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Negative"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "HIV Test Date:",
+							"type": "obs",
+							"id": "patientHivTestDate",
+							"questionOptions": {
+								"concept": "160554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Date started on ART:",
+							"type": "obs",
+							"id": "artStartDate",
+							"questionOptions": {
+								"concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'|| patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Why are the clients results unknown ?",
+							"type": "obs",
+							"id": "reasonUnknown",
+							"questionOptions": {
+								"concept": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Date of next appointment:",
+							"type": "obs",
+							"id": "patientTcaDate",
+							"questionOptions": {
+								"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Facility of HIV Care :",
+							"type": "obs",
+							"id": "careFacility",
+							"questionOptions": {
+								"concept": "fe72de11-9ccb-4622-b947-ab8635aa92ca",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other health facility"
+									},
+									{
+										"concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "This health facility"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Facility name :",
+							"type": "obs",
+							"id": "otherFacility",
+							"questionOptions": {
+								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "This facility",
+							"type": "obs",
+							"id": "thisFacility",
+							"questionOptions": {
+								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "CCC Number",
+							"type": "obs",
+							"id": "cccNumber",
+							"questionOptions": {
+								"concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Current patient regimen",
+							"type": "obs",
+							"id": "patientRegimen",
+							"questionOptions": {
+								"concept": "164855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "162559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "ABC/DDI/LPV/r"
+									},
+									{
+										"concept": "162562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "ABC/LPV/R/TDF"
+									},
+									{
+										"concept": "161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "EDF/3TC/EFV"
+									},
+									{
+										"concept": "792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "D4T/3TC/NVP"
+									},
+									{
+										"concept": "9fb85385-b4fb-468c-b7c1-22f75834b4b0",
+										"label": "TDF/3TC/DTG"
+									},
+									{
+										"concept": "162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/ABC/LPV/r"
+									},
+									{
+										"concept": "4dc0119b-b2a6-4565-8d90-174b97ba31db",
+										"label": "ABC/3TC/DTG"
+									},
+									{
+										"concept": "164511AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "AZT-3TC-ATV/r"
+									},
+									{
+										"concept": "162563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/ABC/EFV"
+									},
+									{
+										"concept": "6dec7d7d-0fda-4e8d-8295-cb6ef426878d",
+										"label": "AZT/3TC/DTG"
+									},
+									{
+										"concept": "164505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "TDF-3TC-EFV"
+									},
+									{
+										"concept": "817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "ABC/3TC/AZT"
+									},
+									{
+										"concept": "1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/NVP/AZT"
+									},
+									{
+										"concept": "162560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/D4T/LPV/r"
+									},
+									{
+										"concept": "162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "ABC/NVP/3TC"
+									},
+									{
+										"concept": "164512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "TDF-3TC-ATV/r"
+									},
+									{
+										"concept": "104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "EFV/FTC/TDF"
+									},
+									{
+										"concept": "162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/LPV/TDF/r"
+									},
+									{
+										"concept": "162565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/NVP/TDF"
+									},
+									{
+										"concept": "162561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/AZT/LPV/r"
+									},
+									{
+										"concept": "160124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "AZT/3TC/EFV"
+									},
+									{
+										"concept": "160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "D4T/3TC/EFV"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Patient Viral Load",
+							"type": "obs",
+							"id": "viralLoad",
+							"questionOptions": {
+								"concept": "856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Patient LDL",
+							"type": "obs",
+							"id": "ldl",
+							"questionOptions": {
+								"concept": "1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "LDL"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Patient CD4",
+							"type": "obs",
+							"id": "cd4",
+							"questionOptions": {
+								"concept": "5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Medical History and Physical Examination",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Client's known history of:",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "160741AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Bleeding Disorder"
+									},
+									{
+										"concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Diabetes "
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							},
+							"id": "__JFuJIJLst"
+						},
+						{
+							"label": "Client presenting with complaint:",
+							"type": "obs",
+							"id": "ClientPreseNtComplainT",
+							"required": "true",
+							"questionOptions": {
+								"concept": "159392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Complaints Today",
+							"type": "obs",
+							"id": "complaintsToday",
+							"questionOptions": {
+								"concept": "1154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "123529AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Urethral Discharge"
+									},
+									{
+										"concept": "118990AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Genital Sore"
+									},
+									{
+										"concept": "163606AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Pain on Urination"
+									},
+									{
+										"concept": "125203AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Swelling of the scrotum"
+									},
+									{
+										"concept": "163831AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Difficulty in retracting foreskin"
+									},
+									{
+										"concept": "130845AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Difficulty in returning foreskin to normal"
+									},
+									{
+										"concept": "116123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Concerns about erection/sexual function"
+									},
+									{
+										"concept": "163813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Epispadia"
+									},
+									{
+										"concept": "138010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Hypospadia"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Others"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "ClientPreseNtComplainT !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Other complaint (Specify)",
+							"type": "obs",
+							"id": "otherComplainT",
+							"questionOptions": {
+								"concept": "163047AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "ClientPreseNtComplainT !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || complaintsToday !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Other Treatments",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Client undergoing treatment :",
+							"type": "obs",
+							"id": "uNdergoingTreatment",
+							"required": "true",
+							"questionOptions": {
+								"concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Tick all that apply",
+							"type": "obs",
+							"id": "TickAllApply",
+							"questionOptions": {
+								"concept": "1794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Anaemia"
+									},
+									{
+										"concept": "142484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Diabetes "
+									},
+									{
+										"concept": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HIV/AIDS"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other "
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || uNdergoingTreatment !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Other treatment (Specify)",
+							"type": "obs",
+							"id": "otherTreatment",
+							"questionOptions": {
+								"concept": "163104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || TickAllApply !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Current HB Levels:",
+							"type": "obs",
+							"id": "hbLevels",
+							"questionOptions": {
+								"concept": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || TickAllApply !== '121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Current Sugar Levels:",
+							"type": "obs",
+							"id": "sugarLevels",
+							"questionOptions": {
+								"concept": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || TickAllApply !== '142484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Known Allergies",
+							"isExpanded": "true",
+							"questions": [
+								{
+									"label": "Client has any known allergie(s)?  ",
+									"type": "obs",
+									"id": "KnoWnAllerg",
+									"required": "true",
+									"questionOptions": {
+										"concept": "160557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "radio",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Any known allergy(ies)",
+									"type": "obsGroup",
+									"questionOptions": {
+										"rendering": "repeating",
+										"concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+									},
+									"id": "ClientADvAllergies",
+									"hide": {
+										"hideWhenExpression": "KnoWnAllerg !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									},
+									"questions": [
+										{
+											"label": "Causative agent",
+											"type": "obs",
+											"id": "AllerGyField",
+											"questionOptions": {
+												"concept": "160643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"rendering": "select",
+												"answers": [
+													{
+														"concept": "162539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Mold"
+													},
+													{
+														"concept": "162542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Adhesive Tape"
+													},
+													{
+														"concept": "162547AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Milk Protein"
+													},
+													{
+														"concept": "72609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Caffeine"
+													},
+													{
+														"concept": "162172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Peanuts"
+													},
+													{
+														"concept": "162538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Latex"
+													},
+													{
+														"concept": "162543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Beef"
+													},
+													{
+														"concept": "162175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Shellfish"
+													},
+													{
+														"concept": "162546AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Fish"
+													},
+													{
+														"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Other"
+													},
+													{
+														"concept": "162537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Dust"
+													},
+													{
+														"concept": "162176AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Soy"
+													},
+													{
+														"concept": "162540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Pollen"
+													},
+													{
+														"concept": "162545AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Dairy Food"
+													},
+													{
+														"concept": "162171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Eggs"
+													},
+													{
+														"concept": "162548AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Strawberries"
+													},
+													{
+														"concept": "162544AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Chocolate"
+													},
+													{
+														"concept": "162177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Wheat"
+													},
+													{
+														"concept": "162541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Ragweed"
+													},
+													{
+														"concept": "162536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Bee Stings"
+													}
+												]
+											}
+										},
+										{
+											"label": "Reaction",
+											"type": "obs",
+											"id": "reaCTION",
+											"questionOptions": {
+												"concept": "159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"rendering": "select",
+												"answers": [
+													{
+														"concept": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Itching"
+													},
+													{
+														"concept": "121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Myalgia"
+													},
+													{
+														"concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Fever"
+													},
+													{
+														"concept": "159347AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Musculoskeletal pain"
+													},
+													{
+														"concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Headache"
+													},
+													{
+														"concept": "108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Bronchospasm"
+													},
+													{
+														"concept": "148787AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Angioedema"
+													},
+													{
+														"concept": "159098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Hepatotoxicity"
+													},
+													{
+														"concept": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Diarrhea"
+													},
+													{
+														"concept": "140039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Flushing"
+													},
+													{
+														"concept": "148888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Anaphylaxis"
+													},
+													{
+														"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Other"
+													},
+													{
+														"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Unknown"
+													},
+													{
+														"concept": "120148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Arrhythmia"
+													},
+													{
+														"concept": "118773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Dystonia"
+													},
+													{
+														"concept": "121677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Mental status change"
+													},
+													{
+														"concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Hypertension"
+													},
+													{
+														"concept": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Anaemia"
+													},
+													{
+														"concept": "139581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "GI upset"
+													},
+													{
+														"concept": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Cough"
+													},
+													{
+														"concept": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Rash"
+													},
+													{
+														"concept": "111061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Hives"
+													}
+												]
+											}
+										},
+										{
+											"label": "Severity",
+											"type": "obs",
+											"id": "severITY",
+											"questionOptions": {
+												"concept": "162760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"rendering": "select",
+												"answers": [
+													{
+														"concept": "160755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Moderate"
+													},
+													{
+														"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Unknown"
+													},
+													{
+														"concept": "160754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Mild"
+													},
+													{
+														"concept": "160756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Severe"
+													},
+													{
+														"concept": "160758AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+														"label": "Fatal"
+													}
+												]
+											}
+										},
+										{
+											"label": "Date of Onset",
+											"type": "obs",
+											"id": "DateOfOnset",
+											"questionOptions": {
+												"concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"rendering": "date"
+											},
+											"validators": [
+												{
+													"type": "date",
+													"allowFutureDates": "false"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"label": "Client ever had a surgical operation?",
+							"type": "obs",
+							"id": "prevSurgicalOperation",
+							"required": "true",
+							"questionOptions": {
+								"concept": "164896AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Specify :",
+							"type": "obs",
+							"id": "otherSurgery",
+							"questionOptions": {
+								"concept": "163393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || prevSurgicalOperation !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Client has documented proof of having received Tetanus Booster Vaccine within the last 5 years?",
+							"type": "obs",
+							"id": "tetanusBoosterProof",
+							"required": "true",
+							"questionOptions": {
+								"concept": "54AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Client given Tetanus Booster Vaccine?",
+							"type": "obs",
+							"id": "tetanusBoosterGiven",
+							"required": "true",
+							"questionOptions": {
+								"concept": "161536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Booster Date",
+							"type": "obs",
+							"id": "tetanusBoosterDate",
+							"questionOptions": {
+								"concept": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || tetanusBoosterGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Systolic BP (mmHg)",
+							"type": "obs",
+							"id": "systolicBP",
+							"questionOptions": {
+								"concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Diastolic BP (mmHg)",
+							"type": "obs",
+							"id": "diastolicBP",
+							"questionOptions": {
+								"concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Pulse Rate",
+							"type": "obs",
+							"id": "pulsRate",
+							"questionOptions": {
+								"concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": " Temperature (C)",
+							"type": "obs",
+							"id": "temperature",
+							"questionOptions": {
+								"concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Confirmatory of Client's Eligibility",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "In good health:",
+							"type": "obs",
+							"id": "inGoodHealth",
+							"required": "true",
+							"questionOptions": {
+								"concept": "1855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Counseled:",
+							"type": "obs",
+							"id": "couNSElled",
+							"required": "true",
+							"questionOptions": {
+								"concept": "bfe0cbb2-eea0-4431-a5c5-d0f49a4ed21b",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Consent given?",
+							"type": "obs",
+							"id": "consentGivenOutcome",
+							"required": "true",
+							"questionOptions": {
+								"concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Tetanus Vaccination Status",
+							"type": "obs",
+							"id": "TetaNusVacc",
+							"required": "true",
+							"questionOptions": {
+								"concept": "54AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "If No for any of the above, explain:",
+							"type": "obs",
+							"id": "explainNoneEligibility",
+							"questionOptions": {
+								"concept": "162169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Method chosen by the Client",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Circumcision Method",
+							"type": "obs",
+							"id": "circumcisionMethod",
+							"required": "true",
+							"questionOptions": {
+								"concept": "167118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Conventional Surgical"
+									},
+									{
+										"concept": "167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Device Circumcision"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Conventional Method",
+							"type": "obs",
+							"id": "conventionalMethod",
+							"questionOptions": {
+								"concept": "167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "167121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Sleeve resection"
+									},
+									{
+										"concept": "167122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Dorsal Slit"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || circumcisionMethod !== '167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Other conventional method",
+							"type": "obs",
+							"id": "otherConventionalMethod",
+							"questionOptions": {
+								"concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || circumcisionMethod !== '167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Device methods",
+							"type": "obs",
+							"id": "deviceName",
+							"questionOptions": {
+								"concept": "167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "167124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Shangring"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || circumcisionMethod !== '167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Other Device Name",
+							"type": "obs",
+							"id": "otherDeviceName",
+							"questionOptions": {
+								"concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || circumcisionMethod !== '167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Device Size",
+							"type": "obs",
+							"id": "deviceSize",
+							"questionOptions": {
+								"concept": "163049AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || circumcisionMethod !== '167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Referral Services",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Client referred for other services",
+							"type": "obs",
+							"id": "referredForServices",
+							"required": "true",
+							"questionOptions": {
+								"concept": "c9404c8f-cf83-4bfe-acc0-4881599c78ba",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Referral services",
+							"type": "obs",
+							"questionOptions": {
+								"concept": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "167125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "STI Treatment"
+									},
+									{
+										"concept": "166536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "PrEP Services"
+									},
+									{
+										"concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Condom Promotion"
+									},
+									{
+										"concept": "141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "GBV Counselling"
+									},
+									{
+										"concept": "159612AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Reproductive Health"
+									},
+									{
+										"concept": "118855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Drug Abuse"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"id": "ReferralServiceS",
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && referredForServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Referred for other services",
+							"type": "obs",
+							"id": "referredForOtherServices",
+							"questionOptions": {
+								"concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "assentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ReferralServiceS !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

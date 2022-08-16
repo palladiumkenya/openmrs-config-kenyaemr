@@ -1,0 +1,131 @@
+{
+	"name": "VMMC Discontinuation Form",
+	"description": "VMMC Discontinuation Form",
+	"version": "1",
+	"published": true,
+	"uuid": "bc6a9e7d-58f7-43c0-8334-d8011fef4000",
+	"retired": false,
+	"encounter": "VMMC Discontinuation",
+	"pages": [
+		{
+			"label": "Vmmc Discontinuation Form",
+			"sections": [
+				{
+					"label": "Encounter Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit Details",
+							"isExpanded": "true",
+							"questions": [
+								{
+									"label": "Date:",
+									"type": "encounterDatetime",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "false"
+										}
+									],
+									"id": "encDate"
+								},
+								{
+									"label": "Provider:",
+									"type": "encounterProvider",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"id": "encProvider "
+								},
+								{
+									"label": "Location:",
+									"type": "encounterLocation",
+									"questionOptions": {
+										"rendering": "ui-select-extended"
+									},
+									"id": "encLocation"
+								}
+							]
+						}
+					]
+				},
+				{
+					"label": "Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Discontinuation date",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "164384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "discontinue-date",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day'))",
+									"message": "Discontinuation date should not be before the encounter date."
+								}
+							],
+							"required": "true"
+						},
+						{
+							"label": "Reason:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "162130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Patient has healed"
+									},
+									{
+										"concept": "112992AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "STI"
+									},
+									{
+										"concept": "159766AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client has condition hindering them from going through VMMC"
+									},
+									{
+										"concept": "159808AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Consent is not provided"
+									},
+									{
+										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transferred Out"
+									},
+									{
+										"concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Died"
+									},
+									{
+										"concept": "138405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Newly Diagnosed HIV"
+									},
+									{
+										"concept": "160067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Assent is not provided"
+									}
+								]
+							},
+							"id": "idReason",
+							"required": "true"
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

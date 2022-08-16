@@ -1,0 +1,938 @@
+{
+	"name": "PrEP Follow Up",
+	"description": "PrEP Follow Up",
+	"version": "1",
+	"published": true,
+	"uuid": "ee3e2017-52c0-4a54-99ab-ebb542fb8984",
+	"retired": false,
+	"encounter": "PrEP Consultation",
+	"pages": [
+		{
+			"label": "PrEP Follow up",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "STI Screening",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "STI Screening",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "161558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "stiScreened",
+							"required": "true"
+						},
+						{
+							"label": "Genital Ulcer Disease(GUD)",
+							"type": "obs",
+							"id": "stiGenital",
+							"questionOptions": {
+								"concept": "b39992a0-7d5b-4b72-b551-9e0970ae49fa",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "145762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Genital Ulcer Disease(GUD)"
+									},
+									{
+										"concept": "121809AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Vaginitis and/or Vaginal Discharge(VG)"
+									},
+									{
+										"concept": "116995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Cervicitis and/or Cervical Discharge(CD)"
+									},
+									{
+										"concept": "130644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Pelvic Inflammatory Disease(PID)"
+									},
+									{
+										"concept": "123529AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Urethral Discharge(UD)"
+									},
+									{
+										"concept": "148895AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Anal Discharge(AD)"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other(O)"
+									},
+									{
+										"concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "None"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "stiScreened != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Other Specify",
+							"type": "obs",
+							"id": "otherStisymptoms",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "stiGenital != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Treated",
+							"type": "obs",
+							"id": "sti-treated",
+							"questionOptions": {
+								"concept": "d7b6a98f-025e-4732-b0b2-2fe8b00e6b4c",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "VMMC Screening",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "VMMC Screening done?",
+							"type": "obs",
+							"id": "vmmcScreened",
+							"questionOptions": {
+								"concept": "8565825d-6cff-4451-8707-09e46d861fc7",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Is the client circumcised?",
+							"type": "obs",
+							"id": "vmmcStatus",
+							"questionOptions": {
+								"concept": "085ce2e6-071e-43be-a32c-ecaac001e44f",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unknown"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Referred",
+							"type": "obs",
+							"id": "vmmcReferred",
+							"questionOptions": {
+								"concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Fertility Intentions",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "LMP",
+							"type": "obs",
+							"id": "lmp",
+							"questionOptions": {
+								"concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							}
+						},
+						{
+							"label": "Menopause",
+							"type": "obs",
+							"id": "menopause",
+							"questionOptions": {
+								"concept": "160596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Menopause"
+									}
+								]
+							}
+						},
+						{
+							"label": "Is the client pregnant?",
+							"type": "obs",
+							"id": "pregnancyStatus",
+							"questionOptions": {
+								"concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "EDD",
+							"type": "obs",
+							"id": "edd",
+							"questionOptions": {
+								"concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Was the pregnancy planned?",
+							"type": "obs",
+							"id": "plannedPregnancy",
+							"questionOptions": {
+								"concept": "1426AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyStatus == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+							}
+						},
+						{
+							"label": "Planning to get pregnant?",
+							"type": "obs",
+							"id": "pregnancyWanted",
+							"questionOptions": {
+								"concept": "b3b2fa9f-d4ac-42c1-8ac2-5cba19fa0403",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyStatus == '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Breastfeeding status",
+							"type": "obs",
+							"id": "breastfeeding",
+							"questionOptions": {
+								"concept": "5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Family planning Status",
+							"type": "obs",
+							"id": "familyplanningStatus",
+							"questionOptions": {
+								"concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Not using Family Planning"
+									},
+									{
+										"concept": "965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "On Family Planning"
+									},
+									{
+										"concept": "1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Wants Family Planning"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Family Planning Method",
+							"type": "obs",
+							"id": "familyPlanningMethod",
+							"questionOptions": {
+								"concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Emergency contraceptive pills"
+									},
+									{
+										"concept": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Oral Contraceptives Pills"
+									},
+									{
+										"concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": " Injectable"
+									},
+									{
+										"concept": "1359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": " Implant"
+									},
+									{
+										"concept": "136163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": " Lactational Amenorhea Method"
+									},
+									{
+										"concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": " Intrauterine Device"
+									},
+									{
+										"concept": "5278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Diaphram/Cervical Cap"
+									},
+									{
+										"concept": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Fertility Awareness"
+									},
+									{
+										"concept": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Tubal Ligation/Female sterilization"
+									},
+									{
+										"concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Condoms"
+									},
+									{
+										"concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Vasectomy(Partner)"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || familyplanningStatus == '160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+							}
+						}
+					]
+				},
+				{
+					"label": "Pregnancy Outcome",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Pregnancy ended since last visit",
+							"type": "obs",
+							"id": "pregnancysincelastVisit",
+							"questionOptions": {
+								"concept": "d643740c-833e-452c-af6c-6a3af083775a",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Pregnancy Outcome",
+							"type": "obs",
+							"id": "pregnancyOutcome",
+							"questionOptions": {
+								"concept": "161033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Term live"
+									},
+									{
+										"concept": "129218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Preterm Delivery"
+									},
+									{
+										"concept": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Still birth"
+									},
+									{
+										"concept": "159896AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Induced abortion"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Outcome date",
+							"type": "obs",
+							"id": "outcomeDate",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Birth defects",
+							"type": "obs",
+							"id": "birthDefects",
+							"questionOptions": {
+								"concept": "159521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unknown"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "menopause == '134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Chronic Illnesses and Cormobidities",
+					"isExpanded": "true",
+					"questions": []
+				},
+				{
+					"label": "Adverse Drug Reactions",
+					"isExpanded": "true",
+					"questions": []
+				},
+				{
+					"label": "Known Allergies",
+					"isExpanded": "true",
+					"questions": []
+				},
+				{
+					"label": "Laboratory Investigation",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "If negative, vaccine series initiated",
+							"type": "obs",
+							"id": "hepatitisbVaccineInitiated",
+							"questionOptions": {
+								"concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "If positive, treatment offered",
+							"type": "obs",
+							"id": "hepatitisbTreatmentOffered",
+							"questionOptions": {
+								"concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Patient referred to hospital?"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "If negative, vaccine series initiated",
+							"type": "obs",
+							"id": "hepatitiscVaccineInitiated",
+							"questionOptions": {
+								"concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "If positive, treatment offered",
+							"type": "obs",
+							"id": "hepatitiscTreatmentOffered",
+							"questionOptions": {
+								"concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Patient referred to hospital?"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Serum Creatinine done?",
+							"type": "obs",
+							"id": "serumCreatinine",
+							"questionOptions": {
+								"concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Prep status",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Signs and symptoms of acute HIV",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "aba5a106-719b-46f3-9199-224f3881a738",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "hivSigns",
+							"required": "true"
+						},
+						{
+							"label": "Adherence counselling done",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "906ac5d0-566a-466e-93e4-2f23b4fb319b",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"id": "adherenceCounsellingDone",
+							"required": "true"
+						},
+						{
+							"label": "Adherance Outcome",
+							"type": "obs",
+							"id": "adheranceOutcome",
+							"questionOptions": {
+								"concept": "160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Good"
+									},
+									{
+										"concept": "159406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Fair"
+									},
+									{
+										"concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Poor"
+									}
+								]
+							}
+						},
+						{
+							"label": "Contraindication for PrEP",
+							"type": "obs",
+							"id": "contraindicationForPrEP",
+							"questionOptions": {
+								"concept": "5725724b-058b-45cc-9384-57221daa3a0d",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "None"
+									},
+									{
+										"concept": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Confirmed HIV+"
+									},
+									{
+										"concept": "155589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Renal impairment"
+									},
+									{
+										"concept": "127750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Not willing"
+									},
+									{
+										"concept": "39fa4212-1210-49e0-ad62-d01090c1cf67",
+										"label": "Less than 35ks and under 15 yrs"
+									}
+								]
+							}
+						},
+						{
+							"label": "PrEP treatment plan",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "42ad51f2-dc4f-48eb-8440-9a0bd8969374",
+								"answers": [
+									{
+										"concept": "162904AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Restart"
+									},
+									{
+										"concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Discontinue"
+									},
+									{
+										"concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Continue"
+									},
+									{
+										"concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Start"
+									}
+								]
+							},
+							"id": "treatmentPlan",
+							"required": "true"
+						},
+						{
+							"label": "Prescribed PrEP today?",
+							"type": "obs",
+							"id": "prescribedPrepToday",
+							"questionOptions": {
+								"concept": "1417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Regimen prescribed",
+							"type": "obs",
+							"id": "regimenOptions",
+							"questionOptions": {
+								"concept": "164515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "TDF/3TC"
+									},
+									{
+										"concept": "84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "TDF"
+									},
+									{
+										"concept": "104567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "TDF/FTC(Preferred)"
+									}
+								]
+							}
+						},
+						{
+							"label": "Number of months",
+							"type": "obs",
+							"id": "regimenMonthsPrescribed",
+							"questionOptions": {
+								"concept": "164433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							}
+						},
+						{
+							"label": "Condoms issued",
+							"type": "obs",
+							"id": "condomIssued",
+							"questionOptions": {
+								"concept": "159777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Number of condoms issued",
+							"type": "obs",
+							"id": "numberOfCondoms",
+							"questionOptions": {
+								"concept": "771638d9-9600-4a6b-8e5d-c6dcdedbc9cd",
+								"rendering": "number"
+							}
+						}
+					]
+				},
+				{
+					"label": "Next appointment",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Client given next appointment",
+							"type": "obs",
+							"id": "tcaGiven",
+							"questionOptions": {
+								"concept": "7bfe041e-e921-4798-b9fd-a8f222a56be2",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Appointment Date",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "tcaDate",
+							"required": "true"
+						},
+						{
+							"label": "Reason for failure to give appointment",
+							"type": "obs",
+							"id": "reasonTcaDate",
+							"questionOptions": {
+								"concept": "2e91618a-1f42-4781-ae1e-96d0d8a86e16",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transferred out"
+									},
+									{
+										"concept": "8bc555fe-c317-4983-af94-f42bce8a220e",
+										"label": "Risk reduction supported"
+									},
+									{
+										"concept": "159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Discontinue"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Clinical Notes",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Clinical Notes",
+							"type": "obs",
+							"id": "clinical-notes",
+							"questionOptions": {
+								"concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

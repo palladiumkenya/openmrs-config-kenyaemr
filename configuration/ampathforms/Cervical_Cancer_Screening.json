@@ -1,0 +1,490 @@
+{
+	"name": "Cervical Cancer Screening Form",
+	"description": "Cervical Cancer Screening Form",
+	"version": "1",
+	"published": true,
+	"uuid": "0c93b93c-bfef-4d2a-9fbe-16b59ee366e7",
+	"retired": false,
+	"encounter": "Cervical cancer screening",
+	"pages": [
+		{
+			"label": "POC Cervical Cancer Screening Form v1.0",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Cancer Screening",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Visit type:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "160288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "162080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Initial visit"
+									},
+									{
+										"concept": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Treatment visit"
+									},
+									{
+										"concept": "3663d6e2-ca04-48a1-8a68-cf685d28e715",
+										"label": "Post treatment visit"
+									},
+									{
+										"concept": "161236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Routine visit"
+									},
+									{
+										"concept": "6d46dbb4-a958-4780-8598-5382053c3ddb",
+										"label": "Post treatment complication"
+									}
+								]
+							},
+							"id": "visit_type",
+							"required": "true"
+						},
+						{
+							"label": "Screening type",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Re-screening after previous negative results"
+									},
+									{
+										"concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "First time screening"
+									},
+									{
+										"concept": "bbd5d81e-d694-48e6-a948-ed82e63e2030",
+										"label": "Post treatment followup screening"
+									}
+								]
+							},
+							"id": "screening_type",
+							"required": "true"
+						},
+						{
+							"label": "Post treatment complication cause",
+							"type": "obs",
+							"id": "post_tx_complication",
+							"questionOptions": {
+								"concept": "b72de7d8-a660-459f-8b75-e6e4e817d6a1",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "162816AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Cryotherapy"
+									},
+									{
+										"concept": "162810AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "LEEP"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Others"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "visit_type !== '6d46dbb4-a958-4780-8598-5382053c3ddb'"
+							}
+						},
+						{
+							"label": "Explain:",
+							"type": "obs",
+							"id": "other_tx_complication",
+							"questionOptions": {
+								"concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "post_tx_complication !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Screening method",
+							"type": "obs",
+							"id": "screening_method",
+							"questionOptions": {
+								"concept": "163589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "164805AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "VIA"
+									},
+									{
+										"concept": "9818bba5-ecd4-4cf9-a48f-5e5d9a48eec6",
+										"label": "VIA/VILI"
+									},
+									{
+										"concept": "160705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Colposcopy"
+									},
+									{
+										"concept": "885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "PAP Smear"
+									},
+									{
+										"concept": "159859AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HPV Test"
+									}
+								]
+							}
+						},
+						{
+							"label": "VIA Screening result",
+							"type": "obs",
+							"id": "via_screening_result",
+							"questionOptions": {
+								"concept": "06398e78-0d3e-43d5-8017-f2fc3865e2e0",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "159008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Suspicious for cancer"
+									},
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Positive"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Negative"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "screening_method !== '164805AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "VIA/VILI Screening result",
+							"type": "obs",
+							"id": "vili_screening_result",
+							"questionOptions": {
+								"concept": "06398e78-0d3e-43d5-8017-f2fc3865e2e0",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "159008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Suspicious for cancer"
+									},
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Positive"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Negative"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "screening_method !== '9818bba5-ecd4-4cf9-a48f-5e5d9a48eec6'"
+							}
+						},
+						{
+							"label": "Colposcopy Screening result",
+							"type": "obs",
+							"id": "colposcopy_screening_result",
+							"questionOptions": {
+								"concept": "06398e78-0d3e-43d5-8017-f2fc3865e2e0",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Abnormal"
+									},
+									{
+										"concept": "159008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Suspicious for cancer"
+									},
+									{
+										"concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Normal"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "screening_method !== '160705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "PAP Smear Screening result",
+							"type": "obs",
+							"id": "pap_smear_screening_result",
+							"questionOptions": {
+								"concept": "06398e78-0d3e-43d5-8017-f2fc3865e2e0",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "145808AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Low grade lesion"
+									},
+									{
+										"concept": "155424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Invasive Cancer"
+									},
+									{
+										"concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Normal"
+									},
+									{
+										"concept": "145805AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "High grade lesion"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "screening_method !== '885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "HPV Screening result",
+							"type": "obs",
+							"id": "hpv_screening_result",
+							"questionOptions": {
+								"concept": "06398e78-0d3e-43d5-8017-f2fc3865e2e0",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "159393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Presumed Cancer"
+									},
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Positive"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Negative"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "screening_method !== '159859AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Treatment today",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "a869d37b-bf4d-4946-9318-15ff505211a5",
+								"answers": [
+									{
+										"concept": "225d07eb-87de-48a5-9f97-1936147f6e45",
+										"label": "Cold knife cone"
+									},
+									{
+										"concept": "3663d6e2-ca04-48a1-8a68-cf685d28e715",
+										"label": "Cryotherapy postponed"
+									},
+									{
+										"concept": "8c6db26a-1565-44a9-b57f-39891cc36fc1",
+										"label": "Cryotherapy performed (single Visit)"
+									},
+									{
+										"concept": "4d7d3d0f-ffdd-435c-93bc-a5aacc8c642c",
+										"label": "Cryotherapy performed (previously postponed)"
+									},
+									{
+										"concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "None"
+									},
+									{
+										"concept": "6f886f9f-ee0a-4be0-8055-5e23af125c49",
+										"label": "Referred for cancer treatment"
+									},
+									{
+										"concept": "162810AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "LEEP performed"
+									},
+									{
+										"concept": "159837AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Hysterectomy"
+									},
+									{
+										"concept": "29076522-960b-4ff9-870d-e04f9d7d29f5",
+										"label": "Thermocoagulation"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"id": "treatment_today",
+							"required": "true"
+						},
+						{
+							"label": "Explain:",
+							"type": "obs",
+							"id": "other_tx",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(treatment_today) || treatment_today !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Referred out",
+							"type": "obs",
+							"id": "referred_out",
+							"questionOptions": {
+								"concept": "f5a15a0c-a55a-4680-8376-f9a1dd0be731",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Referred out to",
+							"type": "obs",
+							"id": "referred_to",
+							"questionOptions": {
+								"concept": "cab2c9a6-339e-47bc-b95b-d55797a26f14",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "referred_out !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Referral reason",
+							"type": "obs",
+							"id": "referral_reason",
+							"questionOptions": {
+								"concept": "1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "132948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Large lesion"
+									},
+									{
+										"concept": "159008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Suspect cancer"
+									},
+									{
+										"concept": "8cffbb7f-9b34-4c43-aca7-e274d88656bc",
+										"label": "Site does not have cryotherapy machine"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other gynaecological problem"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "referred_out !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Next appointment date",
+							"type": "obs",
+							"id": "appointment",
+							"questionOptions": {
+								"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Return to clinic date should be greater than the encounter date."
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}
