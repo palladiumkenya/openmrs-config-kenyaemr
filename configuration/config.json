@@ -1,20 +1,25 @@
 {
   "@openmrs/esm-login-app": {
     "logo": {
-      "src": "<server-url>/openmrs/spa/KenyaEMR%20logo.svg"
+      "src": "http://localhost:80/openmrs/spa/kenyaemr-login-logo.png"
+    }
+  },
+  "@openmrs/esm-primary-navigation-app": {
+    "logo": {
+      "src": "http://localhost:80/openmrs/spa/kenyaemr-primary-logo.png"
     }
   },
   "@openmrs/esm-patient-programs-app": {
     "customUrl": "/ws/rest/v1/kenyaemr/eligiblePrograms?patientUuid="
   },
   "@openmrs/esm-patient-forms-app": {
-    "showConfigurableForms": true,
-    "customFormsUrl": "/ws/rest/v1/kenyaemr/forms"
+    "customFormsUrl": "/ws/rest/v1/kenyaemr/forms",
+    "showConfigurableForms": true
   },
   "@openmrs/esm-styleguide": {
-    "Brand color #1": "#607D8B",
-    "Brand color #2": "#455A64",
-    "Brand color #3": "#90A4AE"
+    "Brand color #1": "#183D1A",
+    "Brand color #2": "#1D491F",
+    "Brand color #3": " #2C6D2F"
   },
   "@openmrs/esm-patient-chart-app": {
     "extensionSlots": {
@@ -22,7 +27,8 @@
         "remove": [
           "patient-clinical-view-overview",
           "immunization-overview-widget",
-          "offline-tools-patient-chart-actions-widget"
+          "offline-tools-patient-chart-actions-widget",
+          "programs-overview-widget"
         ]
       },
       "patient-chart-dashboard-slot": {
@@ -31,18 +37,30 @@
           "attachments-results-summary-dashboard",
           "clinical-view-summary-dashboard",
           "offline-tools-patient-chart-actions-dashboard-link",
-          "immunization-summary-dashboard"
+          "immunization-summary-dashboard",
+          "programs-summary-dashboard",
+          "encounters-summary-dashboard"
         ]
       }
     },
     "startVisitLabel": "CheckIn",
     "showServiceQueueFields": true,
-    "priorityConceptSetUuid": "01a170d8-aa9f-42e0-8b30-8d018f349ba5",
-    "defaultPriorityConceptUuid": "001d751b-bc13-42f4-abc5-b8ab1959dddd",
-    "serviceConceptSetUuid": "99980d87-2638-4fe3-b68e-dedeb76a850c",
-    "statusConceptSetUuid": "7aaea5f5-44f2-42d1-a506-a60b9810a7c7",
-    "defaultStatusConceptUuid": "167407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "priorityConceptSetUuid": "3e1583a1-e8b5-4576-afa6-c07f19bba341",
+    "defaultPriorityConceptUuid": "88e856f1-63aa-4deb-8141-091121fcb7ea",
+    "serviceConceptSetUuid": "94788037-eec3-4336-aaf0-6052435811e9",
+    "statusConceptSetUuid": "386988e5-ff48-43cf-9d3b-81dc19452faf",
+    "defaultStatusConceptUuid": "991835af-9487-4474-8a5b-0df393bdff66",
     "visitAttributeTypes": []
+  },
+  "@openmrs/esm-home-app": {
+    "extensionSlots": {
+      "homepage-widgets-slot": {
+        "remove": [
+          "home-appointments"
+        ]
+      }
+    },
+    "showOpenMRSLogo": false
   },
   "@openmrs/esm-patient-registration-app": {
     "defaultPatientIdentifierTypes": [
@@ -64,7 +82,11 @@
       {
         "id": "custom",
         "name": "Demographics",
-        "fields": ["maritalStatus", "occupation", "education"]
+        "fields": [
+          "maritalStatus",
+          "occupation",
+          "education"
+        ]
       },
       {
         "id": "contact",
@@ -101,7 +123,7 @@
         "label": "Telephone contact",
         "validation": {
           "required": true,
-          "matches": "^0([0-9](?:(?:[129][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
+          "matches": "^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
         }
       },
       {
@@ -110,8 +132,7 @@
         "uuid": "94614350-84c8-41e0-ac29-86bc107069be",
         "label": "Alternate phone number",
         "validation": {
-          "required": true,
-          "matches": "^0([0-9](?:(?:[129][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
+          "matches": "^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
         }
       },
       {
@@ -141,7 +162,10 @@
       {
         "id": "address.cityVillage",
         "type": "address",
-        "label": "Village"
+        "label": "Village",
+        "validation": {
+          "required": true
+        }
       },
       {
         "id": "address.address2",
@@ -263,7 +287,7 @@
         "uuid": "342a1d39-c541-4b29-8818-930916f4c2dc",
         "label": "Phone Number",
         "validation": {
-          "matches": "^0([0-9](?:(?:[129][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
+          "matches": "^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$"
         }
       },
       {
@@ -274,7 +298,8 @@
       }
     ],
     "registrationObs": {
-      "encounterTypeUuid": "de1f9d67-b73e-4e1b-90d0-036166fc6995"
+      "encounterTypeUuid": "de1f9d67-b73e-4e1b-90d0-036166fc6995",
+      "registrationFormUuid": "add7abdc-59d1-11e8-9c2d-fa7ae01bbebc"
     },
     "fieldConfigurations": {
       "name": {
@@ -305,32 +330,11 @@
             "countyDistrict": "County",
             "address4": "Ward",
             "stateProvince": "Sub county"
-          }
+          },
+          "searchAddressByLevel": true
         }
       }
     }
-  },
-  "@openmrs/esm-primary-navigation-app": {
-    "logo": {
-      "src": "<server-url>/openmrs/spa/kenyaemr-nav-bar.svg"
-    }
-  },
-  "@openmrs/esm-appointments-app": {
-    "concepts": {
-      "priorityConceptSetUuid": "01a170d8-aa9f-42e0-8b30-8d018f349ba5",
-      "serviceConceptSetUuid": "99980d87-2638-4fe3-b68e-dedeb76a850c",
-      "statusConceptSetUuid": "7aaea5f5-44f2-42d1-a506-a60b9810a7c7"
-    }
-  },
-  "@openmrs/esm-outpatient-app": {
-    "concepts": {
-      "priorityConceptSetUuid": "01a170d8-aa9f-42e0-8b30-8d018f349ba5",
-      "defaultPriorityConceptUuid": "001d751b-bc13-42f4-abc5-b8ab1959dddd",
-      "statusConceptSetUuid": "7aaea5f5-44f2-42d1-a506-a60b9810a7c7",
-      "defaultStatusConceptUuid": "167407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "serviceConceptSetUuid": "99980d87-2638-4fe3-b68e-dedeb76a850c"
-    },
-    "showQueueTableTab" : true
   },
   "@openmrs/esm-patient-vitals-app": {
     "vitals": {
@@ -341,6 +345,23 @@
     },
     "concepts": {
       "generalPatientNoteUuid": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    }
+  },
+  "@openmrs/esm-outpatient-app": {
+    "concepts": {
+      "priorityConceptSetUuid": "3e1583a1-e8b5-4576-afa6-c07f19bba341",
+      "defaultPriorityConceptUuid": "88e856f1-63aa-4deb-8141-091121fcb7ea",
+      "serviceConceptSetUuid": "94788037-eec3-4336-aaf0-6052435811e9",
+      "statusConceptSetUuid": "386988e5-ff48-43cf-9d3b-81dc19452faf",
+      "defaultStatusConceptUuid": "991835af-9487-4474-8a5b-0df393bdff66"
+    },
+    "showQueueTableTab": true
+  },
+  "@openmrs/esm-appointments-app": {
+    "concepts": {
+      "priorityConceptSetUuid": "3e1583a1-e8b5-4576-afa6-c07f19bba341",
+      "serviceConceptSetUuid": "94788037-eec3-4336-aaf0-6052435811e9",
+      "statusConceptSetUuid": "386988e5-ff48-43cf-9d3b-81dc19452faf"
     }
   }
 }
