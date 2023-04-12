@@ -20,7 +20,7 @@ npx --legacy-peer-deps openmrs@next assemble \
   --manifest \
   --mode config \
   --config ./configuration/spa-build-config.json \
-  --target ./spa
+  --target ./frontend
 
 # Copy required files
 echo "Copying required files ..."
