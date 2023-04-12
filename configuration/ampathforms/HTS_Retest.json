@@ -1,11 +1,4 @@
-{
-	"name": "HTS Retest Form",
-	"description": "HTS Retest Form",
-	"version": "1",
-	"published": true,
-	"uuid": "b08471f6-0892-4bf7-ab2b-bf79797b8ea4",
-	"retired": false,
-	"encounter": "HTS",
+{"name": "HTS Retest Form",
 	"pages": [
 		{
 			"label": "Encounter Details",
@@ -21,7 +14,13 @@
 								"rendering": "date"
 							},
 							"id": "encounterDate",
-							"required": "true"
+							"required": "true",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 						},
 						{
 							"label": "Provider",
@@ -54,7 +53,7 @@
 							"label": "Population type",
 							"type": "obs",
 							"questionOptions": {
-								"rendering": "radio",
+								"rendering": "select",
 								"concept": "cf543666-ce76-4e91-8b8d-c0b54a436a2e",
 								"answers": [
 									{
@@ -186,7 +185,7 @@
 							"label": "Please indicate Key population type :",
 							"type": "obs",
 							"questionOptions": {
-								"rendering": "checkbox",
+								"rendering": "select",
 								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"answers": [
 									{
@@ -216,7 +215,7 @@
 							"label": "Please indicate Key population type :",
 							"type": "obs",
 							"questionOptions": {
-								"rendering": "checkbox",
+								"rendering": "select",
 								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"answers": [
 									{
@@ -246,7 +245,7 @@
 							"label": "Please indicate Priority Population :",
 							"type": "obs",
 							"questionOptions": {
-								"rendering": "checkbox",
+								"rendering": "select",
 								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"answers": [
 									{
@@ -284,7 +283,7 @@
 							"label": "Please indicate Priority Population :",
 							"type": "obs",
 							"questionOptions": {
-								"rendering": "checkbox",
+								"rendering": "select",
 								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"answers": [
 									{
@@ -552,11 +551,11 @@
 								"answers": [
 									{
 										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "SKT POSITIVE"
+										"label": "Positive"
 									},
 									{
 										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "SKT NEGATIVE"
+										"label": "Negative"
 									}
 								]
 							},
@@ -573,6 +572,12 @@
 								"concept": "164400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
 							"id": "DeteOfSelfTest",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
 							"hide": {
 								"hideWhenExpression": "isEmpty(willingToShareResults) || willingToShareResults != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
@@ -847,56 +852,14 @@
 								"concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"answers": [
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No",
-										"conceptMappings": [
-											{
-												"type": "PIH",
-												"value": "1066"
-											},
-											{
-												"type": "PIH Malawi",
-												"value": "Malawi: 1066"
-											},
-											{
-												"type": "AMPATH",
-												"value": "1066"
-											},
-											{
-												"type": "CIEL",
-												"value": "1066"
-											},
-											{
-												"type": "SNOMED CT",
-												"value": "CT: 373067005"
-											}
-										]
+										"concept": "false",
+										"label": "No"
+										
 									},
 									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes",
-										"conceptMappings": [
-											{
-												"type": "PIH",
-												"value": "1065"
-											},
-											{
-												"type": "SNOMED CT",
-												"value": "CT: 373066001"
-											},
-											{
-												"type": "PIH Malawi",
-												"value": "Malawi: 1065"
-											},
-											{
-												"type": "CIEL",
-												"value": "1065"
-											},
-											{
-												"type": "AMPATH",
-												"value": "1065"
-											}
-										]
+										"concept": "true",
+										"label": "Yes"
+										
 									}
 								]
 							},
@@ -1316,7 +1279,7 @@
 					"isExpanded": "true",
 					"questions": [
 						{
-							"label": "Referral",
+							"label": "Referral for:",
 							"type": "obs",
 							"questionOptions": {
 								"rendering": "radio",
@@ -1336,7 +1299,10 @@
 									}
 								]
 							},
-							"id": "Referral"
+							"id": "ReferrAl",
+							"hide": {
+								"hideWhenExpression": "finalResult !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						},
 						{
 							"label": "Referral to:",
@@ -1355,6 +1321,9 @@
 										"label": "Other health facility"
 									}
 								]
+							},
+							"hide": {
+								"hideWhenExpression": "finalResult !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1366,7 +1335,99 @@
 								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
 							"hide": {
-								"hideWhenExpression": "isEmpty(referrlTo) || referrlTo != '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(referralTo) || referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Client referred for other services:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "165093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"id": "ClieNtReferrEd",
+							"hide": {
+								"hideWhenExpression": "finalResult !=='664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Referred for which services::",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "checkbox",
+								"concept": "163180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "165276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Risk reduction counselling"
+									},
+									{
+										"concept": "159612AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Safer sex practices"
+									},
+									{
+										"concept": "162223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "VMMC"
+									},
+									{
+										"concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Condom use counselling"
+									},
+									{
+										"concept": "1691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Post-exposure prophylaxis"
+									},
+									{
+										"concept": "167125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Prevention and treatment of STIs"
+									},
+									{
+										"concept": "118855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Substance abuse and mental health treatment"
+									},
+									{
+										"concept": "141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Prevention of GBV"
+									},
+									{
+										"concept": "1370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HIV testing and re-testing"
+									},
+									{
+										"concept": "166536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Pre-Exposure Prophylaxis"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Others"
+									}
+								]
+							},
+							"id": "refeRRalSerVicEs",
+							"hide": {
+								"hideWhenExpression": "isEmpty(ClieNtReferrEd) || ClieNtReferrEd !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Specify Referral",
+							"type": "obs",
+							"id": "SpeCrEferRed",
+							"questionOptions": {
+								"rendering": "textbox",
+								"concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"hide": {
+								"hideWhenExpression": "refeRRalSerVicEs !=='5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -1383,13 +1444,13 @@
 								"concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rows": "3"
 							},
-							"id": "remarks"
+							"id": "rEmArks"
 						}
 					]
 				}
 			]
 		}
 	],
-	"processor": "EncounterFormProcessor",
-	"referencedForms": []
+	"uuid": "b08471f6-0892-4bf7-ab2b-bf79797b8ea4",
+	"encounterType": "9c0a7a57-62ff-4f75-babe-5835b0e921b7"
 }

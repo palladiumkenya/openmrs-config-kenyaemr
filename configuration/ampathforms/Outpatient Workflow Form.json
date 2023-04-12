@@ -1,7 +1,7 @@
 {
-	"name": "HIV Green Card",
+	"name": "Outpatient Workflow",
 	"pages": [
-		{
+        {
 			"label": "Visit Details",
 			"sections": [
 				{
@@ -87,6 +87,10 @@
 								"max": "43",
 								"min": "25"
 							},
+                            "alert": {
+                                "alertWhenExpression": "!arrayContains(Temperature, '5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
+                                "message": "Screen the client for SARI/ILI case, TB"
+                              },
 							"hide": {
 								"hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
@@ -970,7 +974,13 @@
 												"label": "Delirium"
 											}
 										]
-									}
+									},
+                                   
+                                            "alert": {
+                                            "alertWhenExpression": "!arrayContains(Fever, '140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
+                                            "message": "Screen the client for SARI/ILI case, TB"
+                                          }
+                                    
 								},
 								{
 									"label": "Duration (Days)",
@@ -1026,10 +1036,25 @@
 							"hide": {
 								"hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || comPlaiNtsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
-						}
+						},
+						{
+							"label": "TB Screening",
+							"isSubform": "true",
+							"subform": {
+							  "name": "TB_Screening",
+							  "package": "TB",
+							  "behaviours": [
+								{
+								  "intent": "*",
+								  "subform_intent": "TB_SCREENING_EMBED",
+								  "readonly": "true"
+								}
+							  ]
+							}
+						  }
 					]
 				},
-				{
+                {
 					"label": "TB Screening",
 					"isExpanded": "true",
 					"questions": [
@@ -4396,6 +4421,6 @@
 			]
 		}
 	],
-	"uuid": "22c68f86-bbf0-49ba-b2d1-23fa7ccf0259",
-	"encounterType": "a0034eee-1940-4e35-847f-97537a35d05e"
+    "uuid": "b955d261-e023-4ff1-8602-aea468f1584f",
+    "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8"
 }
