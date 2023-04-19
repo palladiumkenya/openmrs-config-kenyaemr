@@ -13,40 +13,34 @@
 					"isExpanded": "true",
 					"questions": [
 						{
-							"label": "Visit Details",
-							"isExpanded": "true",
-							"questions": [
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "datetime"
+							},
+							"validators": [
 								{
-									"label": "Date:",
-									"type": "encounterDatetime",
-									"validators": [
-										{
-											"type": "date",
-											"allowFutureDates": "false"
-										}
-									],
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encDate"
-								},
-								{
-									"label": "Provider:",
-									"type": "encounterProvider",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encProvider "
-								},
-								{
-									"label": "Location:",
-									"type": "encounterLocation",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encLocation"
+									"type": "date",
+									"allowFutureDates": "false"
 								}
-							]
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "text"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "text"
+							},
+							"id": "encLocation"
 						}
 					]
 				},
@@ -279,7 +273,7 @@
 								},
 								{
 									"type": "js_expression",
-									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+									"failsWhenExpression": "myValue > useFieldValue('encDate')",
 									"message": "Next Appointment Date should not be in the past."
 								}
 							],

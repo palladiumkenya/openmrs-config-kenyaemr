@@ -16,7 +16,7 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "datetime"
 							},
 							"validators": [
 								{
@@ -30,7 +30,7 @@
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "text"
 							},
 							"id": "encProvider "
 						},
@@ -38,7 +38,7 @@
 							"label": "Location:",
 							"type": "encounterLocation",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "text"
 							},
 							"id": "encLocation"
 						}
@@ -112,10 +112,10 @@
 											"allowFutureDates": "false"
 										},
 										{
-											"type": "js_expression",
-											"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-											"message": "Vaccine date should not be greater than the encounter date."
-										}
+									"type": "js_expression",
+									"failsWhenExpression": "myValue > useFieldValue('encDate')",
+									"message": "Vaccine date should not be greater than the encounter date"
+								}
 									]
 								},
 								{

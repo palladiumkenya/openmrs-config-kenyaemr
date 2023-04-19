@@ -16,7 +16,7 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "datetime"
 							},
 							"validators": [
 								{
@@ -230,20 +230,28 @@
 										"label": "Forgot"
 									},
 									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "adherenceSelfAssessment !== '159406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && adherenceSelfAssessment !== '159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+							{
 										"label": "Other Specify",
 										"type": "obs",
 										"id": "otherSpecify",
 										"questionOptions": {
 											"concept": "163108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 											"rendering": "textarea"
+										},
+										"hide": {
+										  "hideWhenExpression": "fairBad !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 										}
-									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "adherenceSelfAssessment!=='159406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'&& adherenceSelfAssessment!=='159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
+									},
 						{
 							"label": "Adherence counselling done?",
 							"type": "obs",
@@ -286,7 +294,7 @@
 									}
 								]
 							},
-							"id": "status",
+							"id": "stAtus",
 							"required": "true"
 						},
 						{
@@ -308,7 +316,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "status !=='159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "stAtus !== '159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -334,7 +342,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "status !=='159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "stAtus !== '159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -346,7 +354,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "status !=='159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "status !== '159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -388,7 +396,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "status !=='159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "stAtus !== '159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -400,7 +408,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "status !=='159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && discontinueReasons !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "stAtus !== '159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && discontinueReasons !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -438,7 +446,7 @@
 								"rendering": "date"
 							},
 							"hide": {
-								"hideWhenExpression": "appointmentGiven !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "appointmentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							},
 							"validators": [
 								{
@@ -447,7 +455,7 @@
 								},
 								{
 									"type": "js_expression",
-									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"failsWhenExpression": "myValue < useFieldValue('encDate')",
 									"message": "Return to clinic date should be greater than the encounter date."
 								}
 							]
