@@ -3,14 +3,14 @@
 # Clean up previous build artifacts
 echo "Cleaning up previous build artifacts ..."
 rm -rf openmrs-config-kenyaemr
-rm -rf spa
+rm -rf frontend
 
 # Build assets
 echo "Building Kenya EMR 3.x assets ..."
 CWD=$(pwd)
 npx --legacy-peer-deps openmrs@next build \
   --build-config ./configuration/spa-build-config.json \
-  --target ./spa \
+  --target ./frontend \
   --page-title "KenyaEMR" \
   --support-offline false
 
@@ -24,11 +24,10 @@ npx --legacy-peer-deps openmrs@next assemble \
 
 # Copy required files
 echo "Copying required files ..."
-git clone https://github.com/palladiumkenya/openmrs-config-kenyaemr.git
-cp "${CWD}/openmrs-config-kenyaemr/assets/kenyaemr-login-logo.png" "${CWD}/spa"
-cp "${CWD}/openmrs-config-kenyaemr/assets/kenyaemr-primary-logo.png" "${CWD}/spa"
-cp "${CWD}/openmrs-config-kenyaemr/assets/favicon.ico" "${CWD}/spa"
-cp "${CWD}/configuration/config.json" "${CWD}/spa"
+cp "${CWD}/assets/kenyaemr-login-logo.png" "${CWD}/frontend"
+cp "${CWD}/assets/kenyaemr-primary-logo.png" "${CWD}/frontend"
+cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
+cp "${CWD}/configuration/config.json" "${CWD}/frontend"
 
 # Exit with success status
 exit 0
