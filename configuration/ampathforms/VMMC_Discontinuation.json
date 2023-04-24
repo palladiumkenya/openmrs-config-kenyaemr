@@ -6,21 +6,18 @@
 	"retired":false,
 	"pages": [
 		{
-			"label": "Vmmc Discontinuation Form",
+			"label": "VMMC Discontinuation Form",
 			"sections": [
 				{
 					"label": "Encounter Details",
 					"isExpanded": "true",
 					"questions": [
-						{
-							"label": "Visit Details",
-							"isExpanded": "true",
-							"questions": [
+						
 								{
 									"label": "Date:",
 									"type": "encounterDatetime",
 									"questionOptions": {
-										"rendering": "ui-select-extended"
+										"rendering": "datetime"
 									},
 									"validators": [
 										{
@@ -34,7 +31,7 @@
 									"label": "Provider:",
 									"type": "encounterProvider",
 									"questionOptions": {
-										"rendering": "ui-select-extended"
+										"rendering": "text"
 									},
 									"id": "encProvider "
 								},
@@ -42,12 +39,12 @@
 									"label": "Location:",
 									"type": "encounterLocation",
 									"questionOptions": {
-										"rendering": "ui-select-extended"
+										"rendering": "text"
 									},
 									"id": "encLocation"
 								}
-							]
-						}
+							
+						
 					]
 				},
 				{
@@ -61,17 +58,17 @@
 								"rendering": "date",
 								"concept": "164384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
-							"id": "discontinue-date",
+							"id": "discontinueDate",
 							"validators": [
 								{
 									"type": "date",
 									"allowFutureDates": "false"
 								},
 								{
-									"type": "js_expression",
-									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day'))",
-									"message": "Discontinuation date should not be before the encounter date."
-								}
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue > useFieldValue('encDate')",
+                  "message": "Discontinue date should not be greater than the encounter date."
+                }
 							],
 							"required": "true"
 						},

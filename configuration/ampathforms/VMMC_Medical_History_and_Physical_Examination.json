@@ -16,7 +16,7 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "datetime"
 							},
 							"id": "encDate",
 							"validators": [
@@ -30,7 +30,7 @@
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "text"
 							},
 							"id": "encProvider "
 						},
@@ -38,7 +38,8 @@
 							"label": "Location:",
 							"type": "encounterLocation",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "encounter-location",
+								"locationTag": ""
 							},
 							"id": "encLocation"
 						}
@@ -68,7 +69,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "age > 18 || sex !== 'M'"
+								"hideWhenExpression": "age > 18 || patient.gender !== 'M'"
 							}
 						},
 						{
@@ -114,7 +115,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "age < 18 || sex !== 'M'"
+								"hideWhenExpression": "age < 18 || patient.gender !== 'M'"
 							}
 						}
 					]
@@ -624,10 +625,7 @@
 								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || TickAllApply !== '142484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
-						{
-							"label": "Known Allergies",
-							"isExpanded": "true",
-							"questions": [
+						
 								{
 									"label": "Client has any known allergie(s)?  ",
 									"type": "obs",
@@ -900,9 +898,7 @@
 											]
 										}
 									]
-								}
-							]
-						},
+								},
 						{
 							"label": "Client ever had a surgical operation?",
 							"type": "obs",
