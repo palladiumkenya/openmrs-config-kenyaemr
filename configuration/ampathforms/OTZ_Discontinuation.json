@@ -16,7 +16,7 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "date"
 							},
 							"id": "encDate",
 							"validators": [
@@ -25,16 +25,17 @@
 									"allowFutureDates": "false"
 								},
 								{
-									"type": "js_expression",
-									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')"
-								}
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue > useFieldValue('encDate')",
+                  "message": "Visit date should not be greater than the encounter date."
+                }
 							]
 						},
 						{
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "text"
 							},
 							"id": "encProvider "
 						},
@@ -42,7 +43,8 @@
 							"label": "Location:",
 							"type": "encounterLocation",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "encounter-location",
+								"locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
 							},
 							"id": "encLocation"
 						}
@@ -96,12 +98,12 @@
 								{
 									"type": "date",
 									"allowFutureDates": "false"
-								},
-								{
-									"type": "js_expression",
-									"failsWhenExpression": "(new moment(encDetails)).isBefore((new moment(myValue)), 'day')",
-									"message": "Date of death should not be after the encounter date."
-								}
+								},								
+                {
+                    "type": "js_expression",
+                    "failsWhenExpression": "myValue > useFieldValue('encDate')",
+                    "message": "Date of death should not be after the encounter date.."
+                }
 							],
 							"hide": {
 								"hideWhenExpression": "isEmpty(discontinuationReason) || discontinuationReason != '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -132,12 +134,12 @@
 								{
 									"type": "date",
 									"allowFutureDates": "false"
-								},
-								{
-									"type": "js_expression",
-									"failsWhenExpression": "(new moment(encDetails)).isBefore((new moment(myValue)), 'day')",
-									"message": "Transfer out date should not be after the encounter date."
-								}
+								},								
+                {
+                    "type": "js_expression",
+                    "failsWhenExpression": "myValue > useFieldValue('encDate')",
+                    "message": "Transfer out date should not be after the encounter date."
+                }
 							],
 							"hide": {
 								"hideWhenExpression": "isEmpty(discontinuationReason) || discontinuationReason != '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"

@@ -16,7 +16,7 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "datetime"
 							},
 							"id": "encDate",
 							"validators": [
@@ -30,7 +30,7 @@
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "ui-select-extended"
+								"rendering": "text"
 							},
 							"id": "encProvider "
 						},
@@ -73,6 +73,13 @@
 								"max": "43",
 								"min": "25"
 							},
+							"validators": [
+								{
+								  "type": "js_expression",
+								  "warnsWhenExpression": "myValue => useFieldValue('teMp','37')",
+								  "message": "Screen the client for SARI/ILI case, TB"
+								}
+							  ],
 							"historicalExpression": "HD.getObject('prevEnc').getValue('5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
 						},
 						{
@@ -169,7 +176,7 @@
 								"max": "100",
 								"min": "0",
 								"calculate": {
-									"calculateExpression": "calcBMI(height,weight)"
+									"calculateExpression": "calcBMI('height','weight')"
 								}
 							}
 						},
@@ -184,7 +191,7 @@
 								"min": "0"
 							},
 							"hide": {
-								"hideWhenExpression": "age < 5 || age > 6 && sex !== 'F'"
+								"hideWhenExpression": "age < 5 || age > 6 && patient.gender !== 'F'"
 							}
 						},
 						{
@@ -202,7 +209,7 @@
 								}
 							],
 							"hide": {
-								"hideWhenExpression": "sex !== 'F' && age <= 10 || age >=49"
+								"hideWhenExpression": "patient.gender !== 'F' && age <= 10 || age >=49"
 							}
 						},
 						{
@@ -279,7 +286,7 @@
 							"id": "clientHpvVaccinated",
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "sex !== 'F' && (age >= 9 && age <= 14)"
+								"hideWhenExpression": "patient.gender !== 'F' && (age >= 9 && age <= 14)"
 							}
 						}
 					]
