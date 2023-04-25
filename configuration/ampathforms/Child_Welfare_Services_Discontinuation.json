@@ -1,152 +1,170 @@
 {
 	"name": "Child Welfare Services Discontinuation",
-	"description":"Child Welfare Services Discontinuation Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"description": "Child Welfare Services Discontinuation Form",
+	"version": "1",
+	"published": true,
+	"retired": false,
 	"pages": [
-		{
-			"label": "Child Welfare Services Discontinuation",
-			"sections": [
-				{
-					"label": "Visit Details",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "Visit Details",
-							"isExpanded": "true",
-							"questions": [
-								{
-									"label": "Date:",
-									"type": "encounterDatetime",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encDate"
-								},
-								{
-									"label": "Provider:",
-									"type": "encounterProvider",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encProvider "
-								},
-								{
-									"label": "Location:",
-									"type": "encounterLocation",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encLocation"
-								}
-							]
-						}
-					]
+	  {
+		"label": "Child Welfare Services Discontinuation",
+		"sections": [
+		  {
+			"label": "Visit Details",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Discontinued Date:",
+				"type": "encounterDatetime",
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				],
+				"questionOptions": {
+				  "rendering": "date"
 				},
-				{
-					"label": "Child Services Discontinuation",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "Reason",
-							"type": "obs",
-							"required": "true",
-							"questionOptions": {
-								"rendering": "select",
-								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Died"
-									},
-									{
-										"concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Completed"
-									},
-									{
-										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Transferred Out"
-									}
-								]
-							},
-							"id": "idReason"
-						},
-						{
-							"label": "Date of Death",
-							"type": "obs",
-							"id": "deathdate",
-							"questionOptions": {
-								"concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							},
-							"hide": {
-								"hideWhenExpression": "idReason !== '160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Transfer to Facility:",
-							"type": "obs",
-							"id": "transferToFacility",
-							"questionOptions": {
-								"concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "text"
-							},
-							"hide": {
-								"hideWhenExpression": "idReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Date Transferred Out",
-							"type": "obs",
-							"id": "dateTransferredOut",
-							"questionOptions": {
-								"concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							},
-							"hide": {
-								"hideWhenExpression": "idReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Transfer out verified?",
-							"type": "obs",
-							"id": "transferoutverified",
-							"questionOptions": {
-								"concept": "1285AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "idReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Date verified",
-							"type": "obs",
-							"id": "dateverified",
-							"questionOptions": {
-								"concept": "164133AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							},
-							"hide": {
-								"hideWhenExpression": "transferoutverified !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						}
-					]
-				}
+				"id": "encDate"
+			  },
+			  {
+				"label": "Provider:",
+				"type": "encounterProvider",
+				"questionOptions": {
+				  "rendering": "text"
+				},
+				"id": "encProvider "
+			  },
+			  {
+				"label": "Location:",
+				"type": "encounterLocation",
+				"questionOptions": {
+				  "rendering": "encounter-location",
+				  "locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
+				},
+				"id": "encLocation"
+			  }
 			]
-		}
+		  },
+		  {
+			"label": "Child Services Discontinuation",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Reason",
+				"type": "obs",
+				"required": "true",
+				"questionOptions": {
+				  "rendering": "select",
+				  "concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "answers": [
+					{
+					  "concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Died"
+					},
+					{
+					  "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Lost to Follow Up"
+					},
+					{
+					  "concept": "1641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Discharge at 18 month"
+					},
+					{
+					  "concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Completed"
+					},
+					{
+					  "concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Transferred Out"
+					}
+				  ]
+				},
+				"id": "idReason"
+			  },
+			  {
+				"label": "Date of Death",
+				"type": "obs",
+				"id": "deathdate",
+				"questionOptions": {
+				  "concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				}
+			  },
+			  {
+				"label": "Lost to Follow Up",
+				"type": "obs",
+				"id": "lostToFollowUp",
+				"questionOptions": {
+				  "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				},
+				"hide": {
+				  "hideWhenExpression": "idReason !== '160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Transfer to Facility:",
+				"type": "obs",
+				"id": "transferToFacility",
+				"questionOptions": {
+				  "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				},
+				"hide": {
+				  "hideWhenExpression": "idReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Date Transferred Out",
+				"type": "obs",
+				"id": "dateTransferredOut",
+				"questionOptions": {
+				  "concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"hide": {
+				  "hideWhenExpression": "idReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Transfer out verified?",
+				"type": "obs",
+				"id": "transferoutverified",
+				"questionOptions": {
+				  "concept": "1285AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					},
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "idReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Date verified",
+				"type": "obs",
+				"id": "dateverified",
+				"questionOptions": {
+				  "concept": "164133AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"hide": {
+				  "hideWhenExpression": "transferoutverified !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  }
+			]
+		  }
+		]
+	  }
 	],
 	"uuid": "1dd02c43-904b-4206-8378-7b1a8414c326",
 	"encounterType": "5feee3f1-aa16-4513-8bd0-5d9b27ef1208"
-}
+  }

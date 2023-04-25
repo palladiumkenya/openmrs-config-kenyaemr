@@ -1,133 +1,158 @@
 {
-	"name": "Vdot Discontinuation form",
-	"description":"Vdot Discontinuation Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"name": "VDOT Discontinuation form",
+	"description": "Vdot Discontinuation Form",
+	"version": "1",
+	"published": true,
+	"retired": false,
 	"pages": [
-		{
-			"label": "VDOT Discontinuation ",
-			"sections": [
-				{
-					"label": "Encounter Details",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "Visit Details",
-							"isExpanded": "true",
-							"questions": [
-								{
-									"label": "Date:",
-									"type": "encounterDatetime",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encDate"
-								},
-								{
-									"label": "Provider:",
-									"type": "encounterProvider",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encProvider "
-								},
-								{
-									"label": "Location:",
-									"type": "encounterLocation",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encLocation"
-								}
-							]
-						}
-					]
+	  {
+		"label": "VDOT Discontinuation ",
+		"sections": [
+		  {
+			"label": "Visit Details",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Date:",
+				"type": "encounterDatetime",
+				"questionOptions": {
+				  "rendering": "datetime"
 				},
-				{
-					"label": "VDOT Details",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "Reason:",
-							"type": "obs",
-							"id": "idReason",
-							"questionOptions": {
-								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Lost to Follow"
-									},
-									{
-										"concept": "819AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Cannot afford Treatment"
-									},
-									{
-										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Unknown"
-									},
-									{
-										"concept": "5c4276d0-4a47-42b9-b5f3-990b02fb7853",
-										"label": "Repeat VL outcome(Suppressed)"
-									},
-									{
-										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Transferred Out"
-									},
-									{
-										"concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Died"
-									},
-									{
-										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Other"
-									}
-								]
-							}
-						},
-						{
-							"label": "If Patient Died, please provide Date of Death if Known:",
-							"type": "obs",
-							"id": "__yLL6vvv48",
-							"questionOptions": {
-								"concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							},
-							"hide": {
-								"hideWhenExpression": "idReason != '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Transfer to Facility:",
-							"type": "obs",
-							"id": "__wnG0FyKKz",
-							"questionOptions": {
-								"concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "text"
-							},
-							"hide": {
-								"hideWhenExpression": "idReason != '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Date Transferred Out",
-							"type": "obs",
-							"id": "__qxDpJvHDK",
-							"questionOptions": {
-								"concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							},
-							"hide": {
-								"hideWhenExpression": "idReason != '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						}
-					]
-				}
+				"id": "encDate",
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				]
+			  },
+			  {
+				"label": "Provider:",
+				"type": "encounterProvider",
+				"questionOptions": {
+				  "rendering": "text"
+				},
+				"id": "encProvider "
+			  },
+			  {
+				"label": "Location:",
+				"type": "encounterLocation",
+				"questionOptions": {
+				  "rendering": "encounter-location",
+				  "locationTag": "b8bbf83e-645f-451f-8efe-a0db56f09676"
+				},
+				"id": "encLocation"
+			  }
 			]
-		}
+		  },
+		  {
+			"label": "Discontinue VDOT Client",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Reason:",
+				"type": "obs",
+				"id": "idReason",
+				"questionOptions": {
+				  "concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Lost to Follow"
+					},
+					{
+					  "concept": "819AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Cannot afford Treatment"
+					},
+					{
+					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Unknown"
+					},
+					{
+					  "concept": "5c4276d0-4a47-42b9-b5f3-990b02fb7853",
+					  "label": "Repeat VL outcome(Suppressed)"
+					},
+					{
+					  "concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Transferred Out"
+					},
+					{
+					  "concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Died"
+					},
+					{
+					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other"
+					}
+				  ]
+				}
+			  },
+			  {
+				"label": "If Patient Died, please provide Date of Death if Known:",
+				"type": "obs",
+				"id": "dateDeath",
+				"questionOptions": {
+				  "concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "idReason != '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Other (Specify):",
+				"type": "obs",
+				"id": "otherSpecify",
+				"questionOptions": {
+				  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				},
+				"hide": {
+				  "hideWhenExpression": "idReason != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Transfer to Facility:",
+				"type": "obs",
+				"id": "transferFacility",
+				"questionOptions": {
+				  "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				},
+				"hide": {
+				  "hideWhenExpression": "idReason != '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Date Transferred Out",
+				"type": "obs",
+				"id": "transferOut",
+				"questionOptions": {
+				  "concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "idReason != '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  }
+			]
+		  }
+		]
+	  }
 	],
 	"uuid": "967ed26f-2c4d-4cf4-9f49-1c27a8461756",
 	"encounterType": "90e54c41-da23-4ace-b472-0c8521c97594"
-}
+  }

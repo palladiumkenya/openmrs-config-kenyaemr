@@ -1,10 +1,10 @@
 {
   "name": "HIV Self Test Form",
-  "description":"HIV Self Test Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
-   "pages": [
+  "description": "HIV Self Test Form",
+  "version": "1",
+  "published": true,
+  "retired": false,
+  "pages": [
     {
       "label": "HIV Self Test",
       "sections": [
@@ -16,15 +16,21 @@
               "label": "Date:",
               "type": "encounterDatetime",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "datetime"
               },
-              "id": "encDate"
+              "id": "encDate",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+                ]
             },
             {
               "label": "Provider:",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "text"
               },
               "id": "encProvider "
             },
@@ -32,7 +38,8 @@
               "label": "Location:",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-location",
+                "locationTag": "b8bbf83e-645f-451f-8efe-a0db56f09676"
               },
               "id": "encLocation"
             }
@@ -48,7 +55,7 @@
               "id": "populationType",
               "questionOptions": {
                 "concept": "cf543666-ce76-4e91-8b8d-c0b54a436a2e",
-                "rendering": "radio",
+                "rendering": "select",
                 "answers": [
                   {
                     "concept": "5d308c8c-ad49-45e1-9885-e5d09a8e5587",
@@ -68,15 +75,12 @@
             {
               "label": "Key Population type :",
               "type": "obs",
-              "id": "keyPopType",
+              "id": "keyPopTypeMale",
               "questionOptions": {
                 "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
+                "rendering": "select",
                 "answers": [
-                  {
-                    "concept": "89828287-b96f-449c-b3ae-d518d55703e1",
-                    "label": "FSW"
-                  },
+                  
                   {
                     "concept": "160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "MSM"
@@ -97,7 +101,39 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550'"
+                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' && patient.gender !== 'M'"
+              }
+            },
+            {
+              "label": "Key Population type :",
+              "type": "obs",
+              "id": "keyPopTypeFemale",
+              "questionOptions": {
+                "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "89828287-b96f-449c-b3ae-d518d55703e1",
+                    "label": "FSW"
+                  },
+                  
+                  {
+                    "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "PWID"
+                  },
+                  {
+                    "concept": "bd370cad-06fe-4950-a36f-ed991b280ce6",
+                    "label": "Transgender"
+                  },
+                  {
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People in Prison and other closed settings"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' && patient.gender !== 'F'"
               }
             },
             {
@@ -106,7 +142,7 @@
               "id": "prioPopType",
               "questionOptions": {
                 "concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
+                "rendering": "select",
                 "answers": [
                   {
                     "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -162,7 +198,7 @@
               "id": "testResults",
               "questionOptions": {
                 "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
+                "rendering": "select",
                 "answers": [
                   {
                     "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -304,9 +340,13 @@
                   "validators": [
                     {
                       "type": "js_expression",
-                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "failsWhenExpression": "myValue <= useFieldValue('encDate')",
                       "message": "Kit expiry date should be greater than the encounter date."
-                    }
+                    },
+                    {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
                   ]
                 }
               ],
