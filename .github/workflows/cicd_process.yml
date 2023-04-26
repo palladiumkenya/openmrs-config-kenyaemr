@@ -1,0 +1,28 @@
+name: deploy to data
+on:
+  push:
+    branches: [ master ]
+jobs:
+
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote connection
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.CICD_HOST }}
+        username: ${{ secrets.CICD_USERNAME }}
+        key: ${{ secrets.CICD_SECRET }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd /apps/github-workflows/
+          sudo rm -rf openmrs-config-kenyaemr
+          sudo mkdir openmrs-config-kenyaemr
+          sudo chown -R cicd:cicd /apps/github-workflows/openmrs-config-kenyaemr
+          git config --global --add safe.directory /apps/github-workflows/openmrs-config-kenyaemr      
+          cd /apps/github-workflows/openmrs-config-kenyaemr
+          git clone -b master https://github.com/palladiumkenya/openmrs-config-kenyaemr.git .
+          git status
+          sudo cp -R /apps/github-workflows/openmrs-config-kenyaemr/openmrs-config-kenyaemr/configuration/ampathforms/ /var/lib/OpenMRS/configuration/
+          sudo service tomcat9 restart
