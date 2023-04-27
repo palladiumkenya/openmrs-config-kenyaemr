@@ -1,6 +1,6 @@
 # OpenMRS config for the OpenMRS distribution for KenyaEMR
 
-![KenyaEMR OpenMRS 3.x Deployment](https://github.com/palladiumkenya/openmrs-config-kenyaemr/workflows/.github/workflows/deployment.yml/badge.svg)
+![KenyaEMR OpenMRS 3.x Deployment](https://github.com/palladiumkenya/openmrs-config-kenyaemr/workflows/KenyaEMR%20CI/badge.svg)
 
 This is the OpenMRS backend configuration for the [OpenMRS distribution KenyaEMR](https://github.com/openmrs/openmrs-distro-kenyaemr).
 
