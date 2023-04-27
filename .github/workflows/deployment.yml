@@ -1,0 +1,61 @@
+name: OpenMRS 3.x CI/CD
+
+on:
+  push:
+    branches: [master]
+  repository_dispatch:
+    types: [manual-trigger]
+
+jobs:
+ build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3 
+      - name: Install dependencies and build frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build
+          cd ..
+        shell: bash 
+
+      - name: Upload frontend to server
+        uses: appleboy/scp-action@master 
+        with:
+          host: ${{ secrets.HOST }} 
+          username: ${{ secrets.USERNAME }} 
+          password: ${{ secrets.PASSWORD }} 
+          port: ${{ secrets.PORT }} 
+          source: './frontend/build/' 
+          target: '/var/lib/OpenMRS/frontend' 
+
+      - name: Update frontend directory on server
+        uses: appleboy/ssh-action@v0.1.10 
+        with:
+          host: ${{ secrets.HOST }} 
+          username: ${{ secrets.USERNAME }} 
+          password: ${{ secrets.PASSWORD }} 
+          port: ${{ secrets.PORT }} 
+          script: |
+            sudo mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old # Move the existing frontend directory to a backup location
+            sudo mv /var/lib/OpenMRS/frontend_old/frontend /var/lib/OpenMRS/ # Move the new frontend directory to the correct location
+            sudo rm -rf /var/lib/OpenMRS/frontend_old # Remove the backup frontend directory
+
+  manual-trigger:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger build job
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.PAT }}
+          repository: ${{ github.repository }}
+          event-type: manual-trigger
