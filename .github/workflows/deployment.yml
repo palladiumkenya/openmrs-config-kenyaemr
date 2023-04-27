@@ -1,65 +1,49 @@
-name: OpenMRS 3.x CI/CD
+name: KenyaEMR CI
 
-on:
+'on':
   push:
-    branches: [master]
-  repository_dispatch:
-    types: [manual-trigger]
-
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [18.x]
-
+        node-version:
+          - 18.x
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3 
-      - name: Install dependencies and build frontend
-         run: |
+      - uses: actions/checkout@v3
+      - name: 'Use Node.js ${{ matrix.node-version }}'
+        uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - name: Run script file
+        run: |
           chmod +x ./dev-build.sh
           sh ./dev-build.sh
-        shell: bash 
+        shell: bash
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: frontend
           path: |
             frontend
-
       - name: Upload frontend to server
         uses: appleboy/scp-action@master
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          source: './frontend/'
-          target: '/home/developers' 
-
+          host: '${{ secrets.HOST }}'
+          username: '${{ secrets.USERNAME }}'
+          password: '${{ secrets.PASSWORD }}'
+          port: '${{ secrets.PORT }}'
+          source: ./frontend/
+          target: /home/developers
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old # Move the existing frontend directory to a backup location
-            mv frontend /var/lib/OpenMRS/ # Move the new frontend directory to the correct location
-            rm -rf /var/lib/OpenMRS/frontend_old # Remove the backup frontend directory
-
-  manual-trigger:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger build job
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.PAT }}
-          repository: ${{ github.repository }}
-          event-type: manual-trigger
+          host: '${{ secrets.HOST }}'
+          username: '${{ secrets.USERNAME }}'
+          password: '${{ secrets.PASSWORD }}'
+          port: '${{ secrets.PORT }}'
+          script: >-
+            mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old && mv
+            /home/developers/frontend /var/lib/OpenMRS/frontend && rm -rf
+            /var/lib/OpenMRS/frontend_old
