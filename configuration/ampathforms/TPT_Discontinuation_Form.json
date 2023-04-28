@@ -1,5 +1,11 @@
 {
-	"name": "POC TPT Discontinuation Form v1.0",
+	"name": "TPT Outcome",
+	"description": "TPT Outcome",
+	"version": "1",
+	"published": true,
+	"uuid": "5bdd3b65-8b7b-46a0-9f7b-dfe764143848",
+	"retired": false,
+	"encounter": "IPT Outcome",
 	"pages": [
 		{
 			"label": "TPT Discontinuation",
@@ -49,87 +55,77 @@
 					"label": "Discontinue TPT",
 					"isExpanded": "true",
 					"questions": [
-						{
-							"label": "Reason for discontinuation:",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "select",
-								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Treatment completed"
-									},
-									{
-										"concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Lost to followup"
-									},
-									{
-										"concept": "159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Discontinued"
-									},
-									{
-										"concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Died"
-									},
-									{
-										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Transferred Out"
-									},
-									{
-										"concept": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Active TB Disease - ATB"
-									},
-									{
-										"concept": "102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Adverse drug reaction - ADR"
-									},
-									{
-										"concept": "159598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Poor adherence - PA"
-									},
-									{
-										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Others - OTR"
-									}
-								]
+					  {
+						"label": "Reason for discontinuation:",
+						"type": "obs",
+						"questionOptions": {
+						  "rendering": "select",
+						  "concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "answers": [
+							{
+							  "concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "Treatment completed"
 							},
-							"id": "__znzIMD1zC"
+							{
+							  "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "Lost to followup"
+							},
+							{
+							  "concept": "159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "Discontinued"
+							},
+							{
+							  "concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "Died"
+							},
+							{
+							  "concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "Transferred Out"
+							},
+							{
+							  "concept": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "Active TB Disease - ATB"
+							},
+							{
+							  "concept": "102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "Adverse drug reaction - ADR"
+							},
+							{
+							  "concept": "159598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "Poor adherence - PA"
+							},
+							{
+							  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "Others - OTR"
+							}
+						  ]
 						},
-						{
-							"label": "Discontinuation Date:",
-							"type": "encounterDate",
-							"id": "discondate",
-							"questionOptions": {
-								"rendering": "date"
-							},
-							"validators": [
-								{
-									"type": "date",
-									"allowFutureDates": "true"
-								},
-								{
-									"type": "js_expression",
-									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-									"message": "Discontinuation Date should be greater than the encounter date."
-								}
-							]
-						}
+						"id": "rEaSonDisc"
+					  },
+					  {
+						"label": "Discontinuation Date:",
+						"type": "encounterDate",
+						"id": "discondate",
+						"questionOptions": {
+						  "rendering": "date"
+						},
+						"validators": [
+						  {
+							"type": "date",
+							"allowFutureDates": "false"
+						  },
+						  {
+							"type": "js_expression",
+							"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+							"message": "Discontinuation Date should be greater than the encounter date."
+						  }
+						]
+					  }
 					]
-				}
+				  }
 			]
 		}
 	],
 	"processor": "EncounterFormProcessor",
-	"uuid": "xxxx",
-	"referencedForms": [
-		{
-			"ref": {
-				"uuid": "86324b04-9d61-47b0-96cf-87b320bfe2e3",
-				"display": "component_encounter-details v1.0"
-			},
-			"formName": "component_encounter-details v1.0",
-			"alias": "visitDetails"
-		}
-	]
+	"referencedForms": []
 }
