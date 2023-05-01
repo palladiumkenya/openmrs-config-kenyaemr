@@ -4,6 +4,7 @@ name: KenyaEMR CI
   push:
     branches:
       - master
+      - chore/create-backup
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -44,6 +45,6 @@ jobs:
           password: '${{ secrets.PASSWORD }}'
           port: '${{ secrets.PORT }}'
           script: >-
-            mkdir -p /home/developers/backup && mv /var/lib/OpenMRS/frontend
-            /home/developers/backup/frontend_old_${{ github.run_number }} && mv
-            /home/developers/frontend /var/lib/OpenMRS/frontend
+            mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old && mv
+            /home/developers/frontend /var/lib/OpenMRS/frontend && rm -rf
+            /var/lib/OpenMRS/frontend_old
