@@ -322,6 +322,9 @@
 							"questionOptions": {
 								"concept": "163300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "select",
+								"calculate": {
+									"calculateExpression": "parseInt(bMi) <= 16 ? '163302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : parseInt(bMi) >= 16 && parseInt(bMi) <= 18 ? '163303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : parseInt(bMi) >= 18 && parseInt(bMi) === 24 ? '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : parseInt(bMi) >= 25 ? '114413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' :''"
+								},
 								"answers": [
 									{
 										"concept": "163303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1060,7 +1063,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1082,7 +1085,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "OnantiTBdrugs !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1102,14 +1105,15 @@
 									}
 								]
 							},
+							"id": "EverOnTPT",
 							"hide": {
-								"hideWhenExpression": "OnTpT !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							},
-							"id": "EverOnTPT"
+								"hideWhenExpression": "isEmpty(OnTpT) || OnTpT === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						},
 						{
 							"label": "Screening Questions",
-							"type": "obs",
+							"type": "obsGroup",
+							"id": "scReeNiNQuiZ",
 							"questionOptions": {
 								"concept": "160108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "group"
@@ -1134,7 +1138,7 @@
 										]
 									},
 									"hide": {
-										"hideWhenExpression": "OnTpT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "EverOnTPT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								},
 								{
@@ -1156,7 +1160,7 @@
 										]
 									},
 									"hide": {
-										"hideWhenExpression": "OnTpT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "EverOnTPT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								},
 								{
@@ -1178,7 +1182,7 @@
 										]
 									},
 									"hide": {
-										"hideWhenExpression": "OnTpT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "EverOnTPT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								},
 								{
@@ -1200,7 +1204,7 @@
 										]
 									},
 									"hide": {
-										"hideWhenExpression": "OnTpT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "EverOnTPT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								},
 								{
@@ -1222,7 +1226,7 @@
 										]
 									},
 									"hide": {
-										"hideWhenExpression": "OnTpT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "EverOnTPT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								},
 								{
@@ -1244,363 +1248,357 @@
 										]
 									},
 									"hide": {
-										"hideWhenExpression": "OnTpT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "EverOnTPT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								}
-							],
-							"id": "scReeNiNQuiZ"
+							]
 						},
 						{
-							"label": "Sputum smear test ordered",
-							"type": "obs",
-							"id": "orDsputumSmEAr",
+							"label": "TB Screening Tests Ordered",
+							"type": "obsGroup",
+							"id": "tbScreeNinTestOr",
 							"questionOptions": {
-								"concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "checkbox",
-								"answers": [
-									{
+								"concept": "f2b2dc3b-faf4-4069-a0df-044b9034ac59",
+								"rendering": "group"
+							},
+							"questions": [
+								{
+									"label": "Sputum smear test ordered",
+									"type": "obs",
+									"id": "orDsputumSmEAr",
+									"questionOptions": {
+										"concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Sputum Smear"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "cOughDuratiOn !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || FeverIsh !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || WeigHtLossGain !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || NighTsWeatS !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ConTacTbCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || LeSSpLayFul !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Chest Xray ordered",
+									"type": "obs",
+									"id": "oRdchEstXray",
+									"questionOptions": {
+										"concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Chest Xray"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "cOughDuratiOn !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || FeverIsh !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || WeigHtLossGain !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || NighTsWeatS !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ConTacTbCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || LeSSpLayFul !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "GeneXpert ordered",
+									"type": "obs",
+									"id": "ordGenexPert",
+									"questionOptions": {
+										"concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "GeneXpert"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "cOughDuratiOn !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || FeverIsh !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || WeigHtLossGain !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || NighTsWeatS !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ConTacTbCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || LeSSpLayFul !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Sputum smear result",
+									"type": "obs",
+									"id": "sPutUmResuLts",
+									"questionOptions": {
 										"concept": "307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Sputum Smear"
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "POSITIVE"
+											},
+											{
+												"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "NEGATIVE"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "cOughDuratiOn !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || FeverIsh !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || WeigHtLossGain !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || NighTsWeatS !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ConTacTbCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || LeSSpLayFul !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "cOughDuratiOn !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Chest Xray ordered",
-							"type": "obs",
-							"id": "oRdchEstXray",
-							"questionOptions": {
-								"concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "checkbox",
-								"answers": [
-									{
+								},
+								{
+									"label": "Chest Xray result ",
+									"type": "obs",
+									"id": "chEstXrAyAction",
+									"questionOptions": {
 										"concept": "12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Chest Xray"
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "152526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Abnormal Chest X-Ray"
+											},
+											{
+												"concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Normal"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "cOughDuratiOn !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || FeverIsh !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || WeigHtLossGain !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || NighTsWeatS !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ConTacTbCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || LeSSpLayFul !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "cOughDuratiOn !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "GeneXpert ordered",
-							"type": "obs",
-							"id": "ordGenexPert",
-							"questionOptions": {
-								"concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "checkbox",
-								"answers": [
-									{
+								},
+								{
+									"label": "GeneXpert:",
+									"type": "obs",
+									"id": "geneXpertActiOn",
+									"questionOptions": {
 										"concept": "162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "GeneXpert"
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "INDETERMINATE"
+											},
+											{
+												"concept": "162204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Mycobacterium tuberculosis detected without rifampin resistance"
+											},
+											{
+												"concept": "164104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Mycobacterium tuberculosis detected with indeterminate rifampin resistance"
+											},
+											{
+												"concept": "162203AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Mycobacterium tuberculosis detected with rifampin resistance"
+											},
+											{
+												"concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Invalid"
+											},
+											{
+												"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "NEGATIVE"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "cOughDuratiOn !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || FeverIsh !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || WeigHtLossGain !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || NighTsWeatS !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ConTacTbCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || LeSSpLayFul !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "cOughDuratiOn !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Sputum smear result",
-							"type": "obs",
-							"id": "sPutUmResuLts",
-							"questionOptions": {
-								"concept": "307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "POSITIVE"
+								},
+								{
+									"label": "Clinical diagnosis:",
+									"type": "obs",
+									"id": "cliNicalDiagnosisAction",
+									"questionOptions": {
+										"concept": "163752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "radio",
+										"answers": [
+											{
+												"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "POSITIVE"
+											},
+											{
+												"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "NEGATIVE"
+											}
+										]
 									},
-									{
-										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "NEGATIVE"
+									"hide": {
+										"hideWhenExpression": "cOughDuratiOn !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || FeverIsh !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || WeigHtLossGain !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || NighTsWeatS !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ConTacTbCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || LeSSpLayFul !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "cOughDuratiOn !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Chest Xray result ",
-							"type": "obs",
-							"id": "chEstXrAyAction",
-							"questionOptions": {
-								"concept": "12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "152526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Abnormal Chest X-Ray"
+								},
+								{
+									"label": "Invitation of contacts:",
+									"type": "obs",
+									"id": "InViTationConTacts",
+									"questionOptions": {
+										"concept": "163414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "radio",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											}
+										]
 									},
-									{
-										"concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Normal"
+									"hide": {
+										"hideWhenExpression": "cOughDuratiOn !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || FeverIsh !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || WeigHtLossGain !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || NighTsWeatS !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ConTacTbCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || LeSSpLayFul !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "cOughDuratiOn !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "GeneXpert:",
-							"type": "obs",
-							"id": "geneXpertActiOn",
-							"questionOptions": {
-								"concept": "162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "INDETERMINATE"
+								},
+								{
+									"label": "Evaluated for TPT:",
+									"type": "obs",
+									"id": "EvaLfoRTpT",
+									"questionOptions": {
+										"concept": "162275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "radio",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											}
+										]
 									},
-									{
-										"concept": "162204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Mycobacterium tuberculosis detected without rifampin resistance"
-									},
-									{
-										"concept": "164104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Mycobacterium tuberculosis detected with indeterminate rifampin resistance"
-									},
-									{
-										"concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Invalid"
-									},
-									{
-										"concept": "162203AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Mycobacterium tuberculosis detected with rifampin resistance"
-									},
-									{
-										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "NEGATIVE"
+									"hide": {
+										"hideWhenExpression": "cOughDuratiOn !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || FeverIsh !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || WeigHtLossGain !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || NighTsWeatS !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ConTacTbCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || LeSSpLayFul !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "cOughDuratiOn !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Clinical diagnosis:",
-							"type": "obs",
-							"id": "cliNicalDiagnosisAction",
-							"questionOptions": {
-								"concept": "163752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "POSITIVE"
+								},
+								{
+									"label": "Start Anti-TBs:",
+									"type": "obs",
+									"id": "stArtaNtiTb",
+									"questionOptions": {
+										"concept": "162309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "radio",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No (Refer)"
+											}
+										]
 									},
-									{
-										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "NEGATIVE"
+									"hide": {
+										"hideWhenExpression": "sPutUmResuLts !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "cOughDuratiOn !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Invitation of contacts:",
-							"type": "obs",
-							"id": "InViTationConTacts",
-							"questionOptions": {
-								"concept": "163414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
+								},
+								{
+									"label": "Referring facility:",
+									"type": "obs",
+									"id": "tBFacReferral",
+									"questionOptions": {
+										"concept": "161562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "text"
 									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
+									"hide": {
+										"hideWhenExpression": "stArtaNtiTb !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "cOughDuratiOn !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Evaluated for TPT:",
-							"type": "obs",
-							"id": "EvaLfoRTpT",
-							"questionOptions": {
-								"concept": "162275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
+								},
+								{
+									"label": "TB Rx date: ",
+									"type": "obs",
+									"id": "DatEforTBrx",
+									"questionOptions": {
+										"concept": "1113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "date"
 									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "false"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "sPutUmResuLts !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "cOughDuratiOn !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Start Anti-TBs:",
-							"type": "obs",
-							"id": "stArtaNtiTb",
-							"questionOptions": {
-								"concept": "162309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
+								},
+								{
+									"label": "TB Rx:",
+									"type": "obs",
+									"id": "MediCationTB",
+									"questionOptions": {
+										"concept": "1111AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "RIFAMPICIN ISONIAZID PYRAZINAMIDE AND ETHAMBUTOL"
+											},
+											{
+												"concept": "78280AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "ISONIAZID"
+											},
+											{
+												"concept": "160096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "5HR + E"
+											},
+											{
+												"concept": "160092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Isoniazid/Rifampin/Pyrazinamide/Ethambutol prophylaxis for 2 months"
+											},
+											{
+												"concept": "82900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "PYRAZINAMIDE"
+											},
+											{
+												"concept": "768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "RIFAMPICIN ISONIAZID AND PYRAZINAMIDE"
+											},
+											{
+												"concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "None"
+											},
+											{
+												"concept": "160097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "2HRZ"
+											},
+											{
+												"concept": "1108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "ETHAMBUTOL AND ISONIAZID"
+											},
+											{
+												"concept": "163753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Streptomycin for 2 months"
+											},
+											{
+												"concept": "160094AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "2S + HRZE"
+											},
+											{
+												"concept": "75948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "ETHAMBUTOL"
+											},
+											{
+												"concept": "84360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "STREPTOMYCIN"
+											},
+											{
+												"concept": "160095AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "1HRZE"
+											},
+											{
+												"concept": "767AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "RIFAMPICIN"
+											},
+											{
+												"concept": "160093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Isoniazid/Rifampin prophylaxis for 4 months"
+											},
+											{
+												"concept": "1194AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "RIFAMPICIN AND ISONIAZID"
+											}
+										]
 									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No (Refer)"
+									"hide": {
+										"hideWhenExpression": "sPutUmResuLts !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "sPutUmResuLts !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Referral",
-							"type": "obs",
-							"id": "ReFeRR",
-							"questionOptions": {
-								"concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "isEmpty(OnantiTBdrugs)"
-							}
-						},
-						{
-							"label": "Referring facility:",
-							"type": "obs",
-							"id": "tBFacReferral",
-							"questionOptions": {
-								"concept": "161562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "text"
-							},
-							"hide": {
-								"hideWhenExpression": "stArtaNtiTb !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "TB Rx date: ",
-							"type": "obs",
-							"id": "DatEforTBrx",
-							"questionOptions": {
-								"concept": "1113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							},
-							"hide": {
-								"hideWhenExpression": "sPutUmResuLts !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "TB Rx:",
-							"type": "obs",
-							"id": "MediCationTB",
-							"questionOptions": {
-								"concept": "1111AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "1131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "RIFAMPICIN ISONIAZID PYRAZINAMIDE AND ETHAMBUTOL"
-									},
-									{
-										"concept": "78280AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "ISONIAZID"
-									},
-									{
-										"concept": "160096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "5HR + E"
-									},
-									{
-										"concept": "160092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Isoniazid/Rifampin/Pyrazinamide/Ethambutol prophylaxis for 2 months"
-									},
-									{
-										"concept": "82900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "PYRAZINAMIDE"
-									},
-									{
-										"concept": "768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "RIFAMPICIN ISONIAZID AND PYRAZINAMIDE"
-									},
-									{
-										"concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "None"
-									},
-									{
-										"concept": "160097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "2HRZ"
-									},
-									{
-										"concept": "1108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "ETHAMBUTOL AND ISONIAZID"
-									},
-									{
-										"concept": "163753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Streptomycin for 2 months"
-									},
-									{
-										"concept": "160094AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "2S + HRZE"
-									},
-									{
-										"concept": "75948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "ETHAMBUTOL"
-									},
-									{
-										"concept": "84360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "STREPTOMYCIN"
-									},
-									{
-										"concept": "160095AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "1HRZE"
-									},
-									{
-										"concept": "767AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "RIFAMPICIN"
-									},
-									{
-										"concept": "160093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Isoniazid/Rifampin prophylaxis for 4 months"
-									},
-									{
-										"concept": "1194AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "RIFAMPICIN AND ISONIAZID"
-									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "sPutUmResuLts !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
+								}
+							]
 						},
 						{
 							"label": "Resulting TB Status:",
@@ -1609,6 +1607,9 @@
 							"questionOptions": {
 								"concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
+								"calculate": {
+									"calculateExpression": "String(sPutUmResuLts) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(cliNicalDiagnosisAction) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(geneXpertActiOn) === '162204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(geneXpertActiOn) === '164104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(geneXpertActiOn) === '162203AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(sPutUmResuLts) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(orDsputumSmEAr) === '307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(oRdchEstXray) === '12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(ordGenexPert) === '162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(ConTacTbCase) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'&& String(LeSSpLayFul) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+								},
 								"answers": [
 									{
 										"concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1629,7 +1630,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "isEmpty(OnantiTBdrugs)"
+								"hideWhenExpression": "cOughDuratiOn === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) && NighTsWeatS === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || LeSSpLayFul === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1649,17 +1650,17 @@
 										"rendering": "radio",
 										"answers": [
 											{
-												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "No"
+												"concept": "124994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
 											},
 											{
-												"concept": "162311AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Yes"
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
 											}
 										]
 									},
 									"hide": {
-										"hideWhenExpression": "cOughDuratiOn !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								},
 								{
@@ -1671,20 +1672,17 @@
 										"rendering": "radio",
 										"answers": [
 											{
-												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "No"
+												"concept": "124994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
 											},
 											{
-												"concept": "132652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Yes"
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
 											}
-										],
-										"hide": {
-											"hideWhenExpression": "EverOnTPT !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-										}
+										]
 									},
 									"hide": {
-										"hideWhenExpression": "cOughDuratiOn !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								},
 								{
@@ -1706,7 +1704,7 @@
 										]
 									},
 									"hide": {
-										"hideWhenExpression": "cOughDuratiOn !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								},
 								{
@@ -1728,7 +1726,23 @@
 										]
 									},
 									"hide": {
-										"hideWhenExpression": "cOughDuratiOn !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && FeverIsh !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && WeigHtLossGain !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && NighTsWeatS !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ConTacTbCase !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && LeSSpLayFul !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Start TPT",
+									"type": "encounterProvider",
+									"id": "StaRtTPT",
+									"alert": {
+										"alertWhenExpression": "String(yeLLOwUrine) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(NumBnessHaFeT) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(YellOwEyEs) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(teNderNessaBdOmeN) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+										"message": "Candidate for TPT Initiation"
+									},
+									"questionOptions": {
+										"concept": "163104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "ui-select-extended"
+									},
+									"hide": {
+										"hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								}
 							],
