@@ -61,6 +61,41 @@
 							"id": "visitDate"
 						},
 						{
+							"label": "Follow-up",
+							"type": "obs",
+							"id": "followupfor",
+							"questionOptions": {
+								"concept": "167079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "160552AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Nutrion services"
+									},
+									{
+										"concept": "161624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Rehabilitaon services"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							}
+						},
+						{
+							"label": "Specify :",
+							"type": "obs",
+							"id": "otherspecifyfollowup",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(followupfor) || followupfor != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
 							"label": "Revisit this year?",
 							"type": "obs",
 							"id": "revisitThisYear",
@@ -111,6 +146,30 @@
 							}
 						},
 						{
+							"label": "Specify :",
+							"type": "obs",
+							"id": "otherspecifyfollowup",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(primaryCaregiver) || primaryCaregiver != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Mother's Viral Load: cp/ml",
+							"type": "obs",
+							"id": "motherVL",
+							"questionOptions": {
+								"concept": "856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(primaryCaregiver) || primaryCaregiver != '970AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
 							"label": "Age (Weeks/Months)",
 							"type": "obs",
 							"questionOptions": {
@@ -135,6 +194,37 @@
 								]
 							},
 							"id": "weekMonths"
+						},
+						{
+							"label": "Weight:",
+							"type": "obs",
+							"id": "weight",
+							"questionOptions": {
+								"concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							}
+						},
+						{
+							"label": "Height:",
+							"type": "obs",
+							"id": "height",
+							"required": "true",
+							"questionOptions": {
+								"concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							}
+						},
+						{
+							"label": "Z-Score:",
+							"type": "obs",
+							"id": "zscore",
+							"questionOptions": {
+								"concept": "162584AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
+							},
+							"calculate": {
+								"calculateExpression": "calcWeightForHeightZscore(weightForHeightRef, height, weight)"
+							}
 						},
 						{
 							"label": "MUAC",
@@ -167,6 +257,14 @@
 								"concept": "1151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
 								"answers": [
+									{
+										"concept": "164478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Not Breastfeeding(NBF)"
+									},
+									{
+										"concept": "5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Breastfeeding(BF)"
+									},
 									{
 										"concept": "5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Exclusive Breastfeeding(EBF)"
@@ -202,20 +300,59 @@
 							}
 						},
 						{
-							"label": "Exclusive breastfeeding 0-6 Months Stunted?",
+							"label": "Height/Length (k)",
 							"type": "obs",
-							"id": "stunted",
+							"id": "",
 							"questionOptions": {
 								"concept": "164088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "164085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
+										"concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Normal"
 									},
 									{
-										"concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
+										"concept": "164085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Stunted"
+									},
+									{
+										"concept": "164086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Severe stunted"
+									}
+								]
+							}
+						},
+						{
+							"label": "Any Danger Signs (l)",
+							"type": "obs",
+							"id": "",
+							"questionOptions": {
+								"concept": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unable to drink or breastfeed"
+									},
+									{
+										"concept": "1983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unable to drink fluids"
+									},
+									{
+										"concept": "164482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Vomiting everything"
+									},
+									{
+										"concept": "138868AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Hemorrhagic diarrhea"
+									},
+									{
+										"concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Oedema"
+									},
+									{
+										"concept": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Currently convulsing"
 									}
 								]
 							}
@@ -229,20 +366,20 @@
 								"rendering": "checkbox",
 								"answers": [
 									{
-										"concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "NEVIRAPINE"
+										"concept": "86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "ZIDOVUDINE (AZT)"
 									},
 									{
-										"concept": "86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "ZIDOVUDINE"
+										"concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "NEVIRAPINE (NVP)"
 									},
 									{
 										"concept": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "SULFAMETHOXAZOLE / TRIMETHOPRIM"
+										"label": "SULFAMETHOXAZOLE / TRIMETHOPRIM (CTX)"
 									},
 									{
 										"concept": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "MULTIVITAMIN"
+										"label": "MULTIVITAMIN (M/vit)"
 									}
 								]
 							}
@@ -253,7 +390,7 @@
 							"id": "btAssesmentOutcome",
 							"questionOptions": {
 								"concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "radio",
+								"rendering": "select",
 								"answers": [
 									{
 										"concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -289,10 +426,48 @@
 							"questionOptions": {
 								"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Next Appointment date should be greater than the encounter date."
+								}
+							]
+						},
+						{
+							"label": "Referred?:",
+							"type": "obs",
+							"id": "referralQuestion",
+							"questionOptions": {
+								"concept": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
 							}
 						},
 						{
-							"label": "Referral from: Referral from:",
+							"label": "Reason for Referral Specify:",
+							"type": "obs",
+							"id": "referralReason",
+							"questionOptions": {
+								"concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(referralQuestion) || referralQuestion !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Referral from:",
 							"type": "obs",
 							"id": "referralFrom",
 							"questionOptions": {
@@ -311,7 +486,19 @@
 							}
 						},
 						{
-							"label": "Referral from: Referral to:",
+							"label": "Specify:",
+							"type": "obs",
+							"id": "specify",
+							"questionOptions": {
+								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(referralFrom) || referralFrom !== '1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Referral to:",
 							"type": "obs",
 							"id": "referralTo",
 							"questionOptions": {
@@ -328,227 +515,306 @@
 									}
 								]
 							}
+						},
+						{
+							"label": "Specify:",
+							"type": "obs",
+							"id": "referralToSpecify",
+							"questionOptions": {
+								"concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(referralTo) || referralTo !== '1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						}
 					]
 				},
 				{
-					"label": "DNA PCR TEST",
+					"label": "Milestones",
 					"isExpanded": "true",
 					"questions": [
 						{
-							"label": "DNA PCR",
-							"type": "obsGroup",
+							"label": "Development Milestones by Age",
+							"id": "developmentMilestones",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "checkbox",
+								"concept": "162069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "162057AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Head Holding/Control"
+									},
+									{
+										"concept": "162062AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Standing"
+									},
+									{
+										"concept": "162063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Walking"
+									},
+									{
+										"concept": "162058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Turns towards the origin of sound"
+									},
+									{
+										"concept": "162060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Talking"
+									},
+									{
+										"concept": "162056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Social Smile"
+									},
+									{
+										"concept": "162061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Sitting"
+									},
+									{
+										"concept": "162059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Extends hand to grasp a toy"
+									}
+								]
+							}
+						},
+						{
+							"label": "Achieving Milestones?",
+							"type": "obs",
+							"id": "achievingMilestones",
+							"questionOptions": {
+								"concept": "1189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "6022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Delayed(D)"
+									},
+									{
+										"concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Normal(N)"
+									},
+									{
+										"concept": "6025AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Regressed(R)"
+									}
+								]
+							}
+						},
+						{
+							"label": "Weight Category",
+							"type": "obs",
+							"id": "weighCategory",
+							"questionOptions": {
+								"concept": "1854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "123814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Underweight(UW)"
+									},
+									{
+										"concept": "126598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Severely Underweight(SUW)"
+									},
+									{
+										"concept": "114413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Overweight(OW)"
+									},
+									{
+										"concept": "115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Obese(O)"
+									},
+									{
+										"concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Normal(N)"
+									}
+								]
+							}
+						},
+						{
+							"label": "Type of followup",
+							"type": "obs",
+							"id": "typeFollowup",
+							"questionOptions": {
+								"concept": "159402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "132636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Marasmus"
+									},
+									{
+										"concept": "116474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Kwashiorkor"
+									},
+									{
+										"concept": "115122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Mulnutrition"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							}
+						},
+						{
+							"label": "Specify:",
+							"type": "obs",
+							"id": "followupSpecify",
+							"questionOptions": {
+								"concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(typeFollowup) || typeFollowup !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Labaratory Information",
+					"isExpanded": "true",
+					"questions": [
+						{
 							"id": "dnaPcr",
-							"questionOptions": {
-								"concept": "162085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "group"
-							}
-						},
-						{
-							"label": "Date of Sample Collection",
-							"type": "obs",
-							"id": "dateOfSampleCollectionDna",
-							"questionOptions": {
-								"concept": "159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							}
-						},
-						{
-							"label": "Test Contextual Status",
-							"type": "obs",
-							"id": "testContextualStatusDna",
-							"questionOptions": {
-								"concept": "162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "162080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Initial"
-									},
-									{
-										"concept": "162082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Confirmation"
-									},
-									{
-										"concept": "162083AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Final test (end of pediatric window)"
-									},
-									{
-										"concept": "162081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Repeat"
-									}
-								]
-							}
-						},
-						{
-							"label": "Results",
-							"type": "obs",
-							"id": "resultsDna",
-							"questionOptions": {
-								"concept": "1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "INDETERMINATE"
-									},
-									{
-										"concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "POOR SAMPLE QUALITY"
-									},
-									{
-										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "POSITIVE"
-									},
-									{
-										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "NEGATIVE"
-									}
-								]
-							}
-						},
-						{
-							"label": "DBS Sample Code",
-							"type": "obs",
-							"id": "dBSSampleCodeDna",
-							"questionOptions": {
-								"concept": "162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "text"
-							}
-						},
-						{
-							"label": "Date Results Collected",
-							"type": "obs",
-							"id": "dateResultsCollectedDna",
-							"questionOptions": {
-								"concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							}
-						}
-					]
-				},
-				{
-					"label": "First Antibody test",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "First Antibody Test",
+							"label": "Laboratory Information",
 							"type": "obsGroup",
-							"id": "firstAntibodyTest",
 							"questionOptions": {
-								"concept": "162085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "group"
-							}
-						},
-						{
-							"label": "Date of Sample Collection",
-							"type": "obs",
-							"id": "dateOfSampleCollectionFirst",
-							"questionOptions": {
-								"concept": "159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							}
-						},
-						{
-							"label": "Results",
-							"type": "obs",
-							"id": "resultsFirst",
-							"questionOptions": {
-								"concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "POOR SAMPLE QUALITY"
-									},
-									{
-										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "POSITIVE"
-									},
-									{
-										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "NEGATIVE"
+								"rendering": "repeating",
+								"concept": "162085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"questions": [
+								{
+									"label": "Type of Test",
+									"type": "obs",
+									"id": "typeofTest",
+									"questionOptions": {
+										"concept": "b61c1482-1697-404c-ab96-fd698d5fd317",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "1st DNA PCR"
+											},
+											{
+												"concept": "167015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "2nd DNA PCR at 6 months"
+											},
+											{
+												"concept": "bbd5d81e-d694-48e6-a948-ed82e63e2030",
+												"label": "3rd DNA PCR at 12 months"
+											},
+											{
+												"concept": "1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Confirmatory PCR for positives"
+											},
+											{
+												"concept": "4da97634-7e25-4b96-8d21-62106c7e1c68",
+												"label": "Baseline viral load for positives"
+											},
+											{
+												"concept": "164860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Final antibody at 18 months"
+											}
+										]
 									}
-								]
-							}
-						},
-						{
-							"label": "DBS Sample Code",
-							"type": "obs",
-							"id": "dBSSampleCodeFirst",
-							"questionOptions": {
-								"concept": "162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "text"
-							}
-						},
-						{
-							"label": "Date Results Collected",
-							"type": "obs",
-							"id": "dateResultsCollectedFirst",
-							"questionOptions": {
-								"concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							}
-						}
-					]
-				},
-				{
-					"label": "Final Antibody Test",
-					"type": "obsGroup",
-					"questionOptions": {
-						"concept": "162085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"rendering": "group"
-					},
-					"questions": [
-						{
-							"label": "Date of Sample Collection",
-							"type": "obs",
-							"id": "dateOfSampleCollectionFinal",
-							"questionOptions": {
-								"concept": "159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							}
-						},
-						{
-							"label": "Results",
-							"type": "obs",
-							"id": "resultsFinal",
-							"questionOptions": {
-								"concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "POOR SAMPLE QUALITY"
+								},
+								{
+									"label": "Date of Sample Collection",
+									"type": "obs",
+									"id": "dateOfSampleCollectionDna",
+									"questionOptions": {
+										"concept": "159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "date"
 									},
-									{
-										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "POSITIVE"
-									},
-									{
-										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "NEGATIVE"
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "false"
+										}
+									]
+								},
+								{
+									"label": "Test Contextual Status",
+									"type": "obs",
+									"id": "testContextualStatusDna",
+									"questionOptions": {
+										"concept": "162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "162080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Initial"
+											},
+											{
+												"concept": "162082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Confirmation"
+											},
+											{
+												"concept": "162083AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Final test (end of pediatric window)"
+											},
+											{
+												"concept": "162081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Repeat"
+											}
+										]
 									}
-								]
-							}
-						},
-						{
-							"label": "DBS Sample Code",
-							"type": "obs",
-							"id": "dBSSampleCodeFinal",
-							"questionOptions": {
-								"concept": "162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "text"
-							}
-						},
-						{
-							"label": "Date Results Collected",
-							"type": "obs",
-							"id": "dateResultsCollectedFinal",
-							"questionOptions": {
-								"concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							}
+								},
+								{
+									"label": "Results",
+									"type": "obs",
+									"id": "resultsDna",
+									"questionOptions": {
+										"concept": "1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "INDETERMINATE"
+											},
+											{
+												"concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "POOR SAMPLE QUALITY"
+											},
+											{
+												"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "POSITIVE"
+											},
+											{
+												"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "NEGATIVE"
+											}
+										]
+									}
+								},
+								{
+									"label": "DBS Sample Code",
+									"type": "obs",
+									"id": "dBSSampleCodeDna",
+									"questionOptions": {
+										"concept": "162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "text"
+									}
+								},
+								{
+									"label": "Date Results Collected",
+									"type": "obs",
+									"id": "dateResultsCollectedDna",
+									"questionOptions": {
+										"concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "date"
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "(new moment(dateOfSampleCollectionDna)).isAfter((new moment(myValue)), 'day') || (new moment(dateOfSampleCollectionDna)).isSame((new moment(myValue)), 'day')",
+											"message": "Date results collected should be greater than the sample collection date."
+										}
+									]
+								}
+							]
 						}
 					]
 				}
@@ -689,13 +955,43 @@
 									}
 								},
 								{
+									"label": "Units",
+									"type": "obs",
+									"id": "units",
+									"questionOptions": {
+										"concept": "161563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1513AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Tablet"
+											},
+											{
+												"concept": "161554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Gram"
+											},
+											{
+												"concept": "161553AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Milligram"
+											}
+										]
+									}
+								},
+								{
 									"label": "Date Of Next Visit",
 									"type": "obs",
 									"id": "dateOfNextVisit",
 									"questionOptions": {
 										"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"rendering": "date"
-									}
+									},
+									"validators": [
+										{
+											"type": "js_expression",
+											"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+											"message": "Date of next visit should be greater than the encounter date."
+										}
+									]
 								}
 							],
 							"id": "__r2ovtspGn"
@@ -741,18 +1037,9 @@
 					]
 				},
 				{
-					"label": "Clinical Notes",
+					"label": "Other Parameters",
 					"isExpanded": "true",
 					"questions": [
-						{
-							"label": "Clinician's Notes",
-							"type": "obs",
-							"id": "cliniciansNotes",
-							"questionOptions": {
-								"concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "textarea"
-							}
-						},
 						{
 							"label": "Counseled On?",
 							"type": "obs",
@@ -790,6 +1077,25 @@
 									}
 								]
 							}
+						},
+						{
+							"label": "Long-lasting insecticidal nets (LLIN) given to less than 1 Year old?",
+							"type": "obs",
+							"id": "longLasting-net",
+							"questionOptions": {
+								"concept": "159855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
 						}
 					]
 				},
@@ -803,6 +1109,15 @@
 							"id": "physicalFeatures",
 							"questionOptions": {
 								"concept": "1391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							}
+						},
+						{
+							"label": "Clinician's Notes",
+							"type": "obs",
+							"id": "cliniciansNotes",
+							"questionOptions": {
+								"concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "textarea"
 							}
 						}
