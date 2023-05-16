@@ -21,7 +21,13 @@
 								"rendering": "date"
 							},
 							"id": "encounterDate",
-							"required": "true"
+							"required": "true",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 						},
 						{
 							"label": "Provider",
@@ -54,7 +60,7 @@
 							"label": "Population type",
 							"type": "obs",
 							"questionOptions": {
-								"rendering": "radio",
+								"rendering": "select",
 								"concept": "cf543666-ce76-4e91-8b8d-c0b54a436a2e",
 								"answers": [
 									{
@@ -74,38 +80,152 @@
 							"id": "populationType"
 						},
 						{
+							"label": "Please indicate Key population type :",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "People who inject drugs"
+									},
+									{
+										"concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Female sex Worker"
+									},
+									{
+										"concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "People in prison and other closed settings"
+									},
+									{
+										"concept": "165100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transgender"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Others"
+									}
+								]
+							},
+							"id": "femaleKeyPopTypes",
+							"hide": {
+								"hideWhenExpression": "isEmpty(populationType) || populationType != 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || sex !== 'F'"
+							}
+						},
+						{
+							"label": "Please indicate Key population type :",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "People who inject drugs"
+									},
+									{
+										"concept": "160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Men who have sex with men"
+									},
+									{
+										"concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "People in prison and other closed settings"
+									},
+									{
+										"concept": "165100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Transgender"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Others"
+									}
+								]
+							},
+							"id": "maleKeyPopTypes",
+							"hide": {
+								"hideWhenExpression": "isEmpty(populationType) || populationType != 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || sex !== 'M'"
+							}
+						},
+						{
+							"label": "Please indicate Priority Population :",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Fisher folk"
+									},
+									{
+										"concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Truck driver"
+									},
+									{
+										"concept": "160549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Adolescent and young girls"
+									},
+									{
+										"concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Prisoner"
+									},
+									{
+										"concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
+										"label": "Military and other uniformed services"
+									},
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Not Applicable"
+									}
+								]
+							},
+							"id": "femalePriorityPopulation",
+							"hide": {
+								"hideWhenExpression": "isEmpty(populationType) || populationType != '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F'"
+							}
+						},
+						{
+							"label": "Please indicate Priority Population :",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Fisher folk"
+									},
+									{
+										"concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Truck driver"
+									},
+									{
+										"concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Prisoner"
+									},
+									{
+										"concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
+										"label": "Military and other uniformed services"
+									},
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Not Applicable"
+									}
+								]
+							},
+							"id": "malePriorityPopulation",
+							"hide": {
+								"hideWhenExpression": "isEmpty(populationType) || populationType != '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'M'"
+							}
+						},
+						{
 							"label": "Does client have any disability?",
 							"type": "obs",
 							"questionOptions": {
 								"rendering": "radio",
 								"concept": "91a87033-8f75-4f08-9f15-0d8ae66bd9d9",
 								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No",
-										"conceptMappings": [
-											{
-												"type": "PIH",
-												"value": "1066"
-											},
-											{
-												"type": "PIH Malawi",
-												"value": "Malawi: 1066"
-											},
-											{
-												"type": "AMPATH",
-												"value": "1066"
-											},
-											{
-												"type": "CIEL",
-												"value": "1066"
-											},
-											{
-												"type": "SNOMED CT",
-												"value": "CT: 373067005"
-											}
-										]
-									},
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes",
@@ -115,20 +235,46 @@
 												"value": "1065"
 											},
 											{
-												"type": "SNOMED CT",
-												"value": "CT: 373066001"
-											},
-											{
 												"type": "PIH Malawi",
 												"value": "Malawi: 1065"
+											},
+											{
+												"type": "AMPATH",
+												"value": "1065"
 											},
 											{
 												"type": "CIEL",
 												"value": "1065"
 											},
 											{
+												"type": "SNOMED CT",
+												"value": "CT: 373066001"
+											}
+										]
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "PIH",
+												"value": "1066"
+											},
+											{
+												"type": "SNOMED CT",
+												"value": "CT: 373067005"
+											},
+											{
+												"type": "PIH Malawi",
+												"value": "Malawi: 1066"
+											},
+											{
+												"type": "CIEL",
+												"value": "1066"
+											},
+											{
 												"type": "AMPATH",
-												"value": "1065"
+												"value": "1066"
 											}
 										]
 									}
@@ -173,145 +319,13 @@
 						{
 							"label": "Specify",
 							"type": "obs",
+							"id": "specifyOtherDisability",
 							"questionOptions": {
 								"rendering": "text",
 								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
-							"id": "specifyOtherDisability",
 							"hide": {
-								"hideWhenExpression": "isEmpty(disabilityTypes) || disabilityTypes != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Please indicate Key population type :",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "checkbox",
-								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "People who inject drugs"
-									},
-									{
-										"concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Female sex Worker"
-									},
-									{
-										"concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "People in prison and other closed settings"
-									},
-									{
-										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Others"
-									}
-								]
-							},
-							"id": "femaleKeyPopTypes",
-							"hide": {
-								"hideWhenExpression": "isEmpty(populationType) || populationType != 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || sex !== 'F'"
-							}
-						},
-						{
-							"label": "Please indicate Key population type :",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "checkbox",
-								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "People who inject drugs"
-									},
-									{
-										"concept": "160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Men who have sex with men"
-									},
-									{
-										"concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "People in prison and other closed settings"
-									},
-									{
-										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Others"
-									}
-								]
-							},
-							"id": "maleKeyPopTypes",
-							"hide": {
-								"hideWhenExpression": "isEmpty(populationType) || populationType != 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || sex !== 'M'"
-							}
-						},
-						{
-							"label": "Please indicate Priority Population :",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "checkbox",
-								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Fisher folk"
-									},
-									{
-										"concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Truck driver"
-									},
-									{
-										"concept": "160549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Adolescent and young girls"
-									},
-									{
-										"concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Prisoner"
-									},
-									{
-										"concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
-										"label": "Military and other uniformed services"
-									},
-									{
-										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Not Applicable"
-									}
-								]
-							},
-							"id": "femalePriorityPopulation",
-							"hide": {
-								"hideWhenExpression": "isEmpty(populationType) || populationType != '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F'"
-							}
-						},
-						{
-							"label": "Please indicate Priority Population :",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "checkbox",
-								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Fisher folk"
-									},
-									{
-										"concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Truck driver"
-									},
-									{
-										"concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Prisoner"
-									},
-									{
-										"concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
-										"label": "Military and other uniformed services"
-									},
-									{
-										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Not Applicable"
-									}
-								]
-							},
-							"id": "malePriorityPopulation",
-							"hide": {
-								"hideWhenExpression": "isEmpty(populationType) || populationType != '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'M'"
+								"hideWhenExpression": "specifyOtherDisability !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -335,32 +349,6 @@
 								"answers": [
 									{
 										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No",
-										"conceptMappings": [
-											{
-												"type": "PIH",
-												"value": "1066"
-											},
-											{
-												"type": "PIH Malawi",
-												"value": "Malawi: 1066"
-											},
-											{
-												"type": "AMPATH",
-												"value": "1066"
-											},
-											{
-												"type": "CIEL",
-												"value": "1066"
-											},
-											{
-												"type": "SNOMED CT",
-												"value": "CT: 373067005"
-											}
-										]
-									},
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes",
 										"conceptMappings": [
 											{
@@ -368,20 +356,46 @@
 												"value": "1065"
 											},
 											{
-												"type": "SNOMED CT",
-												"value": "CT: 373066001"
-											},
-											{
 												"type": "PIH Malawi",
 												"value": "Malawi: 1065"
+											},
+											{
+												"type": "AMPATH",
+												"value": "1065"
 											},
 											{
 												"type": "CIEL",
 												"value": "1065"
 											},
 											{
+												"type": "SNOMED CT",
+												"value": "CT: 373066001"
+											}
+										]
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "PIH",
+												"value": "1066"
+											},
+											{
+												"type": "SNOMED CT",
+												"value": "CT: 373067005"
+											},
+											{
+												"type": "PIH Malawi",
+												"value": "Malawi: 1066"
+											},
+											{
+												"type": "CIEL",
+												"value": "1066"
+											},
+											{
 												"type": "AMPATH",
-												"value": "1065"
+												"value": "1066"
 											}
 										]
 									}
@@ -392,6 +406,7 @@
 						{
 							"label": "Duration in months since the last test:",
 							"type": "obs",
+							"id": "durationSinceLastTest",
 							"questionOptions": {
 								"rendering": "number",
 								"concept": "159813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -408,10 +423,6 @@
 										"value": "6151"
 									}
 								]
-							},
-							"id": "durationSinceLastTest",
-							"hide": {
-								"hideWhenExpression": "isEmpty(everTested) || everTested !='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -423,32 +434,6 @@
 								"answers": [
 									{
 										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No",
-										"conceptMappings": [
-											{
-												"type": "PIH",
-												"value": "1066"
-											},
-											{
-												"type": "PIH Malawi",
-												"value": "Malawi: 1066"
-											},
-											{
-												"type": "AMPATH",
-												"value": "1066"
-											},
-											{
-												"type": "CIEL",
-												"value": "1066"
-											},
-											{
-												"type": "SNOMED CT",
-												"value": "CT: 373067005"
-											}
-										]
-									},
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes",
 										"conceptMappings": [
 											{
@@ -456,20 +441,46 @@
 												"value": "1065"
 											},
 											{
-												"type": "SNOMED CT",
-												"value": "CT: 373066001"
-											},
-											{
 												"type": "PIH Malawi",
 												"value": "Malawi: 1065"
+											},
+											{
+												"type": "AMPATH",
+												"value": "1065"
 											},
 											{
 												"type": "CIEL",
 												"value": "1065"
 											},
 											{
+												"type": "SNOMED CT",
+												"value": "CT: 373066001"
+											}
+										]
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "PIH",
+												"value": "1066"
+											},
+											{
+												"type": "SNOMED CT",
+												"value": "CT: 373067005"
+											},
+											{
+												"type": "PIH Malawi",
+												"value": "Malawi: 1066"
+											},
+											{
+												"type": "CIEL",
+												"value": "1066"
+											},
+											{
 												"type": "AMPATH",
-												"value": "1065"
+												"value": "1066"
 											}
 										]
 									}
@@ -486,32 +497,6 @@
 								"answers": [
 									{
 										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No",
-										"conceptMappings": [
-											{
-												"type": "PIH",
-												"value": "1066"
-											},
-											{
-												"type": "PIH Malawi",
-												"value": "Malawi: 1066"
-											},
-											{
-												"type": "AMPATH",
-												"value": "1066"
-											},
-											{
-												"type": "CIEL",
-												"value": "1066"
-											},
-											{
-												"type": "SNOMED CT",
-												"value": "CT: 373067005"
-											}
-										]
-									},
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes",
 										"conceptMappings": [
 											{
@@ -519,20 +504,46 @@
 												"value": "1065"
 											},
 											{
-												"type": "SNOMED CT",
-												"value": "CT: 373066001"
-											},
-											{
 												"type": "PIH Malawi",
 												"value": "Malawi: 1065"
+											},
+											{
+												"type": "AMPATH",
+												"value": "1065"
 											},
 											{
 												"type": "CIEL",
 												"value": "1065"
 											},
 											{
+												"type": "SNOMED CT",
+												"value": "CT: 373066001"
+											}
+										]
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "PIH",
+												"value": "1066"
+											},
+											{
+												"type": "SNOMED CT",
+												"value": "CT: 373067005"
+											},
+											{
+												"type": "PIH Malawi",
+												"value": "Malawi: 1066"
+											},
+											{
+												"type": "CIEL",
+												"value": "1066"
+											},
+											{
 												"type": "AMPATH",
-												"value": "1065"
+												"value": "1066"
 											}
 										]
 									}
@@ -540,7 +551,7 @@
 							},
 							"id": "willingToShareResults",
 							"hide": {
-								"hideWhenExpression": "isEmpty(selfTestLastTwelveMonths) || selfTestLastTwelveMonths != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(selfTestLastTwelveMonths) || selfTestLastTwelveMonths != '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -552,17 +563,17 @@
 								"answers": [
 									{
 										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "SKT POSITIVE"
+										"label": "Positive"
 									},
 									{
 										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "SKT NEGATIVE"
+										"label": "Negative"
 									}
 								]
 							},
 							"id": "selfTestResults",
 							"hide": {
-								"hideWhenExpression": "isEmpty(willingToShareResults) || willingToShareResults != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(willingToShareResults) || willingToShareResults != '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -573,8 +584,14 @@
 								"concept": "164400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
 							"id": "DeteOfSelfTest",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
 							"hide": {
-								"hideWhenExpression": "isEmpty(willingToShareResults) || willingToShareResults != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(willingToShareResults) || willingToShareResults != '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -659,6 +676,10 @@
 										"label": "Index testing"
 									},
 									{
+										"concept": "163108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "SNS: Social Networks"
+									},
+									{
 										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "O: Others"
 									}
@@ -695,6 +716,10 @@
 									{
 										"concept": "161557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Index testing"
+									},
+									{
+										"concept": "163108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "SNS: Social Networks"
 									},
 									{
 										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -836,353 +861,6 @@
 					]
 				},
 				{
-					"label": "HIV Testing",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "Has consent been given? ",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "radio",
-								"concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "false",
-										"label": "No"
-									},
-									{
-										"concept": "true",
-										"label": "Yes"
-									}
-								]
-							},
-							"id": "consentGiven",
-							"required": "true"
-						},
-						{
-							"label": "Client tested as?  ",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "radio",
-								"concept": "b61c1482-1697-404c-ab96-fd698d5fd317",
-								"answers": [
-									{
-										"concept": "147082f4-0662-4bfa-a54c-914f1db97373",
-										"label": "Individual"
-									},
-									{
-										"concept": "c3eba392-6f4d-4990-809f-91000503afbc",
-										"label": "Couple"
-									}
-								]
-							},
-							"id": "testedAs",
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "HIV Test(s)",
-							"type": "obsGroup",
-							"questionOptions": {
-								"rendering": "repeating",
-								"concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-							},
-							"id": "hivTest",
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							},
-							"questions": [
-								{
-									"label": "Kit Name",
-									"type": "obs",
-									"questionOptions": {
-										"rendering": "select",
-										"concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
-										"answers": [
-											{
-												"concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
-												"label": "Determine"
-											},
-											{
-												"concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
-												"label": "First Response"
-											},
-											{
-												"concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
-												"label": "Dual Kit"
-											}
-										]
-									},
-									"id": "kitName",
-									"validators": [],
-									"hide": {
-										"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-									}
-								},
-								{
-									"label": "Lot Number",
-									"type": "obs",
-									"questionOptions": {
-										"rendering": "text",
-										"concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
-									},
-									"id": "lotNumber",
-									"validators": [],
-									"hide": {
-										"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-									}
-								},
-								{
-									"label": "Expiry Date",
-									"type": "obs",
-									"validators": [
-										{
-											"type": "date",
-											"allowFutureDates": "true"
-										}
-									],
-									"questionOptions": {
-										"rendering": "date",
-										"concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"weeksList": ""
-									},
-									"id": "expiryDate",
-									"hide": {
-										"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-									}
-								},
-								{
-									"label": "HIV Test  Results:",
-									"type": "obs",
-									"questionOptions": {
-										"rendering": "select",
-										"concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"answers": [
-											{
-												"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Positive"
-											},
-											{
-												"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Negative"
-											},
-											{
-												"concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Invalid"
-											}
-										]
-									},
-									"id": "testResults",
-									"validators": [],
-									"hide": {
-										"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-									}
-								},
-								{
-									"label": " Syphilis Results",
-									"type": "obs",
-									"questionOptions": {
-										"rendering": "select",
-										"concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"answers": [
-											{
-												"concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Positive"
-											},
-											{
-												"concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Negative"
-											}
-										]
-									},
-									"id": "syphilisResult",
-									"hide": {
-										"hideWhenExpression": "isEmpty(kitName) || kitName != '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
-									}
-								}
-							]
-						},
-						{
-							"label": "Final Results:",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "select",
-								"concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Positive"
-									},
-									{
-										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Negative"
-									},
-									{
-										"concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Inconclusive"
-									}
-								]
-							},
-							"id": "finalResult",
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Results given to client?",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "select",
-								"concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes",
-										"conceptMappings": [
-											{
-												"type": "PIH",
-												"value": "1065"
-											},
-											{
-												"type": "SNOMED CT",
-												"value": "CT: 373066001"
-											},
-											{
-												"type": "PIH Malawi",
-												"value": "Malawi: 1065"
-											},
-											{
-												"type": "CIEL",
-												"value": "1065"
-											},
-											{
-												"type": "AMPATH",
-												"value": "1065"
-											}
-										]
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No",
-										"conceptMappings": [
-											{
-												"type": "PIH",
-												"value": "1066"
-											},
-											{
-												"type": "PIH Malawi",
-												"value": "Malawi: 1066"
-											},
-											{
-												"type": "AMPATH",
-												"value": "1066"
-											},
-											{
-												"type": "CIEL",
-												"value": "1066"
-											},
-											{
-												"type": "SNOMED CT",
-												"value": "CT: 373067005"
-											}
-										]
-									}
-								]
-							},
-							"id": "resultsGiven",
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Couple is discordant:",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "radio",
-								"concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"conceptMappings": [
-									{
-										"type": "CIEL",
-										"value": "6096"
-									},
-									{
-										"type": "AMPATH",
-										"value": "6096"
-									}
-								],
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes",
-										"conceptMappings": [
-											{
-												"type": "PIH",
-												"value": "1065"
-											},
-											{
-												"type": "SNOMED CT",
-												"value": "CT: 373066001"
-											},
-											{
-												"type": "PIH Malawi",
-												"value": "Malawi: 1065"
-											},
-											{
-												"type": "CIEL",
-												"value": "1065"
-											},
-											{
-												"type": "AMPATH",
-												"value": "1065"
-											}
-										]
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No",
-										"conceptMappings": [
-											{
-												"type": "PIH",
-												"value": "1066"
-											},
-											{
-												"type": "PIH Malawi",
-												"value": "Malawi: 1066"
-											},
-											{
-												"type": "AMPATH",
-												"value": "1066"
-											},
-											{
-												"type": "CIEL",
-												"value": "1066"
-											},
-											{
-												"type": "SNOMED CT",
-												"value": "CT: 373067005"
-											}
-										]
-									},
-									{
-										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "N/A"
-									}
-								]
-							},
-							"id": "coupleDiscordant",
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						}
-					]
-				},
-				{
 					"label": "TB Screening",
 					"isExpanded": "true",
 					"questions": [
@@ -1268,39 +946,553 @@
 					]
 				},
 				{
+					"label": "HIV Testing",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Has consent been given? ",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "true",
+										"label": "Yes"
+									},
+									{
+										"concept": "false",
+										"label": "No"
+									}
+								]
+							},
+							"id": "consentGiven",
+							"required": "true"
+						},
+						{
+							"label": "Client tested as?  ",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "b61c1482-1697-404c-ab96-fd698d5fd317",
+								"answers": [
+									{
+										"concept": "147082f4-0662-4bfa-a54c-914f1db97373",
+										"label": "Individual"
+									},
+									{
+										"concept": "c3eba392-6f4d-4990-809f-91000503afbc",
+										"label": "Couple"
+									}
+								]
+							},
+							"id": "testedAs",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+							}
+						},
+						{
+							"label": "HIV Test(s)",
+							"type": "obsGroup",
+							"questionOptions": {
+								"rendering": "group",
+								"concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "hivTest",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+							},
+							"questions": [
+								{
+									"label": "Kit Name",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+										"answers": [
+											{
+												"concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+												"label": "Determine"
+											},
+											{
+												"concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+												"label": "First Response"
+											},
+											{
+												"concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
+												"label": "Dual Kit"
+											}
+										]
+									},
+									"id": "kitName",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Lot Number",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+									},
+									"id": "lotNumber",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+									}
+								},
+								{
+									"label": "Expiry Date",
+									"type": "obs",
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "true"
+										}
+									],
+									"questionOptions": {
+										"rendering": "date",
+										"concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"weeksList": ""
+									},
+									"id": "expiryDate",
+									"hide": {
+										"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+									}
+								},
+								{
+									"label": "HIV Test  Results:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"answers": [
+											{
+												"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Positive"
+											},
+											{
+												"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Negative"
+											},
+											{
+												"concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Invalid"
+											}
+										]
+									},
+									"id": "testResults",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+									}
+								},
+								{
+									"label": "Kit Name",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+										"answers": [
+											{
+												"concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+												"label": "Determine"
+											},
+											{
+												"concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+												"label": "First Response"
+											},
+											{
+												"concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
+												"label": "Dual Kit"
+											}
+										]
+									},
+									"id": "kitNameB",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Lot Number",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "text",
+										"concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+									},
+									"id": "lotNumberB",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Expiry Date",
+									"type": "obs",
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "true"
+										}
+									],
+									"questionOptions": {
+										"rendering": "date",
+										"concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"weeksList": ""
+									},
+									"id": "expiryDateB",
+									"hide": {
+										"hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "HIV Test  Results:",
+									"type": "obs",
+									"questionOptions": {
+										"rendering": "select",
+										"concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"answers": [
+											{
+												"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Positive"
+											},
+											{
+												"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Negative"
+											},
+											{
+												"concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Invalid"
+											}
+										]
+									},
+									"id": "testResultsB",
+									"validators": [],
+									"hide": {
+										"hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								}
+							]
+						},
+						{
+							"label": "Final Results:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"calculate": {
+									"calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+								},
+								"answers": [
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Positive"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Negative"
+									},
+									{
+										"concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Inconclusive"
+									}
+								]
+							},
+							"id": "finalResult",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+							}
+						},
+						{
+							"label": "Results given to client?",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "select",
+								"concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "PIH",
+												"value": "1065"
+											},
+											{
+												"type": "SNOMED CT",
+												"value": "CT: 373066001"
+											},
+											{
+												"type": "PIH Malawi",
+												"value": "Malawi: 1065"
+											},
+											{
+												"type": "CIEL",
+												"value": "1065"
+											},
+											{
+												"type": "AMPATH",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "PIH",
+												"value": "1066"
+											},
+											{
+												"type": "PIH Malawi",
+												"value": "Malawi: 1066"
+											},
+											{
+												"type": "AMPATH",
+												"value": "1066"
+											},
+											{
+												"type": "CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "SNOMED CT",
+												"value": "CT: 373067005"
+											}
+										]
+									}
+								]
+							},
+							"id": "resultsGiven",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+							}
+						},
+						{
+							"label": "Couple is discordant:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"calculate": {
+									"calculateExpression": "String(testedAs) === '147082f4-0662-4bfa-a54c-914f1db97373' ? '1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+								},
+								"conceptMappings": [
+									{
+										"type": "CIEL",
+										"value": "6096"
+									},
+									{
+										"type": "AMPATH",
+										"value": "6096"
+									}
+								],
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes",
+										"conceptMappings": [
+											{
+												"type": "PIH",
+												"value": "1065"
+											},
+											{
+												"type": "SNOMED CT",
+												"value": "CT: 373066001"
+											},
+											{
+												"type": "PIH Malawi",
+												"value": "Malawi: 1065"
+											},
+											{
+												"type": "CIEL",
+												"value": "1065"
+											},
+											{
+												"type": "AMPATH",
+												"value": "1065"
+											}
+										]
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No",
+										"conceptMappings": [
+											{
+												"type": "PIH",
+												"value": "1066"
+											},
+											{
+												"type": "PIH Malawi",
+												"value": "Malawi: 1066"
+											},
+											{
+												"type": "AMPATH",
+												"value": "1066"
+											},
+											{
+												"type": "CIEL",
+												"value": "1066"
+											},
+											{
+												"type": "SNOMED CT",
+												"value": "CT: 373067005"
+											}
+										]
+									},
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "N/A"
+									}
+								]
+							},
+							"id": "coupleDiscordant",
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+							}
+						}
+					]
+				},
+				{
 					"label": "Referral",
 					"isExpanded": "true",
 					"questions": [
 						{
-							"label": "Referral",
+							"label": "Client referred for other services:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "165093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"id": "ClieNtReferrEd",
+							"hide": {
+								"hideWhenExpression": "finalResult !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Referred for which services::",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "checkbox",
+								"concept": "163180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"answers": [
+									{
+										"concept": "165276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Risk reduction counselling"
+									},
+									{
+										"concept": "159612AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Safer sex practices"
+									},
+									{
+										"concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Condom use counselling"
+									},
+									{
+										"concept": "1691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Post-exposure prophylaxis"
+									},
+									{
+										"concept": "167125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Prevention and treatment of STIs"
+									},
+									{
+										"concept": "118855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Substance abuse and mental health treatment"
+									},
+									{
+										"concept": "141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Prevention of GBV"
+									},
+									{
+										"concept": "162223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "VMMC"
+									},
+									{
+										"concept": "1370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HIV testing and re-testing"
+									},
+									{
+										"concept": "166536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Pre-Exposure Prophylaxis"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Others"
+									}
+								]
+							},
+							"id": "refeRRalSerVicEs",
+							"hide": {
+								"hideWhenExpression": "isEmpty(ClieNtReferrEd) || ClieNtReferrEd !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Specify Referral",
+							"type": "obs",
+							"id": "SpeCrEferRed",
+							"questionOptions": {
+								"rendering": "textbox",
+								"concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"hide": {
+								"hideWhenExpression": "refeRRalSerVicEs !=='5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+            {
+							"label": "Referral for:",
 							"type": "obs",
 							"questionOptions": {
 								"rendering": "radio",
 								"concept": "1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"calculate": {
+									"calculateExpression": "String(finalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(finalResult) === '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '167441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : '08657979-0a23-411d-be18-2ddceeb2f346'"
+								},
 								"answers": [
 									{
-										"concept": "162082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "08657979-0a23-411d-be18-2ddceeb2f346",
 										"label": "Confirmatory Test"
 									},
 									{
 										"concept": "162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Comprehensive Care Center"
+										"label": "Comprehensive care center"
 									},
 									{
-										"concept": "164461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "167441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "DBS for PCR"
 									}
 								]
 							},
-							"id": "Referral"
+							"id": "ReferredForCare",
+							"hide": {
+								"hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						},
 						{
 							"label": "Referral to:",
 							"type": "obs",
-							"id": "referralTo",
 							"questionOptions": {
+								"concept": "fe72de11-9ccb-4622-b947-ab8635aa92ca",
 								"rendering": "select",
-								"concept": "160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"answers": [
 									{
 										"concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1311,18 +1503,22 @@
 										"label": "Other health facility"
 									}
 								]
+							},
+							"id": "ReferredToCare",
+							"hide": {
+								"hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
-							"label": "Facility name:",
+							"label": "Facility name :",
 							"type": "obs",
-							"id": "facilitName",
+							"id": "otherFacility",
 							"questionOptions": {
-								"rendering": "textbox",
-								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "isEmpty(referrlTo) || referrlTo != '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "ReferredToCare !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -1339,7 +1535,7 @@
 								"concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rows": "3"
 							},
-							"id": "remarks"
+							"id": "rEmArks"
 						}
 					]
 				}
