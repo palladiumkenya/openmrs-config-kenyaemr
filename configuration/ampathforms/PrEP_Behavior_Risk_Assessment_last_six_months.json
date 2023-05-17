@@ -79,10 +79,13 @@
 							"id": "PartnerRisk",
 							"questionOptions": {
 								"concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "checkbox",
+								"rendering": "radio",
+								"calculate": {
+									"calculateExpression": "String(partnerHivStatus) === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '5564AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+								},
 								"answers": [
 									{
-										"concept": "",
+										"concept": "5564AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "High Risk Partner"
 									}
 								]
@@ -140,7 +143,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "isEmpty (partnerHivStatus) || partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(onArt) || onArt !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -204,13 +207,16 @@
 							"questionOptions": {
 								"rendering": "radio",
 								"concept": "d79488b7-eb63-49ba-b99c-a52f777a1a7f",
+								"calculate": {
+									"calculateExpression": "String(PartnerRisk) === '5564AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(partnerHivStatus) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  : '166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								},
 								"answers": [
 									{
 										"concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Risk"
 									},
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Low risk"
 									}
 								]
@@ -328,7 +334,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "willingPrep !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "willingPrep !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -402,9 +408,6 @@
 										"label": "Other"
 									}
 								]
-							},
-							"hide": {
-								"hideWhenExpression": "willingPrep !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && riskEductionOffered!=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -416,7 +419,7 @@
 								"rendering": "textarea"
 							},
 							"hide": {
-								"hideWhenExpression": "riskReductionReferral !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "!arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], riskReductionReferral)"
 							}
 						}
 					]
@@ -433,6 +436,12 @@
 								"concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
 							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
 							"hide": {
 								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
@@ -469,7 +478,9 @@
 							"id": "partnersCCCNo",
 							"questionOptions": {
 								"concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "number"
+								"rendering": "text",
+								"maxLength": "10",
+								"minLength": "10"
 							},
 							"hide": {
 								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
