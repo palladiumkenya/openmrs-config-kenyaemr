@@ -80,14 +80,14 @@
 							"questionOptions": {
 								"rendering": "text",
 								"concept": "163530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"max": "30",
-								"min": "0"
+								"maxLength": "7",
+								"minLength": "0"
 							},
 							"id": "ancNumber",
 							"validators": [
 								{
 									"type": "js_expression",
-									"failsWhenExpression": "isEmpty(ancNumber) && serviceType == '1622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+									"failsWhenExpression": "isEmpty(ancNumber) && serviceType === '1622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
 									"message": "If service type is ANC. Please provide ANC Number."
 								}
 							]
@@ -96,6 +96,7 @@
 							"label": "Parity Term",
 							"type": "obs",
 							"id": "parityTerm",
+							"required": "true",
 							"questionOptions": {
 								"concept": "160080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "number"
@@ -105,6 +106,7 @@
 							"label": "Parity Abortion",
 							"type": "obs",
 							"id": "parityAbortion",
+							"required": "true",
 							"questionOptions": {
 								"concept": "1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "number"
@@ -113,10 +115,13 @@
 						{
 							"label": "Gravida:",
 							"type": "obs",
-							"id": "gravida",
+							"id": "graVida",
 							"questionOptions": {
 								"concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "number"
+								"rendering": "number",
+								"calculate": {
+									"calculateExpression": "(+parityTerm + +parityAbortion) +1"
+								}
 							}
 						},
 						{
@@ -231,7 +236,10 @@
 							"id": "lmpEdd",
 							"questionOptions": {
 								"concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
+								"rendering": "date",
+								"calculate": {
+									"calculateExpression": "moment(lmpDate).isValid() ? moment(lmpDate).add(280, 'days').toDate() : ''"
+								}
 							},
 							"validators": [
 								{
@@ -304,7 +312,142 @@
 									"type": "date",
 									"allowFutureDates": "false"
 								}
-							]
+							],
+							"hide": {
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && patientHivStatus !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Date started ART:",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "date",
+								"concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							},
+							"id": "DateArtStart",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Current Regimen",
+							"type": "obs",
+							"id": "patientRegimen",
+							"questionOptions": {
+								"concept": "164855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "162559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "ABC/DDI/LPV/r"
+									},
+									{
+										"concept": "162562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "ABC/LPV/R/TDF"
+									},
+									{
+										"concept": "161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "EDF/3TC/EFV"
+									},
+									{
+										"concept": "792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "D4T/3TC/NVP"
+									},
+									{
+										"concept": "9fb85385-b4fb-468c-b7c1-22f75834b4b0",
+										"label": "TDF/3TC/DTG"
+									},
+									{
+										"concept": "162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/ABC/LPV/r"
+									},
+									{
+										"concept": "4dc0119b-b2a6-4565-8d90-174b97ba31db",
+										"label": "ABC/3TC/DTG"
+									},
+									{
+										"concept": "164511AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "AZT-3TC-ATV/r"
+									},
+									{
+										"concept": "162563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/ABC/EFV"
+									},
+									{
+										"concept": "6dec7d7d-0fda-4e8d-8295-cb6ef426878d",
+										"label": "AZT/3TC/DTG"
+									},
+									{
+										"concept": "164505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "TDF-3TC-EFV"
+									},
+									{
+										"concept": "817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "ABC/3TC/AZT"
+									},
+									{
+										"concept": "1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/NVP/AZT"
+									},
+									{
+										"concept": "162560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/D4T/LPV/r"
+									},
+									{
+										"concept": "162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "ABC/NVP/3TC"
+									},
+									{
+										"concept": "164512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "TDF-3TC-ATV/r"
+									},
+									{
+										"concept": "104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "EFV/FTC/TDF"
+									},
+									{
+										"concept": "162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/LPV/TDF/r"
+									},
+									{
+										"concept": "162565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/NVP/TDF"
+									},
+									{
+										"concept": "162561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "3TC/AZT/LPV/r"
+									},
+									{
+										"concept": "160124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "AZT/3TC/EFV"
+									},
+									{
+										"concept": "160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "D4T/3TC/EFV"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Facility receiving HIV care:",
+							"type": "obs",
+							"id": "facilityReceivingcare",
+							"questionOptions": {
+								"concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"hide": {
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						},
 						{
 							"label": "Partner HIV Status:",
@@ -337,7 +480,7 @@
 								"concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
 							"hide": {
-								"hideWhenExpression": "partnerHivStatus == '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "partnerHivStatus !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
 							},
 							"id": "partnerHivTestDate",
 							"validators": [

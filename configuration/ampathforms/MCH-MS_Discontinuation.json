@@ -11,38 +11,38 @@
 			"label": "MCH-MS Discontinuation",
 			"sections": [
 				{
-					"label": "Encounter Details",
+					"label": "Visit Details",
 					"isExpanded": "true",
 					"questions": [
 						{
-							"label": "Visit Details",
-							"isExpanded": "true",
-							"questions": [
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
 								{
-									"label": "Date:",
-									"type": "encounterDatetime",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encDate"
-								},
-								{
-									"label": "Provider:",
-									"type": "encounterProvider",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encProvider "
-								},
-								{
-									"label": "Location:",
-									"type": "encounterLocation",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encLocation"
+									"type": "date",
+									"allowFutureDates": "false"
 								}
-							]
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
 						}
 					]
 				},
@@ -53,7 +53,7 @@
 						{
 							"label": "Reason:",
 							"type": "obs",
-							"id": "__xsGDxqouE",
+							"id": "DiscontinuationReason",
 							"questionOptions": {
 								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "select",
@@ -67,14 +67,84 @@
 										"label": "Lost to followup"
 									},
 									{
+										"concept": "48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Loss of pregnancy"
+									},
+									{
 										"concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Transferred out"
 									},
 									{
 										"concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Died"
+										"label": "Mother died"
+									},
+									{
+										"concept": "162076AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Baby died"
+									},
+									{
+										"concept": "128299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "False pregnancy"
+									},
+									{
+										"concept": "129321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Perinatal death"
 									}
 								]
+							}
+						},
+						{
+							"label": "(if transferred out)Transfer to Facility:",
+							"type": "obs",
+							"id": "transferFacility",
+							"questionOptions": {
+								"concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "DiscontinuationReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Date Transferred Out",
+							"type": "obs",
+							"id": "dateTransferredOut",
+							"questionOptions": {
+								"concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "DiscontinuationReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Please provide Date of Death if Known:",
+							"type": "obs",
+							"id": "dateDeath",
+							"questionOptions": {
+								"concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "DiscontinuationReason !== '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && DiscontinuationReason !== '129321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && DiscontinuationReason !== '162076AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]

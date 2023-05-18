@@ -1,5 +1,5 @@
 {
-	"name": "Mch Child Enrolment Form",
+	"name": "MCH Child Enrolment Form",
 	"description": "MCH-CS Enrollment form",
   	"version": "1",
   	"published": true,
@@ -8,24 +8,32 @@
   	"encounter": "CWC Enrollment",
 	"pages": [
 		{
-			"label": "HEI Enrollment Form",
+			"label": "MCH Child Enrolment Form",
 			"sections": [
 				{
-					"label": "MCH HEI Enrollment",
+					"label": "Particulars of the child",
 					"isExpanded": "true",
 					"questions": [
 						{
 							"label": "Date first seen",
 							"type": "obs",
+							"required": "true",
 							"id": "firstDateSeen",
 							"questionOptions": {
 								"concept": "162140AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
-							}
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 						},
 						{
 							"label": "Gestation at birth(weeks)",
 							"type": "obs",
+							"required": "true",
 							"id": "gestation",
 							"questionOptions": {
 								"concept": "1409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -35,6 +43,7 @@
 						{
 							"label": "Birth Weight: (kg)",
 							"type": "obs",
+							"required": "true",
 							"id": "weight",
 							"questionOptions": {
 								"concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -53,6 +62,7 @@
 						{
 							"label": "Birth Order in Family (1,2,3)",
 							"type": "obs",
+							"required": "true",
 							"id": "birthOrderInFamily",
 							"questionOptions": {
 								"concept": "163460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -62,6 +72,7 @@
 						{
 							"label": "Birth type:",
 							"type": "obs",
+							"required": "true",
 							"id": "birthOutcome",
 							"questionOptions": {
 								"concept": "159949AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -93,6 +104,7 @@
 						{
 							"label": "Place of delivery",
 							"type": "obs",
+							"required": "true",
 							"id": "birthPlace",
 							"questionOptions": {
 								"concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -116,22 +128,37 @@
 						{
 							"label": "Mode of Delivery",
 							"type": "obs",
+							"required": "true",
 							"id": "modeOfDelivery",
 							"questionOptions": {
 								"concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "C-Section"
+										"concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Spontaneous Vaginal Delivery(SVD)"
 									},
 									{
-										"concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "SVD"
+										"concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Cesarian Section (CS)"
+									},
+									{
+										"concept": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Breech Delivery"
+									},
+									{
+										"concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Assisted Vaginal Delivery (AVD)"
 									}
 								]
 							}
-						},
+						}
+					]
+				},
+				{
+					"label": "Registration Details",
+					"isExpanded": "true",
+					"questions": [
 						{
 							"label": "Birth Notification Number",
 							"type": "obs",
@@ -148,7 +175,13 @@
 							"questionOptions": {
 								"concept": "164129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
-							}
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 						},
 						{
 							"label": "Birth certificate Number",
@@ -166,7 +199,13 @@
 							"questionOptions": {
 								"concept": "164130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
-							}
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 						},
 						{
 							"label": "Place of registration",
@@ -223,7 +262,13 @@
 								"concept": "1646AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "number"
 							}
-						},
+						}
+					]
+				},
+				{
+					"label": "Contact details",
+					"isExpanded": "true",
+					"questions": [
 						{
 							"label": "Father's Name:",
 							"type": "obs",
@@ -277,9 +322,15 @@
 								"concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "text"
 							}
-						},
+						}
+					]
+				},
+				{
+					"label": "Special Care",
+					"isExpanded": "true",
+					"questions": [
 						{
-							"label": "Special Care",
+							"label": "Does the child need special care?",
 							"type": "obs",
 							"id": "specialCare",
 							"questionOptions": {
@@ -353,9 +404,15 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "specialCare !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "specialCare !== '161628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
-						},
+						}
+					]
+				},
+				{
+					"label": "Exposure History",
+					"isExpanded": "true",
+					"questions": [
 						{
 							"label": "HIV Exposed Child?",
 							"type": "obs",
@@ -369,7 +426,7 @@
 										"label": "Unknown"
 									},
 									{
-										"concept": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
 									},
 									{
@@ -382,6 +439,7 @@
 						{
 							"label": "HEI ID Number",
 							"type": "obs",
+							"required": "true",
 							"questionOptions": {
 								"rendering": "number",
 								"concept": "162054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -402,7 +460,13 @@
 							"hide": {
 								"hideWhenExpression": "isEmpty(hivExposedChild) || hivExposedChild !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
-						},
+						}
+					]
+				},
+				{
+					"label": "Mother Details",
+					"isExpanded": "true",
+					"questions": [
 						{
 							"label": "Mother Alive?",
 							"type": "obs",
@@ -463,7 +527,13 @@
 									}
 								]
 							}
-						},
+						}
+					]
+				},
+				{
+					"label": "Referral details",
+					"isExpanded": "true",
+					"questions": [
 						{
 							"label": "Source of Referral",
 							"type": "obs",
@@ -526,7 +596,12 @@
 								"concept": "160534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
 							},
-							"validators": [],
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
 							"hide": {
 								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
@@ -565,11 +640,22 @@
 								"concept": "160555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
 							},
-							"validators": [],
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
 							"hide": {
 								"hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
-						},
+						}
+					]
+				},
+				{
+					"label": "Child ARV Prophylaxis",
+					"isExpanded": "true",
+					"questions": [
 						{
 							"label": "Type of ARV prophylaxis",
 							"type": "obs",
@@ -629,7 +715,13 @@
 							"hide": {
 								"hideWhenExpression": "isEmpty(hivExposedChild) || hivExposedChild !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
-						},
+						}
+					]
+				},
+				{
+					"label": "Mother's ARV profile",
+					"isExpanded": "true",
+					"questions": [
 						{
 							"label": "Facility registered:",
 							"type": "obs",
@@ -763,7 +855,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "isEmpty(hivExposedChild) || hivExposedChild !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "onART !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]

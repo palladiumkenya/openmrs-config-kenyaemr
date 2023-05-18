@@ -15,34 +15,34 @@
 					"isExpanded": "true",
 					"questions": [
 						{
-							"label": "Visit Details",
-							"isExpanded": "true",
-							"questions": [
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
 								{
-									"label": "Date:",
-									"type": "encounterDatetime",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encDate"
-								},
-								{
-									"label": "Provider:",
-									"type": "encounterProvider",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encProvider "
-								},
-								{
-									"label": "Location:",
-									"type": "encounterLocation",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encLocation"
+									"type": "date",
+									"allowFutureDates": "false"
 								}
-							]
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
 						}
 					]
 				},
@@ -94,11 +94,17 @@
 						{
 							"label": "HIV+ partners ART start date",
 							"type": "obs",
-							"id": "art-start-date",
+							"id": "artStartDate",
 							"questionOptions": {
 								"concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
-							}
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 						},
 						{
 							"label": "Year(s)",
@@ -360,6 +366,12 @@
 								"concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
 							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
 							"hide": {
 								"hideWhenExpression": "menoPausE ==='134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F'"
 							}
@@ -394,6 +406,12 @@
 								"concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
 							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								}
+							],
 							"hide": {
 								"hideWhenExpression": "menoPausE ==='134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F'"
 							}
@@ -726,7 +744,13 @@
 									"questionOptions": {
 										"concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"rendering": "date"
-									}
+									},
+									"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 								},
 								{
 									"label": "Drug",
@@ -1174,7 +1198,13 @@
 									"questionOptions": {
 										"concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"rendering": "date"
-									}
+									},
+									"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 								},
 								{
 									"label": "Action taken",
@@ -1483,7 +1513,13 @@
 									"questionOptions": {
 										"concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"rendering": "date"
-									}
+									},
+									"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 								}
 							]
 						}
@@ -1762,10 +1798,9 @@
 						{
 							"label": "Signs and symptoms of acute HIV",
 							"type": "obs",
-							"id": "hiv-signs",
 							"questionOptions": {
-								"concept": "165101",
 								"rendering": "radio",
+								"concept": "aba5a106-719b-46f3-9199-224f3881a738",
 								"answers": [
 									{
 										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1776,15 +1811,16 @@
 										"label": "Yes"
 									}
 								]
-							}
+							},
+							"id": "hivSigns",
+							"required": "true"
 						},
 						{
 							"label": "Adherence counselling done",
 							"type": "obs",
-							"id": "adherence-counselling-done",
 							"questionOptions": {
-								"concept": "165104",
 								"rendering": "radio",
+								"concept": "906ac5d0-566a-466e-93e4-2f23b4fb319b",
 								"answers": [
 									{
 										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1795,14 +1831,42 @@
 										"label": "Yes"
 									}
 								]
+							},
+							"id": "adherenceCounsellingDone",
+							"required": "true"
+						},
+						{
+							"label": "Adherance Outcome",
+							"type": "obs",
+							"id": "adheranceOutcome",
+							"questionOptions": {
+								"concept": "160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Good"
+									},
+									{
+										"concept": "159406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Fair"
+									},
+									{
+										"concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Poor"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "adherenceCounsellingDone !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
-							"label": "Contradiction for PrEP",
+							"label": "Contraindication for PrEP",
 							"type": "obs",
-							"id": "ContrAprEP",
+							"id": "contraindicationForPrEP",
 							"questionOptions": {
-								"concept": "",
+								"concept": "5725724b-058b-45cc-9384-57221daa3a0d",
 								"rendering": "checkbox",
 								"answers": [
 									{
@@ -1814,12 +1878,16 @@
 										"label": "Confirmed HIV+"
 									},
 									{
+										"concept": "155589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Renal impairment"
+									},
+									{
 										"concept": "127750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Not willing"
 									},
 									{
-										"concept": "165105",
-										"label": "Less than 35ks and under 15 yrs"
+										"concept": "39fa4212-1210-49e0-ad62-d01090c1cf67",
+										"label": "Less than 30ks and under 15 yrs"
 									}
 								]
 							}
@@ -1827,34 +1895,87 @@
 						{
 							"label": "PrEP treatment plan",
 							"type": "obs",
-							"id": "PrePTreat",
 							"questionOptions": {
-								"concept": "42ad51f2-dc4f-48eb-8440-9a0bd8969374",
 								"rendering": "radio",
+								"concept": "42ad51f2-dc4f-48eb-8440-9a0bd8969374",
 								"answers": [
 									{
-										"concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Start"
+										"concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Continue"
 									},
 									{
 										"concept": "162904AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Restart"
 									},
 									{
-										"concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Continue"
+										"concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Switch"
 									},
 									{
 										"concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Discontinue"
 									}
 								]
+							},
+							"id": "treatmentPlan",
+							"required": "true"
+						},
+						{
+							"label": "Reason for switching",
+							"type": "obs",
+							"id": "reasonForSwitch",
+							"questionOptions": {
+								"concept": "4b59ac07-cf72-4f46-b8c0-4f62b1779f7e",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "159737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client Preference"
+									},
+									{
+										"concept": "141748AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Drug Interactions"
+									},
+									{
+										"concept": "167533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Discontinuing Injection PrEP"
+									},
+									{
+										"concept": "121760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Adverse Drug Reactions"
+									},
+									{
+										"concept": "160662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Stock-out"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "treatmentPlan !== '1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Date of switch",
+							"type": "obs",
+							"id": "dateOfSwitch",
+							"questionOptions": {
+								"concept": "68bfa3f3-1fc7-4d9d-bb41-e897c3c430ef",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "treatmentPlan !== '1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
 							"label": "Prescribed PrEP today?",
 							"type": "obs",
-							"id": "PrescribedToday",
+							"id": "prescribedPrepToday",
 							"questionOptions": {
 								"concept": "1417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
@@ -1870,13 +1991,13 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "PrePTreat ==='1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan === '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
 							"label": "Regimen prescribed",
 							"type": "obs",
-							"id": "RegimenPrescribED",
+							"id": "regimenOptions",
 							"questionOptions": {
 								"concept": "164515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "select",
@@ -1896,25 +2017,25 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "PrePTreat ==='1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && PrescribedToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan === '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
 							"label": "Number of months",
 							"type": "obs",
-							"id": "RegimenMonthsPrescribed",
+							"id": "regimenMonthsPrescribed",
 							"questionOptions": {
 								"concept": "164433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "PrePTreat ==='1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && PrescribedToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan === '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
 							"label": "Condoms issued",
 							"type": "obs",
-							"id": "CondomIssUED",
+							"id": "condomIssued",
 							"questionOptions": {
 								"concept": "159777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
@@ -1933,13 +2054,13 @@
 						{
 							"label": "Number of condoms issued",
 							"type": "obs",
-							"id": "NumberOfCondomsIssueD",
+							"id": "numberOfCondoms",
 							"questionOptions": {
 								"concept": "771638d9-9600-4a6b-8e5d-c6dcdedbc9cd",
 								"rendering": "number"
 							},
 							"hide": {
-								"hideWhenExpression": "CondomIssUED !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(condomIssued) || condomIssued !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -1976,6 +2097,12 @@
 								"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
 							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								}
+							],
 							"hide": {
 								"hideWhenExpression": "NextAppClient !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
