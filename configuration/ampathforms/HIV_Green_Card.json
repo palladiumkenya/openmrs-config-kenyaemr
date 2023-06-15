@@ -3054,13 +3054,20 @@
 							},
 							"hide": {
 								"hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
-							}
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && sex ==='F' && age>=15",
+									"message": "Please specify if patient has ever had menses.!"
+								}
+							]
+
 						},
 						{
 							"label": "When was your LMP Date",
 							"type": "obs",
 							"id": "lmPdAte",
-							"required": "true",
 							"questionOptions": {
 								"concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
@@ -3130,7 +3137,14 @@
 							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
 							"hide": {
 								"hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
-							}
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && hasLMP ==='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && mEnoPauSe !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+									"message": "Please specify if patient is pregnant."
+								}
+							]
 						},
 						{
 							"label": "Patient breastfeeding?",
@@ -3304,7 +3318,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hasLMP !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyIntention !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='F'"
+								"hideWhenExpression": "age < 15 || sex !=='F' || mEnoPauSe ==='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hasLMP ==='1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyOption !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -4064,29 +4078,44 @@
 					"isExpanded": "true",
 					"questions": [
 						{
-							"label": "Diagnosis",
-							"type": "obs",
-							"id": "DiagNosIS",
+							"label": "Treatment/Management Plan",
+							"type": "obsGroup",
 							"questionOptions": {
-								"concept": "163047AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "text"
+								"rendering": "repeating",
+								"concept": "159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
+							"id": "Treatement",
 							"hide": {
 								"hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Treatment Plan",
-							"type": "obs",
-							"id": "TreatMentPlan",
-							"questionOptions": {
-								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "textarea"
 							},
-							"hide": {
-								"hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
+							"questions": [
+								{
+									"label": "Diagnosis",
+									"type": "obs",
+									"id": "DiagNosIS",
+									"questionOptions": {
+										"concept": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "diagnosis"
+									},
+									"hide": {
+										"hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Treatment Plan",
+									"type": "obs",
+									"id": "TreatMentPlan",
+									"questionOptions": {
+										"concept": "163104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "textarea"
+									},
+									"hide": {
+										"hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								}
+							]
 						}
+						
 					]
 				}
 			]
@@ -4289,7 +4318,7 @@
 					"isExpanded": "true",
 					"questions": [
 						{
-							"label": "PHDP Services - Has the client been given condoms this visit?",
+							"label": "Has the client been given condoms this visit?",
 							"type": "obs",
 							"id": "pHdPServIcEs",
 							"questionOptions": {
@@ -4319,7 +4348,7 @@
 							}
 						},
 						{
-							"label": "PHDP Services - Has the client been screened for substance abuse?",
+							"label": "Has the client been screened for substance abuse?",
 							"type": "obs",
 							"id": "pHdPsERviCeSclienT",
 							"questionOptions": {
@@ -4349,7 +4378,7 @@
 							}
 						},
 						{
-							"label": "PHDP Services - Has the Client disclosed HIV status to their sexually active partner?",
+							"label": "Has the Client disclosed HIV status to their sexually active partner?",
 							"type": "obs",
 							"id": "phDPhIV",
 							"questionOptions": {
@@ -4379,7 +4408,7 @@
 							}
 						},
 						{
-							"label": "PHDP Services - Has the client's partner received on-site HIV testing?",
+							"label": "Has the client's partner received on-site HIV testing?",
 							"type": "obs",
 							"id": "pHDPpaRTneR",
 							"questionOptions": {
@@ -4409,7 +4438,7 @@
 							}
 						},
 						{
-							"label": "PHDP Services - Has the client been screened for CaCx",
+							"label": "Has the client been screened for CaCx",
 							"type": "obs",
 							"id": "cacxPhDpScreening",
 							"questionOptions": {
@@ -4435,11 +4464,12 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
-							}
+								"hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15 || age > 66"
+							},
+							"validators": []
 						},
 						{
-							"label": "PHDP Services - Has the client been screened for STI (in this visit)?",
+							"label": "Has the client been screened for STI (in this visit)?",
 							"type": "obs",
 							"id": "screenedSti",
 							"required": "true",
@@ -4533,6 +4563,16 @@
 							"questionOptions": {
 								"concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "text"
+							},
+							"validators": [
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && personPresent === '159802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+									"message": "Please specify refill facility visited"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '159802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -4603,6 +4643,16 @@
 								{
 									"type": "date",
 									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Refill date should be greater than the encounter date."
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "isEmpty(myValue) && !isEmpty(CCCVisit) && CCCVisit === '160521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+									"message": "Please specify refill date."
 								}
 							]
 						},
