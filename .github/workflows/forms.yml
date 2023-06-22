@@ -1,0 +1,54 @@
+name: Deploy configuration folder to server
+
+on:
+  push:
+    branches:
+      - ampath-forms-configs 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      id: checkout
+      with:
+        ref: ampath-forms-configs 
+
+    - name: Copy folder to server
+      id: copy-folder
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.CICD_HOST }}
+        username: ${{ secrets.CICD_USERNAME }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.CICD_SECRET }}
+        source: "configuration/ampathforms"
+        target: "/apps/githubworkflows/OpenMrs3.0_assets"
+    
+    - name: Move and Remove Old Configuration
+      id: ssh
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.CICD_HOST }}
+        username: ${{ secrets.CICD_USERNAME }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.CICD_SECRET }}
+        script: |
+          sudo mv /var/lib/OpenMRS/configuration/ampathforms /apps/githubworkflows/OpenMrs3.0_assets/configuration/old_ampath
+          mv /apps/githubworkflows/OpenMrs3.0_assets/configuration/ampathforms /var/lib/OpenMRS/configutation/ampathforms
+          sudo rm -rf /apps/githubworkflows/OpenMrs3.0_assets/configuration/old_ampath
+          sudo rm -rf /var/lib/OpenMRS/configuration_checksums/ampathforms
+
+    - name: Restart Server
+      id: restart
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.CICD_HOST }}
+        username: ${{ secrets.CICD_USERNAME }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.CICD_SECRET }}
+        script: sudo service tomcat9 restart
