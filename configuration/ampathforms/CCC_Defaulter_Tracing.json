@@ -18,10 +18,15 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "ui-select-extended",
-								"allowFutureDates": "false"
+								"rendering": "ui-select-extended"
 							},
-							"id": "encDate"
+							"id": "encDate",
+							"validators":[
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 						},
 						{
 							"label": "Provider:",
@@ -45,6 +50,22 @@
 					"label": "Tracing Details",
 					"isExpanded": "true",
 					"questions": [
+						{
+							"label": "Date of missed appointments:",
+							"type": "obs",
+							"id": "missEDate",
+							"questionOptions": {
+								"concept": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"required": "true",
+							"validators":[
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
+						},
 						{
 							"label": "Type of tracing",
 							"type": "obs",
@@ -95,11 +116,72 @@
 							"id": "bookingDate",
 							"questionOptions": {
 								"concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date",
-								"allowFutureDates": "true"
+								"rendering": "date"
 							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+									"message": "The date promised to come should be in the future."
+								}
+							],
 							"hide": {
 								"hideWhenExpression": "contactStatus !== '1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Reason not Contact:",
+							"type": "obs",
+							"id": "reasonXcoNtact",
+							"questionOptions": {
+								"concept": "166541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "163723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Tracking ongoing"
+									},
+									{
+										"concept": "166538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No locator information"
+									},
+									{
+										"concept": "165075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Inaccurate locator information"
+									},
+									{
+										"concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Died"
+									},
+									{
+										"concept": "1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Calls not going through"
+									},
+									{
+										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "contactStatus !== '1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Specify :",
+							"type": "obs",
+							"id": "otherRcontacts",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "reasonXcoNtact !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -228,6 +310,10 @@
 							"label": "Outcome",
 							"type": "obs",
 							"id": "trueStatus",
+							"alert": {
+								"alertWhenExpression": "contactStatus === '160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contactStatus === '1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+								"message": "Complete the HIV Discontinuation form"
+							  },
 							"questionOptions": {
 								"concept": "160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "select",
