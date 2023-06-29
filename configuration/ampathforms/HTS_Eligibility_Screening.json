@@ -54,7 +54,7 @@
               "label": "Population Type :",
               "type": "obs",
               "questionOptions": {
-                "rendering": "radio",
+                "rendering": "select",
                 "concept": "cf543666-ce76-4e91-8b8d-c0b54a436a2e",
                 "answers": [
                   {
@@ -80,7 +80,7 @@
               "id": "kpTypeFemale",
               "questionOptions": {
                 "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "checkbox",
+                "rendering": "select",
                 "answers": [
                   {
                     "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -105,7 +105,19 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "populationType != 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || age <15 || sex != 'F'"
+                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || age <15 || sex != 'F'"
+              }
+            },
+            {
+              "label": "Specify:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "163761AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "kPfmalEOther",
+              "hide": {
+                "hideWhenExpression": "isEmpty(kpTypeFemale) || kpTypeFemale !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -114,7 +126,7 @@
               "id": "kpTypeMale",
               "questionOptions": {
                 "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "checkbox",
+                "rendering": "select",
                 "answers": [
                   {
                     "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -139,7 +151,19 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "populationType != 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || age <15 || sex != 'M'"
+                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || age <15 || sex != 'M'"
+              }
+            },
+            {
+              "label": "Specify:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "163761AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "kPmalEOther",
+              "hide": {
+                "hideWhenExpression": "isEmpty(kpTypeMale) || kpTypeMale !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -148,7 +172,7 @@
               "id": "ppType",
               "questionOptions": {
                 "concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "checkbox",
+                "rendering": "select",
                 "answers": [
                   {
                     "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -173,7 +197,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "populationType != '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age <15"
+                "hideWhenExpression": "populationType !== '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age <15"
               }
             }
           ]
@@ -210,7 +234,7 @@
               "id": "cricAdulT",
               "required": "true",
               "hide": {
-                "hideWhenExpression": "age < 9"
+                "hideWhenExpression": "age <9"
               }
             },
             {
@@ -237,7 +261,7 @@
               "id": "cricChild",
               "required": "true",
               "hide": {
-                "hideWhenExpression": "age > 9"
+                "hideWhenExpression": "age >9"
               }
             },
             {
@@ -253,7 +277,7 @@
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "label": "No"
                   }
                 ]
               },
@@ -472,7 +496,7 @@
               "required": "true",
               "validators": [],
               "hide": {
-                "hideWhenExpression": "age < 10"
+                "hideWhenExpression": "age <10"
               }
             },
             {
@@ -515,7 +539,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(testHistory) || testHistory != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(testHistory) || testHistory !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -542,7 +566,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(teSteR) || teSteR != '2797e57b-d1ff-4928-b10e-b72e95b63faf' "
+                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'])"
               }
             },
             {
@@ -553,9 +577,19 @@
                 "concept": "164400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
               },
-              "validators": [],
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+                  "message": "The date tested cannot be in the future."
+                }
+              ],
               "hide": {
-                "hideWhenExpression": "isEmpty(teSteR) || teSteR != '2797e57b-d1ff-4928-b10e-b72e95b63faf' "
+                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'])"
               }
             },
             {
@@ -582,7 +616,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(teSteR) || teSteR != '5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['2797e57b-d1ff-4928-b10e-b72e95b63faf'])"
               }
             },
             {
@@ -593,9 +627,19 @@
                 "concept": "164400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
               },
-              "validators": [],
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+                  "message": "The date tested cannot be in the future."
+                }
+              ],
               "hide": {
-                "hideWhenExpression": "isEmpty(teSteR)|| teSteR != '5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(teSteR)|| !arrayContains(teSteR, ['2797e57b-d1ff-4928-b10e-b72e95b63faf'])"
               }
             },
             {
@@ -618,7 +662,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(testHistory) || testHistory != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testedResult != '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(testHistory) || testedResultsprovider !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -631,7 +675,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "startedArt != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(testHistory) || testHistory != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testedResults != '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(startedArt) || startedArt !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -664,7 +708,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "age < 15"
+                "hideWhenExpression": "age < 15 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -690,7 +734,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 9"
+                "hideWhenExpression": "age < 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -802,7 +846,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 10"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 10"
               }
             },
             {
@@ -829,7 +873,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
               }
             },
             {
@@ -842,7 +886,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
+                "hideWhenExpression": "isEmpty(multipleSexPartners) || multipleSexPartners !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
               }
             },
             {
@@ -873,7 +917,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
               }
             },
             {
@@ -900,7 +944,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
               }
             },
             {
@@ -927,7 +971,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
               }
             },
             {
@@ -954,7 +998,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 "
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 "
               }
             },
             {
@@ -981,7 +1025,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 "
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 "
               }
             },
             {
@@ -1047,16 +1091,11 @@
                     "label": "No"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression":"testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
-            {
-              "label": "Children eligibility",
-              "type": "obsGroup",
-              "questionOptions": {
-                "concept": "159392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "group"
-              },
-              "questions": [
                 {
                   "label": "For children if any of the below are present , explore with the guardian and determine HTS eligibility",
                   "type": "obs",
@@ -1098,14 +1137,11 @@
                         "label": "Children >18 months who are still breastfeeding or wet nursing"
                       }
                     ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "age > 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
-              ],
-              "id": "childrenEligibility",
-              "hide": {
-                "hideWhenExpression": "age > 9"
-              }
-            }
           ]
         },
         {
@@ -1131,7 +1167,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 9"
+                "hideWhenExpression": "age < 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1201,7 +1237,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 9"
+                "hideWhenExpression": "age < 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1240,6 +1276,9 @@
                     "label": "PEP"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression":"testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1280,7 +1319,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 9"
+                "hideWhenExpression": "age < 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1329,6 +1368,9 @@
                     "label": "No"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1448,7 +1490,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "sex !== 'F' || age < 10"
+                "hideWhenExpression": "sex !== 'F' || age < 10 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1470,7 +1512,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "sex !== 'F' || age < 10"
+                "hideWhenExpression": "sex !== 'F' || age < 10 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -1486,6 +1528,9 @@
               "questionOptions": {
                 "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
+                "calculate": {
+                  "calculateExpression": "String(testedResultsprovider) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1523,7 +1568,10 @@
                   }
                 ]
               },
-              "id": "genRisK"
+              "id": "genRisK",
+              "hide": {
+                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
             },
             {
               "label": "Did you recommend HIV testing?",
@@ -1542,6 +1590,9 @@
                     "label": "No"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1603,6 +1654,9 @@
               "questionOptions": {
                 "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
+                "calculate": {
+                  "calculateExpression": "String(testedResultsprovider) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1666,7 +1720,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "clientReferred != '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "clientReferred !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
