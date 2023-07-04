@@ -1,0 +1,95 @@
+name: KenyaEMR OpenMRS React forms
+
+'on':
+  push:
+    branches:
+      - main
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 18.x
+    steps:
+      - uses: actions/checkout@v3
+      - name: 'Use Node.js ${{ matrix.node-version }}'
+        uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - name: Run script file
+        run: |
+          chmod +x ./dev-react-forms-build.sh
+          sh ./dev-react-forms-build.sh
+        shell: bash
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend
+          path: |
+            frontend
+      - name: Upload frontend to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.CICD_HOST }}
+          username: ${{ secrets.CICD_USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.CICD_SECRET }}
+          source: ./frontend/
+          target: /apps/githubworkflows/OpenMrs3.0_assets
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.CICD_HOST }}
+          username: ${{ secrets.CICD_USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.CICD_SECRET }}
+          script: >-
+            sudo mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old && mv
+            /apps/githubworkflows/OpenMrs3.0_assets/frontend /var/lib/OpenMRS/ && sudo rm -rf
+            /var/lib/OpenMRS/frontend_old
+    
+
+  release:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    strategy:
+      matrix:
+        node-version:
+          - 18.x
+    steps:
+      - uses: actions/checkout@v3
+      - name: 'Use Node.js ${{ matrix.node-version }}'
+        uses: actions/setup-node@v3
+      - name: Run production build script
+        run: |
+          chmod +x ./prod-build.sh
+          sh ./prod-build.sh
+        shell: bash
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend
+          path: |
+            frontend
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./frontend.zip
+          asset_name: frontend
+          asset_content_type: application/ 
