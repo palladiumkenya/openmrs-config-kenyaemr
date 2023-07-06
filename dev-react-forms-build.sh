@@ -18,7 +18,7 @@ sed -i 's/"@openmrs\/esm-form-entry-app": "4.6.1-pre.1871"/"@openmrs\/esm-form-e
 
 # Build assets
 echo "Building Kenya EMR 3.x assets ..."
-npx --legacy-peer-deps openmrs@5.0.3-pre.857 build \
+npx --legacy-peer-deps openmrs@5.0.3-pre.863 build \
   --build-config "$CWD/configuration/dev-build-config.json" \
   --target "$CWD/frontend" \
   --page-title "KenyaEMR" \
@@ -26,7 +26,7 @@ npx --legacy-peer-deps openmrs@5.0.3-pre.857 build \
 
 # Assemble assets
 echo "Assembling assets ..."
-npx --legacy-peer-deps openmrs@5.0.3-pre.857 assemble \
+npx --legacy-peer-deps openmrs@5.0.3-pre.863 assemble \
   --manifest \
   --mode config \
   --config "$CWD/configuration/dev-build-config.json" \

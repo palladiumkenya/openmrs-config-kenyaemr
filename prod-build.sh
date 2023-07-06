@@ -8,7 +8,7 @@ rm -rf frontend
 # Build assets
 echo "Building Kenya EMR 3.x assets ..."
 CWD=$(pwd)
-npx --legacy-peer-deps openmrs@5.0.3-pre.857 build \
+npx --legacy-peer-deps openmrs@5.0.3-pre.863 build \
   --build-config ./configuration/prod-build-config.json \
   --target ./frontend \
   --page-title "KenyaEMR" \
@@ -16,7 +16,7 @@ npx --legacy-peer-deps openmrs@5.0.3-pre.857 build \
 
 # Assemble assets
 echo "Assembling assets ..."
-npx --legacy-peer-deps openmrs@5.0.3-pre.857 assemble \
+npx --legacy-peer-deps openmrs@5.0.3-pre.863 assemble \
   --manifest \
   --mode config \
   --config ./configuration/prod-build-config.json \
