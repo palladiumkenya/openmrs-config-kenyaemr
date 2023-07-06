@@ -14,7 +14,7 @@ fi
 
 # Replace @openmrs/esm-form-entry-app with @openmrs/esm-form-engine-app
 echo "Replacing @openmrs/esm-form-entry-app with @openmrs/esm-form-engine-app ..."
-sed -i 's/@openmrs\/esm-form-entry-app/@openmrs\/esm-form-engine-app/g' "$CWD/configuration/dev-build-config.json"
+sed -i 's/"@openmrs\/esm-form-entry-app": "4.6.1-pre.1871"/"@openmrs\/esm-form-engine-app":"4.6.1-pre.1878"/g' "$CWD/configuration/dev-build-config.json"
 
 # Build assets
 echo "Building Kenya EMR 3.x assets ..."
@@ -42,7 +42,7 @@ mv "$CWD/frontend/dev-config.json" "$CWD/frontend/config.json"
 
 # Reverse the previous replacement of form entry app
 echo "Reverting the replacement of form entry app ..."
-sed -i 's/@openmrs\/esm-form-engine-app/@openmrs\/esm-form-entry-app/g' "$CWD/configuration/dev-build-config.json"
+sed -i 's/"@openmrs\/esm-form-engine-app":"4.6.1-pre.1878"/"@openmrs\/esm-form-entry-app": "4.6.1-pre.1871"/g' "$CWD/configuration/dev-build-config.json"
 
 echo "Script completed successfully."
 exit 0
