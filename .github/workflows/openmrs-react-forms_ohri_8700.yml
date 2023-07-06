@@ -38,7 +38,7 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.CICD_SECRET }}
           source: ./frontend/
-          target: /apps/githubworkflows/OpenMrs3.0_assets
+          target: /apps/githubworkflows/ohri_openmrs8700
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -47,10 +47,8 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.CICD_SECRET }}
           script: >-
-            sudo mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old && mv
-            /apps/githubworkflows/OpenMrs3.0_assets/frontend /var/lib/OpenMRS/ && sudo rm -rf
-            /var/lib/OpenMRS/frontend_old
-    
+            ${{secrets.DOCKER8700}}
+  
 
   release:
     runs-on: ubuntu-latest
