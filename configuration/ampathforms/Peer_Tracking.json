@@ -59,12 +59,12 @@
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
 								]
 							}
@@ -86,7 +86,10 @@
 							},
 							"id": "attemptNumber",
 							"validators": [],
-							"required": "Yes"
+							"required": "Yes",
+							"hide": {
+								"hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						},
 						{
 							"label": "Date",
@@ -96,8 +99,16 @@
 								"concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
 							"id": "firstAttempt",
-							"validators": [],
-							"required": "Yes"
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"required": "Yes",
+							"hide": {
+								"hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						},
 						{
 							"label": "Tracing type",
@@ -118,7 +129,10 @@
 							},
 							"id": "firstTracingType",
 							"validators": [],
-							"required": "Yes"
+							"required": "Yes",
+							"hide": {
+								"hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						},
 						{
 							"label": "Tracing outcome",
@@ -143,7 +157,10 @@
 							},
 							"id": "firstTracingOutcome",
 							"validators": [],
-							"required": "Yes"
+							"required": "Yes",
+							"hide": {
+								"hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						},
 						{
 							"label": "Was the final outcome reached?",
@@ -153,18 +170,21 @@
 								"concept": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"answers": [
 									{
-										"concept": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
 										"concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
 								]
 							},
 							"id": "finalOutcome",
 							"validators": [],
-							"required": "Yes"
+							"required": "Yes",
+							"hide": {
+								"hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						}
 					]
 				},
@@ -229,7 +249,7 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "tracingOutcomeStatus !== 'ddac1f1b-a5c7-4c62-b034-5d0b97197fd5'"
+								"hideWhenExpression": "tracingOutcomeStatus !== 'ddac1f1b-a5c7-4c62-b034-5d0b97197fd5' || trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -291,7 +311,7 @@
 							}
 						},
 						{
-							"label": "Source of information",
+							"label": "Other Source of information",
 							"type": "obs",
 							"id": "otherInformant",
 							"questionOptions": {
@@ -300,7 +320,7 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "sourceInformation !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "sourceInformation !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -354,7 +374,7 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "trackingNotAttempted !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "trackingNotAttempted !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || trackingAttempted !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
