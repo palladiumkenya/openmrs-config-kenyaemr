@@ -6,6 +6,13 @@
 	"uuid": "d5ca78be-654e-4d23-836e-a934739be555",
 	"retired": false,
 	"encounter": "PrEP Enrollment",
+	"meta": {
+		"programs": {
+		  "uuid": "214cad1c-bb62-4d8e-b927-810a046daf62",
+		  "isEnrollment": true,
+		  "discontinuationDateQuestionId": ""
+		}
+	},
 	"pages": [
 		{
 			"label": "Prep Initiation",
@@ -86,17 +93,17 @@
 										"label": "Discordant Couple"
 									},
 									{
-										"concept": "5d308c8c-ad49-45e1-9885-e5d09a8e5587",
-										"label": "General Population"
-									},
-									{
-										"concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550",
-										"label": "Key Population"
-									},
-									{
-										"concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Priority Population"
-									}
+                    "concept": "5d308c8c-ad49-45e1-9885-e5d09a8e5587",
+                    "label": "General Population"
+                  },
+                  {
+                    "concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550",
+                    "label": "Key Population"
+                  },
+                  {
+                    "concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Priority Population"
+                  }
 								]
 							},
 							"id": "PopuLationType",
@@ -135,7 +142,7 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "isEmpty(PopuLationType) && PopuLationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || PopuLationType === '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'M'"
+								"hideWhenExpression": "isEmpty(PopuLationType) || PopuLationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || sex !== 'M'"
 							}
 						},
 						{
@@ -166,7 +173,7 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "isEmpty(PopuLationType) && PopuLationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || PopuLationType === '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F'"
+								"hideWhenExpression": "isEmpty(PopuLationType) || PopuLationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || sex !== 'F'"
 							}
 						},
 						{
@@ -197,7 +204,7 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "isEmpty(PopuLationType) && PopuLationType !== '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  || sex !== 'M'"
+								"hideWhenExpression": "isEmpty(PopuLationType) || PopuLationType !== '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  || sex !== 'M'"
 							}
 						},
 						{
@@ -232,7 +239,7 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "isEmpty(PopuLationType) && PopuLationType !== '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F'"
+								"hideWhenExpression": "isEmpty(PopuLationType) || PopuLationType !== '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F'"
 							}
 						},
 						{
@@ -309,24 +316,45 @@
 							}
 						},
 						{
-							"label": "Unique Prep Number (UPN):",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "text",
-								"concept": "5325AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-							},
-							"id": "uniquePrepNumber",
-							"required": "true"
-						},
+              "type": "patientIdentifier",
+              "label": "Unique Prep Number (UPN):",
+              "questionInfo": "",
+              "id": "uniquePrepNumber",
+              "required": "true",
+              "default": "",
+              "questionOptions": {
+                "rendering": "string",
+                "identifierType": "ac64e5cb-e3e2-4efa-9060-0dd715a843a1"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "doesNotMatchExpression('^\\\\\\d{14}$', uniquePrepNumber)",
+                  "message": "Invalid Unique Patient Number(UPN) Format! Should be 5 digit MFL Code, 4 digit year and 5 digit client number e.g.10829202200001"
+
+                }
+              ]
+            },
 						{
-							"label": "NHIF Number:",
-							"type": "obs",
-							"id": "nhifNumber",
-							"questionOptions": {
-								"concept": "1917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "Text"
-							}
-						}
+              "type": "patientIdentifier",
+              "label": "NHIF Number:",
+              "questionInfo": "",
+              "id": "nhifNumber",
+              "required": "false",
+              "default": "",
+              "questionOptions": {
+                "rendering": "string",
+                "identifierType": "09ebf4f9-b673-4d97-b39b-04f94088ba64"
+              },
+							"validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "doesNotMatchExpression('^\\\\d+$', nhifNumber)",
+                  "message": "NHIF number should contain digits only e.g.10829202"
+
+                }
+              ]
+            }
 					]
 				},
 				{
@@ -400,11 +428,11 @@
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "true",
 										"label": "Yes"
 									},
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "false",
 										"label": "No"
 									}
 								]
@@ -434,7 +462,7 @@
 							},
 							"validators": [],
 							"hide": {
-								"hideWhenExpression": "isEmpty(artStatus) || artStatus == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(artStatus) || artStatus == 'false'"
 							}
 						},
 						{
@@ -442,12 +470,17 @@
 							"type": "obs",
 							"id": "name",
 							"questionOptions": {
-								"concept": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"concept": "162881AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
 							},
-							"validators": [],
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
 							"hide": {
-								"hideWhenExpression": "isEmpty(artStatus) || artStatus == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(artStatus) || artStatus == 'false'"
 							}
 						}
 					]
@@ -464,11 +497,11 @@
 								"concept": "5629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"answers": [
 									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "true",
 										"label": "Yes"
 									},
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "false",
 										"label": "No"
 									}
 								]
@@ -476,7 +509,8 @@
 							"hide": {
 								"hideWhenExpression": "age > 17"
 							},
-							"id": "inSchool"
+							"id": "inSchool",
+							"required": "true"
 						}
 					]
 				},
