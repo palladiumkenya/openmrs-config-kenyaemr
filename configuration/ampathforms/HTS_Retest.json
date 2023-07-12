@@ -1551,6 +1551,56 @@
 					]
 				},
 				{
+					"label": "Recency screening",
+					"isExpanded": "true",
+					"questions": [
+					  {
+						"label": "Has recency screening been done:",
+						"type": "obs",
+						"questionOptions": {
+						  "rendering": "radio",
+						  "concept": "163777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "answers": [
+							{
+							  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "Yes"
+							},
+							{
+							  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "label": "No"
+							}
+						  ]
+						},
+						"id": "recencyScreening",
+						"hide": {
+						  "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+						}
+					  },
+					  {
+						"type": "patientIdentifier",
+						"label": "Recency Id",
+						"questionInfo": "",
+						"id": "recencyId",
+						"required": "false",
+						"default": "",
+						"questionOptions": {
+						  "rendering": "text",
+						  "identifierType": "fd52829a-75d2-4732-8e43-4bff8e5b4f1a"
+						},
+						"validators": [
+						  {
+							"type": "js_expression",
+							"failsWhenExpression": "doesNotMatchExpression('^REC\\\\d{5}-\\\\d{5,6}$', recencyId)",
+							"message": "Please provide the correct format for the recency id ie. REC+mflCode+number eg.REC11902-00062"
+						  }
+						],
+						"hide": {
+						  "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(recencyScreening) || recencyScreening === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+						}
+					  }
+					]
+				  },
+				{
 					"label": "Remarks",
 					"isExpanded": "true",
 					"questions": [
