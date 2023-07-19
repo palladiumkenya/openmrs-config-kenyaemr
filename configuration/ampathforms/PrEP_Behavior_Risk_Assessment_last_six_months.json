@@ -11,7 +11,7 @@
 			"label": "PrEP Behavior Risk Assessment",
 			"sections": [
 				{
-					"label": "PrEP Behavior Risk Assessment in the last six months",
+					"label": "Visit details",
 					"isExpanded": "true",
 					"questions": [
 						{
@@ -147,6 +147,24 @@
 							}
 						},
 						{
+							"label": "Couple is trying to concieve",
+							"type": "obs",
+							"id": "coupleTryingConceive",
+							"questionOptions": {
+								"concept": "163310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "160571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Couple is trying to concieve"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(onArt) || onArt === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || partnerHivStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
 							"label": "Specify other reason",
 							"type": "obs",
 							"id": "soecifyReason",
@@ -208,7 +226,7 @@
 								"rendering": "radio",
 								"concept": "d79488b7-eb63-49ba-b99c-a52f777a1a7f",
 								"calculate": {
-									"calculateExpression": "String(PartnerRisk) === '5564AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(partnerHivStatus) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  : '166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									"calculateExpression": "String(PartnerRisk) === '5564AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(partnerHivStatus) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  : '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 								},
 								"answers": [
 									{
@@ -216,7 +234,7 @@
 										"label": "Risk"
 									},
 									{
-										"concept": "166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Low risk"
 									}
 								]
@@ -349,16 +367,178 @@
 								"hideWhenExpression": "riskEductionOffered !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
+						
 						{
-							"label": "Ongoing Intimate Partner Violence (IPV) or/and Gender Based Violence (GBV)",
+							"label": "Other(specify)",
+							"type": "obs",
+							"id": "referralSpecify",
+							"questionOptions": {
+								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							},
+							"hide": {
+								"hideWhenExpression": "!arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], riskReductionReferral)"
+							}
+						}
+					]
+				},
+				{
+					"label": "HIV Positive Partner Profile",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "HIV Positive Partner Profile",
 							"type": "obsGroup",
+							"id": "HivPostivePartnerProfile",
 							"questionOptions": {
 								"concept": "141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "group"
 							},
-							"questions": [],
-							"id": "ongoingIpv"
-						},
+							"questions": [
+								{
+									"label": "1. When did you establish your partner HIV+ status:",
+									"type": "obs",
+									"id": "partnerHivTestDate",
+									"questionOptions": {
+										"concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "date"
+									},
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "false"
+										}
+									],
+									"hide": {
+										"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "2. Is partner enrolled to a CCC?",
+									"type": "obs",
+									"id": "enrolledInCCC",
+									"questionOptions": {
+										"concept": "9f0ed4b8-5cdd-4ec6-bbd8-ac24604cb781",
+										"rendering": "radio",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											},
+											{
+												"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Unknown"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "3. CCC Number?",
+									"type": "obs",
+									"id": "partnersCCCNo",
+									"questionOptions": {
+										"concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "number",
+										"maxLength": "10",
+										"minLength": "10"
+									},
+									"hide": {
+										"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "4. HIV+ partners ART start date",
+									"type": "obs",
+									"id": "artStartDate",
+									"questionOptions": {
+										"concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "date"
+									},
+									"hide": {
+										"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									},
+									"validators": [
+										{
+											"type": "date",
+											"allowFutureDates": "false"
+										}
+									]
+								},
+								{
+									"label": "5. Duration known to be HIV- serodiscordant in Year(s)",
+									"type": "obs",
+									"id": "years",
+									"questionOptions": {
+										"concept": "164393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "number"
+									},
+									"hide": {
+										"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "Duration known to be HIV- serodiscordant in Month(s)",
+									"type": "obs",
+									"id": "months",
+									"questionOptions": {
+										"concept": "4978edd0-75ab-40a9-9c07-d4bbeb43fed5",
+										"rendering": "number"
+									},
+									"hide": {
+										"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "6. Sex without a condom with a HIV+ partner in the past 30 days",
+									"type": "obs",
+									"id": "sexWithoutCd",
+									"questionOptions": {
+										"concept": "6cb0434b-baa2-4862-aec8-9c468a7340ba",
+										"rendering": "radio",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											}
+										]
+									},
+									"hide": {
+										"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								},
+								{
+									"label": "7. Number of living children with HIV+ partner",
+									"type": "obs",
+									"id": "numberOfChildren",
+									"questionOptions": {
+										"concept": "1825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "number"
+									},
+									"hide": {
+										"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									}
+								}
+							]
+						}
+						
+					]
+					
+				},
+				{
+					"label": "Referral for other prevention services",
+					"isExpanded": "true",
+					"questions": [
 						{
 							"label": "Referral for other prevention services",
 							"type": "obs",
@@ -409,153 +589,8 @@
 									}
 								]
 							}
-						},
-						{
-							"label": "Other(specify)",
-							"type": "obs",
-							"id": "referralSpecify",
-							"questionOptions": {
-								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "textarea"
-							},
-							"hide": {
-								"hideWhenExpression": "!arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], riskReductionReferral)"
-							}
 						}
-					]
-				},
-				{
-					"label": "HIV Positive Partner Profile",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "1. When did you establish your partner HIV+ status:",
-							"type": "obs",
-							"id": "partnerHivTestDate",
-							"questionOptions": {
-								"concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							},
-							"validators": [
-								{
-									"type": "date",
-									"allowFutureDates": "false"
-								}
-							],
-							"hide": {
-								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "2. Is partner enrolled to a CCC?",
-							"type": "obs",
-							"id": "enrolledInCCC",
-							"questionOptions": {
-								"concept": "9f0ed4b8-5cdd-4ec6-bbd8-ac24604cb781",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
-										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Unknown"
-									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "3. CCC Number?",
-							"type": "obs",
-							"id": "partnersCCCNo",
-							"questionOptions": {
-								"concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "text",
-								"maxLength": "10",
-								"minLength": "10"
-							},
-							"hide": {
-								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "4. HIV+ partners ART start date",
-							"type": "obs",
-							"id": "artStartDate",
-							"questionOptions": {
-								"concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "date"
-							},
-							"hide": {
-								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "5. Duration known to be HIV- serodiscordant in Year(s)",
-							"type": "obs",
-							"id": "years",
-							"questionOptions": {
-								"concept": "164393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "number"
-							},
-							"hide": {
-								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Duration known to be HIV- serodiscordant in Month(s)",
-							"type": "obs",
-							"id": "months",
-							"questionOptions": {
-								"concept": "4978edd0-75ab-40a9-9c07-d4bbeb43fed5",
-								"rendering": "number"
-							},
-							"hide": {
-								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "6. Sex without a condom with a HIV+ partner in the past 30 days",
-							"type": "obs",
-							"id": "sexWithoutCd",
-							"questionOptions": {
-								"concept": "6cb0434b-baa2-4862-aec8-9c468a7340ba",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									}
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "7. Number of living children with HIV+ partner",
-							"type": "obs",
-							"id": "numberOfChildren",
-							"questionOptions": {
-								"concept": "1825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "number"
-							},
-							"hide": {
-								"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						}
+						
 					]
 				}
 			]
