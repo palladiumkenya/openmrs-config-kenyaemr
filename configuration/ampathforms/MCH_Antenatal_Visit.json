@@ -59,6 +59,16 @@
               },
               "id": "visitNumber",
               "required": "true"
+            },
+            {
+              "label": "ANC Clinic Number:",
+              "id": "ancClinicNumber:",
+              "questionOptions": {
+                "concept": "",
+                "rendering": "text"
+              },
+              "type": "control",
+              "validators": []
             }
           ]
         },
@@ -619,9 +629,6 @@
               },
               "id": "hivTest",
               "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
-              },
               "questions": [
                 {
                   "label": "Kit Name",
@@ -645,10 +652,7 @@
                     ]
                   },
                   "id": "kitName",
-                  "validators": [],
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  }
+                  "validators": []
                 },
                 {
                   "label": "Lot Number",
@@ -658,10 +662,7 @@
                     "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
                   },
                   "id": "lotNumber",
-                  "validators": [],
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
-                  }
+                  "validators": []
                 },
                 {
                   "label": "Expiry Date",
@@ -677,10 +678,7 @@
                     "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "weeksList": ""
                   },
-                  "id": "expiryDate",
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
-                  }
+                  "id": "expiryDate"
                 },
                 {
                   "label": "HIV Test  Results:",
@@ -704,10 +702,7 @@
                     ]
                   },
                   "id": "testResults",
-                  "validators": [],
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
-                  }
+                  "validators": []
                 },
                 {
                   "label": "Kit Name",
@@ -822,10 +817,7 @@
                 ]
               },
               "id": "finalResult",
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
-              }
+              "validators": []
             },
             {
               "label": "Results given to client?",
@@ -888,7 +880,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(partnerTested) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(partnerTested) || partnerTested !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -1592,11 +1584,11 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "160123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "true",
                     "label": "Yes"
                   },
                   {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "false",
                     "label": "No"
                   }
                 ]
@@ -1659,7 +1651,6 @@
             }
           ]
         },
-
         {
           "label": "Female Health related issues",
           "isExpanded": "true",
@@ -1765,7 +1756,7 @@
               "label": "Chronic Illness",
               "type": "obsGroup",
               "questionOptions": {
-                "rendering": "group",
+                "rendering": "repeating",
                 "concept": "159392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "id": "illnessObsGroup",
@@ -1884,7 +1875,10 @@
                     ]
                   },
                   "id": "illnessType",
-                  "validators": []
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(chronicIllness) || chronicIllness !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
                 },
                 {
                   "label": "Onset Date",
@@ -1895,6 +1889,9 @@
                       "allowFutureDates": "false"
                     }
                   ],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(chronicIllness) || chronicIllness !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
                   "questionOptions": {
                     "rendering": "date",
                     "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1906,11 +1903,14 @@
                   "label": "Drug",
                   "type": "obs",
                   "questionOptions": {
-                    "rendering": "text",
+                    "rendering": "drug",
                     "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                   },
                   "id": "illnessDrug",
-                  "validators": []
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(chronicIllness) || chronicIllness !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
                 },
                 {
                   "label": "Dose",
@@ -1920,7 +1920,10 @@
                     "concept": "1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                   },
                   "id": "illnessDose",
-                  "validators": []
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(chronicIllness) || chronicIllness !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
                 },
                 {
                   "label": "Units",
@@ -1930,7 +1933,10 @@
                     "concept": "1444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                   },
                   "id": "illnessUnits",
-                  "validators": []
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(chronicIllness) || chronicIllness !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
                 },
                 {
                   "label": "Frequency:",
@@ -1970,7 +1976,10 @@
                     ]
                   },
                   "id": "frequency",
-                  "validators": []
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(chronicIllness) || chronicIllness !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
                 },
                 {
                   "label": "Duration",
@@ -1980,7 +1989,10 @@
                     "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                   },
                   "id": "drugDuration",
-                  "validators": []
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(chronicIllness) || chronicIllness !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
                 },
                 {
                   "label": "Duration Units",
@@ -2008,7 +2020,10 @@
                     ]
                   },
                   "id": "drugDuration",
-                  "validators": []
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(chronicIllness) || chronicIllness !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
                 }
               ]
             }
@@ -2093,6 +2108,92 @@
                 }
               ],
               "id": "clientEducation"
+            }
+          ]
+        },
+        {
+          "label": "Minimum Package of Care",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Has the client received the minimum package of Care:",
+              "type": "obs",
+              "id": "minCarePackage",
+              "questionOptions": {
+                "concept": "161595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Care Package",
+              "type": "obsGroup",
+              "id": "minCarePackageOptions",
+              "questionOptions": {
+                "concept": "161048AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "group"
+              },
+              "questions": [
+                {
+                  "label": "Care Package",
+                  "type": "obs",
+                  "id": "minCarePackageOptionsGroup",
+                  "questionOptions": {
+                    "concept": "1592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "multiCheckbox",
+                    "answers": [
+                      {
+                        "concept": "959319eb-f595-4b08-9b26-4e01835b2c89",
+                        "label": "Risk Reduction counselling"
+                      },
+                      {
+                        "concept": "161557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "HIV Testing for the Partner"
+                      },
+                      {
+                        "concept": "d06d16a2-7d2e-4a9e-b72c-f7ff7ece1d9a",
+                        "label": "STI Screening and treatment"
+                      },
+                      {
+                        "concept": "159777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Condom Provision"
+                      },
+                      {
+                        "concept": "2f3e668b-695e-4a79-9531-15872b89e5c6",
+                        "label": "PrEP with emphasis on adherence"
+                      },
+                      {
+                        "concept": "165475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Emphasize importance of follow up ANC Visits"
+                      },
+                      {
+                        "concept": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Postnatal FP Counselling and support"
+                      },
+                      {
+                        "concept": "162223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Referrals for VMMC Services for partner"
+                      },
+                      {
+                        "concept": "7dbb5b43-861e-4816-a88f-caa976ac2050",
+                        "label": "Referrals for OVC/DREAMS"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(minCarePackage) || minCarePackage === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                }
+              ]
             }
           ]
         },
