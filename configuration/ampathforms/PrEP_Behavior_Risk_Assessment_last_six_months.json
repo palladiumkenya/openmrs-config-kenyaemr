@@ -165,18 +165,6 @@
 							}
 						},
 						{
-							"label": "Specify other reason",
-							"type": "obs",
-							"id": "soecifyReason",
-							"questionOptions": {
-								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "textarea"
-							},
-							"hide": {
-								"hideWhenExpression": "isEmpty (markAllAapply) || markAllAapply !== 'c67be9a5-f497-4082-af81-11753f65ed4b'"
-							}
-						},
-						{
 							"label": "Behavior Risk of Partner (Select all that apply)",
 							"type": "obs",
 							"id": "behaviourRisks",
@@ -215,8 +203,24 @@
 									{
 										"concept": "c8ae2850-abab-4b9c-927c-129ecc2c2752",
 										"label": "Injecting drug use with shared needles and/or syringes"
+									},
+									{
+										"concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+										"label": "Other(Specify)"
 									}
 								]
+							}
+						},
+						{
+							"label": "Specify other reason",
+							"type": "obs",
+							"id": "soecifyReason",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "textarea"
+							},
+							"hide": {
+								"hideWhenExpression": "!arrayContains(['c67be9a5-f497-4082-af81-11753f65ed4b'], behaviourRisks)"
 							}
 						},
 						{
@@ -226,7 +230,7 @@
 								"rendering": "radio",
 								"concept": "d79488b7-eb63-49ba-b99c-a52f777a1a7f",
 								"calculate": {
-									"calculateExpression": "String(PartnerRisk) === '5564AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(partnerHivStatus) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  : '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+									"calculateExpression": "String(PartnerRisk) === '5564AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(partnerHivStatus) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  : String(behaviourRisks) === '159385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || '141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || '160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || '156660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || '164845AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || '7e5eac79-31d5-4a31-a8ee-1b07f824aa67' || 'b19493e4-1a96-4fff-bfc6-3fbca37f02ec' || 'c8ae2850-abab-4b9c-927c-129ecc2c2752' ? '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 								},
 								"answers": [
 									{
@@ -450,7 +454,7 @@
 										"minLength": "10"
 									},
 									"hide": {
-										"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "enrolledInCCC !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									}
 								},
 								{
@@ -462,7 +466,7 @@
 										"rendering": "date"
 									},
 									"hide": {
-										"hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "enrolledInCCC !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 									},
 									"validators": [
 										{
@@ -588,6 +592,19 @@
 										"label": "Other"
 									}
 								]
+							}
+						},
+						{
+							"label": "Other Specify:",
+							"type": "obs",
+							"id": "otherSpecify",
+							"questionOptions": {
+								"concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+								"rendering": "Text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "isEmpty(riskReductionReferral) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], riskReductionReferral)"
 							}
 						}
 						
