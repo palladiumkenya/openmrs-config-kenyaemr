@@ -172,6 +172,9 @@
                 "calculate": {
                   "calculateExpression": "calcBMI(height,weight)"
                 }
+              },
+              "hide": {
+                "hideWhenExpression": "age <= 5"
               }
             },
             {
@@ -199,7 +202,7 @@
               "id": "nutritionalStatus",
               "questionOptions": {
                 "rendering": "select",
-                "concept": "167392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "163515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "calculate": {
                   "calculateExpression": "zScore && calculateZNutritionScore(zScore)"
                 },
@@ -247,6 +250,40 @@
                 "hideWhenExpression": "!(age >= 0 && age <=5)"
               }
             },
+
+            {
+							"label": "Nutritional status",
+							"type": "obs",
+							"id": "adultNutRitionalStatus",
+							"questionOptions": {
+								"concept": "163300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"calculate": {
+									"calculateExpression": "parseInt(bmi) <= 16 ? '163302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : parseInt(bmi) >= 16 && parseInt(bmi) <= 18 ? '163303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : parseInt(bmi) >= 18 && parseInt(bmi) <= 24 ? '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : parseInt(bmi) >= 25 ? '114413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' :''"
+								},
+								"answers": [
+									{
+										"concept": "163303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Moderate acute malnutrition"
+									},
+									{
+										"concept": "114413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Overweight/Obese"
+									},
+									{
+										"concept": "163302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Severe acute malnutrition"
+									},
+									{
+										"concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Normal"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "age <= 5"
+							}
+						},
             {
               "label": "MUAC:",
               "type": "obs",
@@ -254,7 +291,6 @@
               "questionOptions": {
                 "concept": "1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
-                "max": "250",
                 "min": "0"
               },
               "hide": {
