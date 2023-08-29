@@ -53,7 +53,7 @@
             {
               "label": "Feeling nervous, anxious or on edge",
               "type": "obs",
-              "id": "feelingNervousAnxious",
+              "id": "anxious",
               "questionOptions": {
                 "concept": "167003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -80,7 +80,7 @@
             {
               "label": "Not being able to stop or control worrying",
               "type": "obs",
-              "id": "stopOrControlWorrying",
+              "id": "controlWorrying",
               "questionOptions": {
                 "concept": "167005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -107,7 +107,7 @@
             {
               "label": "Worrying too much about different things",
               "type": "obs",
-              "id": "worryingTooMuch",
+              "id": "worryingMuch",
               "questionOptions": {
                 "concept": "166482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -161,7 +161,7 @@
             {
               "label": "Being so restless that it is hard to sit still",
               "type": "obs",
-              "id": "tooRestless",
+              "id": "restless",
               "questionOptions": {
                 "concept": "167065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -188,7 +188,7 @@
             {
               "label": "Feeling bad about yourself, or that you are a failure,or that you have let yourself or your family down",
               "type": "obs",
-              "id": "feelingBadAboutYourself",
+              "id": "feelingBad",
               "questionOptions": {
                 "concept": "167066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -238,7 +238,24 @@
                   }
                 ]
               }
-            }
+            },
+            {
+							"label": "Anxiety score rating:",
+							"id": "anxietyScore",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "text",
+								"calculate": {
+									"calculateExpression": "(String(anxious) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(anxious) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(anxious) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(controlWorrying) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(controlWorrying) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 :  String(controlWorrying)==='167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(worryingMuch) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(worryingMuch) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(worryingMuch) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(troubleRelaxing) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(troubleRelaxing) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(troubleRelaxing) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) +(String(feelingAfraid) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(feelingAfraid) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(feelingAfraid) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(restless) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(restless) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(restless) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(feelingBad) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(feelingBad) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(feelingBad) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0)"
+								}
+							},
+							"type": "control",
+							"validators": [],
+              "hide": {
+								"hideWhenExpression": "isEmpty(myValue) || !isEmpty(myValue)"
+							}
+							
+						}
           ]
         },
         {
@@ -269,7 +286,10 @@
                     "concept": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Severe Anxiety"
                   }
-                ]
+                ],
+              "calculate": {
+                "calculateExpression": "(!isEmpty(anxious) || !isEmpty(feelingBad) || !isEmpty(worryingMuch) || !isEmpty(restless) || !isEmpty(controlWorrying)|| !isEmpty(troubleRelaxing)|| !isEmpty(feelingAfraid) ) && parseInt(anxietyScore) < 5 ? '159410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ( parseInt(anxietyScore) > 4 && parseInt(anxietyScore) < 10 ) ? '1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ( parseInt(anxietyScore) > 9 && parseInt(anxietyScore) < 15 ) ? '1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': parseInt(anxietyScore) >= 15 ?  '1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+              }
               }
             }
           ]
