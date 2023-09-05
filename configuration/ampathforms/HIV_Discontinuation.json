@@ -27,7 +27,13 @@
               "questionOptions": {
                 "rendering": "ui-select-extended"
               },
-              "id": "encDate"
+              "id": "encDate",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
             },
             {
               "label": "Provider:",
@@ -55,6 +61,7 @@
               "label": "Effective discontinuation date",
               "type": "obs",
               "id": "discontinueDate",
+              "required": "true",
               "questionOptions": {
                 "concept": "164384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
@@ -63,6 +70,11 @@
                 {
                   "type": "date",
                   "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day'))",
+                  "message": "Discontinuation Date should not be greater than the encounter date."
                 }
               ]
             },
@@ -70,6 +82,7 @@
               "label": "Reason:",
               "type": "obs",
               "id": "idReason",
+              "required": "true",
               "questionOptions": {
                 "concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
@@ -120,13 +133,22 @@
                 {
                   "type": "date",
                   "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day'))",
+                  "message": "Date client died should not be greater than the encounter date."
                 }
-              ]
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(idReason) || idReason !== '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
             },
             {
               "label": "Death reason:",
               "type": "obs",
               "id": "deathReason",
+              "required": "true",
               "questionOptions": {
                 "concept": "1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
@@ -168,6 +190,7 @@
             {
               "label": "Specific cause of death:",
               "type": "obs",
+              "required": "true",
               "id": "specificCauseOfDeath",
               "questionOptions": {
                 "concept": "1748AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -313,7 +336,18 @@
               },
               "hide": {
                 "hideWhenExpression": "isEmpty(idReason) || idReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day'))",
+                  "message": "Date transferred out should not be greater than the encounter date."
+                }
+              ]
             },
             {
               "label": "Transfer out verified?",
@@ -347,7 +381,18 @@
               },
               "hide": {
                 "hideWhenExpression": "isEmpty(idReason) || (trVerifiedObs !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && trVerifiedObs !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || trVerifiedObs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day'))",
+                  "message": "Date verified should not be greater than the encounter date."
+                }
+              ]
             }
           ]
         }
