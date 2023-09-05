@@ -672,7 +672,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'])"
+                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA']) || testedResultsprovider === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -754,7 +754,8 @@
               "id": "upnConcept",
               "questionOptions": {
                 "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "0"
               },
               "validators": [],
               "hide": {
@@ -844,7 +845,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || age < 9"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || sexuallyActive == '162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
               }
             },
             {
@@ -871,7 +872,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || age < 9 "
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || sexuallyActive == '162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 "
               }
             },
             {
@@ -902,7 +903,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || age < 10 "
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || sexuallyActive == '162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 10 "
               }
             },
             {
@@ -961,7 +962,8 @@
               "id": "noSexPartners",
               "questionOptions": {
                 "concept": "5570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "0"
               },
               "validators": [],
               "hide": {
@@ -1546,6 +1548,39 @@
               "hide": {
                 "hideWhenExpression": "isEmpty(screenedTB) || screenedTB !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
               }
+            },
+            {
+              "label": "Resulting TB Status:",
+              "type": "obs",
+              "id": "tbResultstaTuS",
+              "questionOptions": {
+                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "calculate": {
+                  "calculateExpression": "String(coughDuration) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(fever) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(weightLoss) === '0'  && String(experiencingSweats) === '0' ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ( (String(coughDuration) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(fever) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(experiencingSweats) === '1'? 1 : 0) + (String(weightLoss) === '1'? 1 : 0) ) > 0 ?  '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  },
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Confirmed"
+                  },
+                  {
+                    "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Screening Not Done"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(screenedTB) || screenedTB !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+              }
             }
           ]
         },
@@ -1634,6 +1669,9 @@
                 "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "text",
                 "machineLearning": true
+              },
+              "hide": {
+                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1751,9 +1789,6 @@
               "questionOptions": {
                 "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
-                "calculate": {
-                  "calculateExpression": "String(testedResultsprovider) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
-                },
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1764,6 +1799,9 @@
                     "label": "No"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "eligibleTest === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
