@@ -311,45 +311,44 @@
 							}
 						},
 						{
-              "type": "patientIdentifier",
-              "label": "Unique Prep Number (UPN):",
-              "questionInfo": "",
-              "id": "uniquePrepNumber",
-              "required": "true",
-              "default": "",
-              "questionOptions": {
-                "rendering": "string",
-                "identifierType": "ac64e5cb-e3e2-4efa-9060-0dd715a843a1"
-              },
-              "validators": [
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "doesNotMatchExpression('^\\\\\\d{14}$', uniquePrepNumber)",
-                  "message": "Invalid Unique Patient Number(UPN) Format! Should be 5 digit MFL Code, 4 digit year and 5 digit client number e.g.10829202200001"
+						"type": "patientIdentifier",
+						"label": "Unique Prep Number (UPN):",
+						"questionInfo": "",
+						"id": "uniquePrepNumber",
+						"required": "true",
+						"default": "",
+						"questionOptions": {
+							"rendering": "string",
+							"identifierType": "ac64e5cb-e3e2-4efa-9060-0dd715a843a1"
+						},
+						"validators": [
+							{
+							"type": "js_expression",
+							"failsWhenExpression": "doesNotMatchExpression('^\\\\\\d{14}$', uniquePrepNumber)",
+							"message": "Invalid Unique Patient Number(UPN) Format! Should be 5 digit MFL Code, 4 digit year and 5 digit client number e.g.10829202200001"
 
-                }
-              ]
-            },
+							}
+						]
+						},
 						{
-              "type": "patientIdentifier",
-              "label": "NHIF Number:",
-              "questionInfo": "",
-              "id": "nhifNumber",
-              "required": "false",
-              "default": "",
-              "questionOptions": {
-                "rendering": "string",
-                "identifierType": "09ebf4f9-b673-4d97-b39b-04f94088ba64"
-              },
-							"validators": [
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "doesNotMatchExpression('^\\\\d+$', nhifNumber)",
-                  "message": "NHIF number should contain digits only e.g.10829202"
+						"type": "patientIdentifier",
+						"label": "NHIF Number:",
+						"questionInfo": "",
+						"id": "nhifNumber",
+						"default": "",
+						"questionOptions": {
+							"rendering": "string",
+							"identifierType": "09ebf4f9-b673-4d97-b39b-04f94088ba64"
+						},
+						"validators": [
+							{
+							"type": "js_expression",
+							"failsWhenExpression": "doesNotMatchExpression('^\\\\d+$', nhifNumber)",
+							"message": "NHIF number should contain digits only e.g.10829202"
 
-                }
-              ]
-            }
+							}
+						]
+						}
 					]
 				},
 				{
@@ -434,30 +433,59 @@
 							}
 						},
 						{
-							"label": "Regimen",
+							"label": "Type of PrEP",
 							"type": "obs",
-							"id": "regimen",
+							"id": "prepType",
 							"questionOptions": {
-								"concept": "1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "TDF/3TC"
-									},
-									{
-										"concept": "84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "TDF"
-									},
-									{
-										"concept": "104567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "TDF/FTC"
-									}
-								]
+							  "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "rendering": "radio",
+							  "answers": [
+								{
+								  "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+								  "label": "Daily Oral PrEP"
+								},
+								{
+								  "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+								  "label": "CAB-LA"
+								},
+								{
+								  "concept": "b3f6eab2-93bd-4fe0-81ce-5b7ec633a55a",
+								  "label": "Dapivirine ring"
+								},
+								{
+								  "concept": "5424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								  "label": "Event Driven"
+								}
+							  ]
 							},
-							"validators": [],
 							"hide": {
-								"hideWhenExpression": "isEmpty(artStatus) || artStatus == 'false'"
+								"hideWhenExpression": "isEmpty(artStatus) || artStatus !== 'true'"
+							}
+						},
+						{
+							"label": "Regimen prescribed",
+							"type": "obs",
+							"id": "regimenOptions",
+							"questionOptions": {
+							  "concept": "164515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "rendering": "select",
+							  "answers": [
+								{
+								  "concept": "161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								  "label": "TDF/3TC"
+								},
+								{
+								  "concept": "84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								  "label": "TDF"
+								},
+								{
+								  "concept": "104567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								  "label": "TDF/FTC(Preferred)"
+								}
+							  ]
+							},
+							"hide": {
+							  "hideWhenExpression": "isEmpty(prepType) || prepType !== 'cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7'"
 							}
 						},
 						{
@@ -475,7 +503,7 @@
 								}
 							],
 							"hide": {
-								"hideWhenExpression": "isEmpty(artStatus) || artStatus == 'false'"
+								"hideWhenExpression": "isEmpty(artStatus) || artStatus !== 'true'"
 							}
 						}
 					]
