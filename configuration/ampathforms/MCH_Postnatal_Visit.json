@@ -51,21 +51,25 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "PNC Register Number:",
+              "label": "PNC Number:",
               "type": "obs",
               "id": "pncRegisterNumber",
+              "required": "true",
               "questionOptions": {
                 "concept": "1646AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text"
+                "rendering": "number",
+                "min": "0"
               }
             },
             {
               "label": "PNC Visit Number:",
               "type": "obs",
               "id": "pncVisitNumber",
+              "required": "true",
               "questionOptions": {
                 "concept": "159893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "0"
               }
             }
           ]
@@ -82,7 +86,13 @@
               "questionOptions": {
                 "concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
-              }
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
             },
             {
               "label": "Mode of Delivery:",
@@ -198,7 +208,9 @@
               "id": "temperature",
               "questionOptions": {
                 "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "25",
+                "max": "43"
               }
             },
             {
@@ -207,7 +219,9 @@
               "id": "pulseRate",
               "questionOptions": {
                 "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "230",
+                "min": "0"
               }
             },
             {
@@ -216,7 +230,9 @@
               "id": "diastolicBp",
               "questionOptions": {
                 "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "250",
+                "min": "0"
               }
             },
             {
@@ -225,7 +241,9 @@
               "id": "systolicBp",
               "questionOptions": {
                 "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "150",
+                "min": "0"
               }
             },
             {
@@ -234,7 +252,9 @@
               "id": "respiratoryRate",
               "questionOptions": {
                 "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "99",
+                "min": "0"
               }
             },
             {
@@ -243,7 +263,9 @@
               "id": "oxygenSaturation",
               "questionOptions": {
                 "concept": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "100",
+                "min": "0"
               }
             },
             {
@@ -261,7 +283,9 @@
               "id": "height",
               "questionOptions": {
                 "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "272",
+                "min": "10"
               }
             },
             {
@@ -270,7 +294,9 @@
               "id": "weight",
               "questionOptions": {
                 "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "250",
+                "min": "0"
               }
             },
             {
@@ -280,6 +306,8 @@
               "questionOptions": {
                 "rendering": "number",
                 "concept": "1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "max": "100",
+                "min": "0",
                 "calculate": {
                   "calculateExpression": "calcBMI(height,weight)"
                 }
@@ -409,12 +437,12 @@
                     "label": "Not applicable"
                   },
                   {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  },
-                  {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
                   }
                 ]
               }
@@ -442,7 +470,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(pallor) || !arrayContains(['1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], pallor)"
+                "hideWhenExpression": "isEmpty(pallor) || pallor !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -477,7 +505,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(deliveryMode) || deliveryMode != '1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(deliveryMode) || deliveryMode !== '1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -569,6 +597,9 @@
                     "label": "Postoperative wound infection"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(deliveryMode) || deliveryMode !== '1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -731,6 +762,9 @@
                         "label": "REPLACEMENT FEEDING"
                       }
                     ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "babyConditionSingle !== '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -766,6 +800,9 @@
                         "label": "Neonatal umbilical stump not clean"
                       }
                     ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "babyConditionSingle !== '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -789,6 +826,9 @@
                         "label": "Yes"
                       }
                     ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "babyConditionSingle !== '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ]
@@ -1022,15 +1062,15 @@
               "id": "resultsGiven/",
               "questionOptions": {
                 "concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "YES"
+                    "label": "Yes"
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "NO"
+                    "label": "No"
                   }
                 ]
               }
@@ -1041,7 +1081,7 @@
               "id": "coupleCounselled",
               "questionOptions": {
                 "concept": "bfe0cbb2-eea0-4431-a5c5-d0f49a4ed21b",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1060,15 +1100,15 @@
               "id": "partnerTested",
               "questionOptions": {
                 "concept": "161557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  },
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
                   }
                 ]
               }
@@ -1135,6 +1175,7 @@
             {
               "label": "Was HAART for Mother given?",
               "type": "obs",
+              "required": "true",
               "id": "haartGiven",
               "questionOptions": {
                 "concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1191,6 +1232,7 @@
             {
               "label": "When did Infant come for HAART and Infant Prophylaxis and Treatment  ?",
               "type": "obs",
+              "required": "true",
               "id": "haartProphylaxisTreatment",
               "questionOptions": {
                 "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1214,6 +1256,7 @@
               "label": "AZT for the baby dispensed?",
               "type": "obs",
               "id": "aztDispensed",
+              "required": "true",
               "questionOptions": {
                 "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -1239,6 +1282,7 @@
             {
               "label": "NVP for the baby dispensed?",
               "type": "obs",
+              "required": "true",
               "id": "nvpDispensed",
               "questionOptions": {
                 "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1332,15 +1376,15 @@
               "id": "ironSupplimentation",
               "questionOptions": {
                 "concept": "161004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  },
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
                   }
                 ]
               }
@@ -1354,16 +1398,16 @@
                 "rendering": "select",
                 "answers": [
                   {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
                     "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Not done"
                   },
                   {
                     "concept": "127847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Rectovaginal fistula"
-                  },
-                  {
-                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "None"
                   },
                   {
                     "concept": "49AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1443,12 +1487,12 @@
                 "rendering": "select",
                 "answers": [
                   {
-                    "concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
-                    "concept": "965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
                   }
                 ]
               }
@@ -1623,13 +1667,18 @@
               "questionOptions": {
                 "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
-              }
-            }
-          ],
-          "validators": [
-            {
-              "type": "date",
-              "allowFutureDates": "true"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                },
+                {
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Return to clinic date should be greater than the encounter date."
+								}
+              ]
             }
           ]
         },
