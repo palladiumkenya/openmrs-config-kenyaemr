@@ -1,0 +1,510 @@
+{
+  "name": "CLinical Encounter",
+  "description": "Clinical Encounter",
+  "version": "1",
+  "published": true,
+  "uuid": "1f230b7d-b79e-4e2d-9f19-0fa57cc6b215",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Clinical Encounter",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encDate",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Reason",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Reason for Visit:",
+              "type": "obs",
+              "id": "visitReason",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Vital Signs",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Temperature (C) :",
+              "type": "obs",
+              "id": "temperature",
+              "questionOptions": {
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "25"
+              },
+              "historicalExpression": "HD.getObject('prevEnc').getValue('5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+            },
+            {
+              "label": "Pulse Rate:",
+              "type": "obs",
+              "id": "pulserate",
+              "questionOptions": {
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "230",
+                "min": "0"
+              }
+            },
+            {
+              "label": "Systolic BP(mmHg):",
+              "type": "obs",
+              "id": "systolicBp",
+              "questionOptions": {
+                "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0"
+              }
+            },
+            {
+              "label": "Diastolic BP(mmHg):",
+              "type": "obs",
+              "id": "diastolicBp",
+              "questionOptions": {
+                "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0"
+              }
+            },
+            {
+              "label": "Respiratory Rate:",
+              "type": "obs",
+              "id": "respiratoryrate",
+              "questionOptions": {
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "99",
+                "min": "0"
+              }
+            },
+            {
+              "label": "Oxygen Saturation:",
+              "type": "obs",
+              "id": "oxygensaturation",
+              "questionOptions": {
+                "concept": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "100",
+                "min": "0"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Other Recordings",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Weight(kg):",
+              "type": "obs",
+              "id": "weight",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "250",
+                "min": "0"
+              }
+            },
+            {
+              "label": "Height(cm):",
+              "type": "obs",
+              "required": "true",
+              "id": "height",
+              "questionOptions": {
+                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "272",
+                "min": "10"
+              },
+              "historicalExpression": "HD.getObject('prevEnc').getValue('5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+            },
+            {
+              "label": "BMI (Kg/m2)",
+              "type": "obs",
+              "id": "bmi",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "max": "100",
+                "min": "0",
+                "calculate": {
+                  "calculateExpression": "calcBMI(height,weight)"
+                }
+              },
+              "hide": {
+                "hideWhenExpression": "age <= 5"
+              }
+            },
+            {
+              "label": "MUAC:",
+              "type": "obs",
+              "id": "muac",
+              "questionOptions": {
+                "concept": "1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0"
+              },
+              "hide": {
+                "hideWhenExpression": "(age > 5 && sex !== 'F') || (sex === 'F' &&  age > 49)"
+              }
+            },
+            {
+              "label": "LMP:",
+              "type": "obs",
+              "id": "lmpDate",
+              "questionOptions": {
+                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "sex !== 'F'  ||  sex ==='F' && (age < 10 || age > 49)"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Pregnancy Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Is Patient Pregnant?",
+              "type": "obs",
+              "id": "pregnancyIntention",
+              "required": "true",
+              "questionOptions": {
+                "concept": "b3b2fa9f-d4ac-42c1-8ac2-5cba19fa0403",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "pregnancyOption !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+              }
+            },
+            {
+              "label": "ANC Number:",
+              "type": "obs",
+              "id": "anCnuMber",
+              "questionOptions": {
+                "concept": "163530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "pregnancyIntention !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+              }
+            },
+            {
+              "label": "EDD:",
+              "type": "obs",
+              "id": "patientEdd",
+              "questionOptions": {
+                "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+                  "message": "EDD date should be greater than the encounter date."
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "pregnancyIntention !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+              }
+            },
+            {
+              "label": "Gravida:",
+              "type": "obs",
+              "id": "graVidA",
+              "questionOptions": {
+                "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "calculate": {
+                  "calculateExpression": "(+parItYtErm + +pariTyabOrtioN) +1"
+                }
+              },
+              "hide": {
+                "hideWhenExpression": "pregnancyIntention !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+              }
+            },
+            {
+              "label": "Parity",
+              "type": "obs",
+              "id": "parItYtErm",
+              "questionOptions": {
+                "concept": "160080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "pregnancyIntention !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+              }
+            },
+            {
+              "label": "Parity Abortion",
+              "type": "obs",
+              "id": "pariTyabOrtioN",
+              "questionOptions": {
+                "concept": "1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "pregnancyIntention !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+              }
+            }
+          ],
+          "hide": {
+            "hideWhenExpression": "sex !== 'F' && age < 15"
+          }
+        },
+        {
+          "label": "Family Planning Status",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Family Planning Status :",
+              "type": "obs",
+              "id": "fPlanning",
+              "questionOptions": {
+                "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not using Family Planning"
+                  },
+                  {
+                    "concept": "965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On Family Planning"
+                  },
+                  {
+                    "concept": "1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Wants Family Planning"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "If currently using Family Planning, or wants Family Planning, specify which method(s)",
+              "required": "true",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Emergency contraceptive pills"
+                  },
+                  {
+                    "concept": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oral Contraceptives Pills"
+                  },
+                  {
+                    "concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Injectible"
+                  },
+                  {
+                    "concept": "1359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Implant"
+                  },
+                  {
+                    "concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intrauterine Device"
+                  },
+                  {
+                    "concept": "136163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lactational Amenorhea Method"
+                  },
+                  {
+                    "concept": "5278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diaphram/Cervical Cap"
+                  },
+                  {
+                    "concept": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fertility Awareness"
+                  },
+                  {
+                    "concept": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Tubal Ligation"
+                  },
+                  {
+                    "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Condoms"
+                  },
+                  {
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vasectomy(Partner)"
+                  }
+                ]
+              },
+              "id": "fpMethodfemale"
+            },
+            {
+              "label": "Reason for not using Family Planning Methods",
+              "type": "obs",
+              "id": "FemalenotOnFp",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "160575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not sexually active"
+                  },
+                  {
+                    "concept": "160572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Thinks can't get pregnant"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Other (Specify)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "otherFeMale",
+              "hide": {
+                "hideWhenExpression": "isEmpty(FemalenotOnFp) && FemalenotOnFp !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Family Planning Status :",
+              "type": "obs",
+              "id": "MalefPlanning",
+              "questionOptions": {
+                "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not using Family Planning"
+                  },
+                  {
+                    "concept": "965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On Family Planning"
+                  },
+                  {
+                    "concept": "1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Wants Family Planning"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "If currently using Family Planning, or wants Family Planning, specify which method(s)",
+              "required": "true",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Condoms"
+                  },
+                  {
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vasectomy"
+                  }
+                ]
+              },
+              "id": "MalefpMethod"
+            },
+            {
+              "label": "Reason for not using Family Planning Methods",
+              "type": "obs",
+              "id": "notOnFpMale",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "160575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not sexually active"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Other (Specify)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "otheRmaLe",
+              "hide": {
+                "hideWhenExpression": "isEmpty(notOnFpMale) && notOnFpMale !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}
