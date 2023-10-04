@@ -27,31 +27,8 @@
         "remove": [
           "patient-flag-tags"
         ]
-      },
-      "patient-chart-summary-dashboard-slot": {
-        "add": [
-          "programs-overview-widget"
-        ],
-        "remove": [
-          "patient-clinical-view-overview",
-          "immunization-overview-widget",
-          "offline-tools-patient-chart-actions-widget"
-        ]
-      },
-      "patient-chart-dashboard-slot": {
-        "remove": [
-          "medications-summary-dashboard",
-          "attachments-results-summary-dashboard",
-          "clinical-view-summary-dashboard",
-          "offline-tools-patient-chart-actions-dashboard-link",
-          "immunization-summary-dashboard",
-          "programs-summary-dashboard",
-          "encounters-summary-dashboard"
-        ]
       }
     },
-    "startVisitLabel": "CheckIn",
-    "endVisitLabel": "CheckOut",
     "showServiceQueueFields": true,
     "showUpcomingAppointments": true,
     "visitQueueNumberAttributeUuid": "c61ce16f-272a-41e7-9924-4c555d0932c5",
@@ -63,7 +40,9 @@
     "Translation overrides": {
       "en": {
         "endVisit": "Check out",
-        "startVisit": "Check in"
+        "startVisit": "Check in",
+        "startAVisit": "Check in",
+        "endAVisit": "Check out"
       }
     }
   },
@@ -197,6 +176,9 @@
         "type": "obs",
         "uuid": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "Marital status",
+        "validation": {
+          "required": true
+        },
         "customConceptAnswers": [
           {
             "uuid": "159715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -228,6 +210,9 @@
         "id": "occupation",
         "type": "obs",
         "uuid": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "validation": {
+          "required": true
+        },
         "customConceptAnswers": [
           {
             "uuid": "1538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -264,6 +249,9 @@
         "type": "obs",
         "uuid": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "Education",
+        "validation": {
+          "required": true
+        },
         "customConceptAnswers": [
           {
             "uuid": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -362,7 +350,7 @@
       "generalPatientNoteUuid": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     }
   },
-  "@openmrs/esm-outpatient-app": {
+  "@openmrs/esm-service-queues-app": {
     "concepts": {
       "priorityConceptSetUuid": "2260a79e-f391-40f7-9eba-2e0e67028392",
       "defaultPriorityConceptUuid": "80cd8f8c-5d82-4cdc-b96e-a6addeb94b7f",
@@ -383,7 +371,8 @@
     ],
     "defaultFacilityUrl": "/ws/rest/v1/kenyaemr/default-facility",
     "customPatientChartUrl": "/openmrs/kenyaemr/clinician/clinicianViewPatient.page?patientId",
-    "customPatientIdUrl": "/ws/rest/v1/kenyaemr/patient?patientUuid"
+    "customPatientIdUrl": "/ws/rest/v1/kenyaemr/patient?patientUuid",
+    "customPatientChartText": "2.X Profile"
   },
   "@openmrs/esm-appointments-app": {
     "concepts": {
@@ -393,7 +382,7 @@
     "defaultFacilityUrl": "/ws/rest/v1/kenyaemr/default-facility",
     "patientIdentifierType": "Unique Patient Number"
   },
-  "@openmrs/esm-patient-test-results-app": {
+  "@openmrs/esm-patient-labs-app": {
     "concepts": [
       {
         "conceptUuid": "856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -402,21 +391,12 @@
       {
         "conceptUuid": "5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
       }
-    ]
-  },
-  "@openmrs/esm-form-builder-app": {
-    "patientUuid": "3d8e8417-77ca-496c-85f0-c2797e96bae8"
+    ],
+    "orders": {
+      "careSettingUuid": "6f0c9a92-6f24-11e3-af88-005056821db0"
+    }
   },
   "@openmrs/esm-patient-banner-app": {
-    "contactAttributeType": [
-      "b2c38640-2603-4629-aebd-3b54f33f1e3a",
-      "b8d0b331-1d2d-4a9a-b741-1816f498bdb6",
-      "27573398-4651-4ce5-89d8-abec5998165c",
-      "342a1d39-c541-4b29-8818-930916f4c2dc",
-      "94614350-84c8-41e0-ac29-86bc107069be",
-      "830bef6d-b01f-449d-9f8d-ac0fede8dbd3",
-      "d0aa9fd1-2ac5-45d8-9c5e-4317c622c8f5"
-    ],
     "useCustomAddressLabel": {
       "enabled": true,
       "customAddressLabel": {
@@ -429,6 +409,17 @@
         "address5": "Sub Location",
         "address2": "Landmark"
       }
-    }
+    },
+    "contactAttributeType": [
+      "b2c38640-2603-4629-aebd-3b54f33f1e3a",
+      "94614350-84c8-41e0-ac29-86bc107069be",
+      "342a1d39-c541-4b29-8818-930916f4c2dc"
+    ]
+  },
+  "@openmrs/esm-patient-medications-app": {
+    "careSettingUuid": "6f0c9a92-6f24-11e3-af88-005056821db0"
+  },
+  "@openmrs/esm-patient-orders-app": {
+    "orderEncounterType": "7df67b83-1b84-4fe2-b1b7-794b4e9bfcc3"
   }
 }
