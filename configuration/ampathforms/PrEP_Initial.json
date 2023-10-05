@@ -59,19 +59,22 @@
 			"questions": [
 				{
 					"label": "HIV+ partner CCC Number",
-					"type": "obs",
-					"id": "partners-ccc",
+					"type": "patientIdentifier",
+					"questionInfo": "",
+					"id": "pArtnersCcc",
+					"default": "",
 					"questionOptions": {
 					  "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "number"
+					  "rendering": "string",
+					  "identifierType": ""
 					},
 					"validators": [
-					  {
-						"type": "js_expression",
-						"failsWhenExpression": "(myValue).length > 10 || (myValue).length < 10",
-						"message": "CCC Number digits should not be more or less than 10"
-					  }
-					]
+						{
+						  "type": "js_expression",
+						  "failsWhenExpression": "doesNotMatchExpression('^\\\\\\d{10}$', uniquePatientNumber)",
+						  "message": "Please provide the correct format for the UPN ie. mflCode+number eg.1190200062"
+						}
+					  ]
 				},
 				{
 					"label": "CCC number/Enrollment status unknown",
@@ -258,7 +261,19 @@
 				  "rendering": "text"
 				},
 				"hide": {
-				  "hideWhenExpression": "STIOptions !=='5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(STIOptionsFemale) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], STIOptionsFemale)"
+				}
+			  },
+			  {
+				"label": "Other Specify",
+				"type": "obs",
+				"id": "OtherSTIsymptoMsFe",
+				"questionOptions": {
+				  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(STIOptionsMale) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], STIOptionsMale)"
 				}
 			  },
 			  {
@@ -1997,7 +2012,7 @@
 				}
 				],
 				"hide": {
-				  "hideWhenExpression": "isEmpty(nextAppClient) || nextAppClient === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(nextAppClient) || nextAppClient !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
