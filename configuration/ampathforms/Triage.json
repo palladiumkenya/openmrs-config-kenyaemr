@@ -152,7 +152,25 @@
                 "rendering": "number",
                 "max": "250",
                 "min": "0"
+              },
+              "hide": {
+                "hideWhenExpression": "!(age >= 0 && age <=5)"
               }
+            },
+            {
+              "label": "Weight(kg):",
+              "type": "obs",
+              "id": "weightForBMI",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "250",
+                "min": "0"
+              },
+							"hide": {
+								"hideWhenExpression": "age <= 5"
+							}
             },
             {
               "label": "Height(cm):",
@@ -165,7 +183,26 @@
                 "max": "272",
                 "min": "10"
               },
-              "historicalExpression": "HD.getObject('prevEnc').getValue('5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              "historicalExpression": "HD.getObject('prevEnc').getValue('5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
+              "hide": {
+                "hideWhenExpression": "!(age >= 0 && age <=5)"
+              }
+            },
+            {
+              "label": "Height(cm):",
+              "type": "obs",
+              "required": "true",
+              "id": "heightForBMI",
+              "questionOptions": {
+                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "272",
+                "min": "10"
+              },
+              "historicalExpression": "HD.getObject('prevEnc').getValue('5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
+							"hide": {
+								"hideWhenExpression": "age <= 5"
+							}
             },
             {
               "label": "BMI (Kg/m2)",
@@ -177,7 +214,7 @@
                 "max": "100",
                 "min": "0",
                 "calculate": {
-                  "calculateExpression": "calcBMI(height,weight)"
+                  "calculateExpression": "calcBMI(heightForBMI,weightForBMI)"
                 }
               },
               "hide": {
