@@ -1,0 +1,237 @@
+{
+  "name": "Laboratory Test Orders",
+  "description": "Lab order entry form",
+  "version": "1",
+  "published": true,
+  "retired": false,
+  "encounter": "Lab Order",
+  "pages": [
+    {
+      "label": "Lab Orders",
+      "sections": [
+        {
+          "label": "Add Test Orders",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "type": "obsGroup",
+              "label": "Test orders",
+              "questionOptions": {
+                "concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "group"
+              },
+              "questions": [
+                {
+                  "label": "Tests Ordered",
+                  "id": "order1",
+                  "type": "testOrder",
+                  "questionOptions": {
+                    "rendering": "repeating",
+                    "orderSettingUuid": "6f0c9a92-6f24-11e3-af88-005056821db0",
+                    "orderType": "testorder",
+                    "selectableOrders": [
+                      {
+                        "concept": "856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "HIV VIRAL LOAD"
+                      },
+                      {
+                        "concept": "5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "CD4 Count"
+                      },
+                      {
+                        "concept": "167452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Serum Cryptococcal Antigen (CRAG)"
+                      },
+                      {
+                        "concept": "1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "HIV DNA PCR "
+                      },
+                      {
+                        "concept": "730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": " CD4 %"
+                      },
+                      {
+                        "concept": "163722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Rapid test for HIV"
+                      },
+                      {
+                        "concept": "162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Gene Xpert"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Viral load order reason:",
+                  "type": "obs",
+                  "id": "vljust",
+                  "questionOptions": {
+                    "concept": "164126AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "161236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Routine VL"
+                      },
+                      {
+                        "concept": "843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Confirmation of treatment failure (repeat VL)"
+                      },
+                      {
+                        "concept": "163523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Clinical failure"
+                      },
+                      {
+                        "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Single drug substitution"
+                      },
+                      {
+                        "concept": "162080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Baseline VL (for infants diagnsed through EID)"
+                      },
+                      {
+                        "concept": "160032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Confirmation of persistent low level viremia (PLLV)"
+                      },
+                      {
+                        "concept": "159882AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Breastfeeding"
+                      }
+                    ]
+                  },
+                  "validators": [
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "isEmpty(myValue) && !(isEmpty(order1) || !arrayContains(order1, '856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'))",
+                      "message": "Viral load order reason required."
+                    }
+                  ],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(order1) || !arrayContains(order1, '856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  }
+                },
+                {
+                  "label": "CD4 order reason:",
+                  "type": "obs",
+                  "id": "cd4just",
+                  "questionOptions": {
+                    "concept": "163544AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "label": "Baseline",
+                        "concept": "167390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      },
+                      {
+                        "label": "Suspected treatment failure",
+                        "concept": "167387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      },
+                      {
+                        "label": "Return to care after Interrupting treatment for >3months",
+                        "concept": "160740AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      },
+                      {
+                        "label": "Patient on fluconazole maintenance therapy",
+                        "concept": "167527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      }
+                    ]
+                  },
+                  "validators": [
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "isEmpty(myValue) && !(isEmpty(order1) || !arrayContains(order1, '5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'))",
+                      "message": "CD4 order reason required."
+                    }
+                  ],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(order1) || !arrayContains(order1, '5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  }
+                },
+                {
+                  "label": "PCR order reason:",
+                  "type": "obs",
+                  "id": "pcrjust",
+                  "questionOptions": {
+                    "concept": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "label": "Initial PCR (6week or first contact)",
+                        "concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      },
+                      {
+                        "label": "2nd PCR (6 months)",
+                        "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      },
+                      {
+                        "label": "3rd PCR (12months)",
+                        "concept": "844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      },
+                      {
+                        "label": "Confirmatory PCR and Baseline VL",
+                        "concept": "162082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      }
+                    ]
+                  },
+                  "validators": [
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "isEmpty(myValue) && !(isEmpty(order1) || !arrayContains(order1, '1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'))",
+                      "message": "PCR order reason required."
+                    }
+                  ],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(order1) || !arrayContains(order1, '1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  }
+                },
+                {
+                  "label": "Antibody test order reason:",
+                  "type": "obs",
+                  "id": "antibodyjust",
+                  "questionOptions": {
+                    "concept": "162087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "label": "Ab test 6 weeks after cessation of breastfeeding",
+                        "concept": "164460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      },
+                      {
+                        "label": "Ab test at 18 months (1.5 years)",
+                        "concept": "164860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                      }
+                    ]
+                  },
+                  "validators": [
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "isEmpty(myValue) && !(isEmpty(order1) || !arrayContains(order1, '163722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'))",
+                      "message": "Antibody test reason required."
+                    }
+                  ],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(order1) || !arrayContains(order1, '163722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  }
+                },
+                {
+                  "type": "encounterLocation",
+                  "label": "Facility name (site/satellite clinic required):",
+                  "id": "location",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "ui-select-extended"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "uuid": "2cdeded1-3f69-3bda-beff-1ed2ead94eaf",
+  "referencedForms": [],
+  "encounterType": "e1406e88-e9a9-11e8-9f32-f2801f1b9fd1"
+}
+
