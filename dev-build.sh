@@ -9,7 +9,7 @@ rm -rf frontend
 echo "Building Kenya EMR 3.x assets ..."
 CWD=$(pwd)
 npx --legacy-peer-deps openmrs@next build \
-  --build-config ./configuration/dev-build-config.json \
+  --build-config ./frontend-config/dev-build-config.json \
   --target ./frontend \
   --page-title "KenyaEMR" \
   --support-offline false
@@ -19,7 +19,7 @@ echo "Assembling assets ..."
 npx --legacy-peer-deps openmrs@next assemble \
   --manifest \
   --mode config \
-  --config ./configuration/dev-build-config.json \
+  --config ./frontend-config/dev-build-config.json \
   --target ./frontend
 
 # Copy required files
@@ -27,7 +27,7 @@ echo "Copying required files ..."
 cp "${CWD}/assets/kenyaemr-login-logo.png" "${CWD}/frontend"
 cp "${CWD}/assets/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
-cp "${CWD}/configuration/dev-config.json" "${CWD}/frontend"
+cp "${CWD}/frontend-config/dev-config.json" "${CWD}/frontend"
 mv "${CWD}/frontend/dev-config.json" "${CWD}/frontend/config.json"
 
 # Function to handle openmrs-esm apps
