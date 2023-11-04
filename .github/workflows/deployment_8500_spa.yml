@@ -1,6 +1,6 @@
 name: KenyaEMR CI
 
-'on':
+"on":
   push:
     branches:
       - main
@@ -10,36 +10,60 @@ name: KenyaEMR CI
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version:
-          - 18.x
     steps:
       - uses: actions/checkout@v3
-      - name: 'Use Node.js ${{ matrix.node-version }}'
+
+      - name: Setup Node.js 18.x
         uses: actions/setup-node@v3
-      - uses: actions/checkout@v2
-      - name: Run script file
+
+      - name: Clean up previous build artifacts
         run: |
-          chmod +x ./dev-build.sh
-          sh ./dev-build.sh
-        shell: bash
+          rm -rf openmrs-config-kenyaemr
+          rm -rf frontend
+
+      - name: Build Kenya EMR 3.x assets
+        run: |
+          npx --legacy-peer-deps openmrs@next build \
+            --build-config ./configuration/dev-build-config.json \
+            --target ./frontend \
+            --page-title "KenyaEMR" \
+            --support-offline false
+
+      - name: Assemble assets
+        run: |
+          npx --legacy-peer-deps openmrs@next assemble \
+            --manifest \
+            --mode config \
+            --config ./configuration/dev-build-config.json \
+            --target ./frontend
+
+      - name: Copy and move required files
+        run: |
+          cp ./assets/kenyaemr-login-logo.png ./frontend
+          cp ./assets/kenyaemr-primary-logo.png ./frontend
+          cp ./assets/favicon.ico ./frontend
+          cp ./configuration/dev-config.json ./frontend/config.json
+
+      - name: Compress frontend folder
+        run: tar -czf frontend.tar.gz frontend/
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: frontend
-          path: |
-            frontend
-      - name: Upload frontend to server
+          name: frontend.tar.gz
+          path: frontend.tar.gz
+
+      - name: Upload compressed frontend to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.CICD_HOST }}
           username: ${{ secrets.CICD_USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.CICD_SECRET }}
-          source: ./frontend/
-          target: /apps/githubworkflows/OpenMrs3.0_assets
-      - name: executing remote ssh commands using password
+          source: ./frontend.tar.gz
+          target: /apps/githubworkflows/OpenMrs3.0_assets/frontend.tar.gz
+
+      - name: Execute remote SSH commands
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.CICD_HOST }}
@@ -47,30 +71,31 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.CICD_SECRET }}
           script: >-
-            sudo mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old && mv
-            /apps/githubworkflows/OpenMrs3.0_assets/frontend /var/lib/OpenMRS/ && sudo rm -rf
-            /var/lib/OpenMRS/frontend_old
-    
+            cd /apps/githubworkflows/OpenMrs3.0_assets &&
+            tar -xzf frontend.tar.gz &&
+            sudo mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old &&
+            mv frontend /var/lib/OpenMRS/ &&
+            sudo rm -rf /var/lib/OpenMRS/frontend_old
 
   release:
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
-    strategy:
-      matrix:
-        node-version:
-          - 18.x
     steps:
       - uses: actions/checkout@v3
-      - name: 'Use Node.js ${{ matrix.node-version }}'
+
+      - name: Setup Node.js 18.x
         uses: actions/setup-node@v3
+
       - name: Run production build script
         run: |
           chmod +x ./prod-build.sh
-          sh ./prod-build.sh
-        shell: bash
+          ./prod-build.sh
+
+      - name: Compress frontend folder for release
+        run: tar -czf frontend-release.tar.gz frontend/
+
       - name: Upload release artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: frontend
-          path: |
-            frontend
+          name: frontend-release.tar.gz
+          path: frontend-release.tar.gz
