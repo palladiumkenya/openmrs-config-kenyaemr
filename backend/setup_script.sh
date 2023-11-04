@@ -111,6 +111,13 @@ echo "Initial setup to squash red banner"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/initial_setup/initial_setup.sql"
 echo
 
+echo "Deleting old modules folder"
+sudo rm -R modules/
+echo "Uncompressing module directory ..."
+sudo tar -xzf modules.tar.gz
+echo "Completed uncompressing module directory"
+echo
+
 echo "Deleting old .omod files."
 echo
 
@@ -148,7 +155,9 @@ echo
 echo "Copying csrf guard"
 sudo cp csrfguard.properties /var/lib/OpenMRS
 echo
-
+echo "Deleting old frontend assets"
+sudo rm -R frontend/
+echo
 echo "UnCompressing frontend assets"
 sudo tar -xzf frontend.tar.gz
 echo "Completed uncompressing frontend assets"
@@ -179,10 +188,6 @@ sudo chown tomcat:tomcat  --recursive ${frontend_dir}/*
 echo "Granting read permission to the configuration directory: ${configuration_dir}."
 sudo chmod --recursive 777 ${configuration_dir}/*
 sudo chown tomcat:tomcat  --recursive ${configuration_dir}/*
-
-## Copying the new war file
-echo "Copying openmrs war file to /var/lib/tomcat9/webapps"
-sudo cp openmrs_2.6/openmrs.war ${openmrs_war_file_dir}
 
 echo
 echo "Starting tomcat..."

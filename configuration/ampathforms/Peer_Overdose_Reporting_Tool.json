@@ -1,12 +1,14 @@
 {
 	"name": "Peer Overdose Reporting Tool",
-	"description": "Peer Overdose Reporting Tool Form",
+	"description": "Peer Overdose Reporting Tool",
 	"version": "1",
 	"published": true,
+	"uuid": "92fd9c5a-c84a-483b-8d78-d4d7a600db30",
 	"retired": false,
+	"encounter": "KP Peer Overdose reporting",
 	"pages": [
 	  {
-		"label": "Peer Overdose Reporting Tool",
+		"label": "Peer Overdose Reporting Encounter",
 		"sections": [
 		  {
 			"label": "Visit Details",
@@ -15,22 +17,22 @@
 			  {
 				"label": "Date:",
 				"type": "encounterDatetime",
+				"questionOptions": {
+				  "rendering": "ui-select-extended"
+				},
 				"validators": [
 				  {
 					"type": "date",
 					"allowFutureDates": "false"
 				  }
 				],
-				"questionOptions": {
-				  "rendering": "date"
-				},
 				"id": "encDate"
 			  },
 			  {
 				"label": "Provider:",
 				"type": "encounterProvider",
 				"questionOptions": {
-				  "rendering": "text"
+				  "rendering": "ui-select-extended"
 				},
 				"id": "encProvider "
 			  },
@@ -38,8 +40,7 @@
 				"label": "Location:",
 				"type": "encounterLocation",
 				"questionOptions": {
-				  "rendering": "encounter-location",
-				  "locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
+				  "rendering": "ui-select-extended"
 				},
 				"id": "encLocation"
 			  }
@@ -50,7 +51,7 @@
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "Physical address where overdose happened",
+				"label": "1. Physical address where overdose happened",
 				"type": "obs",
 				"id": "address",
 				"questionOptions": {
@@ -62,6 +63,7 @@
 				"label": "Date of overdose",
 				"type": "obs",
 				"id": "incidentDate",
+				"required": "Yes",
 				"validators": [
 				  {
 					"type": "date",
@@ -74,9 +76,10 @@
 				}
 			  },
 			  {
-				"label": "Drug overdose incident type",
+				"label": "2. Drug overdose incident type",
 				"type": "obs",
 				"id": "overdoseIncident",
+				"required": "Yes",
 				"questionOptions": {
 				  "concept": "90c0407c-1664-4191-bae0-d24f9bba2fbf",
 				  "rendering": "radio",
@@ -93,7 +96,7 @@
 				}
 			  },
 			  {
-				"label": "Name of hotspot",
+				"label": "3. Name of hotspot",
 				"type": "obs",
 				"id": "nameHotspot",
 				"questionOptions": {
@@ -102,7 +105,7 @@
 				}
 			  },
 			  {
-				"label": "Type of Hotspot",
+				"label": "4. Type of Hotspot",
 				"type": "obs",
 				"id": "hotspotType",
 				"questionOptions": {
@@ -173,7 +176,7 @@
 				}
 			  },
 			  {
-				"label": "Naloxone provided",
+				"label": "5. Naloxone provided",
 				"type": "obs",
 				"id": "naloxoneProvided",
 				"questionOptions": {
@@ -192,7 +195,7 @@
 				}
 			  },
 			  {
-				"label": "Specific DrugUse",
+				"label": "6. Specific DrugUse",
 				"type": "obs",
 				"id": "drugUse",
 				"questionOptions": {
@@ -231,6 +234,15 @@
 				}
 			  },
 			  {
+				"label": "7. Remarks",
+				"type": "obs",
+				"id": "remarks",
+				"questionOptions": {
+				  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				}
+			  },
+			  {
 				"label": "Other Drugs",
 				"type": "obs",
 				"id": "otherDrugsSpecify",
@@ -238,12 +250,13 @@
 				  "concept": "163101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "text"
 				},
+				"validators": [],
 				"hide": {
-				  "hideWhenExpression": "!includes('drugUse','5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+				  "hideWhenExpression": "isEmpty(drugUse) || !arrayContains(drugUse,'5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
 				}
 			  },
 			  {
-				"label": "Overdose outcome",
+				"label": "8. Outcome",
 				"type": "obs",
 				"id": "overdoseOutcome",
 				"questionOptions": {
@@ -275,7 +288,7 @@
 				}
 			  },
 			  {
-				"label": "Repported by",
+				"label": "9. Reported by",
 				"type": "obs",
 				"id": "healthCareProvider",
 				"questionOptions": {
@@ -299,7 +312,7 @@
 				}
 			  },
 			  {
-				"label": "Witnessed by",
+				"label": "10. Witnessed by",
 				"type": "obs",
 				"id": "witnessName",
 				"questionOptions": {
@@ -327,6 +340,6 @@
 		]
 	  }
 	],
-	"uuid": "92fd9c5a-c84a-483b-8d78-d4d7a600db30",
-	"encounterType": "383974fe-58ef-488f-bdff-8962f4dd7518"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
   }

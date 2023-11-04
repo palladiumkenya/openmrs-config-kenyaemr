@@ -3,7 +3,9 @@
 	"description":"PrEP Monthly Refill Form",
 	"version":"1",
 	"published":true,
+	"uuid":"291c03c8-a216-11e9-a2a3-2a2ae2dbcce4",
 	"retired":false,
+	"encounter":"PrEP Monthly refill",
 	"pages": [
 		{
 			"label": "PrEP Monthly Refill",
@@ -16,7 +18,7 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "datetime"
+								"rendering": "ui-select-extended"
 							},
 							"validators": [
 								{
@@ -30,7 +32,7 @@
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "text"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encProvider "
 						},
@@ -38,8 +40,7 @@
 							"label": "Location:",
 							"type": "encounterLocation",
 							"questionOptions": {
-								"rendering": "encounter-location",
-								"locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encLocation"
 						}
@@ -59,12 +60,12 @@
 								"concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"answers": [
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
 								]
 							}
@@ -152,9 +153,49 @@
 					]
 				},
 				{
-					"label": "Adherence Assessment",
+					"label": "PrEP Status",
 					"isExpanded": "true",
 					"questions": [
+						{
+							"label": "Signs and symptoms of acute HIV",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "aba5a106-719b-46f3-9199-224f3881a738",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"id": "hivSigns",
+							"required": "true"
+						},
+						{
+							"label": "Adherence counselling done",
+							"type": "obs",
+							"questionOptions": {
+								"rendering": "radio",
+								"concept": "906ac5d0-566a-466e-93e4-2f23b4fb319b",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							},
+							"id": "adherenceCounsellingDone",
+							"required": "true"
+						},
 						{
 							"label": "Adherence self assessment:",
 							"type": "obs",
@@ -180,6 +221,9 @@
 										"label": "N/A(Did not pick PrEP at last)"
 									}
 								]
+							},
+							"hide": {
+								"hideWhenExpression": "adherenceCounsellingDone !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -231,119 +275,185 @@
 										"label": "Forgot"
 									},
 									{
-										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Other"
-									}
-								
-								]
-							},
-							"hide": {
-								"hideWhenExpression": "adherenceSelfAssessment !== '159406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && adherenceSelfAssessment !== '159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-							{
 										"label": "Other Specify",
 										"type": "obs",
 										"id": "otherSpecify",
 										"questionOptions": {
 											"concept": "163108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 											"rendering": "textarea"
-										},
-										"hide": {
-										  "hideWhenExpression": "fairBad !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 										}
-									},
-						{
-							"label": "Adherence counselling done?",
-							"type": "obs",
-							"id": "__zzwEKItpq",
-							"questionOptions": {
-								"concept": "164425AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
 									}
 								]
+							},
+							"hide": {
+								"hideWhenExpression": "adherenceSelfAssessment!=='159406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'&& adherenceSelfAssessment!=='159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
 				},
 				{
-					"label": "PrEP Status",
+					"label": "PrEP treatment plan",
 					"isExpanded": "true",
 					"questions": [
 						{
-							"label": "PrEP Status:",
+							"label": "PrEP treatment plan",
 							"type": "obs",
 							"questionOptions": {
-								"rendering": "select",
-								"concept": "161641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"concept": "42ad51f2-dc4f-48eb-8440-9a0bd8969374",
+								"calculate": {
+									"calculateExpression": "String(hivSigns) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+								  },
 								"answers": [
 									{
-										"concept": "159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Discontinue"
+										"concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Continue"
 									},
 									{
-										"concept": "159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Continue"
+										"concept": "162904AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Restart"
+									},
+									{
+										"concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Switch"
+									},
+									{
+										"concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Discontinue"
 									}
 								]
 							},
-							"id": "stAtus",
+							"id": "treatmentPlan",
 							"required": "true"
+						},
+						{
+							"label": "Reason for switching",
+							"type": "obs",
+							"id": "reasonForSwitch",
+							"questionOptions": {
+								"concept": "4b59ac07-cf72-4f46-b8c0-4f62b1779f7e",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "159737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Client Preference"
+									},
+									{
+										"concept": "141748AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Drug Interactions"
+									},
+									{
+										"concept": "167533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Discontinuing Injection PrEP"
+									},
+									{
+										"concept": "121760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Adverse Drug Reactions"
+									},
+									{
+										"concept": "160662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Stock-out"
+									}
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "treatmentPlan !== '1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Date of switch",
+							"type": "obs",
+							"id": "dateOfSwitch",
+							"questionOptions": {
+								"concept": "68bfa3f3-1fc7-4d9d-bb41-e897c3c430ef",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "treatmentPlan !== '1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
 						},
 						{
 							"label": "Prescribed PrEP today?",
 							"type": "obs",
-							"id": "__xDFMppIoz",
+							"id": "prescribedPrepToday",
 							"questionOptions": {
 								"concept": "1417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "stAtus !== '159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan === '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Type of PrEP",
+							"type": "obs",
+							"id": "prepType",
+							"questionOptions": {
+							  "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "rendering": "radio",
+							  "answers": [
+								{
+								  "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+								  "label": "Daily Oral PrEP"
+								},
+								{
+								  "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+								  "label": "CAB-LA"
+								},
+								{
+								  "concept": "b3f6eab2-93bd-4fe0-81ce-5b7ec633a55a",
+								  "label": "Dapivirine ring"
+								},
+								{
+								  "concept": "5424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								  "label": "Event Driven"
+								}
+							  ]
+							},
+							"hide": {
+								"hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
 							"label": "Regimen prescribed",
 							"type": "obs",
-							"id": "__FHnDorqEu",
+							"id": "regimenOptions",
 							"questionOptions": {
-								"concept": "164515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "TDF/3TC"
-									},
-									{
-										"concept": "84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "TDF"
-									},
-									{
-										"concept": "104567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "TDF/FTC(Preferred)"
-									}
-								]
+							  "concept": "164515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "rendering": "select",
+							  "answers": [
+								{
+								  "concept": "161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								  "label": "TDF/3TC"
+								},
+								{
+								  "concept": "84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								  "label": "TDF"
+								},
+								{
+								  "concept": "104567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								  "label": "TDF/FTC(Preferred)"
+								}
+							  ]
 							},
 							"hide": {
-								"hideWhenExpression": "stAtus !== '159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							  "hideWhenExpression": "isEmpty(prepType) || prepType !== 'cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7'"
 							}
 						},
 						{
@@ -355,17 +465,60 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "status !== '159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan === '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
-							"label": "PrEP discontinue reasons",
+							"label": "Condoms issued",
 							"type": "obs",
-							"id": "discontinueReasons",
+							"id": "condomIssued",
+							"questionOptions": {
+								"concept": "159777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
+							"label": "Number of condoms issued",
+							"type": "obs",
+							"id": "numberOfCondoms",
+							"questionOptions": {
+								"concept": "771638d9-9600-4a6b-8e5d-c6dcdedbc9cd",
+								"rendering": "number"
+							},
+							"hide": {
+								"hideWhenExpression": "isEmpty(condomIssued) || condomIssued !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "PrEP Discontinue Reasons",
+							"type": "obs",
+							"id": "PrepDisc",
 							"questionOptions": {
 								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "select",
 								"answers": [
+									{
+										"concept": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HIV test is positive"
+									},
+									{
+										"concept": "113338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Renal dysfunction"
+									},
+									{
+										"concept": "1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label":"Viral suppression of HIV+"
+									},
 									{
 										"concept": "159598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Not adherent to PrEP"
@@ -375,41 +528,17 @@
 										"label": "Too many HIV tests"
 									},
 									{
-										"concept": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "HIV test is positive"
-									},
-									{
 										"concept": "162696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Client request"
 									},
 									{
-										"concept": "1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Viral suppression of HIV+"
-									},
-									{
-										"concept": "113338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Renal dysfunction"
-									},
-									{
 										"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Other specify"
+										"label": "Other Specify"
 									}
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "stAtus !== '159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "PrEP discontinue reasons",
-							"type": "obs",
-							"id": "otherReasons",
-							"questionOptions": {
-								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "text"
-							},
-							"hide": {
-								"hideWhenExpression": "stAtus !== '159836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && discontinueReasons !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan !== '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -426,12 +555,12 @@
 								"concept": "af430c90-a512-43eb-aa91-50143c385304",
 								"answers": [
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
 								]
 							},
@@ -447,7 +576,7 @@
 								"rendering": "date"
 							},
 							"hide": {
-								"hideWhenExpression": "appointmentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "appointmentGiven !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							},
 							"validators": [
 								{
@@ -456,7 +585,7 @@
 								},
 								{
 									"type": "js_expression",
-									"failsWhenExpression": "myValue < useFieldValue('encDate')",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
 									"message": "Return to clinic date should be greater than the encounter date."
 								}
 							]
@@ -481,6 +610,6 @@
 			]
 		}
 	],
-	"uuid":"291c03c8-a216-11e9-a2a3-2a2ae2dbcce4",
-	"encounterType": "291c0828-a216-11e9-a2a3-2a2ae2dbcce4"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
 }

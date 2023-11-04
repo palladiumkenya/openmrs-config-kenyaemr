@@ -1,0 +1,528 @@
+{
+	"name": "Clinical Enrollment",
+	"description": "Clinical Enrollment",
+	"version": "1",
+	"published": true,
+	"uuid": "c7f47cea-207b-11e9-ab14-d663bd873d93",
+	"retired": false,
+	"encounter": "KP Enrollment",
+	"pages": [
+		{
+			"label": "KP Clinical Enrolment",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Client Enrolment Social Status",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Have you been contacted by a peer educator for health services?",
+							"type": "obs",
+							"required": "true",
+							"id": "peerEducator",
+							"questionOptions": {
+								"concept": "d83bca86-6734-4b26-b67c-c2133948fbac",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Do you have a regular(Non-Paying) sexual partner?",
+							"type": "obs",
+							"required": "true",
+							"id": "regularSexPartner",
+							"questionOptions": {
+								"concept": "0d2f24cd-0bd9-4159-b71d-a92f2c11a396",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Historical Status",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Which year did you start sex work?",
+							"type": "obs",
+							"id": "startSex",
+							"questionOptions": {
+								"concept": "c453778e-d2f0-4c58-939a-518af10badd2",
+								"rendering": "number"
+							},
+							"validators": [
+								{
+									"type": "number"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'year')",
+									"message": "Should not be less than the date of birth."
+								}
+							]
+						},
+						{
+							"label": "Which year did you start having sex with men?",
+							"type": "obs",
+							"id": "sexWithMen",
+							"questionOptions": {
+								"concept": "2916bf43-7abd-48b9-8719-3ba775973526",
+								"rendering": "number"
+							},
+							"validators": [
+								{
+									"type": "number"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'year')",
+									"message": "Should not be less than the date of birth."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "keyPopTypeMale !== '160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex ==='M'"
+							}
+						},
+						{
+							"label": "Which Year Did You Start Using Drugs (Injecting Or Smoking)?",
+							"type": "obs",
+							"id": "usingDrugs",
+							"questionOptions": {
+								"concept": "224521b9-c88a-4355-bd32-323996fcbb87",
+								"rendering": "number",
+								"min": "0"
+							},
+							"validators": [
+								{
+									"type": "number"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'year')",
+									"message": "Should not be less than the date of birth."
+								}
+							],
+							"hide": {
+								"hideWhenExpression": "keyPopTypeFemale !=='642945a8-045a-4010-b3f3-bc50aaaab386' && keyPopTypeMale !== '642945a8-045a-4010-b3f3-bc50aaaab386' || keyPopTypeFemale !=='105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && keyPopTypeMale !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Ever experienced sexual violence?",
+							"type": "obs",
+							"required": "true",
+							"id": "expriencedSexViolence",
+							"questionOptions": {
+								"concept": "123160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "Ever experienced physical violence?",
+							"type": "obs",
+							"required": "true",
+							"id": "expriencedPhysicalViolence",
+							"questionOptions": {
+								"concept": "81bbc312-d0f6-4950-822a-f7a47e599013",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "HIV History",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Have you ever been tested for HIV?",
+							"type": "obs",
+							"required": "true",
+							"id": "everTested",
+							"questionOptions": {
+								"concept": "164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "The last time you received HIV testing, how did you test?",
+							"type": "obs",
+							"required": "true",
+							"id": "testType",
+							"questionOptions": {
+								"concept": "d85ff219-0f5a-408d-8df0-96bcc9be5071",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "2797e57b-d1ff-4928-b10e-b72e95b63faf",
+										"label": "HIV Self Test"
+									},
+									{
+										"concept": "163722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Rapid HIV Testing"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "everTested !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Would you like to share your LAST test result with me?  (circle the number)",
+							"type": "obs",
+							"required": "true",
+							"id": "shareTest",
+							"questionOptions": {
+								"concept": "193d9d3b-d1c5-42f6-b44d-0c1905940c73",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No I do not want to share"
+									},
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes I tested positive"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes I tested negative"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "everTested !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Are you willing to be tested for HIV?",
+							"type": "obs",
+							"required": "true",
+							"id": "willingTester",
+							"questionOptions": {
+								"concept": "9255b7a2-9924-41ce-8e70-7813fe5ca59a",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "shareTest !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Reason:",
+							"type": "obs",
+							"required": "true",
+							"id": "declineReason",
+							"questionOptions": {
+								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "willingTester !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "HIV Care",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Are you receiving HIV care?",
+							"type": "obs",
+							"required": "true",
+							"id": "receivingCare",
+							"questionOptions": {
+								"concept": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "shareTest !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Facility where care is provided:",
+							"type": "obs",
+							"id": "careProviderFacility",
+							"questionOptions": {
+								"concept": "fe72de11-9ccb-4622-b947-ab8635aa92ca",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "162723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Elsewhere"
+									},
+									{
+										"concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Here"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "receivingCare !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "If elsewhere Specify: ",
+							"type": "obs",
+							"id": "careProvidedDpd",
+							"questionOptions": {
+								"concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": ""
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "careProviderFacility !== '162723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "CCC Number",
+							"type": "obs",
+							"id": "cccNumber",
+							"questionOptions": {
+								"concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number",
+								"min": "0"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "receivingCare !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "Viral Load Test done?",
+							"type": "obs",
+							"id": "vlTestDone",
+							"questionOptions": {
+								"concept": "164437AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "receivingCare !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						},
+						{
+							"label": "VL results date:",
+							"type": "obs",
+							"id": "vlDate",
+							"questionOptions": {
+								"concept": "163281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "vlTestDone !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Client Support",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "In case you are due for clinical services, could we contact you?",
+							"type": "obs",
+							"required": "true",
+							"id": "contactedIncaseAppointment",
+							"questionOptions": {
+								"concept": "722aaeee-d839-41aa-9f4e-b1a759cf02c3",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									}
+								]
+							}
+						},
+						{
+							"label": "How would you like to be contated",
+							"type": "obs",
+							"id": "contactType",
+							"questionOptions": {
+								"concept": "a55f9516-ddb6-47ec-b10d-cb99d1d0bd41",
+								"rendering": "checkbox",
+								"answers": [
+									{
+										"concept": "161642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Treatment supporter / buddy"
+									},
+									{
+										"concept": "8f45b9c7-ee84-4ae8-b846-e6f1c1087a97",
+										"label": "Peer educator"
+									},
+									{
+										"concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Outreach worker"
+									},
+									{
+										"concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Phone number"
+									},
+									{
+										"concept": "5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Clinician/HTS Counsellor"
+									}
+								]
+							},
+							"validators": [],
+							"hide": {
+								"hideWhenExpression": "contactedIncaseAppointment !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							}
+						}
+					]
+				},
+				{
+					"label": "Buddy Contact Information",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Buddy Name",
+							"type": "obs",
+							"id": "buddyName",
+							"questionOptions": {
+								"concept": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							}
+						},
+						{
+							"label": "Buddy Mobile Number",
+							"type": "obs",
+							"id": "buddyMobileNumber",
+							"questionOptions": {
+								"concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number",
+								"min": "0"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

@@ -1,9 +1,18 @@
 {
 	"name": "PrEP Client Discontinuation",
-	"description":"PrEP Client Discontinuation Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"description": "PrEP Client Discontinuation",
+	"version": "1",
+	"published": true,
+	"uuid": "467c4cc3-25eb-4330-9cf6-e41b9b14cc10",
+	"retired": false,
+	"encounter": "PrEP Client Discontinuation",
+	"meta": {
+		"programs": {
+		  "uuid": "214cad1c-bb62-4d8e-b927-810a046daf62",
+		  "isEnrollment": false,
+		  "discontinuationDateQuestionId": "encDate"
+		}
+	},
 	"pages": [
 		{
 			"label": "PrEP Discontinuation",
@@ -16,15 +25,21 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "datetime"
+								"rendering": "ui-select-extended"
 							},
-							"id": "encDate"
+							"id": "encDate",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 						},
 						{
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "text"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encProvider "
 						},
@@ -32,8 +47,7 @@
 							"label": "Location:",
 							"type": "encounterLocation",
 							"questionOptions": {
-								"rendering": "encounter-location",
-								"locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encLocation"
 						}
@@ -125,17 +139,16 @@
 							"id": "lastPrepDoseDate",
 							"validators": [
 								{
-								  "type": "js_expression",
-								  "failsWhenExpression": "myValue > useFieldValue('encDate')",
-								  "message": "Discontinue date should not be greater than the encounter date."
+									"type": "date",
+									"allowFutureDates": "false"
 								}
-							  ]
+							]
 						}
 					]
 				}
 			]
 		}
 	],
-	"uuid": "467c4cc3-25eb-4330-9cf6-e41b9b14cc10",
-	"encounterType": "3c37b7a0-9f83-4fdc-994f-17308c22b423"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
 }

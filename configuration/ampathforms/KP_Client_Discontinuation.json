@@ -1,0 +1,116 @@
+{
+  "name": "KP Client Discontinuation",
+  "description": "KP Discontinuation",
+  "version": "1",
+  "published": true,
+  "uuid": "1f76643e-2495-11e9-ab14-d663bd873d93",
+  "retired": false,
+  "encounter": "Discontinuation",
+  "meta": {
+    "programs": {
+      "uuid": "7447305a-18a7-11e9-ab14-d663bd873d93",
+      "isEnrollment": false,
+      "discontinuationDateQuestionId": "encDate"
+    }
+  },
+  "pages": [
+    {
+      "label": "Discontinue KP Client",
+      "sections": [
+        {
+          "label": "Discontinue KP Client",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encDate"
+            },
+            {
+              "label": "Reason:",
+              "type": "obs",
+              "id": "KpidReason",
+              "questionOptions": {
+                "concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transferred Out"
+                  },
+                  {
+                    "concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Died"
+                  },
+                  {
+                    "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lost to Follow"
+                  },
+                  {
+                    "concept": "819AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cannot afford Treatment"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "If Patient Died, please provide Date of Death if Known:",
+              "type": "obs",
+              "id": "discontinueDate",
+              "questionOptions": {
+                "concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "KpidReason !== '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "(If transferred out) Transfer to Facility:",
+              "type": "obs",
+              "id": "kpTToUt",
+              "questionOptions": {
+                "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "KpidReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date Transferred Out:",
+              "type": "obs",
+              "questionOptions": {
+                "concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "id": "TTouTDate",
+              "hide": {
+                "hideWhenExpression": "KpidReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}

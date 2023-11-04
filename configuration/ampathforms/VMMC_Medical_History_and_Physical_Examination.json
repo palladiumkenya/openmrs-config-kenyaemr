@@ -1,9 +1,11 @@
 {
 	"name": "VMMC Medical History and Physical Examination Form",
-	"description":"VMMC Medical History and Physical Examination Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"description": "VMMC Medical History and Physical Examination Form",
+	"version": "1",
+	"published": true,
+	"uuid": "d42aeb3d-d5d2-4338-a154-f75ddac78b59",
+	"retired": false,
+	"encounter": "VMMC Medical History and Examination",
 	"pages": [
 		{
 			"label": "VMMC Medical History and Physical Examination Form",
@@ -16,7 +18,7 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "datetime"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encDate",
 							"validators": [
@@ -30,7 +32,7 @@
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "text"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encProvider "
 						},
@@ -38,8 +40,7 @@
 							"label": "Location:",
 							"type": "encounterLocation",
 							"questionOptions": {
-								"rendering": "encounter-location",
-								"locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encLocation"
 						}
@@ -69,7 +70,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "age > 18 || patient.gender !== 'M'"
+								"hideWhenExpression": "age > 18 || sex !== 'M'"
 							}
 						},
 						{
@@ -105,17 +106,17 @@
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "true",
 										"label": "Yes"
 									},
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "false",
 										"label": "No"
 									}
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "age < 18 || patient.gender !== 'M'"
+								"hideWhenExpression": "age < 18 || sex !== 'M'"
 							}
 						}
 					]
@@ -148,7 +149,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -166,7 +167,7 @@
 								}
 							],
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -184,7 +185,7 @@
 								}
 							],
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'|| patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -196,7 +197,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "patientHivStatus !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -208,7 +209,7 @@
 								"rendering": "date"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -230,7 +231,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -242,7 +243,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "careFacility !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -254,7 +255,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "careFacility !== '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -266,7 +267,7 @@
 								"rendering": "number"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -368,7 +369,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -380,7 +381,7 @@
 								"rendering": "number"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -398,7 +399,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -410,7 +411,7 @@
 								"rendering": "number"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -437,7 +438,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							},
 							"id": "__JFuJIJLst"
 						},
@@ -461,7 +462,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -515,7 +516,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "ClientPreseNtComplainT !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "ClientPreseNtComplainT !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -527,7 +528,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "ClientPreseNtComplainT !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || complaintsToday !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "!arrayContains (['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], complaintsToday)"
 							}
 						}
 					]
@@ -556,7 +557,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -566,6 +567,9 @@
 							"questionOptions": {
 								"concept": "1794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "checkbox",
+								"calculate": {
+									"calculateExpression": "String(patientHivStatus) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+								},
 								"answers": [
 									{
 										"concept": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -586,7 +590,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || uNdergoingTreatment !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "uNdergoingTreatment !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -598,7 +602,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || TickAllApply !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "TickAllApply !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -610,7 +614,7 @@
 								"rendering": "number"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || TickAllApply !== '121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "TickAllApply !== '121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -622,10 +626,13 @@
 								"rendering": "number"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || TickAllApply !== '142484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "TickAllApply !== '142484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
-						
+						{
+							"label": "Known Allergies",
+							"isExpanded": "true",
+							"questions": [
 								{
 									"label": "Client has any known allergie(s)?  ",
 									"type": "obs",
@@ -636,17 +643,17 @@
 										"rendering": "radio",
 										"answers": [
 											{
-												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Yes"
-											},
-											{
 												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 												"label": "No"
+											},
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
 											}
 										]
 									},
 									"hide": {
-										"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+										"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 									}
 								},
 								{
@@ -898,7 +905,9 @@
 											]
 										}
 									]
-								},
+								}
+							]
+						},
 						{
 							"label": "Client ever had a surgical operation?",
 							"type": "obs",
@@ -919,7 +928,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -931,7 +940,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || prevSurgicalOperation !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true' || prevSurgicalOperation !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -954,7 +963,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -977,7 +986,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -989,7 +998,7 @@
 								"rendering": "date"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || tetanusBoosterGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true' || tetanusBoosterGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1001,7 +1010,7 @@
 								"rendering": "number"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -1013,7 +1022,7 @@
 								"rendering": "number"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -1025,7 +1034,7 @@
 								"rendering": "number"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -1037,7 +1046,7 @@
 								"rendering": "number"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						}
 					]
@@ -1054,6 +1063,9 @@
 							"questionOptions": {
 								"concept": "1855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
+								"calculate": {
+									"calculateExpression": "String(complaintsToday) === '123529AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+								},
 								"answers": [
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1066,7 +1078,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -1079,17 +1091,17 @@
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -1100,19 +1112,22 @@
 							"questionOptions": {
 								"concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
+								"calculate": {
+									"calculateExpression": "String(consentGiven) === 'true' || String(ParenTConsent) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 'true' : ''"
+								},
 								"answers": [
 									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "true",
 										"label": "Yes"
 									},
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "false",
 										"label": "No"
 									}
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -1123,6 +1138,9 @@
 							"questionOptions": {
 								"concept": "54AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
+								"calculate": {
+									"calculateExpression": "String(tetanusBoosterGiven) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+								},
 								"answers": [
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1135,7 +1153,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true'"
 							}
 						},
 						{
@@ -1147,7 +1165,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true' || couNSElled !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -1176,7 +1194,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1202,7 +1220,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || circumcisionMethod !== '167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true' || circumcisionMethod !== '167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1214,7 +1232,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || circumcisionMethod !== '167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true' || circumcisionMethod !== '167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1236,7 +1254,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || circumcisionMethod !== '167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== 'true' || circumcisionMethod !== '167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1248,7 +1266,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || circumcisionMethod !== '167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "deviceName !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1260,7 +1278,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || circumcisionMethod !== '167120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "deviceName !== '167124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						}
 					]
@@ -1289,7 +1307,7 @@
 								]
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "consentGivenOutcome !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && couNSElled !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && inGoodHealth !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && assentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && consentGiven !== 'false'"
 							}
 						},
 						{
@@ -1331,7 +1349,7 @@
 							},
 							"id": "ReferralServiceS",
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && referredForServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "referredForServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -1343,7 +1361,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "assentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && ReferralServiceS !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || consentGiven !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || couNSElled === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || inGoodHealth === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+								"hideWhenExpression": "!arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], ReferralServiceS)"
 							}
 						}
 					]
@@ -1351,6 +1369,6 @@
 			]
 		}
 	],
-	"uuid": "d42aeb3d-d5d2-4338-a154-f75ddac78b59",
-	"encounterType": "a2010bf5-2db0-4bf4-819f-8a3cffbcb21b"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
 }

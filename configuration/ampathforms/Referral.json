@@ -1,9 +1,11 @@
 {
 	"name": "Referral",
-	"description":"Referral Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"description": "Referral",
+	"version": "1",
+	"published": true,
+	"uuid": "bd12f98a-fcfe-4472-a858-17f28457932b",
+	"retired": false,
+	"encounter": "KP Referral",
 	"pages": [
 		{
 			"label": "KP Referral Form",
@@ -16,15 +18,21 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "datetime"
+								"rendering": "ui-select-extended"
 							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
 							"id": "encDate"
 						},
 						{
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "text"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encProvider "
 						},
@@ -32,8 +40,7 @@
 							"label": "Location:",
 							"type": "encounterLocation",
 							"questionOptions": {
-								"rendering": "encounter-location",
-								"locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encLocation"
 						}
@@ -69,7 +76,13 @@
 							"questionOptions": {
 								"concept": "161561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
-							}
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
 						},
 						{
 							"label": "2. Institution referred",
@@ -116,7 +129,7 @@
 								"rendering": "text"
 							},
 							"hide": {
-								"hideWhenExpression": "serviceReferred !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+							  "hideWhenExpression": "serviceReferred !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
@@ -161,6 +174,6 @@
 			]
 		}
 	],
-	"uuid": "bd12f98a-fcfe-4472-a858-17f28457932b",
-	"encounterType": "596f878f-5adf-4f8e-8829-6a87aaeda9a3"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
 }

@@ -1,9 +1,11 @@
 {
 	"name": "OTZ Activity Form",
-	"description":"OTZ Activity Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"description": "OTZ Activity Form",
+	"version": "1",
+	"published": true,
+	"uuid": "3ae95d48-0464-11ea-8d71-362b9e155667",
+	"retired": false,
+	"encounter": "OTZ Activity",
 	"pages": [
 		{
 			"label": "OTZ Modules",
@@ -15,22 +17,22 @@
 						{
 							"label": "Date:",
 							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate",
 							"validators": [
 								{
 									"type": "date",
 									"allowFutureDates": "false"
 								}
-							],
-							"questionOptions": {
-								"rendering": "date"
-							},
-							"id": "encDate"
+							]
 						},
 						{
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "text"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encProvider "
 						},
@@ -38,8 +40,7 @@
 							"label": "Location:",
 							"type": "encounterLocation",
 							"questionOptions": {
-								"rendering": "encounter-location",
-								"locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encLocation"
 						}
@@ -52,7 +53,7 @@
 						{
 							"label": "OTZ Orientation",
 							"type": "obs",
-							"id": "otz_orientation",
+							"id": "orientation",
 							"questionOptions": {
 								"concept": "49b9347f-d4e2-4a77-b6d6-e35be16b5145",
 								"rendering": "radio",
@@ -60,39 +61,15 @@
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
 									}
 								]
-							}
-						},
-						{
-							"label": "Date of OTZ Orientation",
-							"type": "obs",
-							"questionOptions": {
-							  "rendering": "date",
-							  "concept": "fbe937b6-a4ad-4ce5-9c43-002222fbabfb",
-							  "weeksList": ""
 							},
-							"id": "datePepLastUsed",
-							"behaviours": [
-							  {
-								"intent": "*",
-								"required": "true",
-								"unspecified": "true",
-								"hide": {
-									"hideWhenExpression": "otz_orientation !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-								},
-								"validators": []
-							  }
-							]
-						  },
+							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('49b9347f-d4e2-4a77-b6d6-e35be16b5145')) ? undefined : HD.getObject('prevEnc').getValue('49b9347f-d4e2-4a77-b6d6-e35be16b5145')"
+						},
 						{
 							"label": "OTZ Participation",
 							"type": "obs",
-							"id": "otz_participation",
+							"id": "participation",
 							"questionOptions": {
 								"concept": "f3489e70-12c7-47af-8209-5143d1cd9081",
 								"rendering": "radio",
@@ -100,39 +77,15 @@
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
 									}
 								]
-							}
-						},
-						{
-							"label": "Date of OTZ Participation",
-							"type": "obs",
-							"questionOptions": {
-							  "rendering": "date",
-							  "concept": "fbe937b6-a4ad-4ce5-9c43-002222fbabfb",
-							  "weeksList": ""
 							},
-							"id": "date_of_otz_participation",
-							"behaviours": [
-							  {
-								"intent": "*",
-								"required": "true",
-								"unspecified": "true",
-								"hide": {
-									"hideWhenExpression": "otz_participation !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-								},
-								"validators": []
-							  }
-							]
-						  },
+							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('f3489e70-12c7-47af-8209-5143d1cd9081')) ? undefined : HD.getObject('prevEnc').getValue('f3489e70-12c7-47af-8209-5143d1cd9081')"
+						},
 						{
 							"label": "OTZ Leadership",
 							"type": "obs",
-							"id": "otz_leadership",
+							"id": "leadership",
 							"questionOptions": {
 								"concept": "39410779-ac9e-477c-b578-4e5e1c872fd9",
 								"rendering": "radio",
@@ -140,39 +93,14 @@
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
 									}
 								]
 							}
 						},
 						{
-							"label": "Date of OTZ Leadership",
-							"type": "obs",
-							"questionOptions": {
-							  "rendering": "date",
-							  "concept": "fbe937b6-a4ad-4ce5-9c43-002222fbabfb",
-							  "weeksList": ""
-							},
-							"id": "date_of_otz_leadership",
-							"behaviours": [
-							  {
-								"intent": "*",
-								"required": "true",
-								"unspecified": "true",
-								"hide": {
-									"hideWhenExpression": "otz_leadership !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-								},
-								"validators": []
-							  }
-							]
-						  },
-						{
 							"label": "OTZ Making decision for the future",
 							"type": "obs",
-							"id": "otz_future_decision",
+							"id": "future-decision",
 							"questionOptions": {
 								"concept": "b462c1b8-aa2f-4b5a-bad1-03a91fc11e0e",
 								"rendering": "radio",
@@ -180,39 +108,14 @@
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
 									}
 								]
 							}
 						},
 						{
-							"label": "Date of OTZ decision for the future",
-							"type": "obs",
-							"questionOptions": {
-							  "rendering": "date",
-							  "concept": "fbe937b6-a4ad-4ce5-9c43-002222fbabfb",
-							  "weeksList": ""
-							},
-							"id": "date_of_otz_future",
-							"behaviours": [
-							  {
-								"intent": "*",
-								"required": "true",
-								"unspecified": "true",
-								"hide": {
-									"hideWhenExpression": "otz_future_decision !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-								},
-								"validators": []
-							  }
-							]
-						  },
-						{
 							"label": "OTZ Transition to Adult care",
 							"type": "obs",
-							"id": "otz_transition_adult_care",
+							"id": "transition-adult-care",
 							"questionOptions": {
 								"concept": "190dea55-186f-40c8-845d-43635eab262a",
 								"rendering": "radio",
@@ -220,39 +123,14 @@
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
 									}
 								]
 							}
 						},
 						{
-							"label": "Date of OTZ Transition to Adult care",
-							"type": "obs",
-							"questionOptions": {
-							  "rendering": "date",
-							  "concept": "fbe937b6-a4ad-4ce5-9c43-002222fbabfb",
-							  "weeksList": ""
-							},
-							"id": "date_of_otz_transition",
-							"behaviours": [
-							  {
-								"intent": "*",
-								"required": "true",
-								"unspecified": "true",
-								"hide": {
-									"hideWhenExpression": "otz_transition_adult_care !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-								},
-								"validators": []
-							  }
-							]
-						  },
-						{
 							"label": "OTZ Treatment literacy",
 							"type": "obs",
-							"id": "otz_treatment_literacy",
+							"id": "treatment-literacy",
 							"questionOptions": {
 								"concept": "a85836a2-ef80-44b9-9570-79a6b63703d7",
 								"rendering": "radio",
@@ -260,39 +138,14 @@
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
 									}
 								]
 							}
 						},
 						{
-							"label": "Date of OTZ Treatment literacy",
-							"type": "obs",
-							"questionOptions": {
-							  "rendering": "date",
-							  "concept": "fbe937b6-a4ad-4ce5-9c43-002222fbabfb",
-							  "weeksList": ""
-							},
-							"id": "date_of_otz_treatment_literacy",
-							"behaviours": [
-							  {
-								"intent": "*",
-								"required": "true",
-								"unspecified": "true",
-								"hide": {
-									"hideWhenExpression": "otz_treatment_literacy !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-								},
-								"validators": []
-							  }
-							]
-						  },
-						{
 							"label": "OTZ SRH",
 							"type": "obs",
-							"id": "otz_srh",
+							"id": "srh",
 							"questionOptions": {
 								"concept": "7305dfba-4661-4703-b47c-c8c2620c88ae",
 								"rendering": "radio",
@@ -300,39 +153,14 @@
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
 									}
 								]
 							}
 						},
 						{
-							"label": "Date of OTZ SRH",
-							"type": "obs",
-							"questionOptions": {
-							  "rendering": "date",
-							  "concept": "fbe937b6-a4ad-4ce5-9c43-002222fbabfb",
-							  "weeksList": ""
-							},
-							"id": "date_of_otz_srh",
-							"behaviours": [
-							  {
-								"intent": "*",
-								"required": "true",
-								"unspecified": "true",
-								"hide": {
-									"hideWhenExpression": "otz_srh !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-								},
-								"validators": []
-							  }
-							]
-						  },
-						{
 							"label": "OTZ Beyond the 3rd 90",
 							"type": "obs",
-							"id": "otz_beyond_third_90",
+							"id": "beyond-third-90",
 							"questionOptions": {
 								"concept": "2c3127c2-3adc-424d-b329-e424f0976dc5",
 								"rendering": "radio",
@@ -340,36 +168,10 @@
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
 									}
 								]
 							}
-						},
-
-						{
-							"label": "Date of OTZ Beyond the 3rd 90",
-							"type": "obs",
-							"questionOptions": {
-							  "rendering": "date",
-							  "concept": "fbe937b6-a4ad-4ce5-9c43-002222fbabfb",
-							  "weeksList": ""
-							},
-							"id": "date_of_otz_beyond_the_3rd_90",
-							"behaviours": [
-							  {
-								"intent": "*",
-								"required": "true",
-								"unspecified": "true",
-								"hide": {
-									"hideWhenExpression": "otz_beyond_third_90 !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-								},
-								"validators": []
-							  }
-							]
-						  }
+						}
 					]
 				},
 				{
@@ -393,7 +195,7 @@
 								]
 							},
 							"isExpanded": "true",
-							"id": "support_group_involment",
+							"id": "__GFnzsnH6I",
 							"required": "Yes"
 						}
 					]
@@ -409,13 +211,13 @@
 								"concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "textarea"
 							},
-							"id": "otz_remarks"
+							"id": "__zIIHFnv4D"
 						}
 					]
 				}
 			]
 		}
 	],
-	"uuid": "3ae95d48-0464-11ea-8d71-362b9e155667",
-	"encounterType:": "162386c8-0464-11ea-9a9f-362b9e155667"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
 }

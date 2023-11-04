@@ -1,9 +1,11 @@
 {
 	"name": "Peer Tracking Form",
-	"description": "Peer Tracking Form Form",
+	"description": "Peer Tracking Form",
 	"version": "1",
 	"published": true,
+	"uuid": "63917c60-3fea-11e9-b210-d663bd873d93",
 	"retired": false,
+	"encounter": "KP Tracing",
 	"pages": [
 	  {
 		"label": "Peer Tracking ",
@@ -22,7 +24,7 @@
 				  }
 				],
 				"questionOptions": {
-				  "rendering": "date"
+				  "rendering": "ui-select-extended"
 				},
 				"id": "encDate"
 			  },
@@ -30,7 +32,7 @@
 				"label": "Provider:",
 				"type": "encounterProvider",
 				"questionOptions": {
-				  "rendering": "text"
+				  "rendering": "ui-select-extended"
 				},
 				"id": "encProvider "
 			  },
@@ -38,8 +40,7 @@
 				"label": "Location:",
 				"type": "encounterLocation",
 				"questionOptions": {
-				  "rendering": "encounter-location",
-				  "locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
+				  "rendering": "ui-select-extended"
 				},
 				"id": "encLocation"
 			  }
@@ -58,12 +59,12 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					},
-					{
 					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
 					}
 				  ]
 				}
@@ -75,34 +76,39 @@
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "Previous attempt number:",
+				"label": "Please specify the attempt number since last missed appointment (i.e. 1, 2, 3):",
 				"type": "obs",
 				"questionOptions": {
 				  "rendering": "number",
 				  "concept": "1639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "max": "3",
+				  "required": "true",
+				  "max": "10",
 				  "min": "1"
 				},
 				"id": "attemptNumber",
 				"validators": [],
 				"hide": {
 				  "hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				},
-				"required": "true"
+				}
 			  },
 			  {
 				"label": "Date",
 				"type": "obs",
 				"questionOptions": {
 				  "rendering": "date",
-				  "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				  "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "required": "true"
 				},
 				"id": "firstAttempt",
-				"validators": [],
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				],
 				"hide": {
 				  "hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				},
-				"required": "true"
+				}
 			  },
 			  {
 				"label": "Tracing type",
@@ -110,14 +116,15 @@
 				"questionOptions": {
 				  "rendering": "radio",
 				  "concept": "a55f9516-ddb6-47ec-b10d-cb99d1d0bd41",
+				  "required": "true",
 				  "answers": [
-					{
-					  "concept": "eb113c76-aef8-4890-a611-fe22ba003123",
-					  "label": "Physical"
-					},
 					{
 					  "concept": "1650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Phone"
+					},
+					{
+					  "concept": "eb113c76-aef8-4890-a611-fe22ba003123",
+					  "label": "Physical"
 					}
 				  ]
 				},
@@ -125,8 +132,7 @@
 				"validators": [],
 				"hide": {
 				  "hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				},
-				"required": "true"
+				}
 			  },
 			  {
 				"label": "Tracing outcome",
@@ -140,21 +146,21 @@
 					  "label": "KP reached"
 					},
 					{
-					  "concept": "160720AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "KP not reached"
-					},
-					{
 					  "concept": "160717AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "KP not reached but other informant reached"
+					},
+					{
+					  "concept": "160720AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "KP not reached"
 					}
 				  ]
 				},
 				"id": "firstTracingOutcome",
 				"validators": [],
+				"required": "true",
 				"hide": {
 				  "hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				},
-				"required": "true"
+				}
 			  },
 			  {
 				"label": "Was the final outcome reached?",
@@ -164,21 +170,21 @@
 				  "concept": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "answers": [
 					{
-					  "concept": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					},
-					{
 					  "concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Yes"
+					},
+					{
+					  "concept": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
 					}
 				  ]
 				},
 				"id": "finalOutcome",
 				"validators": [],
+				"required": "true",
 				"hide": {
 				  "hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				},
-				"required": "true"
+				}
 			  }
 			]
 		  },
@@ -195,39 +201,40 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-					  "concept": "134236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Enrolled in MAT (applicable to PWIDS only)"
-					},
-					{
-					  "concept": "162632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Found"
-					},
-					{
 					  "concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Dead"
-					},
-					{
-					  "concept": "ddac1f1b-a5c7-4c62-b034-5d0b97197fd5",
-					  "label": "Voluntary exit"
-					},
-					{
-					  "concept": "162752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Bedridden"
 					},
 					{
 					  "concept": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Relocated"
 					},
 					{
+					  "concept": "ddac1f1b-a5c7-4c62-b034-5d0b97197fd5",
+					  "label": "Voluntary exit"
+					},
+					{
+					  "concept": "134236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Enrolled in MAT (applicable to PWIDS only)"
+					},
+					{
 					  "concept": "4e996d3a-103a-41b0-afef-a2101d4072be",
 					  "label": "Untraceable"
 					},
 					{
+					  "concept": "162752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Bedridden"
+					},
+					{
 					  "concept": "156761AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Imprisoned"
+					},
+					{
+					  "concept": "162632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Found"
 					}
 				  ]
 				},
+				"validators": [],
 				"hide": {
 				  "hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
@@ -242,7 +249,7 @@
 				},
 				"validators": [],
 				"hide": {
-				  "hideWhenExpression": "tracingOutcomeStatus !== 'ddac1f1b-a5c7-4c62-b034-5d0b97197fd5'"
+				  "hideWhenExpression": "tracingOutcomeStatus !== 'ddac1f1b-a5c7-4c62-b034-5d0b97197fd5' || trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
@@ -254,6 +261,10 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
+					  "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Lost to follow up"
+					},
+					{
 					  "concept": "160031AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Defaulted"
 					},
@@ -262,15 +273,12 @@
 					  "label": "Active"
 					},
 					{
-					  "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Lost to follow up"
-					},
-					{
 					  "concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Dead"
 					}
 				  ]
 				},
+				"validators": [],
 				"hide": {
 				  "hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
@@ -284,12 +292,12 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-					  "concept": "8f45b9c7-ee84-4ae8-b846-e6f1c1087a97",
-					  "label": "PE"
-					},
-					{
 					  "concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550",
 					  "label": "KP"
+					},
+					{
+					  "concept": "8f45b9c7-ee84-4ae8-b846-e6f1c1087a97",
+					  "label": "PE"
 					},
 					{
 					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -297,20 +305,22 @@
 					}
 				  ]
 				},
+				"validators": [],
 				"hide": {
 				  "hideWhenExpression": "trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
-				"label": "Source of information",
+				"label": "Specify other source of information",
 				"type": "obs",
 				"id": "otherInformant",
 				"questionOptions": {
 				  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "text"
 				},
+				"validators": [],
 				"hide": {
-				  "hideWhenExpression": "sourceInformation !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "sourceInformation !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || trackingAttempted !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  }
 			]
@@ -349,20 +359,22 @@
 					}
 				  ]
 				},
+				"validators": [],
 				"hide": {
 				  "hideWhenExpression": "trackingAttempted !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
-				"label": "Why was tracking not attempted?",
+				"label": "Specify why was tracking not attempted?",
 				"type": "obs",
 				"id": "trueStatusOther",
 				"questionOptions": {
 				  "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "text"
 				},
+				"validators": [],
 				"hide": {
-				  "hideWhenExpression": "trackingNotAttempted !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "trackingNotAttempted !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || trackingAttempted !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  }
 			]
@@ -370,6 +382,6 @@
 		]
 	  }
 	],
-	"uuid": "63917c60-3fea-11e9-b210-d663bd873d93",
-	"encounterType": "ce841b19-0acd-46fd-b223-2ca9b5356237"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
   }
