@@ -1,6 +1,6 @@
 name: KenyaEMR CI
 
-"on":
+on:
   push:
     branches:
       - main
@@ -8,34 +8,33 @@ name: KenyaEMR CI
     types: [published]
 
 jobs:
-  build:
+  build_and_deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18.x]
     steps:
-      - uses: actions/checkout@v3
+      - name: Check out repository
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js 18.x
+      - name: Set up Node.js
         uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
 
       - name: Clean up previous build artifacts
-        run: |
-          rm -rf openmrs-config-kenyaemr
-          rm -rf frontend
+        run: rm -rf openmrs-config-kenyaemr frontend
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Build Kenya EMR 3.x assets
-        run: |
-          npx --legacy-peer-deps openmrs@next build \
-            --build-config ./configuration/dev-build-config.json \
-            --target ./frontend \
-            --page-title "KenyaEMR" \
-            --support-offline false
+        run: npx --legacy-peer-deps openmrs@next build --build-config ./configuration/dev-build-config.json --target ./frontend --page-title "KenyaEMR" --support-offline false
 
       - name: Assemble assets
-        run: |
-          npx --legacy-peer-deps openmrs@next assemble \
-            --manifest \
-            --mode config \
-            --config ./configuration/dev-build-config.json \
-            --target ./frontend
+        run: npx --legacy-peer-deps openmrs@next assemble --manifest --mode config --config ./configuration/dev-build-config.json --target ./frontend
 
       - name: Copy and move required files
         run: |
@@ -45,46 +44,52 @@ jobs:
           cp ./configuration/dev-config.json ./frontend/config.json
 
       - name: Compress frontend folder
-        run: tar -czf frontend.tar.gz frontend/
+        run: tar -czvf frontend-${{ github.sha }}.tar.gz frontend/
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: frontend.tar.gz
-          path: frontend.tar.gz
+          name: frontend-${{ github.sha }}.tar.gz
+          path: frontend-${{ github.sha }}.tar.gz
 
       - name: Upload compressed frontend to server
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v0.2
         with:
           host: ${{ secrets.CICD_HOST }}
           username: ${{ secrets.CICD_USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.CICD_SECRET }}
-          source: ./frontend.tar.gz
-          target: /apps/githubworkflows/OpenMrs3.0_assets/frontend.tar.gz
+          source: frontend-${{ github.sha }}.tar.gz
+          target: /apps/githubworkflows/OpenMrs3.0_assets/
 
       - name: Execute remote SSH commands
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.CICD_HOST }}
           username: ${{ secrets.CICD_USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.CICD_SECRET }}
-          script: >-
+          script: |
+            set -e
             cd /apps/githubworkflows/OpenMrs3.0_assets &&
-            tar -xzf frontend.tar.gz &&
+            tar -xzf frontend-${{ github.sha }}.tar.gz &&
             sudo mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old &&
             mv frontend /var/lib/OpenMRS/ &&
             sudo rm -rf /var/lib/OpenMRS/frontend_old
 
   release:
     runs-on: ubuntu-latest
+    needs: build_and_deploy
     if: github.event_name == 'release'
     steps:
-      - uses: actions/checkout@v3
+      - name: Check out repository
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js 18.x
+      - name: Set up Node.js
         uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'npm'
 
       - name: Run production build script
         run: |
@@ -92,10 +97,10 @@ jobs:
           ./prod-build.sh
 
       - name: Compress frontend folder for release
-        run: tar -czf frontend-release.tar.gz frontend/
+        run: tar -czvf frontend-release-${{ github.sha }}.tar.gz frontend/
 
       - name: Upload release artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: frontend-release.tar.gz
-          path: frontend-release.tar.gz
+          name: frontend-release-${{ github.sha }}.tar.gz
+          path: frontend-release-${{ github.sha }}.tar.gz
