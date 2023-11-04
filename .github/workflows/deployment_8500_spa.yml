@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feat/fixCI
   release:
     types: [published]
 
@@ -15,20 +16,16 @@ jobs:
       matrix:
         node: [18.x]
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-          cache: 'npm'
 
       - name: Clean up previous build artifacts
         run: rm -rf openmrs-config-kenyaemr frontend
 
-      - name: Install dependencies
-        run: npm install
 
       - name: Build Kenya EMR 3.x assets
         run: npx --legacy-peer-deps openmrs@next build --build-config ./configuration/dev-build-config.json --target ./frontend --page-title "KenyaEMR" --support-offline false
