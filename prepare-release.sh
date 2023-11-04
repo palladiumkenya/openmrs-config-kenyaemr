@@ -45,7 +45,7 @@ date_str=$(date "+%a-%d-%b-%Y")
 date_str=$(echo "$date_str" | tr '[:lower:]' '[:upper:]')
 
 # Define the base directory name
-base_dir="KENYAEMR.x"
+base_dir="KENYAEMR3.x"
 
 # Create a new directory name with the version number and the date appended
 dir_name="${base_dir}_v${version}_${date_str}"
@@ -74,6 +74,20 @@ cp -r configuration/* "$dir_name"/configuration
 
 echo "Copying backend files..."
 cp -r backend/* "$dir_name"
+
+modules_path="$dir_name/modules"
+
+# Check if the modules directory exists
+if [ -d "$modules_path" ]; then
+    echo "Compressing the 'modules' directory..."
+    tar -czf "$dir_name/modules.tar.gz" -C "$dir_name" modules
+    echo "Compression complete. Deleting the 'modules' directory..."
+    rm -rf "$modules_path"
+    echo "'modules' directory deleted."
+else
+    echo "'modules' directory does not exist. Skipping compression and deletion."
+fi
+echo
 
 echo "Copying frontend file..."
 cp frontend.tar.gz "$dir_name"
