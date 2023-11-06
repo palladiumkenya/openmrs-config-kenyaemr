@@ -1,9 +1,18 @@
 {
 	"name": "OTZ Discontinuation Form",
-	"description":"OTZ Discontinuation Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"description": "OTZ Discontinuation Form",
+	"version": "1",
+	"published": true,
+	"uuid": "3ae955dc-0464-11ea-8d71-362b9e155667",
+	"retired": false,
+	"encounter": "OTZ Discontinuation",
+	"meta": {
+		"programs": {
+			"uuid": "24d05d30-0488-11ea-8d71-362b9e155667",
+			"isEnrollment": false,
+			"discontinuationDateQuestionId": "encDate"
+		}
+	},
 	"pages": [
 		{
 			"label": "OTZ Discontinuation",
@@ -16,26 +25,21 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "date"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encDate",
 							"validators": [
 								{
 									"type": "date",
 									"allowFutureDates": "false"
-								},
-								{
-                  "type": "js_expression",
-                  "failsWhenExpression": "myValue > useFieldValue('encDate')",
-                  "message": "Visit date should not be greater than the encounter date."
-                }
+								}
 							]
 						},
 						{
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "text"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encProvider "
 						},
@@ -43,8 +47,7 @@
 							"label": "Location:",
 							"type": "encounterLocation",
 							"questionOptions": {
-								"rendering": "encounter-location",
-								"locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encLocation"
 						}
@@ -98,12 +101,12 @@
 								{
 									"type": "date",
 									"allowFutureDates": "false"
-								},								
-                {
-                    "type": "js_expression",
-                    "failsWhenExpression": "myValue > useFieldValue('encDate')",
-                    "message": "Date of death should not be after the encounter date.."
-                }
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Date of death should not be after the encounter date."
+								}
 							],
 							"hide": {
 								"hideWhenExpression": "isEmpty(discontinuationReason) || discontinuationReason != '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -134,12 +137,12 @@
 								{
 									"type": "date",
 									"allowFutureDates": "false"
-								},								
-                {
-                    "type": "js_expression",
-                    "failsWhenExpression": "myValue > useFieldValue('encDate')",
-                    "message": "Transfer out date should not be after the encounter date."
-                }
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+									"message": "Transfer out date should not be after the encounter date."
+								}
 							],
 							"hide": {
 								"hideWhenExpression": "isEmpty(discontinuationReason) || discontinuationReason != '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -150,6 +153,6 @@
 			]
 		}
 	],
-	"uuid": "3ae955dc-0464-11ea-8d71-362b9e155667",
-	"encounterType": "162382b8-0464-11ea-9a9f-362b9e155667"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
 }

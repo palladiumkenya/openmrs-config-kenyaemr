@@ -1,9 +1,11 @@
 {
 	"name": "Delivery",
-	"description":"Delivery Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"description": "Delivery",
+	"version": "1",
+	"published": true,
+	"uuid": "496c7cc3-0eea-4e84-a04c-2292949e2f7f",
+	"retired": false,
+	"encounter": "MCH Mother Consultation",
 	"pages": [
 		{
 			"label": "Delivery",
@@ -16,7 +18,7 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "datetime"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encDate",
 							"validators": [
@@ -30,7 +32,7 @@
 							"label": "Provider:",
 							"type": "encounterProvider",
 							"questionOptions": {
-								"rendering": "text"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encProvider "
 						},
@@ -38,8 +40,7 @@
 							"label": "Location:",
 							"type": "encounterLocation",
 							"questionOptions": {
-								"rendering": "encounter-location",
-								"locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
+								"rendering": "ui-select-extended"
 							},
 							"id": "encLocation"
 						}
@@ -55,7 +56,18 @@
 							"id": "admNumber",
 							"questionOptions": {
 								"concept": "162054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "number"
+								"rendering": "number",
+								"min": "0"
+							}
+						},
+						{
+							"label": "Number of ANC Visits:",
+							"type": "obs",
+							"id": "noOfAncVisits",
+							"questionOptions": {
+								"concept": "1590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number",
+								"min": "0"
 							}
 						}
 					]
@@ -65,12 +77,152 @@
 					"isExpanded": "true",
 					"questions": [
 						{
+							"label": "Date of Last Menstrual Period(LMP)",
+							"type": "obs",
+							"id": "lastLmpDate",
+							"questionOptions": {
+								"concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "!isEmpty(myValue) && moment(myValue).isBefore(moment(birthdate), 'day')",
+									"message": "LMP date should not be before the date of birth."
+								}
+							]
+						},
+						{
+							"label": "VDRL/RPR Results:",
+							"type": "obs",
+							"id": "vdrlResults",
+							"questionOptions": {
+								"concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Positive"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Negative"
+									},
+									{
+										"concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Not Done"
+									}
+								]
+							}
+						},
+						{
+							"label": "Estimated date of Delivery",
+							"type": "obs",
+							"id": "lastDeliveryDate",
+							"required":"true",
+							"questionOptions": {
+								"concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "true"
+								}
+							]
+						},
+						{
+							"label": "Placenta complete?",
+							"type": "obs",
+							"id": "placentaComplete",
+							"required":"true",
+							"questionOptions": {
+								"concept": "163454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1501AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Baby born before arrival"
+									}
+								]
+							}
+						},
+						{
+							"label": "Vagina Examination?",
+							"type": "obs",
+							"id": "vaginalExamination",
+							"required":"true",
+							"questionOptions": {
+								"concept": "160704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "132681AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Normal"
+									},
+									{
+										"concept": "5577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Episiotomy"
+									},
+									{
+										"concept": "159264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Vaginal tear"
+									},
+									{
+										"concept": "118935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "FGM"
+									},
+									{
+										"concept": "139505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Vaginal warts"
+									}
+								]
+							}
+						},
+						{
+							"label": "Uterotonic given?",
+							"type": "obs",
+							"id": "uterotonicGiven",
+							"required":"true",
+							"questionOptions": {
+								"concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "81369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Oxytocin"
+									},
+									{
+										"concept": "104590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Carbetocin"
+									},
+									{
+										"concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "None"
+									}
+								]
+							}
+						},
+						{
 							"label": "Gestation at birth (in weeks):",
 							"type": "obs",
 							"id": "gestation",
 							"questionOptions": {
 								"concept": "1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "number"
+								"rendering": "number",
+								"min": "0"
 							}
 						},
 						{
@@ -79,7 +231,8 @@
 							"id": "durationOfLabour",
 							"questionOptions": {
 								"concept": "159616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "number"
+								"rendering": "number",
+								"min": "0"
 							}
 						},
 						{
@@ -126,49 +279,12 @@
 							"required": "true"
 						},
 						{
-							"label": "Placenta complete?",
-							"type": "obs",
-							"id": "placentaComplete",
-							"questionOptions": {
-								"concept": "163454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "163455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									},
-									{
-										"concept": "163456AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									}
-								]
-							}
-						},
-						{
-							"label": "Blood Loss:",
+							"label": "Blood loss during delivery in millilitres (mls):",
 							"type": "obs",
 							"id": "bloodLoss",
 							"questionOptions": {
-								"concept": "162092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "None"
-									},
-									{
-										"concept": "1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Mild"
-									},
-									{
-										"concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Moderate"
-									},
-									{
-										"concept": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Severe"
-									}
-								]
+								"concept": "161928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "number"
 							}
 						},
 						{
@@ -408,6 +524,26 @@
 							}
 						},
 						{
+							"label": "Chlorhexidine applied on cord stump:",
+							"type": "obs",
+							"id": "chlorhexidine",
+							"required":"true",
+							"questionOptions": {
+								"concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+								]
+							}
+						},
+						{
 							"label": "Baby details",
 							"type": "obsGroup",
 							"questionOptions": {
@@ -449,7 +585,8 @@
 									"id": "birthWeight",
 									"questionOptions": {
 										"concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "number"
+										"rendering": "number",
+										"min": "0"
 									}
 								},
 								{
@@ -484,7 +621,7 @@
 										"rendering": "select",
 										"answers": [
 											{
-												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"concept": "155871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 												"label": "Yes"
 											},
 											{
@@ -507,7 +644,7 @@
 										"rendering": "select",
 										"answers": [
 											{
-												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"concept": "84893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 												"label": "Yes"
 											},
 											{
@@ -525,6 +662,50 @@
 									}
 								},
 								{
+									"label": "Given Vitamin K :",
+									"type": "obs",
+									"id": "vitaminK",
+									"required":"true",
+									"questionOptions": {
+										"concept": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											}
+										]
+									}
+								},
+								{
+									"label": "Kangaroo Mother care given:",
+									"type": "obs",
+									"id": "kangarooMotherCare",
+									"required":"true",
+									"questionOptions": {
+										"concept": "161094AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											},
+											{
+												"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "N/A"
+											}
+										]
+									}
+								},
+								{
 									"label": "Initiated BF in less than 1 hour:",
 									"type": "obs",
 									"id": "babyInitiatedBF",
@@ -533,12 +714,12 @@
 										"rendering": "select",
 										"answers": [
 											{
-												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "No"
-											},
-											{
 												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
 											}
 										]
 									},
@@ -552,7 +733,8 @@
 									"id": "babyApgarScore1Min",
 									"questionOptions": {
 										"concept": "159603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "number"
+										"rendering": "number",
+										"min": "0"
 									},
 									"hide": {
 										"hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -564,7 +746,8 @@
 									"id": "babyAScore5Min",
 									"questionOptions": {
 										"concept": "159604AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "number"
+										"rendering": "number",
+										"min": "0"
 									},
 									"hide": {
 										"hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -576,7 +759,8 @@
 									"id": "babyApgarScore10Min",
 									"questionOptions": {
 										"concept": "159605AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "number"
+										"rendering": "number",
+										"min": "0"
 									},
 									"hide": {
 										"hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -660,16 +844,16 @@
 										"rendering": "select",
 										"answers": [
 											{
-												"concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Invalid"
-											},
-											{
 												"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 												"label": "Positive"
 											},
 											{
 												"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 												"label": "Negative"
+											},
+											{
+												"concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Invalid"
 											}
 										]
 									}
@@ -692,22 +876,60 @@
 											}
 										]
 									}
+								},
+								{
+									"label": "Final Results:",
+									"type": "obs",
+									"id": "hivFinalResult",
+									"questionOptions": {
+										"concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Positive"
+											},
+											{
+												"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Negative"
+											},
+											{
+												"concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Inconclusive"
+											}
+										]
+									}
+								},
+								{
+									"label": "Results given to client:",
+									"type": "obs",
+									"id": "resultsGiven",
+									"questionOptions": {
+										"concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"rendering": "select",
+										"answers": [
+											{
+												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
+											}
+										]
+									}
 								}
 							],
 							"id": "hivTesting"
 						},
 						{
-							"label": "Final Results:",
+							"label": "HIV Status:",
 							"type": "obs",
-							"id": "hivFinalResult",
+							"id": "hivStatus",
 							"questionOptions": {
-								"concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"concept": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "select",
 								"answers": [
-									{
-										"concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Inconclusive"
-									},
 									{
 										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Positive"
@@ -715,63 +937,14 @@
 									{
 										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Negative"
-									}
-								]
-							}
-						},
-						{
-							"label": "On HAART",
-							"type": "obs",
-							"id": "OnHaART",
-							"questionOptions": {
-								"concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
 									},
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									}
-								]
-							}
-						},
-						{
-							"label": "Current Regimen",
-							"type": "obs",
-							"id": "CurreNTRegimen",
-							"questionOptions": {
-								"concept": "164855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
+										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unknown"
 									},
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									}
-								]
-							}
-						},
-						{
-							"label": "Results given to client?",
-							"type": "obs",
-							"id": "resultsGiven",
-							"questionOptions": {
-								"concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "select",
-								"answers": [
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									},
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
+										"concept": "164817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Known Positive"
 									}
 								]
 							}
@@ -803,10 +976,7 @@
 								"concept": "1436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "select",
 								"answers": [
-									{
-										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Unknown"
-									},
+									
 									{
 										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "HIV Positive"
@@ -814,6 +984,10 @@
 									{
 										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "HIV Negative"
+									},
+									{
+										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unknown"
 									}
 								]
 							},
@@ -851,6 +1025,52 @@
 							}
 						},
 						{
+							"label": "Mother started on HAART at maternity ?",
+							"type": "obs",
+							"id": "startedHaartAnc",
+							"questionOptions": {
+								"concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "N/A"
+									}
+								]
+							}
+						},
+						{
+							"label": "Was mother on HAART during ANC?",
+							"type": "obs",
+							"id": "wasOnHaartAnc",
+							"questionOptions": {
+								"concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									},
+									{
+										"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "N/A"
+									}
+								]
+							}
+						},
+						{
 							"label": "AZT for the baby dispensed?",
 							"type": "obs",
 							"id": "aztDispensed",
@@ -859,7 +1079,7 @@
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "160123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
 									},
 									{
@@ -882,7 +1102,7 @@
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
 									},
 									{
@@ -924,6 +1144,15 @@
 									}
 								]
 							}
+						},
+						{
+							"label": "Reasons for referral? ",
+							"type": "obs",
+							"id": "referralReason",
+							"questionOptions": {
+								"concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "text"
+							}
 						}
 					]
 				},
@@ -961,16 +1190,6 @@
 			]
 		}
 	],
-	"uuid": "496c7cc3-0eea-4e84-a04c-2292949e2f7f",
-	"encounterType": "c6d09e05-1f25-4164-8860-9f32c5a02df0",
-	"referencedForms": [
-		{
-			"ref": {
-				"uuid": "d3612955-4377-410b-800e-001dfe55a55c",
-				"display": "component_common_form_header_v1.0"
-			},
-			"formName": "component_common_form_header_v1.0",
-			"alias": "encDetails"
-		}
-	]
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
 }

@@ -1,0 +1,702 @@
+{
+  "name": "Contact form",
+  "description": "Contact form",
+  "version": "1",
+  "published": true,
+  "uuid": "185dec84-df6f-4fc7-a370-15aa8be531ec",
+  "retired": false,
+  "encounter": "KP Contact",
+  "meta": {
+    "programs": {
+      "uuid": "7447305a-18a7-11e9-ab14-d663bd873d93",
+      "isEnrollment": true,
+      "discontinuationDateQuestionId": ""
+    }
+  },
+  "pages": [
+    {
+      "label": "KP Contact Form",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Contact Form",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient Type?",
+              "type": "obs",
+              "id": "patientType",
+              "required": "true",
+              "questionOptions": {
+                "concept": "423c034e-14ac-4243-ae75-80d1daddce55",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New Patient"
+                  },
+                  {
+                    "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transfer in"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Transfer in date:",
+              "type": "obs",
+              "id": "transferInDate",
+              "questionOptions": {
+                "concept": "160534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientType) || patientType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Transferred from facility:",
+              "type": "obs",
+              "id": "transferredFrom",
+              "questionOptions": {
+                "concept": "160535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientType) || patientType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date first enrolled in KP program:",
+              "type": "obs",
+              "id": "firstEnrolledDate",
+              "questionOptions": {
+                "concept": "160555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientType) || patientType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Key Population Type",
+              "type": "obs",
+              "id": "keyPopTypeMale",
+              "questionOptions": {
+                "concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "973e5b6c-ae5e-4d6a-a624-2d259763771f",
+                    "label": "MSW"
+                  },
+                  {
+                    "concept": "160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "MSM"
+                  },
+                  {
+                    "concept": "642945a8-045a-4010-b3f3-bc50aaaab386",
+                    "label": "PWUD"
+                  },
+                  {
+                    "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "PWID"
+                  },
+                  {
+                    "concept": "bd370cad-06fe-4950-a36f-ed991b280ce6",
+                    "label": "Transgender"
+                  },
+                  {
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People in prison and other closed settings"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'M'"
+              }
+            },
+            {
+              "label": "Key Population Type",
+              "type": "obs",
+              "id": "keyPopTypeFemale",
+              "questionOptions": {
+                "concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "89828287-b96f-449c-b3ae-d518d55703e1",
+                    "label": "FSW"
+                  },
+                  {
+                    "concept": "642945a8-045a-4010-b3f3-bc50aaaab386",
+                    "label": "PWUD"
+                  },
+                  {
+                    "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "PWID"
+                  },
+                  {
+                    "concept": "bd370cad-06fe-4950-a36f-ed991b280ce6",
+                    "label": "Transgender"
+                  },
+                  {
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People in prison and other closed settings"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F'"
+              }
+            },
+            {
+              "label": "Priority population:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "type": "MCL/CIEL",
+                    "value": "160581"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fisher folk",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "105"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "105"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Truck driver",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "9785"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160578"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Prisoner",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "1832"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160579"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
+                    "label": "Military and other uniformed services",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "1832"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160579"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "1832"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160579"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "sex !=='M'"
+              },
+              "id": "malePriOrityPop"
+            },
+            {
+              "label": "Priority population:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "type": "MCL/CIEL",
+                    "value": "160581"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fisher folk",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "105"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "105"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Truck driver",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "9785"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160578"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "160549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Adolescent and young girls",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "1832"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160579"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Prisoner",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "1832"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160579"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
+                    "label": "Military and other uniformed services",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "1832"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160579"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "1832"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160579"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "sex !=='F'"
+              },
+              "id": "femalePriOrityPop"
+            },
+            {
+              "label": "Implementation county",
+              "type": "obs",
+              "id": "county",
+              "required": "true",
+              "questionOptions": {
+                "concept": "167131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Implementation sub-county",
+              "type": "obs",
+              "id": "subCounty",
+              "required": "true",
+              "questionOptions": {
+                "concept": "161551AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Implementation ward",
+              "type": "obs",
+              "id": "ward",
+              "questionOptions": {
+                "concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "type": "patientIdentifier",
+              "label": "Unique Identifier Code",
+              "questionInfo": "",
+              "id": "uniqueIdentifierCode",
+              "required": "true",
+              "default": "",
+              "questionOptions": {
+                "rendering": "string",
+                "identifierType": "b7bfefd0-239b-11e9-ab14-d663bd873d93"
+              }
+            },
+            {
+              "label": "Alternative Contact Person Name",
+              "type": "obs",
+              "id": "altname",
+              "questionOptions": {
+                "concept": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Alternative Contact Person Tel",
+              "type": "obs",
+              "id": "mobile",
+              "questionOptions": {
+                "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Have you been contacted by a peer educator?",
+              "type": "obs",
+              "id": "contactedByPeerEducator",
+              "questionOptions": {
+                "concept": "d83bca86-6734-4b26-b67c-c2133948fbac",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "If yes, which programme do you receive service from?",
+              "type": "obs",
+              "id": "serviceProgram",
+              "questionOptions": {
+                "concept": "844bf107-32e6-4d5d-8d40-de8978f79cb3",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(contactedByPeerEducator) || contactedByPeerEducator === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Hot spot mostly frequented",
+              "type": "obs",
+              "id": "hotspotFrequented",
+              "required": "true",
+              "questionOptions": {
+                "concept": "07944782-2ad1-4319-b3bd-b5acd097a328",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Type of Hotspot",
+              "type": "obs",
+              "id": "hotspotType",
+              "questionOptions": {
+                "concept": "8e636ff6-6907-4c7e-965a-5c178c3237c6",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "4da6617b-0bce-4653-932f-b9aa85794f19",
+                    "label": "Casino"
+                  },
+                  {
+                    "concept": "500e6361-47d3-4239-81ae-cccca6999f08",
+                    "label": "Sex den"
+                  },
+                  {
+                    "concept": "50e3f356-04b7-47a6-89d4-b46b74fa68ac",
+                    "label": "Guest house/Hotels/Lodgings"
+                  },
+                  {
+                    "concept": "0a802027-c3db-4c89-a06a-5172a5f57611",
+                    "label": "Park"
+                  },
+                  {
+                    "concept": "8fa3458f-217d-41ec-99a1-e80cb9e76963",
+                    "label": "Bar with lodging"
+                  },
+                  {
+                    "concept": "4d543570-a831-403d-a6c7-b054bf71440e",
+                    "label": "Virtual Space"
+                  },
+                  {
+                    "concept": "52fcebd8-62b1-4b4a-be41-2f0ed5cd0a77",
+                    "label": "Brothel"
+                  },
+                  {
+                    "concept": "8361b9dd-a67b-46cd-a7d8-4a49dc732a17",
+                    "label": "Bar without lodging"
+                  },
+                  {
+                    "concept": "c3231eda-d525-40b5-81ef-323d7ebec324",
+                    "label": "Injecting den"
+                  },
+                  {
+                    "concept": "45bd1bea-367d-45d5-b596-a81a4f095808",
+                    "label": "Beach"
+                  },
+                  {
+                    "concept": "48ca7119-3535-48f7-877d-acd7c1d193dd",
+                    "label": "Massage parlor"
+                  },
+                  {
+                    "concept": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Homes"
+                  },
+                  {
+                    "concept": "7f9ab5d9-b95b-4341-9d99-3cd1a2d45752",
+                    "label": "Strip club"
+                  },
+                  {
+                    "concept": "0eb70f95-c0bb-480a-b0c5-dc987c740940",
+                    "label": "Street"
+                  },
+                  {
+                    "concept": "c31e2ac5-edcb-4f5e-a5a3-09e6158332bb",
+                    "label": "Uninhabitable building"
+                  },
+                  {
+                    "concept": "c042a7d4-a8fb-4b33-b638-15c4687912e7",
+                    "label": "Chang'aa den"
+                  },
+                  {
+                    "concept": "17a0e078-4f8e-4993-ba93-26bbd6480069",
+                    "label": "Highways"
+                  },
+                  {
+                    "concept": "7e77fe7a-978a-48ba-b0ce-b5226fe61e25",
+                    "label": "Barbershop/Salon"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other (Specify)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Type of Hotspot (Specify)",
+              "type": "obs",
+              "id": "otherHotspotSpecify",
+              "questionOptions": {
+                "concept": "bae7d54d-4944-4be0-93fa-021b4a70cb0b",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hotspotType) || hotspotType !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Which year did you start sex work?",
+              "type": "obs",
+              "id": "startSex",
+              "questionOptions": {
+                "concept": "c453778e-d2f0-4c58-939a-518af10badd2",
+                "rendering": "number"
+              },
+              "validators": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "moment(birthdate).isBefore(moment(myValue), 'day')",
+                  "message": "Should not be less than the date of birth."
+                }
+              ]
+            },
+            {
+              "label": "Which year did you start having sex with men?(MSM only)",
+              "type": "obs",
+              "id": "sexWithMen",
+              "questionOptions": {
+                "concept": "2916bf43-7abd-48b9-8719-3ba775973526",
+                "rendering": "number"
+              },
+              "validators": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "moment(birthdate).isBefore(moment(myValue), 'day')",
+                  "message": "Should not be less than the date of birth."
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(keyPopTypeMale) || keyPopTypeMale !== '160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Which Year Did You Start Using Drugs (Injecting Or Smoking)?",
+              "type": "obs",
+              "id": "usingDrugs",
+              "questionOptions": {
+                "concept": "224521b9-c88a-4355-bd32-323996fcbb87",
+                "rendering": "number"
+              },
+              "validators": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "moment(birthdate).isBefore(moment(myValue), 'day')",
+                  "message": "Should not be less than the date of birth."
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "keyPopTypeMale !=='105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && keyPopTypeFemale !=='105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && keyPopTypeMale !=='642945a8-045a-4010-b3f3-bc50aaaab386' && keyPopTypeFemale !=='642945a8-045a-4010-b3f3-bc50aaaab386'"
+              }
+            },
+            {
+              "label": "On average, how many sex acts do you have per week",
+              "type": "obs",
+              "id": "sexActs",
+              "questionOptions": {
+                "concept": "25852ebc-9fc6-40fa-b502-1ce90bc2bcc8",
+                "rendering": "number",
+                "max": "100",
+                "min": "0"
+              }
+            },
+            {
+              "label": "On average, how many anal sex acts do you have per week",
+              "type": "obs",
+              "id": "analAct",
+              "questionOptions": {
+                "concept": "41ffeb50-07e6-480c-82da-49b4e2cd519c",
+                "rendering": "number",
+                "max": "100",
+                "min": "0"
+              }
+            },
+            {
+              "label": "On average, how many times do you inject drugs per day(only PWID)",
+              "type": "obs",
+              "id": "numberOfDrugs",
+              "questionOptions": {
+                "concept": "180e47e4-5d16-4a46-bd13-9229635889d6",
+                "rendering": "number",
+                "max": "50",
+                "min": "0"
+              },
+              "hide": {
+                "hideWhenExpression": "keyPopTypeFemale !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && keyPopTypeMale !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || keyPopTypeMale ==='642945a8-045a-4010-b3f3-bc50aaaab386' && keyPopTypeFemale ==='642945a8-045a-4010-b3f3-bc50aaaab386'"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": [],
+  "encounterType": "ea68aad6-4655-4dc5-80f2-780e33055a9e"
+}
