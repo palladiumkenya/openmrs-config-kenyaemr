@@ -104,15 +104,17 @@ echo "Update tablet units for drug"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/drug/update_tablet_units.sql" 
 echo
 
-echo "Squash KenyaEMR red banner"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/red_banner/squash_red_banner.sql"
-
 echo "Initial setup to squash red banner"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/initial_setup/initial_setup.sql"
 echo
 
 echo "Deleting old modules folder"
-sudo rm -R modules/
+if [ -d "modules/" ]; then
+  sudo rm -R "modules/"
+  echo "The 'modules/' directory has been removed."
+else
+  echo "The 'modules/' directory does not exist, no action taken."
+fi
 echo "Uncompressing module directory ..."
 sudo tar -xzf modules.tar.gz
 echo "Completed uncompressing module directory"
@@ -141,7 +143,12 @@ echo "Finished deleting address configurations"
 echo
 
 echo
-sudo rm -R ${frontend_dir}/
+if [ -d "frontend/" ]; then
+  sudo rm -R "frontend/"
+  echo "The 'frontend/' directory has been removed."
+else
+  echo "The 'frontend/' directory does not exist, no action taken."
+fi
 sudo mkdir ${frontend_dir}
 echo "Finished creating frontend directory"
 echo
