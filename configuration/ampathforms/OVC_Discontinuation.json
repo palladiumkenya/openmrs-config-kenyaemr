@@ -1,50 +1,73 @@
 {
 	"name": "OVC Discontinuation Form",
-	"description":"OVC Discontinuation Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"description": "OVC Discontinuation Form",
+	"version": "1",
+	"published": true,
+	"uuid": "5cf013e8-09da-11ea-8d71-362b9e155667",
+	"retired": false,
+	"encounter": "OVC Discontinuation",
+	"meta": {
+		"programs": {
+		  "uuid": "6eda83f0-09d9-11ea-8d71-362b9e155667",
+		  "isEnrollment": false,
+		  "discontinuationDateQuestionId": "encDate"
+		}
+	},
 	"pages": [
 		{
 			"label": "OVC Discontinuation ",
 			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
 						{
-							"label": "Visit Details",
-							"isExpanded": "true",
-							"questions": [
+							"label": "Visit date:",
+							"type": "encounterDatetime",
+							"required": "true",
+							"id": "encDate",
+							"questionOptions": {
+								"rendering": "date"
+							},
+							"validators": [
 								{
-									"label": "Date:",
-									"type": "encounterDatetime",
-									"questionOptions": {
-										"rendering": "date"
-									},
-									"validators": [
-										{
-											"type": "date",
-											"allowFutureDates": "false"
-										}
-									],
-									"id": "encDate"
-								},
-								{
-									"label": "Provider:",
-									"type": "encounterProvider",
-									"questionOptions": {
-										"rendering": "text"
-									},
-									"id": "encProvider "
-								},
-								{
-									"label": "Location:",
-									"type": "encounterLocation",
-									"questionOptions": {
-										"rendering": "encounter-location",
-                                        "locationTag": "8d4626ca-7abd-42ad-be48-56767bbcf272"
-									},
-									"id": "encLocation"
+									"type": "date",
+									"allowFutureDates": "false"
 								}
 							]
 						},
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
 				{
 					"label": "Discontinue OVC",
 					"isExpanded": "true",
@@ -53,6 +76,7 @@
 							"label": "Exit Reasons",
 							"type": "obs",
 							"id": "discontinuationReason",
+							"required": "true",
 							"questionOptions": {
 								"concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "select",
@@ -91,7 +115,7 @@
 								}
 							],
 							"hide": {
-								"hideWhenExpression": " !includes(['160036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], discontinuationReason)"
+								"hideWhenExpression": " !arrayContainsAny(['160036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], discontinuationReason)"
 							}
 						},
 						{
@@ -109,7 +133,7 @@
 								}
 							],
 							"hide": {
-								"hideWhenExpression": " !includes(['160036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], discontinuationReason)"
+								"hideWhenExpression": " !arrayContainsAny(['160036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], discontinuationReason)"
 							}
 						}
 					]
@@ -117,6 +141,6 @@
 			]
 		}
 	],
-	"uuid": "5cf013e8-09da-11ea-8d71-362b9e155667",
-	"encounterType": "5cf00d9e-09da-11ea-8d71-362b9e155667"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
 }

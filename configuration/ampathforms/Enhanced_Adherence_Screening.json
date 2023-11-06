@@ -1,12 +1,14 @@
 {
 	"name": "Enhanced Adherence Screening Form v1.0",
-	"description":"Enhanced Adherence Screening Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"description": "Enhanced Adherence Screening",
+  	"version": "1",
+  	"published": true,
+  	"uuid": "c483f10f-d9ee-4b0d-9b8c-c24c1ec24701",
+  	"retired": false,
+  	"encounter": "Enhanced Adherence Screening",
 	"pages": [
 		{
-			"label": "Enhanced Adherence Screening",
+			"label": "Visit Details",
 			"sections": [
 				{
 					"label": "Visit Details",
@@ -47,6 +49,7 @@
 				{
 					"label": "Session details",
 					"isExpanded": "true",
+					"required": "true",
 					"questions": [
 						{
 							"label": "Session Number:",
@@ -67,7 +70,18 @@
 							"questionOptions": {
 								"concept": "164891AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "date"
-							}
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(myValue)).isAfter((new moment(encDate)), 'day')",
+									"message": "First session date should not be after encounter date"
+								}
+							]
 						},
 						{
 							"label": "Pill count adherence % (from pill count):",
@@ -81,9 +95,209 @@
 							}
 						}
 					]
+				}
+			]
+		},
+		{
+			"label": "Morisky adherence",
+			"sections": [
+				{
+					"label": "Morisky Medication Adherence Scale (MMAS - 4)",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "1. Do you ever forget to take your medicine?",
+							"type": "control",
+							"id": "forget",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+									
+								]
+							}
+						},
+						{
+							"label": "2. Are you careless at times about taking your medicine?",
+							"type": "control",
+							"id": "carelessAtTimes",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+									
+								]
+							}
+						},
+						{
+							"label": "3. Sometimes if you feel worse when you take the medicine, do you stop taking it?",
+							"type": "control",
+							"id": "feelWorse",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+									
+								]
+							}
+						},
+						{
+							"label": "4. When you feel better do you sometimes stop taking your medicine?",
+							"type": "control",
+							"id": "feelBetter",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+									
+								]
+							}
+						}
+					]
 				},
 				{
-					"label": "Adherence assessment",
+					"label": "Morisky Medication Adherence Scale (MMAS - 8)",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "5. Did you take the medicine yesterday? ",
+							"type": "control",
+							"id": "medecineYesterday",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+									
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "((String(forget) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(carelessAtTimes) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelWorse) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelBetter) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+							}
+						},
+						{
+							"label": "6. When you feel like your symptoms are under control, do you sometimes stop taking your medicine?",
+							"type": "control",
+							"id": "feelLike",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}	
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "((String(forget) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(carelessAtTimes) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelWorse) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelBetter) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+							}
+						},
+						{
+							"label": "7. Do you ever feel under pressure about sticking to your treatment plan?",
+							"type": "control",
+							"id": "underPressure",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
+									}
+									
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "((String(forget) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(carelessAtTimes) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelWorse) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelBetter) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+							}
+						},
+						{
+							"label": "8. How often do you have difficulty remembering to take all your medications?",
+							"type": "control",
+							"id": "difficultyRemember",
+							"questionOptions": {
+								"concept": "",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Never/Rarely"
+									},
+									{
+										"concept": "159416AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Once in a while"
+									},
+									{
+										"concept": "1385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Sometimes"
+									},
+									{
+										"concept": "1804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Usually"
+									},
+									{
+										"concept": "1358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "All the time"
+									}
+									
+								]
+							},
+							"hide": {
+								"hideWhenExpression": "((String(forget) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(carelessAtTimes) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelWorse) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelBetter) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+							}
+						}
+					]
+				},
+				{
+					"label": "Morisky Medication Adherence Score",
 					"isExpanded": "true",
 					"questions": [
 						{
@@ -106,7 +320,10 @@
 										"concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Poor (P)"
 									}
-								]
+								],
+								"calculate": {
+									"calculateExpression":  "String(forget) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(carelessAtTimes) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(feelWorse) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(feelBetter) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(forget) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(carelessAtTimes) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelWorse) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelBetter) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) >= 3 ? '159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : (((String(forget) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(carelessAtTimes) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelWorse) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelBetter) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 1 || ((String(forget) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(carelessAtTimes) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelWorse) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(feelBetter) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 2 ) ? '163794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+								}
 							}
 						}
 					]
@@ -143,13 +360,14 @@
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Unsuppressed"
-									},
-									{
 										"concept": "1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Suppressed"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Unsuppressed"
 									}
+									
 								]
 							},
 							"validators": [],
@@ -223,7 +441,18 @@
 							"id": "missedDoses",
 							"questionOptions": {
 								"concept": "160110AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": ""
+								"rendering": "radio",
+								"answers": [
+									{
+										"concept": "true",
+										"label": "Yes"
+									},
+									{
+										"concept": "false",
+										"label": "No"
+									}
+									
+								]
 							}
 						},
 						{
@@ -236,7 +465,12 @@
 							}
 						}
 					]
-				},
+				}
+			]
+		},
+		{
+			"label": " Barriers to adherence",
+			"sections": [
 				{
 					"label": "Assess for possible barriers to adherence - Cognitive ",
 					"isExpanded": "true",
@@ -340,13 +574,14 @@
 								"rendering": "radio",
 								"answers": [
 									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
+									
 								]
 							}
 						},
@@ -464,7 +699,12 @@
 							}
 						}
 					]
-				},
+				}
+			]
+		},
+		{
+			"label": "Referrals and Networks",
+			"sections": [
 				{
 					"label": "Referrals and Networks ",
 					"isExpanded": "true",
@@ -571,20 +811,10 @@
 							]
 						}
 					]
-				},
-				{
-					"label": "Morisky Medication Adherence Scale (MMAS - 4)",
-					"isExpanded": "true",
-					"questions": []
-				},
-				{
-					"label": "Morisky Medication Adherence Scale (MMAS - 8)",
-					"isExpanded": "true",
-					"questions": []
 				}
 			]
 		}
 	],
-	"uuid": "c483f10f-d9ee-4b0d-9b8c-c24c1ec24701",
-	"encounterType": "54df6991-13de-4efc-a1a9-2d5ac1b72ff8"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
 }

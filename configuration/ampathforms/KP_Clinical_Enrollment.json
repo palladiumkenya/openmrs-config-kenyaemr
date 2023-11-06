@@ -1,52 +1,48 @@
 {
 	"name": "Clinical Enrollment",
-	"description":"Clinical Enrollment Form",
-	"version":"1",
-	"published":true,
-	"retired":false,
+	"description": "Clinical Enrollment",
+	"version": "1",
+	"published": true,
+	"uuid": "c7f47cea-207b-11e9-ab14-d663bd873d93",
+	"retired": false,
+	"encounter": "KP Enrollment",
 	"pages": [
 		{
 			"label": "KP Clinical Enrolment",
 			"sections": [
 				{
-					"label": "Encounter Details",
+					"label": "Visit Details",
 					"isExpanded": "true",
 					"questions": [
 						{
-							"label": "Visit Details",
-							"isExpanded": "true",
-							"questions": [
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"validators": [
 								{
-									"label": "Date:",
-									"type": "encounterDatetime",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"validators": [
-										{
-											"type": "date",
-											"allowFutureDates": "false"
-										}
-									],
-									"id": "encDate"
-								},
-								{
-									"label": "Provider:",
-									"type": "encounterProvider",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encProvider "
-								},
-								{
-									"label": "Location:",
-									"type": "encounterLocation",
-									"questionOptions": {
-										"rendering": "ui-select-extended"
-									},
-									"id": "encLocation"
+									"type": "date",
+									"allowFutureDates": "false"
 								}
-							]
+							],
+							"id": "encDate"
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
 						}
 					]
 				},
@@ -57,6 +53,7 @@
 						{
 							"label": "Have you been contacted by a peer educator for health services?",
 							"type": "obs",
+							"required": "true",
 							"id": "peerEducator",
 							"questionOptions": {
 								"concept": "d83bca86-6734-4b26-b67c-c2133948fbac",
@@ -76,6 +73,7 @@
 						{
 							"label": "Do you have a regular(Non-Paying) sexual partner?",
 							"type": "obs",
+							"required": "true",
 							"id": "regularSexPartner",
 							"questionOptions": {
 								"concept": "0d2f24cd-0bd9-4159-b71d-a92f2c11a396",
@@ -112,7 +110,7 @@
 								},
 								{
 									"type": "js_expression",
-									"failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'day')",
+									"failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'year')",
 									"message": "Should not be less than the date of birth."
 								}
 							]
@@ -131,7 +129,7 @@
 								},
 								{
 									"type": "js_expression",
-									"failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'day')",
+									"failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'year')",
 									"message": "Should not be less than the date of birth."
 								}
 							],
@@ -145,7 +143,8 @@
 							"id": "usingDrugs",
 							"questionOptions": {
 								"concept": "224521b9-c88a-4355-bd32-323996fcbb87",
-								"rendering": "number"
+								"rendering": "number",
+								"min": "0"
 							},
 							"validators": [
 								{
@@ -153,17 +152,18 @@
 								},
 								{
 									"type": "js_expression",
-									"failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'day')",
+									"failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'year')",
 									"message": "Should not be less than the date of birth."
 								}
 							],
 							"hide": {
-								"hideWhenExpression": "keyPopTypeFemale !=='642945a8-045a-4010-b3f3-bc50aaaab386' && keyPopTypeMale !== '642945a8-045a-4010-b3f3-bc50aaaab386' || keyPopTypeFemale !=='105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && keyPopTypeMale !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+								"hideWhenExpression": "keyPopTypeFemale !=='642945a8-045a-4010-b3f3-bc50aaaab386' && keyPopTypeMale !== '642945a8-045a-4010-b3f3-bc50aaaab386' || keyPopTypeFemale !=='105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && keyPopTypeMale !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 							}
 						},
 						{
 							"label": "Ever experienced sexual violence?",
 							"type": "obs",
+							"required": "true",
 							"id": "expriencedSexViolence",
 							"questionOptions": {
 								"concept": "123160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -183,6 +183,7 @@
 						{
 							"label": "Ever experienced physical violence?",
 							"type": "obs",
+							"required": "true",
 							"id": "expriencedPhysicalViolence",
 							"questionOptions": {
 								"concept": "81bbc312-d0f6-4950-822a-f7a47e599013",
@@ -208,6 +209,7 @@
 						{
 							"label": "Have you ever been tested for HIV?",
 							"type": "obs",
+							"required": "true",
 							"id": "everTested",
 							"questionOptions": {
 								"concept": "164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -227,6 +229,7 @@
 						{
 							"label": "The last time you received HIV testing, how did you test?",
 							"type": "obs",
+							"required": "true",
 							"id": "testType",
 							"questionOptions": {
 								"concept": "d85ff219-0f5a-408d-8df0-96bcc9be5071",
@@ -250,6 +253,7 @@
 						{
 							"label": "Would you like to share your LAST test result with me?  (circle the number)",
 							"type": "obs",
+							"required": "true",
 							"id": "shareTest",
 							"questionOptions": {
 								"concept": "193d9d3b-d1c5-42f6-b44d-0c1905940c73",
@@ -277,6 +281,7 @@
 						{
 							"label": "Are you willing to be tested for HIV?",
 							"type": "obs",
+							"required": "true",
 							"id": "willingTester",
 							"questionOptions": {
 								"concept": "9255b7a2-9924-41ce-8e70-7813fe5ca59a",
@@ -300,6 +305,7 @@
 						{
 							"label": "Reason:",
 							"type": "obs",
+							"required": "true",
 							"id": "declineReason",
 							"questionOptions": {
 								"concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -319,6 +325,7 @@
 						{
 							"label": "Are you receiving HIV care?",
 							"type": "obs",
+							"required": "true",
 							"id": "receivingCare",
 							"questionOptions": {
 								"concept": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -381,7 +388,8 @@
 							"id": "cccNumber",
 							"questionOptions": {
 								"concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "number"
+								"rendering": "number",
+								"min": "0"
 							},
 							"validators": [],
 							"hide": {
@@ -433,6 +441,7 @@
 						{
 							"label": "In case you are due for clinical services, could we contact you?",
 							"type": "obs",
+							"required": "true",
 							"id": "contactedIncaseAppointment",
 							"questionOptions": {
 								"concept": "722aaeee-d839-41aa-9f4e-b1a759cf02c3",
@@ -505,7 +514,8 @@
 							"id": "buddyMobileNumber",
 							"questionOptions": {
 								"concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "number"
+								"rendering": "number",
+								"min": "0"
 							}
 						}
 					]
@@ -513,6 +523,6 @@
 			]
 		}
 	],
-	"uuid": "c7f47cea-207b-11e9-ab14-d663bd873d93",
-	"encounterType": "c7f47a56-207b-11e9-ab14-d663bd873d93"
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
 }

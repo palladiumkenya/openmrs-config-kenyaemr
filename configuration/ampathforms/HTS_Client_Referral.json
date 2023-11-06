@@ -3,7 +3,9 @@
 	"description":"HTS Client Referral Form",
 	"version":"1",
 	"published":true,
+	"uuid":"9284828e-ce55-11e9-a32f-2a2ae2dbcce4",
 	"retired":false,
+	"encounter":"HTS",
 	"pages": [
 		{
 			"label": "HTS Referral",
@@ -16,9 +18,14 @@
 							"label": "Date:",
 							"type": "encounterDatetime",
 							"questionOptions": {
-								"rendering": "date",
-								"datePickerOption": "calendar"
+								"rendering": "ui-select-extended"
 							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							],
 							"id": "encDate"
 						},
 						{
@@ -51,7 +58,7 @@
 								"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
 							"id": "referredFacility",
-							"required": "Yes"
+							"required": "true"
 						},
 						{
 							"label": "Date to be enrolled :",
@@ -68,11 +75,11 @@
 								},
 								{
 									"type": "js_expression",
-									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
 									"message": "Date to be enrolled can either be today or future date."
 								}
 							],
-							"required": "Yes"
+							"required": "true"
 						},
 						{
 							"label": "Remarks:",
@@ -88,6 +95,7 @@
 			]
 		}
 	],
-	"uuid":"9284828e-ce55-11e9-a32f-2a2ae2dbcce4",
-	"encounterType": "9c0a7a57-62ff-4f75-babe-5835b0e921b7"
+	"processor": "EncounterFormProcessor",
+	
+	"referencedForms": []
 }
