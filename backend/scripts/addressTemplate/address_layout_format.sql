@@ -49,4 +49,6 @@ SET
   <maxTokens>0</maxTokens>
 </org.openmrs.layout.address.AddressTemplate>'
 WHERE
-  uuid = '9c0345fa-2b6d-43b8-8cc8-a0df31120fc8';
+  property = 'layout.address.format';
+
+  
