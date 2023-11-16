@@ -10,7 +10,7 @@ echo
 echo "Building Kenya EMR 3.x assets ..."
 echo
 CWD=$(pwd)
-yes | npx --legacy-peer-deps openmrs@next build \
+yes | npx --legacy-peer-deps openmrs@5.2.1-pre.1166 build \
   --build-config ./frontend-config/prod-build-config.json \
   --target ./frontend \
   --page-title "KenyaEMR" \
@@ -20,7 +20,7 @@ yes | npx --legacy-peer-deps openmrs@next build \
 echo
 echo "Assembling assets ..."
 echo
-yes | npx --legacy-peer-deps openmrs@next assemble \
+yes | npx --legacy-peer-deps openmrs@5.2.1-pre.1166 assemble \
   --manifest \
   --mode config \
   --config ./frontend-config/prod-build-config.json \
