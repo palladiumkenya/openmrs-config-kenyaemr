@@ -15,7 +15,7 @@
       "sections": [
         {
           "label": "History section",
-          "isExpanded": true,
+          "isExpanded": "true",
           "questions": [
             {
               "label": "Do you smoke cigarattes",
@@ -2221,7 +2221,12 @@
                   "validators": [
                     {
                       "type": "date",
-                      "allowFutureDate": "true"
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Follow up date should be greater than the encounter date."
                     }
                   ]
                 },
