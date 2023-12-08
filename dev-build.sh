@@ -25,7 +25,7 @@ npx --legacy-peer-deps openmrs@next assemble \
 # Copy required files
 echo "Copying required files ..."
 cp "${CWD}/assets/kenyaemr-login-logo.png" "${CWD}/frontend"
-cp "${CWD}/assets/kenyaemr-primary-logo.png" "${CWD}/frontend"
+cp "${CWD}/assets/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
 cp "${CWD}/configuration/dev-config.json" "${CWD}/frontend"
 mv "${CWD}/frontend/dev-config.json" "${CWD}/frontend/config.json"
