@@ -390,7 +390,7 @@
               "id": "artStatus",
               "questionOptions": {
                 "concept": "160533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "true",
@@ -1274,7 +1274,80 @@
                 }
               },
               "hide": {
-                "hideWhenExpression": "patientType === '4bd29eed-e486-426d-a2b6-7e5bb75319f6' || patientType === '159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "age <= 5"
+              }
+            },
+            {
+              "label": "Z-Score",
+              "type": "obs",
+              "id": "zScore",
+              "readonly": true,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162584AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "max": "100",
+                "min": "-50",
+                "calculate": {
+                  "calculateExpression": "height && weight && fetchData(`/openmrs/ws/rest/v1/kenyaemr/zscore?sex=${sex}&age=${age}&weight=${weight}&height=${height}&type=height_for_age`,'wfl_score')"
+                }
+              },
+              "hide": {
+                "hideWhenExpression": "!(age >= 0 && age <=5)"
+              }
+            },
+            {
+              "label": "Nutritional Status",
+              "type": "obs",
+              "required": false,
+              "id": "nutritionalStatus",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "163515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "calculate": {
+                  "calculateExpression": "zScore && calculateZNutritionScore(zScore)"
+                },
+                "conceptMappings": [
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "SNOMED NP",
+                    "value": "248358009"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "163515"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal (Median)"
+                  },
+                  {
+                    "concept": "164125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nutritional wasting "
+                  },
+                  {
+                    "concept": "114413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Overweight"
+                  },
+                  {
+                    "concept": "164131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Severe (-3 SD and -4 SD)"
+                  },
+                  {
+                    "concept": "123815AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Moderate (-2 SD)"
+                  },
+                  {
+                    "concept": "123814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mild (-1 SD)"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "!(age <=5)"
               }
             },
             {
@@ -1302,7 +1375,7 @@
               "id": "inSchool",
               "questionOptions": {
                 "concept": "5629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "true",
@@ -1315,7 +1388,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(patientType) || age > 18 || patientType === '4bd29eed-e486-426d-a2b6-7e5bb75319f6' || patientType === '159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(patientType) || age > 18  || patientType === '4bd29eed-e486-426d-a2b6-7e5bb75319f6' || patientType === '159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1324,7 +1397,7 @@
               "id": "isOrphan",
               "questionOptions": {
                 "concept": "1174AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "true",
@@ -1371,12 +1444,12 @@
                   "hide": {
                     "hideWhenExpression": "isEmpty(patientType) || age > 18 || patientType === '4bd29eed-e486-426d-a2b6-7e5bb75319f6' || patientType === '159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   },
-                  "validators":[
+                  "validators": [
                     {
                       "type": "js_expression",
                       "failsWhenExpression": "doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
                       "message": "Please enter the telephone number in the correct format e.g 0720200200 thats is 10 digits"
-                      }
+                    }
                   ]
                 },
                 {
@@ -1462,8 +1535,7 @@
                   "id": "tsTelephone",
                   "questionOptions": {
                     "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "text",
-                    "min": "0"
+                    "rendering": "text"
                   },
                   "validators": [
                     {
