@@ -62,6 +62,7 @@
               "type": "patientIdentifier",
               "questionInfo": "",
               "id": "pArtnersCcc",
+              "required": "false",
               "default": "",
               "questionOptions": {
                 "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -192,27 +193,33 @@
                   },
                   {
                     "concept": "145762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Genital Ulcer Disease(GUD)"
+                    "label": "Genital Ulcer Disease(GUD)",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   },
                   {
                     "concept": "121809AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Vaginitis and/or Vaginal Discharge(VG)"
+                    "label": "Vaginitis and/or Vaginal Discharge(VG)",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   },
                   {
                     "concept": "116995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Cervicitis and/or Cervical Discharge(CD)"
+                    "label": "Cervicitis and/or Cervical Discharge(CD)",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   },
                   {
                     "concept": "130644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Pelvic Inflammatory Disease(PID)"
+                    "label": "Pelvic Inflammatory Disease(PID)",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   },
                   {
                     "concept": "148895AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Anal Discharge(AD)"
+                    "label": "Anal Discharge(AD)",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   },
                   {
                     "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Other(O)"
+                    "label": "Other(O)",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 ]
               },
@@ -1946,7 +1953,7 @@
             {
               "label": "Type of PrEP",
               "type": "obs",
-              "id": "prepType",
+              "id": "prepTypeFemale",
               "questionOptions": {
                 "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -1962,6 +1969,28 @@
                   {
                     "concept": "b3f6eab2-93bd-4fe0-81ce-5b7ec633a55a",
                     "label": "Dapivirine ring"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+              }
+            },
+            {
+              "label": "Type of PrEP",
+              "type": "obs",
+              "id": "prepTypeMale",
+              "questionOptions": {
+                "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+                    "label": "Daily Oral PrEP"
+                  },
+                  {
+                    "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+                    "label": "CAB-LA"
                   },
                   {
                     "concept": "5424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1970,7 +1999,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
               }
             },
             {
@@ -2008,7 +2037,7 @@
                 "rendering": "text"
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan === '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(prescribedPrepToday) || prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -2088,7 +2117,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "isEmpty(nextAppClient) || nextAppClient !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(nextAppClient) || nextAppClient !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
