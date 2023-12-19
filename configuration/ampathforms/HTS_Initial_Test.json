@@ -114,6 +114,10 @@
                     ]
                   },
                   {
+                    "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People who use drugs"
+                  },
+                  {
                     "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Fisher folk",
                     "conceptMappings": [
@@ -249,6 +253,10 @@
                     ]
                   },
                   {
+                    "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People who use drugs"
+                  },
+                  {
                     "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Fisher folk",
                     "conceptMappings": [
@@ -289,6 +297,10 @@
                         "value": "160578"
                       }
                     ]
+                  },
+                  {
+                    "concept": "973e5b6c-ae5e-4d6a-a624-2d259763771f",
+                    "label": "Male Sex Worker"
                   },
                   {
                     "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -341,6 +353,115 @@
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(maleKeyPop) || maleKeyPop !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
+              }
+            },
+            {
+              "label": "Does client have any disability?",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "91a87033-8f75-4f08-9f15-0d8ae66bd9d9",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "PIH Malawi",
+                        "value": "Malawi: 1065"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "CIEL",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373066001"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373067005"
+                      },
+                      {
+                        "type": "PIH Malawi",
+                        "value": "Malawi: 1066"
+                      },
+                      {
+                        "type": "CIEL",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1066"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "id": "clientDisability"
+            },
+            {
+              "label": "Please indicated the type of disability :",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "120291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hearing impairment"
+                  },
+                  {
+                    "concept": "147215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Visual impairment"
+                  },
+                  {
+                    "concept": "151342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mentally Challenged"
+                  },
+                  {
+                    "concept": "164538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Physically Challenged"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              },
+              "id": "disabilityTypes",
+              "hide": {
+                "hideWhenExpression": "isEmpty(clientDisability) || clientDisability !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify",
+              "type": "obs",
+              "id": "specifyOtherDisability",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(disabilityTypes) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], disabilityTypes)"
               }
             }
           ]
@@ -1045,7 +1166,7 @@
                   "id": "kitName",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1064,12 +1185,6 @@
                 {
                   "label": "Expiry Date",
                   "type": "obs",
-                  "questionOptions": {
-                    "rendering": "date",
-                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "weeksList": ""
-                  },
-                  "id": "expiryDate",
                   "validators": [
                     {
                       "type": "date",
@@ -1077,10 +1192,16 @@
                     },
                     {
                       "type": "js_expression",
-                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
-                      "message": "The Expiry date should be in the future."
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
                     }
                   ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDate",
                   "hide": {
                     "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
                   }
@@ -1110,28 +1231,6 @@
                   "validators": [],
                   "hide": {
                     "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
-                  }
-                },
-                {
-                  "label": "Syphillis Results",
-                  "type": "obs",
-                  "questionOptions": {
-                    "rendering": "select",
-                    "concept": "163276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "answers": [
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
-                      }
-                    ]
-                  },
-                  "id": "syPhResulTs",
-                  "hide": {
-                    "hideWhenExpression": "kitName !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
                   }
                 },
                 {
@@ -1169,12 +1268,6 @@
                 {
                   "label": "Expiry Date",
                   "type": "obs",
-                  "questionOptions": {
-                    "rendering": "date",
-                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "weeksList": ""
-                  },
-                  "id": "expiryDateB",
                   "validators": [
                     {
                       "type": "date",
@@ -1182,10 +1275,16 @@
                     },
                     {
                       "type": "js_expression",
-                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
-                      "message": "The Expiry date should be in the future."
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
                     }
                   ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateB",
                   "hide": {
                     "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
@@ -1225,6 +1324,93 @@
                     "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
                     "answers": [
                       {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Trinscreen"
+                      },
+                      {
+                        "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
+                        "label": "Dual Kit"
+                      }
+                    ]
+                  },
+                  "id": "kitNameD",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberD",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateD",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "HIV Test 3 Results:",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsD",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Kit Name",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
                         "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
                         "label": "First Response"
                       }
@@ -1252,12 +1438,6 @@
                 {
                   "label": "Expiry Date",
                   "type": "obs",
-                  "questionOptions": {
-                    "rendering": "date",
-                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "weeksList": ""
-                  },
-                  "id": "expiryDateC",
                   "validators": [
                     {
                       "type": "date",
@@ -1265,10 +1445,16 @@
                     },
                     {
                       "type": "js_expression",
-                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
-                      "message": "The Expiry date should be in the future."
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
                     }
                   ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateC",
                   "hide": {
                     "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
@@ -1309,7 +1495,7 @@
                 "rendering": "select",
                 "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "calculate": {
-                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsC) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsD) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
                 },
                 "answers": [
                   {
@@ -1326,7 +1512,7 @@
                   }
                 ]
               },
-              "id": "finalResult",
+              "id": "hivFinalResult",
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
@@ -1335,65 +1521,21 @@
             {
               "label": "Results given to client?",
               "type": "obs",
+              "id": "resultsGivenToClient",
               "questionOptions": {
-                "rendering": "radio",
                 "concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes",
-                    "conceptMappings": [
-                      {
-                        "type": "PIH",
-                        "value": "1065"
-                      },
-                      {
-                        "type": "SNOMED CT",
-                        "value": "CT: 373066001"
-                      },
-                      {
-                        "type": "PIH Malawi",
-                        "value": "Malawi: 1065"
-                      },
-                      {
-                        "type": "CIEL",
-                        "value": "1065"
-                      },
-                      {
-                        "type": "AMPATH",
-                        "value": "1065"
-                      }
-                    ]
+                    "label": "Yes"
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No",
-                    "conceptMappings": [
-                      {
-                        "type": "PIH",
-                        "value": "1066"
-                      },
-                      {
-                        "type": "PIH Malawi",
-                        "value": "Malawi: 1066"
-                      },
-                      {
-                        "type": "AMPATH",
-                        "value": "1066"
-                      },
-                      {
-                        "type": "CIEL",
-                        "value": "1066"
-                      },
-                      {
-                        "type": "SNOMED CT",
-                        "value": "CT: 373067005"
-                      }
-                    ]
+                    "label": "No"
                   }
                 ]
               },
-              "id": "resultsGiven",
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
@@ -1508,7 +1650,7 @@
               },
               "id": "ClieNtReferrEd",
               "hide": {
-                "hideWhenExpression": "finalResult !=='664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "hivFinalResult !=='664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && hivFinalResult !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
               }
             },
             {
@@ -1574,7 +1716,7 @@
                   },
                   "id": "refeRRalSerVicEs",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(ClieNtReferrEd) || ClieNtReferrEd !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(ClieNtReferrEd) || ClieNtReferrEd !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hivFinalResult !=='664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ]
@@ -1598,26 +1740,18 @@
                 "rendering": "radio",
                 "concept": "1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "calculate": {
-                  "calculateExpression": "String(finalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(finalResult) === '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '167441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : '08657979-0a23-411d-be18-2ddceeb2f346'"
+                  "calculateExpression": "String(hivFinalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '08657979-0a23-411d-be18-2ddceeb2f346'"
                 },
                 "answers": [
                   {
                     "concept": "08657979-0a23-411d-be18-2ddceeb2f346",
                     "label": "Confirmatory Test"
-                  },
-                  {
-                    "concept": "162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Comprehensive care center"
-                  },
-                  {
-                    "concept": "167441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "DBS for PCR"
                   }
                 ]
               },
               "id": "ReferredForCare",
               "hide": {
-                "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ClieNtReferrEd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1639,7 +1773,7 @@
               },
               "id": "ReferredToCare",
               "hide": {
-                "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ClieNtReferrEd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1679,7 +1813,7 @@
               },
               "id": "recencyScreening",
               "hide": {
-                "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1701,7 +1835,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(recencyScreening) || recencyScreening === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(recencyScreening) || recencyScreening === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
               }
             }
           ]
