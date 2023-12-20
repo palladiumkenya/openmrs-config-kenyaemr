@@ -1,7 +1,7 @@
 {
   "name": "Cancer Screening and Early diagnosis",
   "description": "Form Cancer Screening and early diagnosis",
-  "version": "1",
+  "version": "2.0",
   "published": true,
   "retired": false,
   "processor": "EncounterFormProcessor",
@@ -13,6 +13,43 @@
     {
       "label": "History",
       "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
         {
           "label": "History section",
           "isExpanded": "true",
@@ -47,7 +84,9 @@
               "id": "smokeYears",
               "questionOptions": {
                 "concept": "159931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "0",
+                "max": "500"
               },
               "hide": {
                 "hideWhenExpression": "sMokingStatus === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -59,7 +98,9 @@
               "id": "smokeDays",
               "questionOptions": {
                 "concept": "1546AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "0",
+                "max": "500"
               },
               "hide": {
                 "hideWhenExpression": "sMokingStatus === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -88,7 +129,6 @@
                 "concept": "163731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
-                  
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
@@ -112,7 +152,6 @@
                 "concept": "159449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
-                  
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
@@ -125,7 +164,6 @@
                     "concept": "167155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Stopped"
                   }
-                  
                 ]
               }
             },
@@ -177,7 +215,7 @@
               "id": "prevCaCX",
               "questionOptions": {
                 "concept": "162964AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "multiCheckbox",
+                "rendering": "checkbox",
                 "answers": [
                   {
                     "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -220,59 +258,76 @@
                 "rendering": "text"
               },
               "hide": {
-                "hideWhenExpression": "!arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], prevCaCX)"
+                "hideWhenExpression": "!arrayContains(prevCaCX, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
-              "label": "Parity",
+              "label": "Parity Term",
               "type": "obs",
               "id": "parityTerm",
+              "required": "true",
               "questionOptions": {
-                "concept": "1053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "concept": "160080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "50"
               },
               "hide": {
-                "hideExpressionWhen": "sex !== 'F' || age < 15"
+                "hideWhenExpression": "sex !== 'F'  ||  sex ==='F' && (age < 10)"
               }
             },
             {
               "label": "Parity Abortion",
               "type": "obs",
               "id": "parityAbortion",
+              "required": "true",
               "questionOptions": {
-                "concept": "1053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "concept": "1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "50"
               },
               "hide": {
-                "hideExpressionWhen": "sex !== 'F' || age < 15"
+                "hideWhenExpression": "sex !== 'F'  ||  sex ==='F' && (age < 10)"
               }
             },
             {
               "label": "Gravida:",
               "type": "obs",
-              "id": "grAvida",
+              "id": "graVida",
               "questionOptions": {
                 "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
                 "calculate": {
-                  "calculateExpression": "(+parityTerm + +parityAbortion) +1"
+                  "calculateExpression": "calcGravida(parityTerm,parityAbortion)"
                 }
               },
               "hide": {
-                "hideExpressionWhen": "sex !== 'F' || age < 15"
+                "hideWhenExpression": "sex !== 'F'  ||  sex ==='F' && (age < 10)"
               }
             },
             {
-              "label": "LMP date:",
+              "label": "LMP",
               "type": "obs",
-              "id": "lmpDate",
               "questionOptions": {
-                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date"
+                "rendering": "date",
+                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "hide": {
-                "hideExpressionWhen": "sex !== 'F' || age < 15"
-              }
+                "hideWhenExpression": "sex !== 'F'  ||  sex ==='F' && (age < 10)"
+              },
+              "id": "lmpDate",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "!isEmpty(myValue) && moment(myValue).isBefore(moment(birthdate), 'day')",
+                  "message": "LMP date should not be before the date of birth."
+                }
+              ]
             }
           ]
         }
@@ -288,11 +343,11 @@
             {
               "label": "Symptoms and Signs",
               "type": "obs",
-              "id": "symptomsSigns",
+              "id": "symptomsSignsFemale",
               "required": "true",
               "questionOptions": {
                 "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "multiCheckbox",
+                "rendering": "checkbox",
                 "answers": [
                   {
                     "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -384,18 +439,127 @@
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F'"
               }
             },
             {
-              "label": "Other SIgns and Symptoms",
+              "label": "Other Signs and Symptoms",
               "type": "obs",
-              "id": "otherSymptoms",
+              "id": "otherSpecifySymptomsFemale",
               "questionOptions": {
                 "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "text"
               },
               "hide": {
-                "hideWhenExpression": "!arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], symptomsSigns)"
+                "hideWhenExpression": "!arrayContains(symptomsSignsFemale, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Symptoms and Signs",
+              "type": "obs",
+              "id": "symptomsSignsMale",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "145455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Chronic cough",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yellow eyes",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5954AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Difficulty in swallowing",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "120551AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Chronic skin ulcers",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "115779AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Persistent headaches",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "111AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dyspepsia",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Weight loss",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "140501AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Easy fatigability",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Blood in urine",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "132667AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nose Bleeding",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "117671AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Blood in stool",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "115844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Changing/enlarging skin moles",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "115919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lumps/swellings",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "151903AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Changing bowel habits",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'M'"
+              }
+            },
+            {
+              "label": "Other Signs and Symptoms",
+              "type": "obs",
+              "id": "otherSymptomsMale",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(symptomsSignsMale, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             }
           ]
@@ -491,6 +655,9 @@
                     "label": "Oral cancer"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' "
               }
             },
             {
@@ -500,7 +667,7 @@
               "required": "true",
               "questionOptions": {
                 "concept": "116030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "Checkbox",
+                "rendering": "checkbox",
                 "answers": [
                   {
                     "concept": "116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -525,7 +692,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "sex !== 'M' || age < 15"
+                "hideWhenExpression": "sex !== 'M' "
               }
             },
             {
@@ -538,7 +705,7 @@
               },
               "validator": [],
               "hide": {
-                "hideExpressionWhen": "sex !== 'F' || age < 15"
+                "hideWhenExpression": "sex !== 'F'  ||  sex ==='F' && (age < 10)"
               },
               "questions": [
                 {
@@ -591,7 +758,7 @@
                   "id": "actionCACX",
                   "questionOptions": {
                     "concept": "bfe0cbb2-eea0-4431-a5c5-d0f49a4ed21b",
-                    "rendering": "multiCheckbox",
+                    "rendering": "checkbox",
                     "answers": [
                       {
                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -926,7 +1093,7 @@
                   "id": "cACXPapSMear",
                   "questionOptions": {
                     "concept": "166663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "multiCheckbox",
+                    "rendering": "checkbox",
                     "answers": [
                       {
                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -948,7 +1115,7 @@
                   "id": "papReferrals",
                   "questionOptions": {
                     "concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
+                    "rendering": "radio",
                     "answers": [
                       {
                         "concept": "160705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1024,10 +1191,10 @@
                   "id": "cACXColposCopy",
                   "questionOptions": {
                     "concept": "bfe0cbb2-eea0-4431-a5c5-d0f49a4ed21b",
-                    "rendering": "multiCheckbox",
+                    "rendering": "checkbox",
                     "answers": [
                       {
-                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Counseled on negative results"
                       },
                       {
@@ -1035,7 +1202,7 @@
                         "label": "Re-screen after 5 years"
                       },
                       {
-                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Re-screening after 2 years"
                       }
                     ]
@@ -1179,6 +1346,7 @@
             {
               "label": "Breast",
               "type": "obsGroup",
+              "id": "breastScrn",
               "questionOptions": {
                 "concept": "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "group"
@@ -1199,7 +1367,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1221,7 +1389,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1239,7 +1407,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(['1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], cbeQuetionOptions)"
+                    "hideWhenExpression": "!arrayContains(cbeQuetionOptions, '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1257,7 +1425,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(['1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], cbeQuetionOptions)"
+                    "hideWhenExpression": "!arrayContains(cbeQuetionOptions, '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1275,7 +1443,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(['1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], cbeQuetionOptions)"
+                    "hideWhenExpression": "!arrayContains(cbeQuetionOptions, '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1317,7 +1485,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(['1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], cbeQuetionOptions)"
+                    "hideWhenExpression": "!arrayContains(cbeQuetionOptions, '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1425,7 +1593,7 @@
                     }
                   ],
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(['1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], cbeQuetionOptions)"
+                    "hideWhenExpression": "!arrayContains(cbeQuetionOptions, '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1437,7 +1605,7 @@
                     "rendering": "text"
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(['1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], cbeQuetionOptions)"
+                    "hideWhenExpression": "!arrayContains(cbeQuetionOptions, '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1469,12 +1637,12 @@
               },
               "questions": [
                 {
-                  "label": "",
+                  "label": "Screening Test",
                   "type": "obs",
                   "id": "colerectalaCncerType",
                   "questionOptions": {
                     "concept": "b61c1482-1697-404c-ab96-fd698d5fd317",
-                    "rendering": "select",
+                    "rendering": "checkbox",
                     "answers": [
                       {
                         "concept": "159362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1483,7 +1651,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(caCXMale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')||!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1505,7 +1673,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1559,7 +1727,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1593,7 +1761,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1647,7 +1815,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "colonoscopyFindings !== '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || colonoscopyFindings !== '118606AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "!arrayContains(colonoscopyFindings, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(colonoscopyFindings, '118606AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1679,7 +1847,7 @@
               },
               "questions": [
                 {
-                  "label": "",
+                  "label": "Screening Test",
                   "type": "obs",
                   "id": "retinoblastomaCancerType",
                   "questionOptions": {
@@ -1693,7 +1861,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1715,7 +1883,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1760,7 +1928,7 @@
                   "id": "retinoblastomCancerType",
                   "questionOptions": {
                     "concept": "163589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
+                    "rendering": "checkbox",
                     "answers": [
                       {
                         "concept": "2d6104a0-b21c-4f2f-ab9b-759611714f18",
@@ -1769,7 +1937,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(caCXMale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')||!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1791,7 +1959,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -2015,7 +2183,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(caCXMale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')||!arrayContains(canCerTyPEFemale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -2024,7 +2192,7 @@
                   "id": "VisuALTX",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "multiCheckbox",
+                    "rendering": "checkbox",
                     "answers": [
                       {
                         "concept": "f056993d-5726-4553-8625-295a1abb5a13",
@@ -2042,7 +2210,7 @@
                   "id": "VisuALTXb",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "multiCheckbox",
+                    "rendering": "checkbox",
                     "answers": [
                       {
                         "concept": "8cba5f27-830a-4c87-8be1-6fd8a8ed228a",
@@ -2055,25 +2223,61 @@
                   }
                 },
                 {
-                  "label": "Cytology",
+                  "label": "Cytology Findings",
                   "type": "obs",
                   "id": "cTyolOGY",
                   "questionOptions": {
                     "concept": "4131126a-0692-4ea4-b4ad-f3c87ca169fd",
-                    "rendering": "multiCheckbox",
+                    "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "f056993d-5726-4553-8625-295a1abb5a13",
-                        "label": "Counseled on normal findings"
+                        "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
                       },
                       {
-                        "concept": "8cba5f27-830a-4c87-8be1-6fd8a8ed228a",
-                        "label": "Referred for further evaluation"
+                        "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
                       }
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(caCXMale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')||!arrayContains(canCerTyPEFemale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  }
+                },
+                {
+                  "label": "Treatment Actions",
+                  "type": "obs",
+                  "id": "cytoAction",
+                  "questionOptions": {
+                    "concept": "4131126a-0692-4ea4-b4ad-f3c87ca169fd",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "f056993d-5726-4553-8625-295a1abb5a13",
+                        "label": "Counseled on normal findings"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "cTyolOGY !== '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Treatment Actions",
+                  "type": "obs",
+                  "id": "cytologyPosAction",
+                  "questionOptions": {
+                    "concept": "4131126a-0692-4ea4-b4ad-f3c87ca169fd",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "f056993d-5726-4553-8625-295a1abb5a13",
+                        "label": "Refer for further evaluation"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "cTyolOGY !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -2095,7 +2299,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(caCXMale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')||!arrayContains(canCerTyPEFemale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -2104,7 +2308,7 @@
                   "id": "imagETX",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "multiCheckbox",
+                    "rendering": "checkbox",
                     "answers": [
                       {
                         "concept": "f056993d-5726-4553-8625-295a1abb5a13",
@@ -2122,7 +2326,7 @@
                   "id": "imaGeeTXb",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "multiCheckbox",
+                    "rendering": "checkbox",
                     "answers": [
                       {
                         "concept": "8cba5f27-830a-4c87-8be1-6fd8a8ed228a",
@@ -2153,7 +2357,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(caCXMale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')||!arrayContains(canCerTyPEFemale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -2162,7 +2366,7 @@
                   "id": "biOPsYTX",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "multiCheckbox",
+                    "rendering": "checkbox",
                     "answers": [
                       {
                         "concept": "f056993d-5726-4553-8625-295a1abb5a13",
@@ -2180,7 +2384,7 @@
                   "id": "biOpSYTXb",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "multiCheckbox",
+                    "rendering": "checkbox",
                     "answers": [
                       {
                         "concept": "8cba5f27-830a-4c87-8be1-6fd8a8ed228a",
