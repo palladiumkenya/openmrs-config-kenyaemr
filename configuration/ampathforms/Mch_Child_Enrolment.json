@@ -6,13 +6,13 @@
   "uuid": "8553d869-bdc8-4287-8505-910c7c998aff",
   "retired": false,
   "encounter": "CWC Enrollment",
-	"meta": {
-		"programs": {
-		  "uuid": "c2ecdf11-97cd-432a-a971-cfd9bd296b83",
-		  "isEnrollment": true,
-		  "discontinuationDateQuestionId": ""
-		}
-	},
+  "meta": {
+    "programs": {
+      "uuid": "c2ecdf11-97cd-432a-a971-cfd9bd296b83",
+      "isEnrollment": true,
+      "discontinuationDateQuestionId": ""
+    }
+  },
   "pages": [
     {
       "label": "MCH Child Enrolment Form",
@@ -44,7 +44,9 @@
               "id": "gestation",
               "questionOptions": {
                 "concept": "1409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "50",
+                "min": "0"
               }
             },
             {
@@ -54,7 +56,9 @@
               "id": "weight",
               "questionOptions": {
                 "concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "10",
+                "min": "0"
               }
             },
             {
@@ -63,7 +67,9 @@
               "id": "birthLength",
               "questionOptions": {
                 "concept": "1503AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "100",
+                "min": "0"
               }
             },
             {
@@ -73,7 +79,9 @@
               "id": "birthOrderInFamily",
               "questionOptions": {
                 "concept": "163460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "99",
+                "min": "0"
               }
             },
             {
@@ -232,7 +240,7 @@
                 "rendering": "text"
               }
             },
-						{
+            {
               "type": "patientIdentifier",
               "label": "Patient Clinic No",
               "questionInfo": "",
@@ -242,11 +250,11 @@
               "questionOptions": {
                 "rendering": "text",
                 "identifierType": "b4d66522-11fc-45c7-83e3-39a1af21ae0d",
-								"maxLength": "10",
-								"minLength": "10"
+                "maxLength": "10",
+                "minLength": "10"
               }
             },
-						{
+            {
               "type": "patientIdentifier",
               "label": "CWC No (CWC-MFL code-serial number) e.g CWC-15007-00001",
               "questionInfo": "",
@@ -263,7 +271,7 @@
                   "failsWhenExpression": "doesNotMatchExpression('^CWC-\\\\d{5}-\\\\d{5,6}$', CwcFormat)",
                   "message": "Please provide the correct format for the cwc number ie. CWC+mflCode+number eg.CWC-11902-00062"
                 }
-							]
+              ]
             },
             {
               "label": "Permanent Register Number",
@@ -274,7 +282,7 @@
                 "rendering": "text"
               }
             },
-						{
+            {
               "type": "patientIdentifier",
               "label": "National Unique Patient Identifier",
               "questionInfo": "",
@@ -284,8 +292,8 @@
               "questionOptions": {
                 "rendering": "text",
                 "identifierType": "f85081e2-b4be-4e48-b3a4-7994b69bb101",
-								"maxLength": "15",
-								"minLength": "10"
+                "maxLength": "15",
+                "minLength": "10"
               }
             }
           ]
@@ -329,7 +337,7 @@
                 "concept": "164141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "text"
               },
-							"historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('164141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('164141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('164141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('164141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
             },
             {
               "label": "Alternative contact's name",
@@ -363,7 +371,6 @@
                 "concept": "161630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
-                  
                   {
                     "concept": "161628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
@@ -448,7 +455,6 @@
                 "concept": "5303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
-                  
                   {
                     "concept": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
@@ -464,21 +470,25 @@
                 ]
               }
             },
-            
-						{
+            {
               "type": "patientIdentifier",
               "label": "HEI ID Number",
               "questionInfo": "",
               "id": "heiNo",
-              "required": "false",
+              "required": "true",
               "default": "",
               "questionOptions": {
                 "rendering": "text",
-                "identifierType": "0691f522-dd67-4eeb-92c8-af5083baf338",
-								"maxLength": "15",
-								"minLength": "12"
+                "identifierType": "0691f522-dd67-4eeb-92c8-af5083baf338"
               },
-							"hide": {
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "doesNotMatchExpression('^\\\\\\d{13}$', heiNo)",
+                  "message": "Please provide the correct format for the HEI No. ie. mflCode+year+serial eg.1190720240062"
+                }
+              ],
+              "hide": {
                 "hideWhenExpression": "isEmpty(hivExposedChild) || hivExposedChild !== '822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
@@ -527,7 +537,6 @@
                 "concept": "152460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
-                  
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
@@ -547,8 +556,6 @@
                 "concept": "159941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
-                  
-                  
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
@@ -613,7 +620,6 @@
                 "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
-                  
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
@@ -701,7 +707,6 @@
                 "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
                 "answers": [
-                  
                   {
                     "concept": "78643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "3TC Liquid BD"
@@ -788,7 +793,6 @@
                 "concept": "162055AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
-                  
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
@@ -903,5 +907,6 @@
     }
   ],
   "processor": "EncounterFormProcessor",
-  "referencedForms": []
+  "referencedForms": [],
+  "encounterType": "415f5136-ca4a-49a8-8db3-f994187c3af6"
 }
