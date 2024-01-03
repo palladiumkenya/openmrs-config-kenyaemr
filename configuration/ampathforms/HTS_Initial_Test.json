@@ -1,7 +1,7 @@
 {
   "name": "HTS Initial Form",
   "description": "Form for HTS testing services",
-  "version": "1.3.5",
+  "version": "1",
   "published": true,
   "uuid": "402dc5d7-46da-42d4-b2be-f43ea4ad87b0",
   "retired": false,
@@ -80,7 +80,6 @@
               "label": "Key and Vulnerble Population Type :",
               "type": "obs",
               "id": "kpTypeFemale",
-              "required": "true",
               "questionOptions": {
                 "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
@@ -127,7 +126,6 @@
               "label": "Key and Vulnerble Population Type :",
               "type": "obs",
               "id": "kpTypeMale",
-              "required": "true",
               "questionOptions": {
                 "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
@@ -174,7 +172,6 @@
               "label": "People in prison",
               "type": "obs",
               "id": "PPleInPrionF",
-              "required": "true",
               "questionOptions": {
                 "rendering": "radio",
                 "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
@@ -202,7 +199,6 @@
               "label": "People in prison",
               "type": "obs",
               "id": "PPleInPrionM",
-              "required": "true",
               "questionOptions": {
                 "rendering": "radio",
                 "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
@@ -373,7 +369,7 @@
               "questionOptions": {
                 "rendering": "number",
                 "concept": "159813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "max": "250",
+                "max": "",
                 "min": "0",
                 "showDate": "",
                 "conceptMappings": [
@@ -659,7 +655,6 @@
             {
               "label": "Indicate HTS strategy used:",
               "type": "obs",
-              "required": "true",
               "questionOptions": {
                 "rendering": "select",
                 "concept": "d85ff219-0f5a-408d-8df0-96bcc9be5071",
@@ -975,7 +970,7 @@
               },
               "questions": [
                 {
-                  "label": "Kit 1 Name",
+                  "label": "Kit Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -1062,7 +1057,7 @@
                   }
                 },
                 {
-                  "label": "Kit 2 Name",
+                  "label": "Kit Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -1145,7 +1140,7 @@
                   }
                 },
                 {
-                  "label": "Kit 1 Name",
+                  "label": "Kit Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -1232,7 +1227,7 @@
                   }
                 },
                 {
-                  "label": "Kit 3 Name",
+                  "label": "Kit Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -1528,7 +1523,7 @@
               },
               "id": "ClieNtReferrEd",
               "hide": {
-                "hideWhenExpression": "isEmpty(hivFinalResult)"
+                "hideWhenExpression": "finalResult !=='664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1594,7 +1589,7 @@
                   },
                   "id": "refeRRalSerVicEs",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(ClieNtReferrEd) || ClieNtReferrEd !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hivFinalResult !=='664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(ClieNtReferrEd) || ClieNtReferrEd !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ]
@@ -1618,18 +1613,26 @@
                 "rendering": "radio",
                 "concept": "1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "calculate": {
-                  "calculateExpression": "String(hivFinalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '08657979-0a23-411d-be18-2ddceeb2f346' : ''"
+                  "calculateExpression": "String(finalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(finalResult) === '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '167441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : '08657979-0a23-411d-be18-2ddceeb2f346'"
                 },
                 "answers": [
                   {
                     "concept": "08657979-0a23-411d-be18-2ddceeb2f346",
                     "label": "Confirmatory Test"
+                  },
+                  {
+                    "concept": "162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Comprehensive care center"
+                  },
+                  {
+                    "concept": "167441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "DBS for PCR"
                   }
                 ]
               },
               "id": "ReferredForCare",
               "hide": {
-                "hideWhenExpression": "isEmpty(ClieNtReferrEd) || ClieNtReferrEd !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hivFinalResult !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1651,11 +1654,11 @@
               },
               "id": "ReferredToCare",
               "hide": {
-                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
-              "label": "Other Facility name :",
+              "label": "Facility name :",
               "type": "obs",
               "id": "otherFacility",
               "questionOptions": {
@@ -1664,21 +1667,6 @@
               },
               "hide": {
                 "hideWhenExpression": "ReferredToCare !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "This Facility:",
-              "type": "obs",
-              "id": "thisfacility",
-              "questionOptions": {
-                "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text",
-                "calculate": {
-                  "calculateExpression": "ReferredToCare === '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && userLocation.display"
-                }
-              },
-              "hide": {
-                "hideWhenExpression": "ReferredToCare !== '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -1706,7 +1694,7 @@
               },
               "id": "recencyScreening",
               "hide": {
-                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1728,7 +1716,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(recencyScreening) || recencyScreening === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(recencyScreening) || recencyScreening === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
               }
             }
           ]
