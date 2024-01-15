@@ -40,7 +40,7 @@ jobs:
           cp ./assets/kenyaemr-primary-logo.svg ./frontend
           cp ./assets/favicon.ico ./frontend
           cp ./configuration/dev-config.json ./frontend/config.json
-          cp -r configuration frontend
+          # cp -r configuration frontend
 
       - name: Compress frontend folder
         run: tar -czvf frontend-${{ github.sha }}.tar.gz frontend/
@@ -74,8 +74,7 @@ jobs:
             tar -xzf frontend-${{ github.sha }}.tar.gz &&
             sudo mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old &&
             mv frontend /var/lib/OpenMRS/ &&
-            sudo rm -rf /var/lib/OpenMRS/frontend_old /var/lib/OpenMRS/configuration /var/lib/OpenMRS/configuration_checksums/ && 
-            sudo mv  /var/lib/OpenMRS/frontend/configuration /var/lib/OpenMRS/ && sudo service tomcat9 restart 
+            sudo rm -rf /var/lib/OpenMRS/frontend_old
   release:
     runs-on: ubuntu-latest
     needs: build_and_deploy
