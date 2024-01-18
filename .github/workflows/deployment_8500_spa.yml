@@ -24,23 +24,10 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Clean up previous build artifacts
-        run: rm -rf openmrs-config-kenyaemr frontend
-
-
-      - name: Build Kenya EMR 3.x assets
-        run: npx --legacy-peer-deps openmrs@next build --build-config ./configuration/dev-build-config.json --target ./frontend --page-title "KenyaEMR" --support-offline false
-
-      - name: Assemble assets
-        run: npx --legacy-peer-deps openmrs@next assemble --manifest --mode config --config ./configuration/dev-build-config.json --target ./frontend
-
-      - name: Copy and move required files
+      - name: Execute Development Build Script
         run: |
-          cp ./assets/kenyaemr-login-logo.png ./frontend
-          cp ./assets/kenyaemr-primary-logo.svg ./frontend
-          cp ./assets/favicon.ico ./frontend
-          cp ./configuration/dev-config.json ./frontend/config.json
-          # cp -r configuration frontend
+          chmod +x ./dev-build.sh
+          ./dev-build.sh
 
       - name: Compress frontend folder
         run: tar -czvf frontend-${{ github.sha }}.tar.gz frontend/
@@ -86,8 +73,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
-          cache: 'npm'
+          node-version: "18.x"
+          cache: "npm"
 
       - name: Run production build script
         run: |
