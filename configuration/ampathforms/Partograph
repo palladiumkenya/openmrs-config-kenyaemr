@@ -1,0 +1,401 @@
+{
+  "name": "Partograph Form",
+  "pages": [
+    {
+      "label": "Partograph Form",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Patient details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Ruptured membranes",
+              "type": "obs",
+              "required": true,
+              "id": "rupturedMembranes",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "164900"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "127244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ruptured Membranes"
+                  },
+                  {
+                    "concept": "164899AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intact membranes"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Hours Since Rupture",
+              "type": "obs",
+              "required": true,
+              "id": "hoursSinceRupture",
+              "questionOptions": {
+                "rendering": "number",
+                "min": "0",
+                "max": "100",
+                "concept": "167149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "CIEL",
+                    "value": "167149"
+                  },
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "SNOMED NP",
+                    "value": "364333003"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(rupturedMembranes) || rupturedMembranes !== ('127244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Labor Progress",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Labor Progress",
+              "type": "obsGroup",
+              "questionOptions": {
+                "concept": "160116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "questions": [
+                {
+                  "label": "Fetal Heart Rate(bpm)",
+                  "type": "obs",
+                  "required": true,
+                  "id": "fetalHeartRate",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "200",
+                    "concept": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "conceptMappings": [
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "LOINC",
+                        "value": "55283-6"
+                      },
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "PIH Malawi",
+                        "value": "7979"
+                      },
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "AMPATH",
+                        "value": "1857"
+                      },
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "SNOMED CT",
+                        "value": "249043002"
+                      },
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "CIEL",
+                        "value": "1440"
+                      }
+                    ],
+                    "answers": []
+                  },
+                  "validators": [],
+                  "alert": {
+                    "alertWhenExpression": "myValue && (myValue >= 170.5 || myValue < 109.5)",
+                    "message": "Fetal Heart Rate is out of range (Normal range 110-170)"
+                  }
+                },
+                {
+                  "label": "Amniotic fluid and membrane",
+                  "type": "obs",
+                  "required": true,
+                  "id": "amnioticFluid",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "162653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "conceptMappings": [
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "CIEL",
+                        "value": "162261"
+                      },
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "SNOMED CT",
+                        "value": "127375006"
+                      }
+                    ],
+                    "answers": [
+                      {
+                        "concept": "164899AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Membrane intact"
+                      },
+                      {
+                        "concept": "159484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Clear liquor"
+                      },
+                      {
+                        "concept": "134488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Meconium Stained"
+                      },
+                      {
+                        "concept": "163747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Absent"
+                      },
+                      {
+                        "concept": "1077AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Blood Stained"
+                      }
+                    ]
+                  },
+                  "validators": []
+                },
+                {
+                  "label": "Moulding",
+                  "type": "obs",
+                  "required": true,
+                  "id": "moulding",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "166527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "conceptMappings": [],
+                    "answers": [
+                      {
+                        "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "0"
+                      },
+                      {
+                        "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "+"
+                      },
+                      {
+                        "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "++"
+                      },
+                      {
+                        "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "+++"
+                      }
+                    ]
+                  },
+                  "validators": []
+                },
+                {
+                  "label": "Cervical Dilation (cm)",
+                  "type": "obs",
+                  "required": true,
+                  "id": "cervicalDilation",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "100",
+                    "concept": "162261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "conceptMappings": [
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "CIEL",
+                        "value": "162261"
+                      },
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "SNOMED CT",
+                        "value": "127375006"
+                      }
+                    ],
+                    "answers": []
+                  },
+                  "validators": []
+                },
+                {
+                  "label": "Hours taken to dilate",
+                  "type": "obs",
+                  "required": true,
+                  "id": "hoursTakenToDilate",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "100",
+                    "concept": "167149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "conceptMappings": [
+                      {
+                        "relationship": "NARROWER-THAN",
+                        "type": "CIEL",
+                        "value": "167149"
+                      },
+                      {
+                        "relationship": "NARROWER-THAN",
+                        "type": "SNOMED NP",
+                        "value": "364333003"
+                      }
+                    ],
+                    "answers": []
+                  },
+                  "validators": []
+                },
+                {
+                  "label": "Descent of Head",
+                  "type": "obs",
+                  "required": true,
+                  "id": "descentOfHead",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "min": "0",
+                    "max": "200",
+                    "concept": "159942AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "conceptMappings": [],
+                    "answers": []
+                  },
+                  "validators": []
+                },
+                {
+                  "label": "Hours ",
+                  "type": "obs",
+                  "required": true,
+                  "id": "hours",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "200",
+                    "concept": "163191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "conceptMappings": [
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "CIEL",
+                        "value": "163191"
+                      },
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "SNOMED CT",
+                        "value": "7389001"
+                      }
+                    ],
+                    "answers": []
+                  },
+                  "validators": []
+                },
+                {
+                  "label": "Time",
+                  "type": "obs",
+                  "required": true,
+                  "id": "time",
+                  "datePickerFormat": "timer",
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "163286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "conceptMappings": [
+                      {
+                        "relationship": "NARROWER-THAN",
+                        "type": "SNOMED NP",
+                        "value": "406543005"
+                      },
+                      {
+                        "relationship": "SAME-AS",
+                        "type": "CIEL",
+                        "value": "163286"
+                      }
+                    ],
+                    "answers": []
+                  },
+                  "validators": []
+                }
+              ],
+              "id": "laborProgress"
+            },
+            {
+              "label": "Contractions per 10 min",
+              "type": "obsGroup",
+              "questionOptions": {
+                "concept": "163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "questions": [
+                {
+                  "label": "Frequency",
+                  "type": "obs",
+                  "id": "frequency",
+                  "questionOptions": {
+                    "concept": "166529AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  }
+                },
+                {
+                  "label": "Duration (Seconds)",
+                  "type": "obs",
+                  "id": "contractionsDuration",
+                  "questionOptions": {
+                    "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "500"
+                  }
+                }
+              ],
+              "id": "contractionsPerMinute"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "encounterType": "c6d09e05-1f25-4164-8860-9f32c5a02df0",
+  "referencedForms": [],
+  "uuid": "3791e5b7-2cdc-44fc-982b-a81135367c96",
+  "description": "A form for collecting the labor progress at the maternity",
+  "version": "1.0"
+}
