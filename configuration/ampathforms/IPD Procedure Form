@@ -1,0 +1,611 @@
+{
+  "name": "IPD Procedure Form",
+  "description": "IPD Procedure Form",
+  "version": "1",
+  "published": true,
+  "uuid": "xxxx",
+  "retired": false,
+  "encounter": "IPD Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Procedure Details",
+      "sections": [
+        {
+          "label": "Procedure form",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Procedure/Surgery Name",
+              "type": "obs",
+              "id": "suRgeRyName",
+              "questionOptions": {
+                "concept": "166635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Date of Procedure",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "concept": "167132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "timeofProcedure",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                  "message": "Time of procedure should be greater than the encounter date."
+                }
+              ]
+            },
+            {
+              "label": "Time Taken",
+              "type": "obs",
+              "id": "procTtakEn",
+              "datePickerFormat": "timer",
+              "questionOptions": {
+                "concept": "a9e7c05e-7381-4e2b-a968-05d5d6a884f6",
+                "rendering": "date"
+              }
+            },
+            {
+              "label": "Operating Surgeon/Doctor's Name",
+              "type": "obs",
+              "id": "docTorsName",
+              "questionOptions": {
+                "concept": "166688AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Name of Assistant (1)",
+              "type": "obs",
+              "id": "AsstDoc",
+              "questionOptions": {
+                "concept": "159905AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Name of Assistant (2)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "164523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "AssistDoc2"
+            },
+            {
+              "label": "Nurse/Scrub Nurse",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "166010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "AssistDoc3"
+            },
+            {
+              "label": "Anesthesiologist name",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "166689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "AssistDoc4"
+            },
+            {
+              "label": "Operation Tecnique",
+              "type": "obs",
+              "id": "opsTech",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "166715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Open"
+                  },
+                  {
+                    "concept": "161789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Minimal Invasive"
+                  },
+                  {
+                    "concept": "ece03e1b-9a31-4d72-8b93-376eb3180227",
+                    "label": "Insufflation"
+                  },
+                  {
+                    "concept": "164648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Semi closed"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Operation Type",
+              "type": "obsGroup",
+              "id": "opsTyPe",
+              "questionOptions": {
+                "concept": "81bbc312-d0f6-4950-822a-f7a47e599013",
+                "rendering": "group"
+              },
+              "questions": [
+                {
+                  "label": "Operation Type",
+                  "type": "obs",
+                  "id": "opsType2",
+                  "questionOptions": {
+                    "concept": "163100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "3798940f-87b8-464e-b36a-17da246f034e",
+                        "label": "Major Operation"
+                      },
+                      {
+                        "concept": "3c3946b1-d71d-41b3-a2e4-2d755006200a",
+                        "label": "Minor Minor Operation"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "General Anasthesia",
+                  "type": "obs",
+                  "id": "deathAge",
+                  "questionOptions": {
+                    "concept": "164254AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "164243AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Inhalation"
+                      },
+                      {
+                        "concept": "164242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Rectal"
+                      },
+                      {
+                        "concept": "164244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "I.V"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Local/Regional",
+                  "type": "obs",
+                  "id": "loCalReg",
+                  "questionOptions": {
+                    "concept": "164253AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "166707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Infiltration"
+                      },
+                      {
+                        "concept": "164250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Topical"
+                      },
+                      {
+                        "concept": "160326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Spinal"
+                      },
+                      {
+                        "concept": "161912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Epidural"
+                      },
+                      {
+                        "concept": "124924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypotherm"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Position",
+                  "type": "obs",
+                  "id": "similarSymptom",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "159633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "165928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Prone Arms"
+                      },
+                      {
+                        "concept": "166306AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Flat shoulder"
+                      },
+                      {
+                        "concept": "1349AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Revtren"
+                      },
+                      {
+                        "concept": "1349AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Chest"
+                      },
+                      {
+                        "concept": "163995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Lithotomy"
+                      },
+                      {
+                        "concept": "159629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Supine"
+                      },
+                      {
+                        "concept": "542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Lateral"
+                      },
+                      {
+                        "concept": "159631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Trendelenburg"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Fluids Given",
+                  "type": "obs",
+                  "id": "fluiDsGiven",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "161911AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "80804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Saline"
+                      },
+                      {
+                        "concept": "162859AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Glucose"
+                      },
+                      {
+                        "concept": "161927AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Blood"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Others"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Other (Specify)",
+                  "type": "obs",
+                  "id": "OthersUsed",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "162696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "fluiDsGiven !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Any Drains used",
+                  "type": "obs",
+                  "id": "dRainSused",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "166693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Intraoperative complication",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "checkbox",
+                    "concept": "120198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "None"
+                      },
+                      {
+                        "concept": "1933AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Respiratory minor",
+                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                      },
+                      {
+                        "concept": "127642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Respiratory major",
+                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                      },
+                      {
+                        "concept": "162158AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Neurology",
+                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                      },
+                      {
+                        "concept": "123498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Urology",
+                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                      },
+                      {
+                        "concept": "20d112d0-3811-41d6-935f-62de96a769bf",
+                        "label": "Ailment",
+                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                      },
+                      {
+                        "concept": "5981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vomit",
+                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                      },
+                      {
+                        "concept": "160925AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Metabolic",
+                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other",
+                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                      }
+                    ]
+                  },
+                  "id": "CompSopS",
+                  "required": "true",
+                  "hide": {
+                    "hideWhenExpression": ""
+                  }
+                },
+                {
+                  "label": "Other (Specify)",
+                  "type": "obs",
+                  "id": "OthersUsed",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "!arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], CompSopS)"
+                  }
+                },
+                {
+                  "label": "Postoperative complication",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "multiCheckbox",
+                    "concept": "120198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "None"
+                      },
+                      {
+                        "concept": "136117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Laryngospasm",
+                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                      },
+                      {
+                        "concept": "108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Bronchospasm"
+                      },
+                      {
+                        "concept": "137971AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypoventilation"
+                      },
+                      {
+                        "concept": "148517AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Apnea"
+                      },
+                      {
+                        "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Edema "
+                      },
+                      {
+                        "concept": "121147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vocal cord paresis"
+                      },
+                      {
+                        "concept": "166517AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypotension "
+                      },
+                      {
+                        "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypertension"
+                      },
+                      {
+                        "concept": "120148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Arrhythmias"
+                      },
+                      {
+                        "concept": "129341AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Shock"
+                      },
+                      {
+                        "concept": "115432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Myocardial Infarction"
+                      },
+                      {
+                        "concept": "117315AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypovolaemia"
+                      },
+                      {
+                        "concept": "117326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypothermia and Shivering"
+                      },
+                      {
+                        "concept": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Late bleeding"
+                      },
+                      {
+                        "concept": "138177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hyperthermia"
+                      },
+                      {
+                        "concept": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Postoperative nausea and vomiting "
+                      },
+                      {
+                        "concept": "150309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Central Anticholinergic Syndrome (CAS)"
+                      },
+                      {
+                        "concept": "128195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Psychomotor Agitation"
+                      },
+                      {
+                        "concept": "148254AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Asystole"
+                      }
+                    ]
+                  },
+                  "id": "PostCompSopS",
+                  "required": "true",
+                  "hide": {
+                    "hideWhenExpression": ""
+                  }
+                },
+                {
+                  "label": "Post operative patient condition",
+                  "type": "obs",
+                  "id": "poStpTienOps",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "163184AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "162133AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Satifactory"
+                      },
+                      {
+                        "concept": "162132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Poor"
+                      },
+                      {
+                        "concept": "166056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Critical"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Blood Loss",
+                  "type": "obs",
+                  "id": "BlOOdlOOs",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "161928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  },
+                  "hide": {
+                    "hideWhenExpression": ""
+                  }
+                },
+                {
+                  "label": "Specimen Collected",
+                  "type": "obs",
+                  "id": "collecTeDspECS",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "159959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Surgeon Remarks",
+                  "type": "obs",
+                  "id": "BlOOdlOOs",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "textarea"
+                  },
+                  "hide": {
+                    "hideWhenExpression": ""
+                  }
+                },
+                {
+                  "label": "Surgeon's Name:",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "id": "SurgName",
+                  "required": "true"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "encounterType": "xxxxxx"
+}
