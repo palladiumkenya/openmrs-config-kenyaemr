@@ -13,18 +13,9 @@
     },
     "extensionSlots": {
       "app-menu-slot": {
-        "remove": [
-          "dispensing-link",
-          "system-administration-app-menu-link"
-        ]
+        "remove": ["dispensing-link", "system-administration-app-menu-link"]
       }
     }
-  },
-  "@openmrs/esm-patient-programs-app": {
-    "customUrl": "/ws/rest/v1/kenyaemr/eligiblePrograms?patientUuid="
-  },
-  "@openmrs/esm-patient-forms-app": {
-    "customFormsUrl": "/ws/rest/v1/kenyaemr/forms"
   },
   "@openmrs/esm-styleguide": {
     "Brand color #1": "#183D1A",
@@ -34,15 +25,65 @@
   "@kenyaemr/esm-patient-chart-app": {
     "extensionSlots": {
       "patient-highlights-bar-slot": {
-        "remove": [
-          "patient-flag-tags"
-        ]
+        "remove": ["patient-flag-tags"]
       },
       "patient-chart-summary-dashboard-slot": {
-        "remove": [
-          "biometrics-overview-widget",
-          "vitals-overview-widget"
-        ]
+        "remove": ["biometrics-overview-widget", "vitals-overview-widget"]
+      },
+      "top-of-all-patient-dashboards-slot": {
+        "configure": {
+          "patient-flag": {
+            "Display conditions": {
+              "privileges": ["View Patient Flags"]
+            }
+          }
+        }
+      },
+      "patient-chart-dashboard-slot": {
+        "configure": {
+          "encounters-summary-dashboard": {
+            "Display conditions": {
+              "privileges": ["View Visits"]
+            }
+          },
+          "charts-summary-dashboard": {
+            "Display conditions": {
+              "privileges": ["View Patient Chart"]
+            }
+          },
+          "care-panel-summary-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["View Care Panels"]
+            }
+          },
+          "laboratory-patient-chart-link": {
+            "Display conditions": {
+              "privileges": ["View Investigative Results"]
+            }
+          },
+          "patient-clinical-view-group-link": {
+            "Display conditions": {
+              "privileges": ["View Clinical Views"]
+            }
+          }
+        }
+      },
+      "configure": {
+        "appointments-summary-dashboard": {
+          "Display conditions": {
+            "privileges": ["View Patient Chart Appointments"]
+          }
+        },
+        "allergies-summary-dashboard": {
+          "Display conditions": {
+            "privileges": ["View Allergies"]
+          }
+        },
+        "test-results-summary-dashboard": {
+          "Display conditions": {
+            "privileges": ["View Patient Chart Test Results"]
+          }
+        }
       }
     },
     "showBillingSlot": true,
@@ -67,10 +108,35 @@
   },
   "@openmrs/esm-home-app": {
     "extensionSlots": {
-      "homepage-widgets-slot": {
-        "remove": [
-          "home-appointments"
-        ]
+      "homepage-dashboard-slot": {
+        "remove": ["home-appointments"],
+        "configure": {
+          "clinical-appointments-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["View Appointments"]
+            }
+          },
+          "service-queues-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["View Service Queues"]
+            }
+          },
+          "billing-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["View Billing"]
+            }
+          },
+          "laboratory-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["View Labs"]
+            }
+          },
+          "bed-admission-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["View Bed Management"]
+            }
+          }
+        }
       }
     }
   },
@@ -94,11 +160,7 @@
       {
         "id": "custom",
         "name": "Demographics",
-        "fields": [
-          "maritalStatus",
-          "occupation",
-          "education"
-        ]
+        "fields": ["maritalStatus", "occupation", "education"]
       },
       {
         "id": "contact",
@@ -346,7 +408,7 @@
           "searchAddressByLevel": true
         }
       },
-      "phone":{
+      "phone": {
         "personAttributeUuid": "b2c38640-2603-4629-aebd-3b54f33f1e3a"
       }
     }
@@ -368,6 +430,9 @@
         "biometricDisplayed": "Anthropometrics displayed",
         "biometrics": "Anthropometrics"
       }
+    },
+    "Display conditions": {
+      "privileges": ["View Vitals and Biometrics"]
     }
   },
   "@openmrs/esm-service-queues-app": {
@@ -379,9 +444,7 @@
       "statusConceptSetUuid": "9484732b-bcaf-429e-86cb-d6cf3da34211",
       "defaultStatusConceptUuid": "167407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "defaultTransitionStatus": "167408AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "historicalObsConceptUuid": [
-        "161643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-      ]
+      "historicalObsConceptUuid": ["161643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"]
     },
     "visitQueueNumberAttributeUuid": "c61ce16f-272a-41e7-9924-4c555d0932c5",
     "showQueueTableTab": true,
@@ -392,7 +455,10 @@
     "defaultFacilityUrl": "/ws/rest/v1/kenyaemr/default-facility",
     "customPatientChartUrl": "${openmrsSpaBase}/patient/${patientUuid}/chart",
     "customPatientIdUrl": "/ws/rest/v1/kenyaemr/patient?patientUuid",
-    "customPatientChartText": "2.X Profile"
+    "customPatientChartText": "2.X Profile",
+    "Display conditions": {
+      "privileges": ["View Service Queues"]
+    }
   },
   "@openmrs/esm-appointments-app": {
     "concepts": {
@@ -404,12 +470,8 @@
     "showUnscheduledAppointmentsTab": true,
     "extensionSlots": {
       "scheduled-appointments-panels-slot": {
-        "add": [
-          "early-appointments-panel"
-        ],
-        "remove": [
-          "cancelled-appointments-panel"
-        ],
+        "add": ["early-appointments-panel"],
+        "remove": ["cancelled-appointments-panel"],
         "configure": {
           "early-appointments-panel": {
             "showForPastDate": true,
@@ -425,6 +487,9 @@
           }
         }
       }
+    },
+    "Display conditions": {
+      "privileges": ["View Appointments"]
     }
   },
   "expected-appointments-panel": {
@@ -442,6 +507,9 @@
     ],
     "orders": {
       "careSettingUuid": "6f0c9a92-6f24-11e3-af88-005056821db0"
+    },
+    "Display conditions": {
+      "privileges": ["View Lab Results"]
     }
   },
   "@openmrs/esm-patient-banner-app": {
@@ -468,12 +536,6 @@
   "@openmrs/esm-patient-orders-app": {
     "orderEncounterType": "7df67b83-1b84-4fe2-b1b7-794b4e9bfcc3"
   },
-  "@openmrs/esm-patient-notes-app": {
-    "visitNoteConfig": {
-      "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8",
-      "clinicianEncounterRole": "a0b03050-c99b-11e0-9572-0800200c9a66"
-    }
-  },
   "@openmrs/esm-dispensing-app": {
     "valueSets": {
       "reasonForPause": {
@@ -486,12 +548,112 @@
     "dispenseBehavior": {
       "restrictTotalQuantityDispensed": true,
       "allowModifyingPrescription": false
+    },
+    "Display conditions": {
+      "privileges": ["View Dispensing"]
     }
-  },
-  "@openmrs/esm-patient-medications-app": {
-    "maxDispenseDurationInDays": 185
   },
   "@openmrs/esm-form-entry-app": {
     "customEncounterDatetime": true
+  },
+  "@openmrs/esm-patient-appointments-app": {
+    "Display conditions": {
+      "privileges": ["View Patient Chart Appointments"]
+    }
+  },
+  "@openmrs/esm-patient-immunizations-app": {
+    "Display conditions": {
+      "privileges": ["View Immunizations"]
+    }
+  },
+  "@openmrs/esm-patient-allergies-app": {
+    "Display conditions": {
+      "privileges": ["View Attachments"]
+    }
+  },
+  "@openmrs/esm-patient-attachments-app": {
+    "Display conditions": {
+      "privileges": ["Add Attachments"]
+    }
+  },
+  "@openmrs/esm-patient-conditions-app": {
+    "Display conditions": {
+      "privileges": ["View Conditions"]
+    }
+  },
+  "@openmrs/esm-patient-forms-app": {
+    "customFormsUrl": "/ws/rest/v1/kenyaemr/forms",
+    "Display conditions": {
+      "privileges": ["View Patient Forms"]
+    }
+  },
+  "@openmrs/esm-patient-medications-app": {
+    "maxDispenseDurationInDays": 185,
+    "Display conditions": {
+      "privileges": ["View Medications"]
+    }
+  },
+  "@openmrs/esm-patient-notes-app": {
+    "visitNoteConfig": {
+      "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8",
+      "clinicianEncounterRole": "a0b03050-c99b-11e0-9572-0800200c9a66"
+    },
+    "Display conditions": {
+      "privileges": ["View Notes"]
+    }
+  },
+  "@openmrs/esm-patient-programs-app": {
+    "customUrl": "/ws/rest/v1/kenyaemr/eligiblePrograms?patientUuid=",
+    "Display conditions": {
+      "privileges": ["View Conditions"]
+    }
+  },
+  "@openmrs/esm-patient-test-results-app": {
+    "Display conditions": {
+      "privileges": ["View Test Results"]
+    }
+  },
+  "@openmrs/esm-patient-vitals-app": {
+    "Display conditions": {
+      "privileges": ["View Vitals and Biometrics"]
+    }
+  },
+  "@kenyaemr/esm-billing-app": {
+    "Display conditions": {
+      "privileges": ["View Billing"]
+    }
+  },
+  "@kenyaemr/esm-patient-clinical-view-app": {
+    "extensionSlots": {
+      "patient-clinical-view-slot": {
+        "configure": {
+          "mch-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["View MCH "]
+            }
+          },
+          "hts-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["View HTS"]
+            }
+          },
+          "defaulter-tracing-dashboard-link": {
+            "Display conditions": {
+              "privileges": ["View Defaulter Tracing"]
+            }
+          },
+          "family-history-link": {
+            "Display conditions": {
+              "privileges": ["View Family History"]
+            }
+          },
+          "labour-and-delivery-link": {
+            "Display conditions": {
+              "privileges": ["View Labour And Delivery"]
+            }
+          }
+        }
+      }
+    }
   }
 }
