@@ -1,0 +1,318 @@
+{
+    "name": "Family Planning",
+    "description": "Family Planning Form",
+    "version": "1",
+    "published": true,
+    "uuid": "xxxx",
+    "retired": false,
+    "encounter": "IPD Consultation",
+    "pages": [
+      {
+        "label": "Visit Details",
+        "sections": [
+          {
+            "label": "Encounter Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Visit date:",
+                "type": "encounterDatetime",
+                "required": "true",
+                "id": "encDate",
+                "questionOptions": {
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Provider:",
+                "type": "encounterProvider",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encProvider "
+              },
+              {
+                "label": "Location:",
+                "type": "encounterLocation",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encLocation"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Family Planning Methods",
+        "sections": [
+          {
+            "label": "Family Planning Status",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Visit Type?",
+                "type": "obs",
+                "required": true,
+                "id": "visitType",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "164181"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "New visit"
+                    },
+                    {
+                      "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Return Visit"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Family Planning Status :",
+                "type": "obs",
+                "id": "fPlanning",
+                "questionOptions": {
+                  "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "select",
+                  "answers": [
+                    {
+                      "concept": "965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "On Family Planning"
+                    },
+                    {
+                      "concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Not using Family Planning"
+                    },
+                    {
+                      "concept": "1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Wants Family Planning"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              },
+              {
+                "label": "If currently using Family Planning, or wants Family Planning, specify which method(s)",
+                "required": "true",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Emergency contraceptive pills"
+                    },
+                    {
+                      "concept": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Oral Contraceptives Pills"
+                    },
+                    {
+                      "concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Injectible"
+                    },
+                    {
+                      "concept": "1359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Implant"
+                    },
+                    {
+                      "concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Intrauterine Device"
+                    },
+                    {
+                      "concept": "136163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Lactational Amenorhea Method"
+                    },
+                    {
+                      "concept": "5278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Diaphram/Cervical Cap"
+                    },
+                    {
+                      "concept": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Fertility Awareness"
+                    },
+                    {
+                      "concept": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Tubal Ligation"
+                    },
+                    {
+                      "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Condoms"
+                    },
+                    {
+                      "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Vasectomy(Partner)"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "age < 15 || sex !=='F'"
+                },
+                "id": "fpMethod"
+              },
+              {
+                "label": "Date Started:",
+                "type": "obs",
+                "required": "true",
+                "id": "encDate",
+                "questionOptions": {
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ],
+                "hide": {
+                  "hideWhenExpression": "age < 15 || sex !=='F'"
+                }
+              },
+              {
+                "label": "Reason for not using Family Planning Methods",
+                "type": "obs",
+                "id": "FnotOnFp",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "160575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "160572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Thinks can't get pregnant"
+                    },
+                    {
+                      "concept": "159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Not sexually active now"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "age < 15 || sex !=='F'"
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "id": "otherFeMale",
+                "hide": {
+                  "hideWhenExpression": "isEmpty(FnotOnFp) && FnotOnFp !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyIntention !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='F'"
+                }
+              },
+              {
+                "label": "Family Planning Status :",
+                "type": "obs",
+                "id": "MalefPlanning",
+                "questionOptions": {
+                  "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "select",
+                  "answers": [
+                    {
+                      "concept": "965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "On Family Planning"
+                    },
+                    {
+                      "concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Not using Family Planning"
+                    },
+                    {
+                      "concept": "1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Wants Family Planning"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "age < 15 || sex !=='M'"
+                }
+              },
+              {
+                "label": "If currently using Family Planning, or wants Family Planning, specify which method(s)",
+                "required": "true",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Condoms"
+                    },
+                    {
+                      "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Vasectomy"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "age < 15 || sex !=='M'"
+                },
+                "id": "MalefpMethod"
+              },
+              {
+                "label": "Reason for not using Family Planning Methods",
+                "type": "obs",
+                "id": "notOnFpMale",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "160575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Not sexually active"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "MalefPlanning !== '160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='M'"
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "id": "otheRmaLe",
+                "hide": {
+                  "hideWhenExpression": "isEmpty(notOnFpMale) && notOnFpMale !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='M'"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "encounterType": "xxxxxx"
+  }

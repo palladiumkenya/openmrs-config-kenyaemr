@@ -1,0 +1,1559 @@
+{
+    "name": "Doctor's Note Form",
+    "description": "Doctor's Note Form",
+    "version": "1",
+    "published": true,
+    "uuid": "",
+    "retired": false,
+    "encounter": "Consultation",
+    "pages": [
+      {
+        "label": "Visit Details",
+        "sections": [
+          {
+            "label": "Encounter Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Visit date:",
+                "type": "encounterDatetime",
+                "required": "true",
+                "id": "encDate",
+                "questionOptions": {
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Provider:",
+                "type": "encounterProvider",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encProvider "
+              },
+              {
+                "label": "Location:",
+                "type": "encounterLocation",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encLocation"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Doctor's Notes",
+        "sections": [
+          {
+            "label": "Patient Compalints",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Patient having complaint(s) today?",
+                "type": "obs",
+                "id": "complaintsToday",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Presenting complaints",
+                "type": "obsGroup",
+                "id": "ComplaintLodgeByClient",
+                "questionOptions": {
+                  "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "repeating"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "complaintsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                },
+                "questions": [
+                  {
+                    "label": "Complaint",
+                    "type": "obs",
+                    "id": "cOmplaIntField",
+                    "questionOptions": {
+                      "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Abdominal pain"
+                        },
+                        {
+                          "concept": "141631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Abnormal Uterine Bleeding"
+                        },
+                        {
+                          "concept": "121543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Anxiety"
+                        },
+                        {
+                          "concept": "148035AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Back pain"
+                        },
+                        {
+                          "concept": "840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Bloody Urine"
+                        },
+                        {
+                          "concept": "117671AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Blood in stool"
+                        },
+                        {
+                          "concept": "131021AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Breast Pain"
+                        },
+                        {
+                          "concept": "120749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Chest Pain"
+                        },
+                        {
+                          "concept": "871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Cold and Chills"
+                        },
+                        {
+                          "concept": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Confusion"
+                        },
+                        {
+                          "concept": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Cough"
+                        },
+                        {
+                          "concept": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Convulsions"
+                        },
+                        {
+                          "concept": "144576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Coma"
+                        },
+                        {
+                          "concept": "106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Coryza"
+                        },
+                        {
+                          "concept": "143129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Crying Infant"
+                        },
+                        {
+                          "concept": "119574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Delirium"
+                        },
+                        {
+                          "concept": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Depression"
+                        },
+                        {
+                          "concept": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Diarrhea"
+                        },
+                        {
+                          "concept": "122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Difficult in breathing"
+                        },
+                        {
+                          "concept": "118789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Difficulty in swallowing"
+                        },
+                        {
+                          "concept": "142247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Discharge from Penis"
+                        },
+                        {
+                          "concept": "141830AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Dizziness"
+                        },
+                        {
+                          "concept": "141585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Ear Pain"
+                        },
+                        {
+                          "concept": "141128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Epigastric Pain"
+                        },
+                        {
+                          "concept": "131040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Eye Pain"
+                        },
+                        {
+                          "concept": "140941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Excessive Sweating"
+                        },
+                        {
+                          "concept": "114399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Facial Pain"
+                        },
+                        {
+                          "concept": "162626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Fatigue/weakness"
+                        },
+                        {
+                          "concept": "140070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Flank Pain"
+                        },
+                        {
+                          "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Fever"
+                        },
+                        {
+                          "concept": "135462AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Genital Ulcer"
+                        },
+                        {
+                          "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Headache"
+                        },
+                        {
+                          "concept": "117698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Hearing Loss"
+                        },
+                        {
+                          "concept": "116214AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Hypotension"
+                        },
+                        {
+                          "concept": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Itchiness/Pruritus"
+                        },
+                        {
+                          "concept": "116558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Joint Pain"
+                        },
+                        {
+                          "concept": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Leg Pain"
+                        },
+                        {
+                          "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Lethargy"
+                        },
+                        {
+                          "concept": "135595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Loss of Appetite"
+                        },
+                        {
+                          "concept": "135488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Lymphadenopathy"
+                        },
+                        {
+                          "concept": "121657AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Memory Loss"
+                        },
+                        {
+                          "concept": "111721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Mouth Ulceration"
+                        },
+                        {
+                          "concept": "131015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Mouth Pain"
+                        },
+                        {
+                          "concept": "133028AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Muscle cramps"
+                        },
+                        {
+                          "concept": "133632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Muscle Pain"
+                        },
+                        {
+                          "concept": "121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Mylagia"
+                        },
+                        {
+                          "concept": "5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Nausea"
+                        },
+                        {
+                          "concept": "133469AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Neck Pain"
+                        },
+                        {
+                          "concept": "133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Night sweats"
+                        },
+                        {
+                          "concept": "132653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Numbness"
+                        },
+                        {
+                          "concept": "162628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Unexplained bleeding"
+                        },
+                        {
+                          "concept": "125225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Pain when Swallowing"
+                        },
+                        {
+                          "concept": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Pelvic Pain"
+                        },
+                        {
+                          "concept": "5953AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Poor Vision"
+                        },
+                        {
+                          "concept": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Rash"
+                        },
+                        {
+                          "concept": "127777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Red Eye"
+                        },
+                        {
+                          "concept": "6017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Refusal to feed"
+                        },
+                        {
+                          "concept": "113224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Running/Blocked nose"
+                        },
+                        {
+                          "concept": "131032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Scrotal Pain"
+                        },
+                        {
+                          "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Seizure"
+                        },
+                        {
+                          "concept": "126535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Shoulder Pain"
+                        },
+                        {
+                          "concept": "112989AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Shock"
+                        },
+                        {
+                          "concept": "158843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Sore Throat"
+                        },
+                        {
+                          "concept": "141597AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Sleep Disturbance"
+                        },
+                        {
+                          "concept": "125198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Swollen Legs"
+                        },
+                        {
+                          "concept": "112200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Tremors"
+                        },
+                        {
+                          "concept": "160208AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Urinary Symptoms"
+                        },
+                        {
+                          "concept": "157498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Weakness of Limbs"
+                        },
+                        {
+                          "concept": "832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Weight Loss"
+                        },
+                        {
+                          "concept": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Vaginal Discharge"
+                        },
+                        {
+                          "concept": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Vomiting"
+                        },
+                        {
+                          "concept": "111525AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Vertigo"
+                        },
+                        {
+                          "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Other"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "label": "Specify other complaints",
+                    "type": "obs",
+                    "id": "OtherSpecificComplaints",
+                    "questionOptions": {
+                      "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                      "rendering": "textarea"
+                    },
+                    "validators": [],
+                    "hide": {
+                      "hideWhenExpression": "cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  },
+                  {
+                    "label": "Patient had contact with TB Infected person in the last 12 months?",
+                    "type": "obs",
+                    "id": "contactTB",
+                    "required": "true",
+                    "questionOptions": {
+                      "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "radio",
+                      "answers": [
+                        {
+                          "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Yes"
+                        },
+                        {
+                          "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "No"
+                        }
+                      ]
+                    },
+                    "hide": {
+                      "hideWhenExpression": "cOmplaIntField !== '143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  },
+                  {
+                    "label": "Duration (Days)",
+                    "type": "obs",
+                    "id": "complaint-duration",
+                    "questionOptions": {
+                      "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "number",
+                      "min": "0"
+                    },
+                    "validators": []
+                  },
+                  {
+                    "label": "Onset Date",
+                    "type": "obs",
+                    "id": "OnSETdate",
+                    "questionOptions": {
+                      "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "date"
+                    },
+                    "validators": [
+                      {
+                        "type": "date",
+                        "allowFutureDates": "false"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Onset Status",
+                    "type": "obs",
+                    "id": "onsetStatus",
+                    "questionOptions": {
+                      "concept": "d7a3441d-6aeb-49be-b7d6-b2a3bb39e78d",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Gradual"
+                        },
+                        {
+                          "concept": "162707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Sudden"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "label": "History of presenting illiness notes",
+                "type": "obs",
+                "id": "ClinICNotes",
+                "questionOptions": {
+                  "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          },
+          {
+            "label": "General Examination Findings",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Physical examination findings:",
+                "required": "true",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    },
+                    {
+                      "concept": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Jaundice",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Oedema",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Oral thrush",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Pallor",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "140125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Finger Clubbing",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "126952AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Lymph Node Axillary",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Cyanosis",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "126939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Lymph Nodes Inguinal",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Wasting",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "142630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dehydration",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Lethargic",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                },
+                "id": "genExamFindings"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Review of systems",
+        "sections": [
+          {
+            "label": "Review of systems",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "System Reviews",
+                "type": "obs",
+                "id": "allsystemReview",
+                "questionOptions": {
+                  "concept": "1069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Skin"
+                    },
+                    {
+                      "concept": "112101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CNS"
+                    },
+                    {
+                      "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CVS"
+                    },
+                    {
+                      "concept": "166442AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "ENT"
+                    },
+                    {
+                      "concept": "164938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Eye Exam"
+                    },
+                    {
+                      "concept": "160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Respiratory"
+                    },
+                    {
+                      "concept": "1078AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Gastrointestinal"
+                    },
+                    {
+                      "concept": "166363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Genitourinary"
+                    },
+                    {
+                      "concept": "133613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Musculoskeletal"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "syStemsRevieW !=='1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Skin findings",
+                "type": "obs",
+                "id": "SkinFinDings",
+                "questionOptions": {
+                  "concept": "1120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "125201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Swelling/Growth"
+                    },
+                    {
+                      "concept": "1249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Skin eruptions/Rashes"
+                    },
+                    {
+                      "concept": "135591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hair Loss"
+                    },
+                    {
+                      "concept": "5244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Oral sores"
+                    },
+                    {
+                      "concept": "507AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Kaposi Sarcoma"
+                    },
+                    {
+                      "concept": "136455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Itching"
+                    },
+                    {
+                      "concept": "150555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Abscess"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Skin finding notes",
+                "type": "obs",
+                "id": "SkInNotes",
+                "questionOptions": {
+                  "concept": "160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "CNS findings",
+                "type": "obs",
+                "id": "cNsFiNdinGs",
+                "questionOptions": {
+                  "concept": "752132fb-235c-45cd-8914-854c388e358f",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "118872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Altered sensations"
+                    },
+                    {
+                      "concept": "157498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Limb weakness"
+                    },
+                    {
+                      "concept": "1836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Bulging fontenelle"
+                    },
+                    {
+                      "concept": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stiff neck"
+                    },
+                    {
+                      "concept": "136282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Kernicterus"
+                    },
+                    {
+                      "concept": "150817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Abnormal reflexes"
+                    },
+                    {
+                      "concept": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Confusion"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '112101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "CNS findings notes",
+                "type": "obs",
+                "id": "CnSNotES",
+                "questionOptions": {
+                  "concept": "160994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '112101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Eyes findings",
+                "type": "obs",
+                "id": "EyeFiNdings",
+                "questionOptions": {
+                  "concept": "163309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Visual Disturbance"
+                    },
+                    {
+                      "concept": "131040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Eye pain"
+                    },
+                    {
+                      "concept": "140827AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Light sensitive"
+                    },
+                    {
+                      "concept": "140940AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Excessive tearing"
+                    },
+                    {
+                      "concept": "127777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Eye redness"
+                    },
+                    {
+                      "concept": "139100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Itchy eyes"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '164938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Eyes findings notes",
+                "type": "obs",
+                "id": "EyeFinDingNotes",
+                "questionOptions": {
+                  "concept": "850a960b-e8b5-4775-ba74-aaddb2abbf51",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '164938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "ENT findings",
+                "type": "obs",
+                "id": "EnTFinDiNgs",
+                "questionOptions": {
+                  "concept": "f8fd8181-655e-4b32-97e3-4ae539c6de45",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ulcers"
+                    },
+                    {
+                      "concept": "138554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hoarseness"
+                    },
+                    {
+                      "concept": "5244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Oral sores"
+                    },
+                    {
+                      "concept": "111525AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Vertigo"
+                    },
+                    {
+                      "concept": "128055AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nasal discharge"
+                    },
+                    {
+                      "concept": "124601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Toothache"
+                    },
+                    {
+                      "concept": "106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Frequent colds"
+                    },
+                    {
+                      "concept": "148517AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Apnea"
+                    },
+                    {
+                      "concept": "5334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Thrush"
+                    },
+                    {
+                      "concept": "133499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nosebleed"
+                    },
+                    {
+                      "concept": "126423AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Sinus problems"
+                    },
+                    {
+                      "concept": "160285AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Pain"
+                    },
+                    {
+                      "concept": "119558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dental caries"
+                    },
+                    {
+                      "concept": "118536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Erythema"
+                    },
+                    {
+                      "concept": "135841AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hairy cell leukoplakia"
+                    },
+                    {
+                      "concept": "126318AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Snoring"
+                    },
+                    {
+                      "concept": "123588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Tinnitus"
+                    },
+                    {
+                      "concept": "507AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Kaposi Sarcoma"
+                    },
+                    {
+                      "concept": "158843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Sore thoat"
+                    },
+                    {
+                      "concept": "152228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Masses"
+                    },
+                    {
+                      "concept": "139075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hearing disorder"
+                    },
+                    {
+                      "concept": "147230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Gingival bleeding"
+                    },
+                    {
+                      "concept": "117698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hearing loss"
+                    },
+                    {
+                      "concept": "110099AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Post nasal discharge"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '166442AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "ENT findings notes",
+                "type": "obs",
+                "id": "EntfinDingsNotes",
+                "questionOptions": {
+                  "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '166442AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "CVS findings",
+                "type": "obs",
+                "id": "CvSfiNdInGs",
+                "questionOptions": {
+                  "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Cardiac murmur"
+                    },
+                    {
+                      "concept": "130560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Cardiac rub"
+                    },
+                    {
+                      "concept": "136522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Irregular heartbeat"
+                    },
+                    {
+                      "concept": "140147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Elevated blood pressure"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "CVS findings notes",
+                "type": "obs",
+                "id": "cVsNoTes",
+                "questionOptions": {
+                  "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Respiratory findings",
+                "type": "obs",
+                "id": "cHeStFindinGs",
+                "questionOptions": {
+                  "concept": "1123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "5209AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Wheezing"
+                    },
+                    {
+                      "concept": "127639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Respiratory distress"
+                    },
+                    {
+                      "concept": "127640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Crackles"
+                    },
+                    {
+                      "concept": "145712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dullness"
+                    },
+                    {
+                      "concept": "164440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Reduced breathing"
+                    },
+                    {
+                      "concept": "146893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Bronchial breathing"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Respiratory findings",
+                "type": "obs",
+                "id": "childRespirationFindinGs",
+                "questionOptions": {
+                  "concept": "1123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "5209AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Wheezing"
+                    },
+                    {
+                      "concept": "127639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Respiratory distress"
+                    },
+                    {
+                      "concept": "127640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Crackles"
+                    },
+                    {
+                      "concept": "145712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dullness"
+                    },
+                    {
+                      "concept": "164440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Reduced breathing"
+                    },
+                    {
+                      "concept": "146893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Bronchial breathing"
+                    },
+                    {
+                      "concept": "156534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Grunting"
+                    },
+                    {
+                      "concept": "136790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stridor"
+                    },
+                    {
+                      "concept": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Chest in-drawing"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')|| !(age <=5)"
+                }
+              },
+              {
+                "label": "Respiratory findings notes",
+                "type": "obs",
+                "id": "ChestfiNdinGsNotes",
+                "questionOptions": {
+                  "concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Genitourinary findings",
+                "type": "obs",
+                "id": "GenItourinAryFins",
+                "questionOptions": {
+                  "concept": "1126AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "123529AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Urethral discharge"
+                    },
+                    {
+                      "concept": "154311AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Rectal discharge"
+                    },
+                    {
+                      "concept": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Bleeding"
+                    },
+                    {
+                      "concept": "124087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ulceration"
+                    },
+                    {
+                      "concept": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Vaginal discharge"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '166363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Genitourinary findings notes",
+                "type": "obs",
+                "id": "GenItouriNaryFinoTeS",
+                "questionOptions": {
+                  "concept": "163047AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '166363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Musculoskeletal findings",
+                "type": "obs",
+                "id": "musculoskelatFindns",
+                "questionOptions": {
+                  "concept": "1128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "150823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Abnormal Posture/Movement"
+                    },
+                    {
+                      "concept": "155871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Deformity"
+                    },
+                    {
+                      "concept": "160395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Restriction of movement"
+                    },
+                    {
+                      "concept": "163851AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Muscle Wasting"
+                    },
+                    {
+                      "concept": "116557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Diffuse pain and tenderness"
+                    },
+                    {
+                      "concept": "163894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Swelling"
+                    },
+                    {
+                      "concept": "122764AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ulcers"
+                    },
+                    {
+                      "concept": "167237AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Increased of local temperature"
+                    },
+                    {
+                      "concept": "139047AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Heberdens nodes"
+                    },
+                    {
+                      "concept": "130166AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Pitting/Non pitting oedema"
+                    },
+                    {
+                      "concept": "152959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Tendon sheath crepitus"
+                    },
+                    {
+                      "concept": "136421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Joint crepitus"
+                    },
+                    {
+                      "concept": "115476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Joint stiffness"
+                    },
+                    {
+                      "concept": "115476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Muscle weakness"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '133613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Musculoskeletal findings notes",
+                "type": "obs",
+                "id": "musculoskeletalFindingNotes",
+                "questionOptions": {
+                  "concept": "163048AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "!arrayContains(allsystemReview, '133613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Diagnosis",
+                "id": "DiagNosIS",
+                "type": "diagnosis",
+                "questionOptions": {
+                  "rendering": "repeating",
+                  "dataSource": "diagnoses",
+                  "rank": 1
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Plan and requested actions",
+        "sections": [
+          {
+            "label": "Plan and requested actions",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Medication orders",
+                "type": "obs",
+                "id": "medOrders",
+                "questionOptions": {
+                  "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "select",
+                  "answers": [
+                    {
+                      "concept": "163057AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Continue with previous medication"
+                    },
+                    {
+                      "concept": "165487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change medication"
+                    },
+                    {
+                      "concept": "167533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Discontinue medication"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Name of Procedures Ordered",
+                "type": "obs",
+                "id": "procedureOrderd",
+                "questionOptions": {
+                  "concept": "1806AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "multiCheckbox",
+                  "answers": [
+                    {
+                      "concept": "166715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Incision and Drainage(I&D)"
+                    },
+                    {
+                      "concept": "527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Splinting and Casting"
+                    },
+                    {
+                      "concept": "ece03e1b-9a31-4d72-8b93-376eb3180227",
+                      "label": "Nebulization"
+                    },
+                    {
+                      "concept": "042dc29b-9ed9-48ec-819d-8cd7be0bc5b0",
+                      "label": "Nasogastric Tube Insertion"
+                    },
+                    {
+                      "concept": "113223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ear Irrigation"
+                    },
+                    {
+                      "concept": "db3058a6-6daa-44fb-93ce-920cbc6b606e",
+                      "label": "Urethral Catheterization"
+                    },
+                    {
+                      "concept": "161797AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Suprapubic Catheterization"
+                    },
+                    {
+                      "concept": "40774ee3-d3e3-423d-b001-081384feb953",
+                      "label": "Nasal Cauterization"
+                    },
+                    {
+                      "concept": "7db095f5-c54e-4305-94df-8b7382cfcb9f",
+                      "label": "Gastric Lavage"
+                    },
+                    {
+                      "concept": "484082d1-48ed-4f6b-b244-14c9cfcc979f",
+                      "label": "Removal of Foregn Body"
+                    },
+                    {
+                      "concept": "166941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Thoraxic Drainage"
+                    },
+                    {
+                      "concept": "162809AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Batholin Gland marsupialization"
+                    },
+                    {
+                      "concept": "166741AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Intra-articular Injection"
+                    },
+                    {
+                      "concept": "161773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Haemorrhoids Injections"
+                    },
+                    {
+                      "concept": "164913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Joints Aspiration"
+                    },
+                    {
+                      "concept": "149977AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Release of trigger finger"
+                    },
+                    {
+                      "concept": "161623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Surgical toilet and suturing"
+                    },
+                    {
+                      "concept": "1935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Wound Dressing"
+                    },
+                    {
+                      "concept": "159728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Manual Vacuum Aspiration"
+                    },
+                    {
+                      "concept": "1637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dilatation and Curetage"
+                    },
+                    {
+                      "concept": "159842AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Episiotomy Repair"
+                    },
+                    {
+                      "concept": "161663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Skin Lesion Excision"
+                    },
+                    {
+                      "concept": "535aebd0-f381-4ae6-961c-caa0ecf64736",
+                      "label": "Biopsy"
+                    },
+                    {
+                      "concept": "161803AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Circumcision"
+                    },
+                    {
+                      "concept": "161284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Paracentesis"
+                    },
+                    {
+                      "concept": "165893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Cannulation"
+                    },
+                    {
+                      "concept": "162651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Iv fluids management"
+                    },
+                    {
+                      "concept": "441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Bandaging"
+                    },
+                    {
+                      "concept": "fb5b9f5c-5e02-44ed-8c28-87e5306403ab",
+                      "label": " Enema Administration"
+                    },
+                    {
+                      "concept": "127896AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Lumbar Puncture"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "specifyProceDure",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "!arrayContaints(procedureOrderd, ['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'])"
+                }
+              },
+              {
+                "label": "Therapy ordered",
+                "type": "obs",
+                "id": "theRapyOrdered",
+                "questionOptions": {
+                  "concept": "160846AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "9fbf5c54-17cd-44d0-925e-b2c12c412c32",
+                      "label": "Physiotherapy",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "2f85aed-695f-49b1-973e-002c37cbdebf",
+                      "label": "Occupational therapy",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "151108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Speech therapy",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nutritional therapy",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "specifyTherapy",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "!arrayContaints(theRapyOrdered, ['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'])"
+                }
+              },
+              {
+                "label": "Feeding orders",
+                "type": "obs",
+                "id": "feedOrders",
+                "questionOptions": {
+                  "concept": "985AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    },
+                    {
+                      "concept": "162798AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nasogastric tube feeding",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "165951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Parenteral feeding",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "165951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "NPO(Nil per Oral)",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "162758AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Clear liquids",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "specifyTherapy",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "!arrayContaints(feedOrders, ['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'])"
+                }
+              },
+              {
+                "label": "Consultations with other specialist",
+                "type": "obs",
+                "id": "consultationText",
+                "questionOptions": {
+                  "concept": "164081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              },
+              {
+                "label": "Referrals",
+                "type": "obs",
+                "questionOptions": {
+                  "concept": "1695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Transferring to another ward"
+                    },
+                    {
+                      "concept": "164165AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Referring to another facility"
+                    },
+                    {
+                      "concept": "1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Discharge home"
+                    }
+                  ]
+                },
+                "id": "referStO",
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              },
+              {
+                "label": "Next review date:",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "167132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "id": "tCAppoinTment",
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "true"
+                  },
+                  {
+                    "type": "js_expression",
+                    "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                    "message": "Next Appointment should be greater than the encounter date."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "encounterType": ""
+  }
