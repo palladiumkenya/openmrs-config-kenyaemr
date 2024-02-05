@@ -1569,21 +1569,7 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Age at Menarche:",
-              "type": "obs",
-              "id": "menarcheAge",
-              "questionOptions": {
-                "concept": "160598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number",
-                "max": "18",
-                "min": "8"
-              },
-              "hide": {
-                "hideWhenExpression": "sex !== 'F' ||sex === 'F' && (age < 10 || age > 49) || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "Has patient had menses?",
+              "label": "Has patient ever had menses?",
               "type": "obs",
               "id": "hasLMP",
               "questionOptions": {
@@ -1602,6 +1588,20 @@
               },
               "hide": {
                 "hideWhenExpression": "sex !== 'F' ||sex === 'F' && (age < 10 || age > 49)  || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Age at Menarche:",
+              "type": "obs",
+              "id": "menarcheAge",
+              "questionOptions": {
+                "concept": "160598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "18",
+                "min": "8"
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' ||sex === 'F' && (age < 10 || age > 49) || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1696,7 +1696,7 @@
             {
               "label": "Reasons For Amenorrhea?",
               "type": "obs",
-              "id": "amenorrheaSymptopms",
+              "id": "amenorrheaSymptopmsNo",
               "questionOptions": {
                 "concept": "4b59ac07-cf72-4f46-b8c0-4f62b1779f7e",
                 "rendering": "radio",
@@ -1704,22 +1704,6 @@
                   {
                     "concept": "154175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Premanarche"
-                  },
-                  {
-                    "concept": "134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Menopause"
-                  },
-                  {
-                    "concept": "160695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Hormonal Contraceptive"
-                  },
-                  {
-                    "concept": "136163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Lactating Amenorrhea"
-                  },
-                  {
-                    "concept": "137793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Illness"
                   },
                   {
                     "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1732,19 +1716,6 @@
               }
             },
             {
-              "label": "Other Illness(Specify)",
-              "type": "obs",
-              "id": "otherIllness",
-              "questionOptions": {
-                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text"
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "amenorrheaSymptopms !== '137793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
               "label": "Other Amenorrhea reason(Specify)",
               "type": "obs",
               "id": "otherAmenorrhea",
@@ -1754,7 +1725,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "amenorrheaSymptopms !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "amenorrheaSymptopmsNo !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1837,7 +1808,7 @@
               "id": "fPlanning",
               "questionOptions": {
                 "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1854,7 +1825,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 15 || sex !=='F' || amenorrheaSymptopms !=='134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hasLMP ==='1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyOption !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "age < 15 || sex !=='F' || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1863,7 +1834,7 @@
               "type": "obs",
               "id": "fpMethod",
               "questionOptions": {
-                "rendering": "checkbox",
+                "rendering": "select",
                 "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {
@@ -2062,368 +2033,6 @@
           ]
         },
         {
-          "label": "Family History",
-          "isExpanded": "true",
-          "questions": [
-            {
-              "label": "Number of members in the family",
-              "type": "obs",
-              "id": "noOfMember",
-              "questionOptions": {
-                "concept": "5558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number",
-                "min": "0",
-                "max": "100"
-              },
-              "hide": {
-                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "How many members are Alive",
-              "type": "obs",
-              "id": "aliveMembers",
-              "questionOptions": {
-                "concept": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number",
-                "min": "0",
-                "max": "100"
-              },
-              "hide": {
-                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "Any history of family member death?",
-              "type": "obs",
-              "id": "historyMemberDeath",
-              "questionOptions": {
-                "rendering": "radio",
-                "concept": "159482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "Death History",
-              "type": "obsGroup",
-              "id": "deathHistory",
-              "questionOptions": {
-                "concept": "81bbc312-d0f6-4950-822a-f7a47e599013",
-                "rendering": "repeating"
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "historyMemberDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              },
-              "questions": [
-                {
-                  "label": "How many members are Dead",
-                  "type": "obs",
-                  "id": "deadMember",
-                  "questionOptions": {
-                    "concept": "166422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number",
-                    "min": "0",
-                    "max": "100"
-                  },
-                  "hide": {
-                    "hideWhenExpression": "historyMemberDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  }
-                },
-                {
-                  "label": "Age at Death",
-                  "type": "obs",
-                  "id": "deathAge",
-                  "questionOptions": {
-                    "concept": "163527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number",
-                    "min": "0",
-                    "max": "100"
-                  },
-                  "hide": {
-                    "hideWhenExpression": "historyMemberDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  }
-                },
-                {
-                  "label": "Cause of Death:",
-                  "type": "obs",
-                  "id": "deathCause",
-                  "questionOptions": {
-                    "concept": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "text"
-                  },
-                  "hide": {
-                    "hideWhenExpression": "historyMemberDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  }
-                },
-                {
-                  "label": "Any Family Member with similar disease or symptom",
-                  "type": "obs",
-                  "id": "similarSymptom",
-                  "questionOptions": {
-                    "rendering": "radio",
-                    "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
-                    "answers": [
-                      {
-                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Yes"
-                      },
-                      {
-                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "No"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "historyMemberDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  }
-                },
-                {
-                  "label": "Any Family Member with history of Chronic or Hereditary Disease",
-                  "type": "obs",
-                  "id": "familyHistoryChronic",
-                  "questionOptions": {
-                    "rendering": "radio",
-                    "concept": "160592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "answers": [
-                      {
-                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Yes"
-                      },
-                      {
-                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "No"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Chronic Disease",
-                  "type": "obs",
-                  "id": "chronicDisease",
-                  "questionOptions": {
-                    "rendering": "select",
-                    "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "conceptMappings": [
-                      {
-                        "type": "SNOMED NP",
-                        "value": "NP: 439401001"
-                      },
-                      {
-                        "type": "AMPATH",
-                        "value": "1284"
-                      },
-                      {
-                        "type": "org.openmrs.module.emrapi",
-                        "value": "Coded Diagnosis"
-                      },
-                      {
-                        "type": "SNOMED MVP",
-                        "value": "MVP: 12841000105004"
-                      },
-                      {
-                        "type": "CIEL",
-                        "value": "1284"
-                      }
-                    ],
-                    "answers": [
-                      {
-                        "concept": "149019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Alzheimer's Disease and other Dementias"
-                      },
-                      {
-                        "concept": "153754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Asthma"
-                      },
-                      {
-                        "concept": "148432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Arthritis"
-                      },
-                      {
-                        "concept": "159351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cancer"
-                      },
-                      {
-                        "concept": "119270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cardiovascular diseases"
-                      },
-                      {
-                        "concept": "145438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chronic Kidney Disease"
-                      },
-                      {
-                        "concept": "120637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chronic Hepatitis"
-                      },
-                      {
-                        "concept": "1295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chronic Obstructive Pulmonary Disease(COPD)"
-                      },
-                      {
-                        "concept": "120576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chronic Renal Failure"
-                      },
-                      {
-                        "concept": "119956AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Congenital heart disease"
-                      },
-                      {
-                        "concept": "119692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cystic Fibrosis"
-                      },
-                      {
-                        "concept": "120291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Deafness and Hearing impairment"
-                      },
-                      {
-                        "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetes"
-                      },
-                      {
-                        "concept": "144481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Down Syndrome"
-                      },
-                      {
-                        "concept": "141623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Dyslipidemia"
-                      },
-                      {
-                        "concept": "118631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Endometriosis"
-                      },
-                      {
-                        "concept": "117855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Epilepsy"
-                      },
-                      {
-                        "concept": "117789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Glaucoma"
-                      },
-                      {
-                        "concept": "139071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Heart Disease"
-                      },
-                      {
-                        "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hypertension"
-                      },
-                      {
-                        "concept": "115728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hyperlipidaemia"
-                      },
-                      {
-                        "concept": "117321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hypothyroidism"
-                      },
-                      {
-                        "concept": "151342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mental illness"
-                      },
-                      {
-                        "concept": "133687AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Multiple Sclerosis"
-                      },
-                      {
-                        "concept": "116331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Leukemia"
-                      },
-                      {
-                        "concept": "115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Obesity"
-                      },
-                      {
-                        "concept": "114662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Osteoporosis"
-                      },
-                      {
-                        "concept": "117703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Sickle Cell Anaemia"
-                      },
-                      {
-                        "concept": "118976AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Thyroid disease"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "familyHistoryChronic !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  }
-                },
-                {
-                  "label": "Specify the Relationship",
-                  "type": "obs",
-                  "id": "specifyRelationship",
-                  "questionOptions": {
-                    "rendering": "select",
-                    "concept": "164352AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "answers": [
-                      {
-                        "concept": "970AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mother"
-                      },
-                      {
-                        "concept": "971AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Father"
-                      },
-                      {
-                        "concept": "160728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Daughter"
-                      },
-                      {
-                        "concept": "160727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Son"
-                      },
-                      {
-                        "concept": "160730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Sister"
-                      },
-                      {
-                        "concept": "160729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Brother"
-                      },
-                      {
-                        "concept": "159914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Twin"
-                      },
-                      {
-                        "concept": "160273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "GranfFather"
-                      },
-                      {
-                        "concept": "159772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "GrandMother"
-                      },
-                      {
-                        "concept": "975AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Aunt"
-                      },
-                      {
-                        "concept": "974AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Uncle"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "familyHistoryChronic !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
           "label": "Social History",
           "isExpanded": "true",
           "questions": [
@@ -2584,6 +2193,349 @@
               "hide": {
                 "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
+            }
+          ]
+        },
+        {
+          "label": "Family History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Number of members in the family",
+              "type": "obs",
+              "id": "noOfMember",
+              "questionOptions": {
+                "concept": "5558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "100"
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "How many members are Alive",
+              "type": "obs",
+              "id": "aliveMembers",
+              "questionOptions": {
+                "concept": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "100"
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Any Family Member with history of Chronic or Hereditary Disease",
+              "type": "obs",
+              "id": "familyHistoryChronic",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Chronic Disease",
+              "type": "obs",
+              "id": "chronicDisease",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "type": "SNOMED NP",
+                    "value": "NP: 439401001"
+                  },
+                  {
+                    "type": "AMPATH",
+                    "value": "1284"
+                  },
+                  {
+                    "type": "org.openmrs.module.emrapi",
+                    "value": "Coded Diagnosis"
+                  },
+                  {
+                    "type": "SNOMED MVP",
+                    "value": "MVP: 12841000105004"
+                  },
+                  {
+                    "type": "CIEL",
+                    "value": "1284"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "149019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Alzheimer's Disease and other Dementias"
+                  },
+                  {
+                    "concept": "153754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Asthma"
+                  },
+                  {
+                    "concept": "148432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Arthritis"
+                  },
+                  {
+                    "concept": "159351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cancer"
+                  },
+                  {
+                    "concept": "119270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cardiovascular diseases"
+                  },
+                  {
+                    "concept": "145438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Chronic Kidney Disease"
+                  },
+                  {
+                    "concept": "120637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Chronic Hepatitis"
+                  },
+                  {
+                    "concept": "1295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Chronic Obstructive Pulmonary Disease(COPD)"
+                  },
+                  {
+                    "concept": "120576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Chronic Renal Failure"
+                  },
+                  {
+                    "concept": "119956AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Congenital heart disease"
+                  },
+                  {
+                    "concept": "119692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cystic Fibrosis"
+                  },
+                  {
+                    "concept": "120291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Deafness and Hearing impairment"
+                  },
+                  {
+                    "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetes"
+                  },
+                  {
+                    "concept": "144481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Down Syndrome"
+                  },
+                  {
+                    "concept": "141623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dyslipidemia"
+                  },
+                  {
+                    "concept": "118631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Endometriosis"
+                  },
+                  {
+                    "concept": "117855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Epilepsy"
+                  },
+                  {
+                    "concept": "117789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Glaucoma"
+                  },
+                  {
+                    "concept": "139071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Heart Disease"
+                  },
+                  {
+                    "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hypertension"
+                  },
+                  {
+                    "concept": "115728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hyperlipidaemia"
+                  },
+                  {
+                    "concept": "117321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hypothyroidism"
+                  },
+                  {
+                    "concept": "151342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mental illness"
+                  },
+                  {
+                    "concept": "133687AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Multiple Sclerosis"
+                  },
+                  {
+                    "concept": "116331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Leukemia"
+                  },
+                  {
+                    "concept": "115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Obesity"
+                  },
+                  {
+                    "concept": "114662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Osteoporosis"
+                  },
+                  {
+                    "concept": "117703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sickle Cell Anaemia"
+                  },
+                  {
+                    "concept": "118976AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Thyroid disease"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "familyHistoryChronic !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify the Relationship",
+              "type": "obs",
+              "id": "specifyRelationship",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "164352AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "970AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mother"
+                  },
+                  {
+                    "concept": "971AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Father"
+                  },
+                  {
+                    "concept": "160728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Daughter"
+                  },
+                  {
+                    "concept": "160727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Son"
+                  },
+                  {
+                    "concept": "160730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sister"
+                  },
+                  {
+                    "concept": "160729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Brother"
+                  },
+                  {
+                    "concept": "159914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Twin"
+                  },
+                  {
+                    "concept": "160273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "GranfFather"
+                  },
+                  {
+                    "concept": "159772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "GrandMother"
+                  },
+                  {
+                    "concept": "975AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Aunt"
+                  },
+                  {
+                    "concept": "974AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Uncle"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "familyHistoryChronic !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Any history of family member death?",
+              "type": "obs",
+              "id": "historyMemberDeath",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "159482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Death History",
+              "type": "obsGroup",
+              "id": "deathHistory",
+              "questionOptions": {
+                "concept": "81bbc312-d0f6-4950-822a-f7a47e599013",
+                "rendering": "repeating"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "historyMemberDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "questions": [
+                {
+                  "label": "How many members if any Death",
+                  "type": "obs",
+                  "id": "deadMember",
+                  "questionOptions": {
+                    "concept": "166422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "100"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "historyMemberDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Age at Death",
+                  "type": "obs",
+                  "id": "deathAge",
+                  "questionOptions": {
+                    "concept": "163527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "100"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "historyMemberDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Cause of Death:",
+                  "type": "obs",
+                  "id": "deathCause",
+                  "questionOptions": {
+                    "concept": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "historyMemberDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -3106,6 +3058,11 @@
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   },
                   {
+                    "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Convulsions",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
                     "concept": "823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Wasting",
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -3248,6 +3205,19 @@
               "hide": {
                 "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
+            },
+            {
+              "label": "General Examination Notes",
+              "type": "obs",
+              "id": "generalExamNotes",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
             }
           ]
         },
@@ -3266,7 +3236,7 @@
                 "answers": [
                   {
                     "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Normal"
+                    "label": "All Systems Normal"
                   },
                   {
                     "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
