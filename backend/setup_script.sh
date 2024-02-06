@@ -1,7 +1,14 @@
 #!/bin/bash
 # Script to setup openmrs platform 2.6
+echo '=======================================================================
+                KenyaEMR Installation Wizard!!
+======================================================================='
 
 
+
+echo '=======================================================================
+                MySQL Operations Starting!!
+======================================================================='
 modules_dir=/var/lib/OpenMRS/modules
 frontend_dir=/var/lib/OpenMRS/frontend
 configuration_dir=/var/lib/OpenMRS/configuration
@@ -41,73 +48,99 @@ else
   echo "MySQL ${mysql_user} password correct."
 fi
 echo
-echo "Stopping tomcat..."
+echo "========= Stopping tomcat ..."
 echo
 sudo service tomcat9 stop
 
-echo "upgrading Concept Dictionary to the latest"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/dictionary/kenyaemr_concepts_dump-september_07_2023.sql" 
+echo "========= Upgrading Concept Dictionary to the latest"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/dictionary/kenyaemr_facility_wide_updated_concepts_dump_2024_02_06.sql"
 echo
 
 if [ "$?" -gt 0 ]; then
-  echo "MYSQL encountered a problem while processing KenyaEMR concepts."
+  echo "=========  MYSQL encountered a problem while processing KenyaEMR concepts."
   exit 1
 else
-  echo "Successfully updated concept dictionary .........................."
+  echo "========= Successfully updated concept dictionary .........................."
 fi
 
 
-echo "Deleting liquibase entries for ETL modules updates"
+echo "========= Deleting liquibase entries for ETL modules updates"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like 'kenyaemrChart%';"
 echo
 
-echo "Deleting liquibase entries for ML modules updates"
+echo "========= Deleting liquibase entries for ML modules updates========"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemr-ML%';"
 echo
 
-echo "Deleting address layout format"
+echo "========= Deleting address layout format"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM global_property where property like 'layout.address.format%';"
 
 
-echo "Deleting Queue concept names"
+echo "========= Deleting Queue concept names"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM global_property where property like 'queue.priorityConceptSetName%';"
 
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM global_property where property like 'queue.serviceConceptSetName%';"
 
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM global_property where property like 'queue.statusConceptSetName%';"
 
-echo "Update address template layout format"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/addressTemplate/address_layout_format.sql" 
+echo "========= Update address template layout format"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/addressTemplate/address_layout_format.sql"
 
 echo
 
-echo "Truncate patient appontments and queue  tables"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/HIV/patient_appointment.sql" 
+
+echo "Dropping prior referral messages"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/referral_messages/dropping_referral_messages.sql"
 echo
 
-echo "update drugs"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/drug/drug_2023-10-25.sql" 
+
+
+echo "========= Truncate patient appointments and queue  tables"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/HIV/patient_appointment.sql"
 echo
 
-echo "Set location tag map for login,queues and appointment"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/location_tag_map/location_tag_map.sql" 
-
-echo
-echo "Create appointment services"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/appointment_service/appointment_services.sql" 
-
-echo
-echo "Create queues"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/queue/queues.sql" 
-
-echo "Update tablet units for drug"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/drug/update_tablet_units.sql" 
+echo "========= update drugs"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/drug/drug_2024-01-02.sql"
 echo
 
-echo "Initial setup to squash red banner"
+echo "========= Set location tag map for login,queues and appointment"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/location_tag_map/location_tag_map.sql"
+
+echo
+echo "========= Create appointment services"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/appointment_service/appointment_services.sql"
+
+echo
+echo "========= Create queues"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/queue/queues.sql"
+
+echo "========= Update tablet units for drug orders"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/drug/update_tablet_units.sql"
+echo
+
+echo "========= Initial setup to squash red banner"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/initial_setup/initial_setup.sql"
 echo
 
+
+echo "========= Initial setup for cashier module"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/cashier/cashier.sql"
+echo
+
+echo "========= Initial setup for stock management "
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/stock_source/stock_sources.sql"
+echo
+
+echo "========= Deleting liquibase entries for IL  updates"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM openmrs.liquibasechangelog where id like '%kenyaemrIL%';"
+echo "========= Deleting liquibase entries for IL done"
+
+echo '=======================================================================
+                mysql operations done !!
+======================================================================='
+echo '=======================================================================
+        Tomcat9  operations Starting !!
+======================================================================='
 echo "Deleting old modules folder"
 if [ -d "modules/" ]; then
   sudo rm -R "modules/"
@@ -117,7 +150,7 @@ else
 fi
 echo "Uncompressing module directory ..."
 sudo tar -xzf modules.tar.gz
-echo "Completed uncompressing module directory"
+echo "Completed uncompressed module directory"
 echo
 
 echo "Deleting old .omod files."
@@ -143,8 +176,8 @@ echo "Finished deleting address configurations"
 echo
 
 echo
-if [ -d "frontend/" ]; then
-  sudo rm -R "frontend/"
+if [ -d "${frontend_dir}" ]; then
+  sudo rm -R "${frontend_dir}"
   echo "The 'frontend/' directory has been removed."
 else
   echo "The 'frontend/' directory does not exist, no action taken."
@@ -203,4 +236,10 @@ echo
 sudo service tomcat9 start
 
 
+echo '=======================================================================
+MySQL Operations done!!
+======================================================================='
 
+echo '=======================================================================
+Installation Completed Successfully!!
+======================================================================='

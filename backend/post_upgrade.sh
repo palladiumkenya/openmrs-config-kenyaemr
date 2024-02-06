@@ -1,6 +1,10 @@
 #!/bin/bash
 # Script to backup MySQL databases
+echo "===============================================
 
+        POST-UPGRADE SCRIPT FOR OPENMRS 3X
+
+==============================================="
 #script directory
 current_dir=$(pwd)
 script_dir=$(dirname $0)
@@ -37,34 +41,39 @@ echo
 
 
 
-echo "Truncate appointments if any to dump afresh"
+echo "========= Truncate appointments if any to dump afresh"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/HIV/truncate_appointment.sql" 
 
 
-echo "Update HIV followup appointments"
+echo "========= Update HIV followup appointments"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/HIV/First_script_HIV_Followup.sql" 
 
 echo "Update HIV drug refill appointments"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/HIV/Second_script_refill.sql" 
 
-echo "Create relationship between Follow up and drug refill appointments"
+echo "========= Create relationship between Follow up and drug refill appointments"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/HIV/Third_script_relate_follow_refill.sql" 
 echo
 
-echo "Create other appointments i.e MCH, PREP, KP and CWC"
+echo "========= Create other appointments i.e MCH, PREP, KP and CWC"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/other_appointments/other_appointments.sql" 
 echo
 
-echo "Finished updating appointments"
+echo "========= Finished updating appointments"
 echo
 
-echo "Creating etl tables"
-mysql -u ${mysql_user} -p ${mysql_base_database} -e "CALL create_etl_tables()"
-mysql -u ${mysql_user} -p ${mysql_base_database} -e "CALL sp_first_time_setup()"
 
-echo "Finished updating etl tables"
+echo "========= Initial setup for cashier module"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/cashier/cashier.sql"
+echo
+
+echo "========= Initial setup for stock management "
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/stock_source/stock_sources.sql"
+echo
 
 
+echo "===============================================
 
+        END OF POST UPGRADE
 
-
+==============================================="

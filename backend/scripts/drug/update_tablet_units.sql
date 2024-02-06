@@ -1,5 +1,4 @@
 -- update tablet
-
 update drug set dosage_form = 1513 where dosage_form in (162412, -- chewable tablet
                                                          162771, -- oral tablet
                                                          162475, -- vaginal tablet
