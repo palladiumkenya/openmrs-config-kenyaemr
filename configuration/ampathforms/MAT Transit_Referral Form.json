@@ -1,0 +1,285 @@
+{
+  "name": "MAT Transit/Referral Form",
+  "description": "This is the transit Clients Mat Referral Form",
+  "pages": [
+    {
+      "label": "Transit Client Mat Referral",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Transit Client Mat Referral",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Mat enrollment date",
+              "type": "obs",
+              "required": true,
+              "id": "matEnrollmentDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "166091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Type of Movement",
+              "type": "obs",
+              "required": true,
+              "id": "movementType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "SNOMED NP",
+                    "value": "257622000"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "SNOMED MVP",
+                    "value": "17681000105007"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "1768"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transfer"
+                  },
+                  {
+                    "concept": "1604931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transit"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other Referral"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Other specify",
+              "type": "obs",
+              "id": "otherSpecify",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "movementType !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Referred From",
+              "type": "obs",
+              "id": "referredFrom",
+              "questionOptions": {
+                "concept": "160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(movementType, '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(movementType, '1604931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Referred to",
+              "type": "obs",
+              "id": "referredTo",
+              "questionOptions": {
+                "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(movementType, '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(movementType, '1604931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Reason for transit/transfer",
+              "type": "obs",
+              "id": "reasonTransitTransfer",
+              "questionOptions": {
+                "concept": "162720AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(movementType, '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(movementType, '1604931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Clinical & Drug Use History",
+              "type": "obs",
+              "id": "clinicalDrugUseHistory",
+              "questionOptions": {
+                "concept": "167682AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Psychosocial background & Concerns",
+              "type": "obs",
+              "id": "psychosocialBackgroundConcerns",
+              "questionOptions": {
+                "concept": "163769AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Vaccinations done",
+              "type": "obs",
+              "id": "vaccinationsDone",
+              "questionOptions": {
+                "concept": "165440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Vaccinations Date",
+              "type": "obs",
+              "required": false,
+              "id": "vaccinationsDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "1410"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Diagnosis",
+              "type": "obs",
+              "id": "Diagnosis",
+              "questionOptions": {
+                "concept": "162165AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Current methadone/bup dose",
+              "type": "obs",
+              "id": "currentMethadoneBupDose",
+              "questionOptions": {
+                "concept": "167369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "Date and Time Last Given",
+              "type": "obs",
+              "id": "dateTimeLastGiven",
+              "questionOptions": {
+                "concept": "166865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Other Medication",
+              "type": "obs",
+              "id": "otherMedication",
+              "questionOptions": {
+                "concept": "165230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Name of MAT Clinic InCharge",
+              "type": "obs",
+              "id": "nameMatClincCharge",
+              "questionOptions": {
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Date ",
+              "type": "obs",
+              "id": "dateMatClinicInCharfe",
+              "questionOptions": {
+                "concept": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "version": "1",
+  "encounter": "",
+  "processor": "EncounterFormProcessor",
+  "referencedForms": [],
+  "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8",
+  "uuid": "b9495048-eceb-4dd2-bfba-330dc4900ee9"
+}
