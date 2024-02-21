@@ -131,6 +131,10 @@ echo "========= Initial setup for stock management "
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/stock_source/stock_sources.sql"
 echo
 
+echo "========= Initial order reasons concept update"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/orders/order_reasons.sql"
+echo
+
 echo "========= Deleting liquibase entries for IL  updates"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM openmrs.liquibasechangelog where id like '%kenyaemrIL%';"
 echo "========= Deleting liquibase entries for IL done"
