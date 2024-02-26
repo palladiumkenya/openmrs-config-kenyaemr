@@ -1,0 +1,476 @@
+{
+  "name": "Mortality Admission Form",
+  "processor": "EncounterFormProcessor",
+  "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8",
+  "referencedForms": [],
+  "uuid": "990437a8-8dbb-4ae1-a2b4-71df0041adfa",
+  "description": "A form to collect mortality records",
+  "version": "1.0",
+  "pages": [
+    {
+      "label": "Mortality Admission Form",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Mortality Admission",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Place of Death",
+              "type": "obs",
+              "required": true,
+              "id": "placeOfDeath",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "1541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "SNOMED CT",
+                    "value": "366044004"
+                  },
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "AMPATH",
+                    "value": "6182"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "1541"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inpatient"
+                  },
+                  {
+                    "concept": "160473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Outpatient"
+                  },
+                  {
+                    "concept": "1601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dead on arrival"
+                  },
+                  {
+                    "concept": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Home"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown (Police case)"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Date and Time of Death",
+              "type": "obs",
+              "required": true,
+              "id": "dateAndTimeOfDeath",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "SNOMED NP",
+                    "value": "364713004"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "162869"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDate": "false"
+                }
+              ]
+            },
+            {
+              "label": "Arrival date and time",
+              "type": "obs",
+              "required": true,
+              "id": "arrivalDateAndTime",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "159622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "159622"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "SNOMED CT",
+                    "value": "441968004"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDate": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "!arrayContains(placeOfDeath, '1601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Death confirmed",
+              "type": "obs",
+              "required": true,
+              "id": "deathConfirmed",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "165793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Death notification number",
+              "type": "obs",
+              "required": true,
+              "id": "notificationNumber",
+              "questionOptions": {
+                "rendering": "text",
+                "min": "0",
+                "max": "129",
+                "concept": "162727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": []
+              },
+              "validators": []
+            },
+            {
+              "label": "Attending clinician/Doctor",
+              "type": "obs",
+              "required": true,
+              "id": "attendingClinician",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "160632"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "AMPATH",
+                    "value": "1915"
+                  },
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "LOINC",
+                    "value": "48767-8"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(placeOfDeath) || placeOfDeath === ('1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || placeOfDeath === ('1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Doctors remarks",
+              "type": "obs",
+              "required": true,
+              "id": "doctorsRemarks",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "160632"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "AMPATH",
+                    "value": "1915"
+                  },
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "LOINC",
+                    "value": "48767-8"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(placeOfDeath) || placeOfDeath === ('1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || placeOfDeath === ('1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Cause of Death (if known)",
+              "type": "obs",
+              "required": true,
+              "id": "causeOfDeath",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "AMPATH",
+                    "value": "5002"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "1599"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "SNOMED CT",
+                    "value": "184305005"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": []
+            },
+            {
+              "label": "Mortuary Transfer confirmed",
+              "type": "obs",
+              "required": true,
+              "id": "mortuaryTransfer",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c0f775f5-bcc3-4900-a39e-35069b3a08ef",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Transfer to mortuary/Funeral home",
+              "type": "obs",
+              "required": true,
+              "id": "transferToMortuary",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "5b9e6cd1-f836-4144-91e4-401c58dd62af",
+                    "label": "Released to another funeral home"
+                  },
+                  {
+                    "concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Facility funeral home"
+                  },
+                  {
+                    "concept": "159886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Body released to the family"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(mortuaryTransfer) || mortuaryTransfer !== ('1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Date and Time of Transfer",
+              "type": "obs",
+              "required": true,
+              "id": "dateAndTimeOfTrasnfer",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "1641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "AMPATH",
+                    "value": "1869"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "SNOMED CT",
+                    "value": "442864001"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "AMPATH",
+                    "value": "5071"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "1641"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "PIH",
+                    "value": "3800"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDate": "false"
+                }
+              ]
+            },
+            {
+              "label": "Autopsy Permission (if applicable)",
+              "type": "obs",
+              "required": true,
+              "id": "autopsyPermission",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "1707"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Dead Body preservation",
+              "type": "obs",
+              "required": true,
+              "id": "deadBodyPreservation",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "bb78fcee-99c8-4073-9224-69c668917405",
+                    "label": "Body embalment"
+                  },
+                  {
+                    "concept": "167231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cold storage"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Body embalment types",
+              "type": "obs",
+              "required": true,
+              "id": "bodyEmbalmentTypes",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "166402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Arterial"
+                  },
+                  {
+                    "concept": "160494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cavity"
+                  },
+                  {
+                    "concept": "151870AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hypodermic"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(deadBodyPreservation) || deadBodyPreservation !== ('bb78fcee-99c8-4073-9224-69c668917405')"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

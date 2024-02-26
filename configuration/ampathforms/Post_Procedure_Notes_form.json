@@ -1,0 +1,393 @@
+{
+  "name": "Post Procedure Form",
+  "description": "Post Procedure Form",
+  "version": "1",
+  "published": true,
+  "uuid": "xxxx",
+  "retired": false,
+  "encounter": "IPD Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Post Operation Details",
+      "sections": [
+        {
+          "label": "Post Operation",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date of surgery",
+              "type": "encounterDatetime",
+              "id": "surGeryDate",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "concept": "160715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Time of surgery",
+              "type": "obs",
+              "id": "TtakEn",
+              "datePickerFormat": "timer",
+              "questionOptions": {
+                "concept": "163509AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              }
+            },
+            {
+              "label": "Operative Procedure",
+              "type": "obs",
+              "id": "proCedureOps",
+              "questionOptions": {
+                "concept": "1651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "pregnancyComplications !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Procedure Details",
+              "type": "obsGroup",
+              "id": "deTailSpRoc",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "1651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "questions": [
+                {
+                  "label": "Anaesthesia Type",
+                  "type": "obs",
+                  "id": "loCalReg",
+                  "questionOptions": {
+                    "concept": "164254AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "164243AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Inhalation (mask) "
+                      },
+                      {
+                        "concept": "166991AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Intravenous"
+                      },
+                      {
+                        "concept": "160326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Spinal"
+                      },
+                      {
+                        "concept": "161912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Epidural"
+                      },
+                      {
+                        "concept": "166707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Local Infiltration"
+                      },
+                      {
+                        "concept": "162777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Topical"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Position of the Patient",
+                  "type": "obs",
+                  "id": "patIEntpoSItIon",
+                  "questionOptions": {
+                    "concept": "159633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "159629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Supine"
+                      },
+                      {
+                        "concept": "159631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Fowler’s"
+                      },
+                      {
+                        "concept": "165928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Prone"
+                      },
+                      {
+                        "concept": "542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Lateral"
+                      },
+                      {
+                        "concept": "141235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Trendelenburg"
+                      },
+                      {
+                        "concept": "164148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Reverse Trendelenburg"
+                      },
+                      {
+                        "concept": "163995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Lithotomy"
+                      },
+                      {
+                        "concept": "159630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sitting"
+                      },
+                      {
+                        "concept": "165928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Jack-knife"
+                      },
+                      {
+                        "concept": "132675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sim's Position"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Other (Specify)",
+                  "type": "obs",
+                  "id": "OthersUsedposition",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "patIEntpoSItIon !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Location of Incision",
+                  "type": "obs",
+                  "id": "IncisLocaTion",
+                  "questionOptions": {
+                    "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Type of Incision",
+                  "type": "obs",
+                  "id": "typeIncisLocaTion",
+                  "questionOptions": {
+                    "concept": "b9879725-26f6-4aa4-8777-bc7f75d388c1",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Midline"
+                      },
+                      {
+                        "concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Pfannenstiel"
+                      },
+                      {
+                        "concept": "506AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Inguinal"
+                      },
+                      {
+                        "concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Supra-umbilical/infra-umbilical"
+                      },
+                      {
+                        "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Kocher"
+                      },
+                      {
+                        "concept": "124261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Transverse"
+                      },
+                      {
+                        "concept": "506AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Paramedian"
+                      },
+                      {
+                        "concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "McBurney"
+                      },
+                      {
+                        "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Lanz"
+                      },
+                      {
+                        "concept": "124261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Rutherfold Morrison "
+                      },
+                      {
+                        "concept": "506AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Battle"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Other (Specify)",
+                  "type": "obs",
+                  "id": "OthersUsedinCision",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "IncisLocaTion !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Closure Method",
+                  "type": "obs",
+                  "id": "clOseMethod",
+                  "questionOptions": {
+                    "concept": "165241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "1925AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Absorbable Suture"
+                      },
+                      {
+                        "concept": "1928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Non Absorbable Suture"
+                      },
+                      {
+                        "concept": "73752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Skin Staples"
+                      },
+                      {
+                        "concept": "162542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Adhesive Strips"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": ""
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Findings",
+              "type": "obs",
+              "id": "FindingNotes",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              }
+            },
+            {
+              "label": "Was specimen for histology collected?",
+              "type": "obs",
+              "id": "HisToloGySpeci",
+              "questionOptions": {
+                "concept": "161934AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Type of specimen",
+              "type": "obs",
+              "id": "speCimeNtYpe",
+              "questionOptions": {
+                "concept": "162476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "HisToloGySpeci !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Procedure Notes",
+              "type": "obs",
+              "id": "proceDureNotes",
+              "questionOptions": {
+                "concept": "160303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Diagnosis",
+              "id": "DiagNosIS",
+              "type": "diagnosis",
+              "questionOptions": {
+                "rendering": "repeating",
+                "dataSource": "diagnoses",
+                "rank": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "encounterType": "xxxxxx"
+}
