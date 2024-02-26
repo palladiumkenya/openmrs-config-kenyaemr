@@ -59,8 +59,6 @@ rename_dist_folder() {
 
 # Handle renaming for openmrs-esm-form-entry-app-*
 rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
-
-# Handle renaming for openmrs-esm-patient-chart-app-*
 rename_dist_folder "openmrs-esm-patient-chart-app-*" "dist-chart"
 
 
