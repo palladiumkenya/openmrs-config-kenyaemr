@@ -47,6 +47,36 @@
 			]
 		  },
 		  {
+			"label": "Partner HIV Status",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "What is the partner HIV status?",
+				"type": "obs",
+				"questionOptions": {
+				  "concept": "162216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Positive"
+					},
+					{
+					  "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Negative"
+					},
+					{
+					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Unknown"
+					}
+				  ]
+				},
+				"validators": [],
+				"id": "partnerStatus"
+			  }
+			]
+		  },
+		  {
 			"label": "HIV Positive Partner Profile",
 			"type": "obsGroup",
 			"isExpanded": "true",
@@ -57,101 +87,114 @@
 			"id": "hivPositivePartner",
 			"validators": [],
 			"questions": [
-				{
-					"label": "HIV+ partner CCC Number",
-					"type": "obs",
-					"questionInfo": "",
-					"id": "pArtnersCcc",
-					"default": "",
-					"questionOptions": {
-					  "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "string"
-					},
-					"validators": [
-						{
-						  "type": "js_expression",
-						  "failsWhenExpression": "doesNotMatchExpression('^\\\\\\d{10}$', pArtnersCcc)",
-						  "message": "Please provide the correct format for the UPN ie. mflCode+number eg.1190200062"
-						}
-					  ]
+			  {
+				"label": "HIV+ partner CCC Number",
+				"type": "obs",
+				"id": "partnersCcc",
+				"questionOptions": {
+				  "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "number"
 				},
-				{
-					"label": "CCC number/Enrollment status unknown",
-					"type": "obs",
-					"id": "ccc-enrollment-status",
-					"questionOptions": {
-					  "concept": "159812AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "checkbox",
-					  "answers": [
-						{
-						  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "CCC number/Enrollment status unknown"
-						}
-					  ]
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "CCC number/Enrollment status unknown",
+				"type": "obs",
+				"id": "cccEnrollmentStatus",
+				"questionOptions": {
+				  "concept": "159812AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "checkbox",
+				  "answers": [
+					{
+					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "CCC number/Enrollment status unknown",
+					  "disableWhenExpression": "myValue === '162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					}
-				  },
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "HIV+ partners ART start date",
+				"type": "obs",
+				"id": "artStartDate",
+				"questionOptions": {
+				  "concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
 				  {
-					"label": "HIV+ partners ART start date",
-					"type": "obs",
-					"id": "artStartDate",
-					"questionOptions": {
-					  "concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "date"
-					},
-					"validators": [
-					  {
-						"type": "date",
-						"allowFutureDates": "false"
-					  }
-					]
-				  },
-				  {
-					"label": "Time known to be HIV- serodiscordant (Year(s)",
-					"type": "obs",
-					"id": "years",
-					"questionOptions": {
-					  "concept": "164393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "number"
-					}
-				  },
-				  {
-					"label": "Month(s)",
-					"type": "obs",
-					"id": "months",
-					"questionOptions": {
-					  "concept": "4978edd0-75ab-40a9-9c07-d4bbeb43fed5",
-					  "rendering": "number"
-					}
-				  },
-				  {
-					"label": "Sex without a condom with a HIV+ partner in the past 30 days",
-					"type": "obs",
-					"id": "sex-without-condom",
-					"questionOptions": {
-					  "concept": "6cb0434b-baa2-4862-aec8-9c468a7340ba",
-					  "rendering": "radio",
-					  "answers": [
-						{
-							"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-							"label": "Yes"
-						},
-						{
-						  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "No"
-						}
-						
-					  ]
-					}
-				  },
-				  {
-					"label": "Number of living children with HIV+ partner",
-					"type": "obs",
-					"id": "number-of-children",
-					"questionOptions": {
-					  "concept": "1825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "number"
-					}
+					"type": "date",
+					"allowFutureDates": "false"
 				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Time known to be HIV- serodiscordant (Year(s)",
+				"type": "obs",
+				"id": "years",
+				"questionOptions": {
+				  "concept": "164393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "number"
+				},
+				"hide": {
+				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Month(s)",
+				"type": "obs",
+				"id": "months",
+				"questionOptions": {
+				  "concept": "4978edd0-75ab-40a9-9c07-d4bbeb43fed5",
+				  "rendering": "number"
+				},
+				"hide": {
+				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Sex without a condom with a HIV+ partner in the past 30 days",
+				"type": "obs",
+				"id": "sexWithoutCondom",
+				"questionOptions": {
+				  "concept": "6cb0434b-baa2-4862-aec8-9c468a7340ba",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Number of living children with HIV+ partner",
+				"type": "obs",
+				"id": "numberOfChildren",
+				"questionOptions": {
+				  "concept": "1825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "number"
+				},
+				"hide": {
+				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  }
 			]
 		  },
 		  {
@@ -168,14 +211,13 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "No"
 					}
-					
 				  ]
 				}
 			  },
@@ -284,8 +326,8 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -312,8 +354,8 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -338,8 +380,8 @@
 					  "label": "Unknown"
 					},
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -360,8 +402,8 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -414,7 +456,7 @@
 					"type": "js_expression",
 					"failsWhenExpression": "!isEmpty(myValue) && moment(myValue).isBefore(moment(birthdate), 'day')",
 					"message": "LMP date should not be before the date of birth."
-				}
+				  }
 				],
 				"hide": {
 				  "hideWhenExpression": "menoPausE ==='134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F'"
@@ -469,8 +511,8 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -491,8 +533,8 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -513,8 +555,8 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -626,8 +668,8 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1582,8 +1624,8 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1606,8 +1648,8 @@
 				  "concept": "aba5a106-719b-46f3-9199-224f3881a738",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1626,8 +1668,8 @@
 				  "concept": "906ac5d0-566a-466e-93e4-2f23b4fb319b",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1685,32 +1727,32 @@
 					  "label": "Shared with others"
 					},
 					{
-						"concept": "1064AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "No perceived risk"
+					  "concept": "1064AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No perceived risk"
 					},
 					{
-						"concept": "160588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Pill burden"
+					  "concept": "160588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Pill burden"
 					},
 					{
-						"concept": "160584AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Lost/out of pills"
+					  "concept": "160584AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Lost/out of pills"
 					},
 					{
-						"concept": "1056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Separated from HIV+"
+					  "concept": "1056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Separated from HIV+"
 					},
 					{
-						"concept": "159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Side effects"
+					  "concept": "159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Side effects"
 					},
 					{
-						"concept": "160587AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Forgot"
+					  "concept": "160587AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Forgot"
 					},
 					{
-						"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Other-Specify"
+					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other-Specify"
 					}
 				  ]
 				},
@@ -1744,19 +1786,23 @@
 					},
 					{
 					  "concept": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Confirmed HIV+"
+					  "label": "Confirmed HIV+",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "155589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Renal impairment"
+					  "label": "Renal impairment",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "127750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Not willing"
+					  "label": "Not willing",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "39fa4212-1210-49e0-ad62-d01090c1cf67",
-					  "label": "Less than 30ks and under 15 yrs"
+					  "label": "Less than 30ks and under 15 yrs",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					}
 				  ]
 				}
@@ -1771,6 +1817,10 @@
 					"calculateExpression": "String(hivSigns) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
 				  },
 				  "answers": [
+					{
+					  "concept": "981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Start"
+					},
 					{
 					  "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Continue"
@@ -1853,8 +1903,8 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1893,7 +1943,7 @@
 				  ]
 				},
 				"hide": {
-					"hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
@@ -1943,8 +1993,8 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1981,8 +2031,8 @@
 				  "concept": "7bfe041e-e921-4798-b9fd-a8f222a56be2",
 				  "answers": [
 					{
-						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"label": "Yes"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2008,10 +2058,10 @@
 					"type": "js_expression",
 					"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
 					"message": "Return to clinic date should be greater than the encounter date."
-				}
+				  }
 				],
 				"hide": {
-				  "hideWhenExpression": "isEmpty(nextAppClient) || nextAppClient !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(nextAppClient) || nextAppClient !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
@@ -2033,7 +2083,7 @@
 				  ]
 				},
 				"hide": {
-					"hideWhenExpression": "isEmpty(nextAppClient) || nextAppClient === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(nextAppClient) || nextAppClient === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  }
 			]
