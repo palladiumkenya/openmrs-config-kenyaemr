@@ -339,6 +339,147 @@
               "hide": {
                 "hideWhenExpression": "!(age >5)"
               }
+            },
+            {
+              "label": "MUAC:",
+              "type": "obs",
+              "id": "muac",
+              "questionOptions": {
+                "concept": "1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "250",
+                "min": "0"
+              },
+              "hide": {
+                "hideWhenExpression": "(age > 5 && sex !== 'F') || (sex === 'F' &&  age > 49)"
+              }
+            },
+            {
+              "label": "LMP:",
+              "type": "obs",
+              "id": "lmpDate",
+              "questionOptions": {
+                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "sex !== 'F'  ||  sex ==='F' && (age < 10 || age > 49)"
+              }
+            },
+            {
+              "label": "Client Vaccinated against HPV?",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160325AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "type": "SNOMED NP",
+                    "value": "NP: 408436009"
+                  },
+                  {
+                    "type": "CIEL",
+                    "value": "160325"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373066001"
+                      },
+                      {
+                        "type": "PIH Malawi",
+                        "value": "Malawi: 1065"
+                      },
+                      {
+                        "type": "CIEL",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1065"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "PIH Malawi",
+                        "value": "Malawi: 1066"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "CIEL",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373067005"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "id": "clientHpvVaccinated",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' || sex === 'F' && (age < 10 || age > 15)"
+              }
+            },
+            {
+              "label": "Number of doses given",
+              "type": "obs",
+              "id": "doseGivem",
+              "questionOptions": {
+                "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "10",
+                "min": "0"
+              },
+              "hide": {
+                "hideWhenExpression": "clientHpvVaccinated !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date Given",
+              "type": "obs",
+              "id": "vaccineDate",
+              "questionOptions": {
+                "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "hide": {
+                "hideWhenExpression": "clientHpvVaccinated !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
             }
           ]
         },
@@ -373,32 +514,6 @@
                     ],
                     "answers": [
                       {
-                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "No",
-                        "conceptMappings": [
-                          {
-                            "type": "PIH",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "PIH Malawi",
-                            "value": "Malawi: 1066"
-                          },
-                          {
-                            "type": "AMPATH",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "CIEL",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "SNOMED CT",
-                            "value": "CT: 373067005"
-                          }
-                        ]
-                      },
-                      {
                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes",
                         "conceptMappings": [
@@ -421,6 +536,32 @@
                           {
                             "type": "AMPATH",
                             "value": "1065"
+                          }
+                        ]
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No",
+                        "conceptMappings": [
+                          {
+                            "type": "PIH",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "PIH Malawi",
+                            "value": "Malawi: 1066"
+                          },
+                          {
+                            "type": "AMPATH",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "CIEL",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "SNOMED CT",
+                            "value": "CT: 373067005"
                           }
                         ]
                       }
@@ -454,32 +595,6 @@
                     ],
                     "answers": [
                       {
-                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "No",
-                        "conceptMappings": [
-                          {
-                            "type": "PIH",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "PIH Malawi",
-                            "value": "Malawi: 1066"
-                          },
-                          {
-                            "type": "AMPATH",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "CIEL",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "SNOMED CT",
-                            "value": "CT: 373067005"
-                          }
-                        ]
-                      },
-                      {
                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes",
                         "conceptMappings": [
@@ -502,6 +617,32 @@
                           {
                             "type": "AMPATH",
                             "value": "1065"
+                          }
+                        ]
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No",
+                        "conceptMappings": [
+                          {
+                            "type": "PIH",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "PIH Malawi",
+                            "value": "Malawi: 1066"
+                          },
+                          {
+                            "type": "AMPATH",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "CIEL",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "SNOMED CT",
+                            "value": "CT: 373067005"
                           }
                         ]
                       }
@@ -531,32 +672,6 @@
                     ],
                     "answers": [
                       {
-                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "No",
-                        "conceptMappings": [
-                          {
-                            "type": "PIH",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "PIH Malawi",
-                            "value": "Malawi: 1066"
-                          },
-                          {
-                            "type": "AMPATH",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "CIEL",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "SNOMED CT",
-                            "value": "CT: 373067005"
-                          }
-                        ]
-                      },
-                      {
                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes",
                         "conceptMappings": [
@@ -579,6 +694,32 @@
                           {
                             "type": "AMPATH",
                             "value": "1065"
+                          }
+                        ]
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No",
+                        "conceptMappings": [
+                          {
+                            "type": "PIH",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "PIH Malawi",
+                            "value": "Malawi: 1066"
+                          },
+                          {
+                            "type": "AMPATH",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "CIEL",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "SNOMED CT",
+                            "value": "CT: 373067005"
                           }
                         ]
                       }
@@ -620,32 +761,6 @@
                     ],
                     "answers": [
                       {
-                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "No",
-                        "conceptMappings": [
-                          {
-                            "type": "PIH",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "PIH Malawi",
-                            "value": "Malawi: 1066"
-                          },
-                          {
-                            "type": "AMPATH",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "CIEL",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "SNOMED CT",
-                            "value": "CT: 373067005"
-                          }
-                        ]
-                      },
-                      {
                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes",
                         "conceptMappings": [
@@ -668,6 +783,32 @@
                           {
                             "type": "AMPATH",
                             "value": "1065"
+                          }
+                        ]
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No",
+                        "conceptMappings": [
+                          {
+                            "type": "PIH",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "PIH Malawi",
+                            "value": "Malawi: 1066"
+                          },
+                          {
+                            "type": "AMPATH",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "CIEL",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "SNOMED CT",
+                            "value": "CT: 373067005"
                           }
                         ]
                       }
@@ -693,32 +834,6 @@
                     ],
                     "answers": [
                       {
-                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "No",
-                        "conceptMappings": [
-                          {
-                            "type": "PIH",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "PIH Malawi",
-                            "value": "Malawi: 1066"
-                          },
-                          {
-                            "type": "AMPATH",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "CIEL",
-                            "value": "1066"
-                          },
-                          {
-                            "type": "SNOMED CT",
-                            "value": "CT: 373067005"
-                          }
-                        ]
-                      },
-                      {
                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes",
                         "conceptMappings": [
@@ -741,6 +856,32 @@
                           {
                             "type": "AMPATH",
                             "value": "1065"
+                          }
+                        ]
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No",
+                        "conceptMappings": [
+                          {
+                            "type": "PIH",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "PIH Malawi",
+                            "value": "Malawi: 1066"
+                          },
+                          {
+                            "type": "AMPATH",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "CIEL",
+                            "value": "1066"
+                          },
+                          {
+                            "type": "SNOMED CT",
+                            "value": "CT: 373067005"
                           }
                         ]
                       }
