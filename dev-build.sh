@@ -59,11 +59,6 @@ rename_dist_folder() {
 
 # Handle renaming for openmrs-esm-form-entry-app-*
 rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
-<<<<<<< HEAD
-# rename_dist_folder "openmrs-esm-patient-chart-app-*" "dist-chart"
-=======
-rename_dist_folder "openmrs-esm-patient-chart-app-*" "dist-chart"
->>>>>>> ad2fc48 ((feat) facility wide base release)
 
 
 # Exit with success status

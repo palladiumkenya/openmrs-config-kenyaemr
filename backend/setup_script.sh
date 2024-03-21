@@ -53,7 +53,7 @@ echo
 sudo service tomcat9 stop
 
 echo "========= Upgrading Concept Dictionary to the latest"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/dictionary/kenyaemr_facility_wide_updated_concepts_dump_2024_02_06.sql"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/dictionary/kenyaemr_FW_concepts_dump-2024-03-20.sql"
 echo
 
 if [ "$?" -gt 0 ]; then
@@ -71,73 +71,6 @@ echo
 echo "========= Deleting liquibase entries for ML modules updates========"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemr-ML%';"
 echo
-
-echo "========= Deleting address layout format"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM global_property where property like 'layout.address.format%';"
-
-
-echo "========= Deleting Queue concept names"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM global_property where property like 'queue.priorityConceptSetName%';"
-
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM global_property where property like 'queue.serviceConceptSetName%';"
-
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM global_property where property like 'queue.statusConceptSetName%';"
-
-echo "========= Update address template layout format"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/addressTemplate/address_layout_format.sql"
-
-echo
-
-
-echo "Dropping prior referral messages"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/referral_messages/dropping_referral_messages.sql"
-echo
-
-
-
-echo "========= Truncate patient appointments and queue  tables"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/HIV/patient_appointment.sql"
-echo
-
-echo "========= update drugs"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/drug/drug_2024-01-02.sql"
-echo
-
-echo "========= Set location tag map for login,queues and appointment"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/location_tag_map/location_tag_map.sql"
-
-echo
-echo "========= Create appointment services"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/appointment_service/appointment_services.sql"
-
-echo
-echo "========= Create queues"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/queue/queues.sql"
-
-echo "========= Update tablet units for drug orders"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/drug/update_tablet_units.sql"
-echo
-
-echo "========= Initial setup to squash red banner"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/initial_setup/initial_setup.sql"
-echo
-
-
-echo "========= Initial setup for cashier module"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/cashier/cashier.sql"
-echo
-
-echo "========= Initial setup for stock management "
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/stock_source/stock_sources.sql"
-echo
-
-echo "========= Initial order reasons concept update"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/orders/order_reasons.sql"
-echo
-
-echo "========= Deleting liquibase entries for IL  updates"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM openmrs.liquibasechangelog where id like '%kenyaemrIL%';"
-echo "========= Deleting liquibase entries for IL done"
 
 echo '=======================================================================
                 mysql operations done !!

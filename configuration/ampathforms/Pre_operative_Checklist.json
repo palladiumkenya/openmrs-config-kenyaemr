@@ -1,0 +1,222 @@
+{
+    "name": "PreOperative Checklist Form",
+    "description": "PreOperative Checklist  Form",
+    "version": "1",
+    "published": true,
+    "uuid": "xxxx",
+    "retired": false,
+    "encounter": "IPD Consultation",
+    "pages": [
+      {
+        "label": "Visit Details",
+        "sections": [
+          {
+            "label": "Encounter Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Visit date:",
+                "type": "encounterDatetime",
+                "required": "true",
+                "id": "encDate",
+                "questionOptions": {
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Provider:",
+                "type": "encounterProvider",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encProvider "
+              },
+              {
+                "label": "Location:",
+                "type": "encounterLocation",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encLocation"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Preoperative Assessment",
+        "sections": [
+          {
+            "label": "General Health Assessment",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Preoperative Diagnosis",
+                "type": "obs",
+                "id": "prEpDx",
+                "questionOptions": {
+                  "rendering": "repeating",
+                  "dataSource": "diagnoses",
+                  "rank": 1
+                }
+              },
+              {
+                "label": "Has the patient consumed any liquid or solid food?",
+                "type": "obs",
+                "id": "FooDsTatus",
+                "questionOptions": {
+                  "concept": "162708AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Time Taken",
+                "type": "encounterDatetime",
+                "id": "TtakEn",
+                "datePickerFormat": "timer",
+                "questionOptions": {
+                  "concept": "a9e7c05e-7381-4e2b-a968-05d5d6a884f6",
+                  "rendering": "date"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(FooDsTatus) || FooDsTatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Current medication given",
+                "type": "obs",
+                "id": "cuRRmeds",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                }
+              },
+              {
+                "label": "Was Urethral Catheterization done?",
+                "type": "obs",
+                "id": "CatAzised",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "1651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Preoperative skin preparation",
+                "type": "obs",
+                "id": "SkinPrep",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "b9879725-26f6-4aa4-8777-bc7f75d388c1",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Done"
+                    },
+                    {
+                      "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Not Done"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Procedure Urgency",
+                "type": "obs",
+                "id": "pRocedurgeNcy",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "163295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1882AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Emergency"
+                    },
+                    {
+                      "concept": "163294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Elective"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Patient Preoperative State",
+                "type": "obs",
+                "id": "pRoState",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "163088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Good"
+                    },
+                    {
+                      "concept": "162133AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Fair"
+                    },
+                    {
+                      "concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Poor"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Did the Patient Consent Obtained",
+                "type": "obs",
+                "id": "ConSentP",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "162696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "encounterType": "xxxxxx"
+  }
