@@ -23,7 +23,7 @@ fi
 
 
 # Build KenyaEMR Production assets
-sh dev-build.sh
+sh prod-build.sh
 
 
 # Compress generate frontend assets
@@ -46,7 +46,7 @@ date_str=$(date "+%a-%d-%b-%Y")
 date_str=$(echo "$date_str" | tr '[:lower:]' '[:upper:]')
 
 # Define the base directory name
-base_dir="KENYAEMR3.x"
+base_dir="KENYAEMR3.X_FACILITY_WIDE"
 
 # Create a new directory name with the version number and the date appended
 dir_name="${base_dir}_v${version}_${date_str}"

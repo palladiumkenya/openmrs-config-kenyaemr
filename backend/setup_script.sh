@@ -53,7 +53,7 @@ echo
 sudo service tomcat9 stop
 
 echo "========= Upgrading Concept Dictionary to the latest"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/dictionary/kenyaemr_FW_concepts_dump-2024-03-20.sql"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/dictionary/kenyaemr_FW_concepts_dump-2024-03-25.sql"
 echo
 
 if [ "$?" -gt 0 ]; then
