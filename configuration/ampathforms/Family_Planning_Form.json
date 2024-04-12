@@ -76,7 +76,10 @@
                   }
                 ]
               },
-              "validators": []
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
             },
             {
               "label": "Counselled on family planning?",
@@ -109,38 +112,19 @@
                   }
                 ]
               },
-              "validators": []
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
             },
             {
               "label": "Contraceptive dispensed at this visit?",
               "type": "obs",
               "required": false,
-              "id": "contraceptiveDispensed",
+              "id": "contraceptiveDispensedF",
               "questionOptions": {
                 "rendering": "select",
                 "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "conceptMappings": [
-                  {
-                    "relationship": "SAME-AS",
-                    "type": "SNOMED CT",
-                    "value": "13197004"
-                  },
-                  {
-                    "relationship": "SAME-AS",
-                    "type": "AMPATH",
-                    "value": "374"
-                  },
-                  {
-                    "relationship": "SAME-AS",
-                    "type": "PIH",
-                    "value": "374"
-                  },
-                  {
-                    "relationship": "SAME-AS",
-                    "type": "CIEL",
-                    "value": "374"
-                  }
-                ],
                 "answers": [
                   {
                     "concept": "159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -183,10 +167,6 @@
                     "label": "IUD Non hormonal"
                   },
                   {
-                    "concept": "164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Male condom"
-                  },
-                  {
                     "concept": "164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Female condom"
                   },
@@ -196,11 +176,39 @@
                   },
                   {
                     "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vasectomy (Partner)"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "age < 15 || sex !== 'F'"
+              }
+            },
+            {
+              "label": "Contraceptive dispensed at this visit?",
+              "type": "obs",
+              "required": false,
+              "id": "contraceptiveDispensedM",
+              "historicalExpression": "HD.getObject('prevEnc').getValue('374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Male condom"
+                  },
+                  {
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Vasectomy"
                   }
                 ]
               },
-              "validators": []
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "age < 15 || sex !== 'M'"
+              }
             },
             {
               "label": "Type of visit for method",
@@ -223,7 +231,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(contraceptiveDispensed) || contraceptiveDispensed === '160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '162422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '162794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '165464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(contraceptiveDispensed) || age < 15 || contraceptiveDispensed === '160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '162422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '162794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '165464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contraceptiveDispensed === '1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -255,7 +263,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(contraceptiveDispensed) || contraceptiveDispensed !== '162794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '165464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '162422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(contraceptiveDispensed) || age < 15 || sex !== 'F' || contraceptiveDispensed !== '162794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '165464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '162422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -277,7 +285,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(contraceptiveDispensed) || contraceptiveDispensed !== '164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '159784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(contraceptiveDispensed) || age < 15 || contraceptiveDispensed !== '164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '159784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && contraceptiveDispensed !== '159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -317,7 +325,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(typeOfVisitForMethod2) || typeOfVisitForMethod2 !== '164161AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(typeOfVisitForMethod2) || typeOfVisitForMethod2 !== '164161AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 15"
               }
             },
             {
@@ -355,7 +363,7 @@
             {
               "label": "Counselled for natural FP?",
               "type": "obs",
-              "required": false,
+              "required": "true",
               "id": "counselledOnNaturalFp",
               "questionOptions": {
                 "rendering": "radio",
@@ -371,12 +379,14 @@
                   }
                 ]
               },
-              "validators": []
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
             },
             {
               "label": "Circle Beads given",
               "type": "obs",
-              "required": false,
               "id": "circleBeadsGiven",
               "questionOptions": {
                 "rendering": "radio",
@@ -401,13 +411,12 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(counselledOnNaturalFp) || counselledOnNaturalFp !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(counselledOnNaturalFp) || counselledOnNaturalFp !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 15"
               }
             },
             {
               "label": "Client receiving postpartum FP?",
               "type": "obs",
-              "required": false,
               "id": "clientReceivingPostpartumFp",
               "questionOptions": {
                 "rendering": "select",
@@ -427,12 +436,15 @@
                   }
                 ]
               },
-              "validators": []
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' || age < 15"
+              }
             },
             {
               "label": "Experienced intimate partner violence/reproductive coertion",
               "type": "obs",
-              "required": false,
+              "required": "true",
               "id": "experiencedIntimatePartner",
               "questionOptions": {
                 "rendering": "select",
@@ -452,12 +464,15 @@
                   }
                 ]
               },
-              "validators": []
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
             },
             {
               "label": "Client referred for FP services",
               "type": "obs",
-              "required": false,
+              "required": "true",
               "id": "clientReferredForFpServices",
               "questionOptions": {
                 "rendering": "radio",
@@ -474,7 +489,10 @@
                   }
                 ]
               },
-              "validators": []
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
             },
             {
               "label": "Referred from",
@@ -501,7 +519,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "clientReferredForFpServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "clientReferredForFpServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15"
               }
             },
             {
@@ -541,7 +559,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "clientReferredForFpServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "clientReferredForFpServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15"
               }
             },
             {
@@ -568,7 +586,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "clientReferredForFpServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "clientReferredForFpServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15"
               }
             },
             {
@@ -578,25 +596,7 @@
               "id": "remarks",
               "questionOptions": {
                 "rendering": "text",
-                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "conceptMappings": [
-                  {
-                    "relationship": "SAME-AS",
-                    "type": "CIEL",
-                    "value": "160632"
-                  },
-                  {
-                    "relationship": "SAME-AS",
-                    "type": "AMPATH",
-                    "value": "1915"
-                  },
-                  {
-                    "relationship": "NARROWER-THAN",
-                    "type": "LOINC",
-                    "value": "48767-8"
-                  }
-                ],
-                "answers": []
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "validators": []
             }

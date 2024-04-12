@@ -72,6 +72,11 @@ echo "========= Deleting liquibase entries for ML modules updates========"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemr-ML%';"
 echo
 
+
+echo "========= Deleting liquibase entries for IL  updates"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM openmrs.liquibasechangelog where id like '%kenyaemrIL%';"
+echo "========= Deleting liquibase entries for IL done"
+
 echo '=======================================================================
                 mysql operations done !!
 ======================================================================='
@@ -155,7 +160,7 @@ echo "Finished copying configuration assets."
 echo
 
 echo "Granting read permission to the modules directory: ${modules_dir}."
-sudo chmod --recursive +r ${modules_dir}/*.omod
+sudo chmod --recursive 777 ${modules_dir}/*.omod
 sudo chown tomcat:tomcat  --recursive ${modules_dir}/*.omod
 
 echo "Granting read permission to the frontend directory: ${frontend_dir}."

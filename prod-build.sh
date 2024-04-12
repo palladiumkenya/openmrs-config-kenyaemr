@@ -8,7 +8,7 @@ rm -rf frontend
 # Build assets
 echo "Building Kenya EMR 3.x assets ..."
 CWD=$(pwd)
-npx --legacy-peer-deps openmrs@5.5.1-pre.1659 build \
+npx --legacy-peer-deps openmrs@next build \
   --build-config ./configuration/dev-build-config.json \
   --target ./frontend \
   --page-title "KenyaEMR" \
@@ -16,7 +16,7 @@ npx --legacy-peer-deps openmrs@5.5.1-pre.1659 build \
 
 # Assemble assets
 echo "Assembling assets ..."
-npx --legacy-peer-deps openmrs@5.5.1-pre.1659 assemble \
+npx --legacy-peer-deps openmrs@next assemble \
   --manifest \
   --mode config \
   --config ./configuration/prod-build-config.json \
@@ -59,7 +59,7 @@ rename_dist_folder() {
 
 # Handle renaming for openmrs-esm-form-entry-app-*
 rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
-# rename_dist_folder "openmrs-esm-patient-chart-app-*" "dist-chart"
+rename_dist_folder "openmrs-esm-service-queues-*" "dist-service-queues"
 
 
 # Exit with success status
