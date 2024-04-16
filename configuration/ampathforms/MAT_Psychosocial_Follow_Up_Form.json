@@ -1,0 +1,657 @@
+{
+  "name": "MAT Psychosocial Follow Up Form",
+  "description": "MAT Psychosocial Follow Up Form",
+  "processor": "EncounterFormProcessor",
+  "uuid": "6c5be9ea-46d2-4281-af44-f2a8e2d5260c",
+  "referencedForms": [],
+  "published": true,
+  "retired": false,
+  "version": "1.0",
+  "encounter": "MAT Psychosocial intake and followup",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Patient Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient MAT Unique Identification Number",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [],
+              "id": "patientIdnumber"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient History",
+      "sections": [
+        {
+          "label": "Drug Use",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Have you used any drugs in the last 3 months?",
+              "type": "obs",
+              "id": "drugUse",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c238b32f-71bf-43af-8e28-a0c19f0f1ef3",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Drugs Used",
+              "required": "true",
+              "type": "obs",
+              "id": "drugsUsed",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "1417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "121725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Alcohol"
+                  },
+                  {
+                    "concept": "71172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Amphetamine"
+                  },
+                  {
+                    "concept": "121249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Barbiturates"
+                  },
+                  {
+                    "concept": "147430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Benzodiazepines"
+                  },
+                  {
+                    "concept": "146494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cannabis Sativa"
+                  },
+                  {
+                    "concept": "73650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cocaine"
+                  },
+                  {
+                    "concept": "139384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Glue"
+                  },
+                  {
+                    "concept": "77443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Heroin"
+                  },
+                  {
+                    "concept": "159779AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Miraa"
+                  },
+                  {
+                    "concept": "114303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Phencyclidine"
+                  },
+                  {
+                    "concept": "159084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Tobacco"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "drugUse !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": " Other Specify ",
+              "type": "obs",
+              "id": "OtherSpecify",
+              "questionOptions": {
+                "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(drugsUsed) || !arrayContains(drugsUsed, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Have you identified any triggers that compel you to use drugs",
+              "type": "obs",
+              "id": "drugTrigger",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "9e7792d6-ee26-4b4a-9683-24b6714e9a91",
+                "answers": [
+                  {
+                    "concept": "139920AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People e.g. friends, siblings"
+                  },
+                  {
+                    "concept": "bd06bd90-8380-49f9-8814-d5d087e9afdd",
+                    "label": "Places e.g. drug using sites"
+                  },
+                  {
+                    "concept": "160572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Things e.g. movies, money"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              }
+            },
+            {
+              "label": " Other Specify ",
+              "type": "obs",
+              "id": "OtherSpecifytrigger",
+              "questionOptions": {
+                "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(drugTrigger) || !arrayContains(drugTrigger, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Sexual risk profile",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Have you had sex in the past 3 months?",
+              "type": "obs",
+              "id": "sexLastmonths",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "167043AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Do you have a current regular partner?",
+              "type": "obs",
+              "id": "regularPartner",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "166505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Do you use a condom with your current partner?",
+              "type": "obs",
+              "id": "condomUse",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0d2f24cd-0bd9-4159-b71d-a92f2c11a396",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": " Does your current partner inject drugs?",
+              "type": "obs",
+              "id": "injectDrugs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c238b32f-71bf-43af-8e28-a0c19f0f1ef3",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Is your sex partner on methadone?",
+              "type": "obs",
+              "id": "methadonePartner",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "4c8c7fc3-b0f3-4977-b460-37d100e7fade",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": " Number of sexual partners in the last 30 days?",
+              "type": "obs",
+              "id": "sexualPartnernumber",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "644504bd-23bc-4f1e-b9a0-d44f81f4148e",
+                "answers": [
+                  {
+                    "concept": "162135AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Single"
+                  },
+                  {
+                    "concept": "157830AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Multiple"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Psychosocial Outcomes",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "What is your current living arrangement? ",
+              "type": "obs",
+              "id": "currentLiving",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "160636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "I am mobile"
+                  },
+                  {
+                    "concept": "160635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "I live in one place"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "What is your current marital status?",
+              "type": "obs",
+              "id": "maritalStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "9e7792d6-ee26-4b4a-9683-24b6714e9a91",
+                "answers": [
+                  {
+                    "concept": "1057AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Single Never Married"
+                  },
+                  {
+                    "concept": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Married"
+                  },
+                  {
+                    "concept": "1058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Divorced"
+                  },
+                  {
+                    "concept": "1056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Separated"
+                  },
+                  {
+                    "concept": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Widowed"
+                  },
+                  {
+                    "concept": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Remarried"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              }
+            },
+            {
+              "label": " Other Specify ",
+              "type": "obs",
+              "id": "OtSpecifymarr",
+              "questionOptions": {
+                "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(maritalStatus) || !arrayContains(maritalStatus, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "What is your employed status?",
+              "type": "obs",
+              "id": "employmentStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "552e950f-eeb0-4e0c-9e68-5a4b9057caea",
+                "answers": [
+                  {
+                    "concept": "123801AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Un-employed"
+                  },
+                  {
+                    "concept": "167322AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Employed"
+                  },
+                  {
+                    "concept": "161382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Self-employed"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Do you have any supportive persons that that you spend time with?",
+              "type": "obs",
+              "id": "supportPersons",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "63da4194-a26a-4aa5-b5d5-4125b4822cf7",
+                "answers": [
+                  {
+                    "concept": "163316AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Family"
+                  },
+                  {
+                    "concept": "132973AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Non-drug using friends"
+                  },
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No support"
+                  }
+                ]
+              }
+            },
+            {
+              "label": " In the last 3 months have you experienced gender based violence?",
+              "type": "obs",
+              "id": "gbvVictim",
+              "questionOptions": {
+                "concept": "167161AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Type of GBV Experienced?",
+              "type": "obs",
+              "id": "gbvExperienced",
+              "questionOptions": {
+                "concept": "163556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "126582AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sexual"
+                  },
+                  {
+                    "concept": "158358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Physical"
+                  },
+                  {
+                    "concept": "118688AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Emotional/Psychological"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(gbvVictim) || gbvVictim !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Did you seek help? ",
+              "type": "obs",
+              "id": "seekHelp",
+              "questionOptions": {
+                "concept": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(gbvVictim) || gbvVictim !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Have you committed and /or arrested for crimes for drugs in the last 30 days",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "167523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "126288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Shoplifting/Vandalism"
+                  },
+                  {
+                    "concept": "167308AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Drunk and disorderly"
+                  },
+                  {
+                    "concept": "167309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Drug possession"
+                  },
+                  {
+                    "concept": "165156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Drug peddling"
+                  },
+                  {
+                    "concept": "167310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Weapons Offense"
+                  },
+                  {
+                    "concept": "167311AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Burglary/Larceny"
+                  },
+                  {
+                    "concept": "167312AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Robbery"
+                  },
+                  {
+                    "concept": "121387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Assault"
+                  },
+                  {
+                    "concept": "127910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Rape"
+                  },
+                  {
+                    "concept": "127017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Murder"
+                  },
+                  {
+                    "concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sex work"
+                  },
+                  {
+                    "concept": "167313AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fraud/ Forgery"
+                  }
+                ]
+              },
+              "id": "arrestCommit"
+            },
+            {
+              "label": "Do you have any ongoing case",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "167823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "ongoingCase"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Management Details",
+      "sections": [
+        {
+          "label": "Treatment/Management Plan",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Counseling Notes: ",
+              "type": "obs",
+              "id": "counselNotes",
+              "questionOptions": {
+                "concept": "165230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              }
+            },
+            {
+              "label": "Action Points",
+              "type": "obs",
+              "id": "actionPoints",
+              "questionOptions": {
+                "concept": "165230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              }
+            },
+            {
+              "label": "Date of Next Session",
+              "type": "obs",
+              "id": "nectVisitdate",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                  "message": "Date of Next Session should be greater than the encounter date."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

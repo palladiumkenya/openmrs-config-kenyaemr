@@ -1,0 +1,290 @@
+{
+  "name": "MAT Discontinuation Form",
+  "description": "A form used to discontinue MAT therapy voluntarily",
+  "uuid": "38d6e116-b96c-4916-a821-b4dc83e2041d",
+  "processor": "EncounterFormProcessor",
+  "published": true,
+  "retired": false,
+  "referencedForms": [],
+  "encounter": "MAT Discontinuation Encounter",
+  "version": "1",
+  "meta": {
+    "programs": {
+      "uuid": "4b898e20-9b2d-11ee-b9d1-0242ac120002",
+      "isEnrollment": false
+    }
+  },
+  "pages": [
+    {
+      "label": "Mat Discontinuation",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Mat Discontinuation",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Type of Discontinuation :",
+              "type": "obs",
+              "id": "typeOfDisco",
+              "questionOptions": {
+                "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "ddac1f1b-a5c7-4c62-b034-5d0b97197fd5",
+                    "label": "Voluntary"
+                  },
+                  {
+                    "concept": "b3129764-b199-40d8-86e7-5ba29999371d",
+                    "label": "Involuntary"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "I wish to request for:",
+              "type": "obs",
+              "id": "wishRequestFor",
+              "questionOptions": {
+                "concept": "164089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abrupt cessation"
+                  },
+                  {
+                    "concept": "167531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Accelerated taper"
+                  },
+                  {
+                    "concept": "167532AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Gradual taper(of my methadone dose)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(typeOfDisco, 'ddac1f1b-a5c7-4c62-b034-5d0b97197fd5')"
+              }
+            },
+            {
+              "label": "Reason for discontinuation",
+              "type": "obs",
+              "id": "reasonForDiscontinuation",
+              "questionOptions": {
+                "concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(typeOfDisco, 'ddac1f1b-a5c7-4c62-b034-5d0b97197fd5')"
+              }
+            },
+            {
+              "label": "I understand that upon completion of the dose taper, any request to join the MAT program will be treated as a re-induction and hence will follow the laid down procedures",
+              "type": "obs",
+              "id": "understandCompletionOfTheDoseTaper",
+              "questionOptions": {
+                "concept": "141745AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(typeOfDisco, 'ddac1f1b-a5c7-4c62-b034-5d0b97197fd5')"
+              }
+            },
+            {
+              "label": "Date Enrolled in MAT",
+              "type": "obs",
+              "required": false,
+              "id": "dateEnrolled",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(typeOfDisco, 'b3129764-b199-40d8-86e7-5ba29999371d')"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Date commenced on involuntary discontinuation",
+              "type": "obs",
+              "id": "dateOfDisconInvoluntary",
+              "questionOptions": {
+                "concept": "162549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(typeOfDisco, 'b3129764-b199-40d8-86e7-5ba29999371d')"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowPastDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Reason for discontinuation (Tick all that apply) ",
+              "type": "obs",
+              "id": "reasonDiscntInvo",
+              "questionOptions": {
+                "concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "141745AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "High risk of drug overdose due to frequent intoxication with alcohol and other drugs, overdose incidents despite repeated client education"
+                  },
+                  {
+                    "concept": "158358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Verbal or physical violence or threatened violence to other clients or staff "
+                  },
+                  {
+                    "concept": "165291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Drug possession or dealing around the clinic or institution"
+                  },
+                  {
+                    "concept": "123175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Carrying weapons around the clinic or institution "
+                  },
+                  {
+                    "concept": "b81ea86e-83a8-42b7-82f2-62c79fef2234",
+                    "label": "Diversion of methadone or buprenorphine. "
+                  },
+                  {
+                    "concept": "3a83d612-0f77-4100-8aa2-46596048465f",
+                    "label": "Property damage or theft from the clinic or institution "
+                  },
+                  {
+                    "concept": "156762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Repeated unacceptable disruptive behavior around the clinic or institution "
+                  },
+                  {
+                    "concept": "160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(typeOfDisco, 'b3129764-b199-40d8-86e7-5ba29999371d')"
+              }
+            },
+            {
+              "label": "Other (Specify) ",
+              "type": "obs",
+              "id": "involReasonOther",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(reasonDiscntInvo, '160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Recommended discontinuation plan: ",
+              "type": "obs",
+              "id": "recomendDisco",
+              "questionOptions": {
+                "concept": "164089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abrupt cessation"
+                  },
+                  {
+                    "concept": "167531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Rapid taper"
+                  },
+                  {
+                    "concept": "167532AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Gradual taper"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(typeOfDisco, 'b3129764-b199-40d8-86e7-5ba29999371d')"
+              }
+            },
+            {
+              "label": "Follow up Plan",
+              "type": "obs",
+              "id": "involFollowupPlan",
+              "questionOptions": {
+                "concept": "163104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "!arrayContains(typeOfDisco, 'b3129764-b199-40d8-86e7-5ba29999371d')"
+              }
+            },
+            {
+              "label": "Name of Counselor:",
+              "type": "obs",
+              "id": "nameCounselor",
+              "questionOptions": {
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Name of Clinician:",
+              "type": "obs",
+              "id": "nameClinician",
+              "questionOptions": {
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
