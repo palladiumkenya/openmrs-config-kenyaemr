@@ -1,7 +1,7 @@
 {
 	"name": "PrEP INITIATION",
 	"description": "PrEP INITIATION",
-	"version": "1",
+	"version": "2.0",
 	"published": true,
 	"uuid": "d5ca78be-654e-4d23-836e-a934739be555",
 	"retired": false,
@@ -39,7 +39,7 @@
 				"label": "Provider:",
 				"type": "encounterProvider",
 				"questionOptions": {
-				  "rendering": "ui-select-extended"
+				  "rendering": "encounter-provider"
 				},
 				"id": "encProvider "
 			  },
@@ -47,7 +47,7 @@
 				"label": "Location:",
 				"type": "encounterLocation",
 				"questionOptions": {
-				  "rendering": "ui-select-extended"
+				  "rendering": "encounter-location"
 				},
 				"id": "encLocation"
 			  }
@@ -373,6 +373,8 @@
 			  {
 				"label": "Referred from:",
 				"type": "obs",
+				"id": "entryPoint",
+				"required": "true",
 				"questionOptions": {
 				  "rendering": "select",
 				  "concept": "160540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -427,8 +429,9 @@
 					}
 				  ]
 				},
-				"id": "entryPoint",
-				"required": "true"
+				"hide": {
+				  "hideWhenExpression": "isEmpty(clientType) || !arrayContains(clientType, '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+				}
 			  },
 			  {
 				"label": "Other Specify:",
@@ -762,15 +765,6 @@
 					}
 				  },
 				  {
-					"label": "Alias",
-					"type": "obs",
-					"id": "alias",
-					"questionOptions": {
-					  "concept": "7a7fb83f-d5b7-4755-b080-6142e27fedc9",
-					  "rendering": "text"
-					}
-				  },
-				  {
 					"label": "Relationship",
 					"type": "obs",
 					"id": "treatmentSupporterRelationship",
@@ -820,7 +814,7 @@
 					"validators": [
 					  {
 						"type": "js_expression",
-						"failsWhenExpression": "doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
+						"failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
 						"message": "Please enter the telephone number in the correct format e.g 0720200200 thats is 10 digits"
 					  }
 					]
