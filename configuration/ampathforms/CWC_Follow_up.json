@@ -187,7 +187,7 @@
 				"type": "obs",
 				"questionOptions": {
 				  "rendering": "number",
-				  "concept": "1073AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "concept": "164438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "max": "300",
 				  "min": "0",
 				  "showDate": "false",
@@ -630,149 +630,44 @@
 			]
 		  },
 		  {
-			"label": "Labaratory Information",
+			"label": "Laboratory Information",
 			"isExpanded": "true",
 			"questions": [
-			  {
-				"id": "dnaPcr",
-				"label": "Laboratory Information",
-				"type": "obsGroup",
-				"questionOptions": {
-				  "rendering": "repeating",
-				  "concept": "162085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-				},
-				"questions": [
-				  {
-					"label": "Type of Test",
+				{
+					"label": "Order any Investigation?",
 					"type": "obs",
-					"id": "typeofTest",
+					"id": "investigationOrderd",
 					"questionOptions": {
-					  "concept": "b61c1482-1697-404c-ab96-fd698d5fd317",
-					  "rendering": "select",
+					  "rendering": "radio",
+					  "concept": "0179f241-8c1d-47c1-8128-841f6508e251",
 					  "answers": [
 						{
-						  "concept": "844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "1st DNA PCR"
+						  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Yes"
 						},
 						{
-						  "concept": "167015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "2nd DNA PCR at 6 months"
-						},
-						{
-						  "concept": "bbd5d81e-d694-48e6-a948-ed82e63e2030",
-						  "label": "3rd DNA PCR at 12 months"
-						},
-						{
-						  "concept": "1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Confirmatory PCR for positives"
-						},
-						{
-						  "concept": "4da97634-7e25-4b96-8d21-62106c7e1c68",
-						  "label": "Baseline viral load for positives"
-						},
-						{
-						  "concept": "164860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Final antibody at 18 months"
+						  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "No"
 						}
 					  ]
-					}
-				  },
-				  {
-					"label": "Date of Sample Collection",
-					"type": "obs",
-					"id": "dateOfSampleCollectionDna",
-					"questionOptions": {
-					  "concept": "159951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "date"
 					},
-					"validators": [
-					  {
-						"type": "date",
-						"allowFutureDates": "false"
-					  }
-					]
-				  },
-				  {
-					"label": "Test Contextual Status",
-					"type": "obs",
-					"id": "testContextualStatusDna",
-					"questionOptions": {
-					  "concept": "162084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "select",
-					  "answers": [
-						{
-						  "concept": "162080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Initial"
-						},
-						{
-						  "concept": "162082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Confirmation"
-						},
-						{
-						  "concept": "162083AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Final test (end of pediatric window)"
-						},
-						{
-						  "concept": "162081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Repeat"
-						}
-					  ]
+					"hide": {
+					  "hideWhenExpression": ""
 					}
 				  },
 				  {
-					"label": "Results",
-					"type": "obs",
-					"id": "resultsDna",
+					"label": "Lab Order",
+					"required": false,
+					"id": "labsWorkspaceLauncher",
 					"questionOptions": {
-					  "concept": "1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "select",
-					  "answers": [
-						{
-						  "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "INDETERMINATE"
-						},
-						{
-						  "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "POOR SAMPLE QUALITY"
-						},
-						{
-						  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "POSITIVE"
-						},
-						{
-						  "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "NEGATIVE"
-						}
-					  ]
-					}
-				  },
-				  {
-					"label": "DBS Sample Code",
-					"type": "obs",
-					"id": "dBSSampleCodeDna",
-					"questionOptions": {
-					  "concept": "162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "text"
-					}
-				  },
-				  {
-					"label": "Date Results Collected",
-					"type": "obs",
-					"id": "dateResultsCollectedDna",
-					"questionOptions": {
-					  "concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "date"
+					  "rendering": "workspace-launcher",
+					  "buttonLabel": "Add lab order",
+					  "workspaceName": "add-lab-order"
 					},
-					"validators": [
-					  {
-						"type": "js_expression",
-						"failsWhenExpression": "(new moment(dateOfSampleCollectionDna)).isAfter((new moment(myValue)), 'day') || (new moment(dateOfSampleCollectionDna)).isSame((new moment(myValue)), 'day')",
-						"message": "Date results collected should be greater than the sample collection date."
-					  }
-					]
+					"hide": {
+					  "hideWhenExpression": "investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					}
 				  }
-				]
-			  }
 			]
 		  }
 		]
@@ -937,20 +832,14 @@
 					}
 				  },
 				  {
-					"label": "Date Of Next Visit",
-					"type": "obs",
-					"id": "dateOfNextVisit",
+					"label": "Next review date:",
+					"required": false,
+					"id": "appointmentWorkspaceLauncher",
 					"questionOptions": {
-					  "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "date"
-					},
-					"validators": [
-					  {
-						"type": "js_expression",
-						"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-						"message": "Date of next visit should be greater than the encounter date."
-					  }
-					]
+					  "rendering": "workspace-launcher",
+					  "buttonLabel": "Add appointments",
+					  "workspaceName": "appointments-form-workspace"
+					}
 				  }
 				],
 				"id": "__r2ovtspGn"
