@@ -55,6 +55,7 @@
               "label": "Date Start of Treatment:",
               "type": "obs",
               "id": "dstartoftreatment",
+              "required": "true",
               "questionOptions": {
                 "concept": "1113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
@@ -153,34 +154,6 @@
           ]
         },
         {
-          "label": "Patient Information",
-          "isExpanded": "true",
-          "questions": [
-            {
-              "label": "Body Weight in Kgs",
-              "type": "obs",
-              "id": "BodWeight",
-              "questionOptions": {
-                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number",
-                "max": "250",
-                "min": "0"
-              }
-            },
-            {
-              "label": "Height in centimeters",
-              "type": "obs",
-              "id": "heiGht",
-              "questionOptions": {
-                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number",
-                "max": "270",
-                "min": "10"
-              }
-            }
-          ]
-        },
-        {
           "label": "Treatment Supported Information",
           "isExpanded": "true",
           "questions": [
@@ -243,8 +216,15 @@
               "id": "treatmentSupportedNumber",
               "questionOptions": {
                 "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text"
-              }
+                "rendering": "number"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "doesNotMatchExpression('^\\\\\\d{10}$', treatmentSupportedNumber)",
+                  "message": "Please provide the correct format for phone number eg.0711000000"
+                }
+              ]
             }
           ]
         },
@@ -256,6 +236,7 @@
               "label": "Disease classification",
               "type": "obs",
               "id": "DiSclassification",
+              "required": "true",
               "questionOptions": {
                 "concept": "160040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -362,6 +343,7 @@
               "label": "Patient Classification",
               "type": "obs",
               "id": "patientClassification",
+              "required": "true",
               "questionOptions": {
                 "concept": "159871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
