@@ -1,7 +1,7 @@
 {
   "name": "HTS Retest Form",
   "description": "Form for HTS testing services",
-  "version": "1",
+  "version": "2.0",
   "published": true,
   "uuid": "b08471f6-0892-4bf7-ab2b-bf79797b8ea4",
   "retired": false,
@@ -33,7 +33,7 @@
               "label": "HTS Provider",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-provider"
               },
               "id": "encounterProvider"
             },
@@ -41,7 +41,7 @@
               "label": "Facility name",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-location"
               },
               "id": "encounterLocation"
             }
@@ -74,7 +74,29 @@
                 ]
               },
               "id": "populationType",
-              "required": "true"
+              "required": "true",
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
+            },
+            {
+              "label": "Population Type :",
+              "type": "obs",
+              "id": "populationTypechild",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "cf543666-ce76-4e91-8b8d-c0b54a436a2e",
+                "answers": [
+                  {
+                    "concept": "5d308c8c-ad49-45e1-9885-e5d09a8e5587",
+                    "label": "General Population"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age > 15"
+              }
             },
             {
               "label": "Key and Vulnerble Population Type :",
@@ -984,6 +1006,44 @@
                       {
                         "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
                         "label": "Trinscreen"
+                      }
+                    ]
+                  },
+                  "id": "kitName",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'M'"
+                  }
+                },
+                {
+                  "label": "Kit 1 Name",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Trinscreen"
+                      }
+                    ]
+                  },
+                  "id": "kitNameFe",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age > 9)"
+                  }
+                },
+                {
+                  "label": "Kit 1 Name",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Trinscreen"
                       },
                       {
                         "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
@@ -991,10 +1051,10 @@
                       }
                     ]
                   },
-                  "id": "kitName",
+                  "id": "kitNameA",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age < 9)"
                   }
                 },
                 {
@@ -1007,7 +1067,7 @@
                   "id": "lotNumber",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
                   }
                 },
                 {
@@ -1031,7 +1091,7 @@
                   },
                   "id": "expiryDate",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
                   }
                 },
                 {
@@ -1058,7 +1118,7 @@
                   "id": "testResults",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
                   }
                 },
                 {
@@ -1411,7 +1471,7 @@
               "id": "resultsGiven",
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(hivFinalResult)"
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
               }
             },
             {
@@ -1618,12 +1678,12 @@
                 "rendering": "radio",
                 "concept": "1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "calculate": {
-                  "calculateExpression": "String(hivFinalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                  "calculateExpression": "String(hivFinalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '08657979-0a23-411d-be18-2ddceeb2f346' : ''"
                 },
                 "answers": [
                   {
-                    "concept": "162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Comprehensive care center"
+                    "concept": "08657979-0a23-411d-be18-2ddceeb2f346",
+                    "label": "Confirmatory Test"
                   }
                 ]
               },
@@ -1711,7 +1771,7 @@
             },
             {
               "type": "patientIdentifier",
-              "label": "Recency Id",
+              "label": "Recency Id (REC14130-00001)",
               "questionInfo": "",
               "id": "recencyId",
               "required": "false",
