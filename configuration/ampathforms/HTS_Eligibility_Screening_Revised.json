@@ -264,6 +264,7 @@
             {
               "label": "Please indicated the type of disability :",
               "type": "obs",
+              "id": "disaBilityTypes",
               "questionOptions": {
                 "rendering": "checkbox",
                 "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -290,7 +291,6 @@
                   }
                 ]
               },
-              "id": "disaBilityTypes",
               "hide": {
                 "hideWhenExpression": "isEmpty(DisabilityClienT) || DisabilityClienT != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
@@ -298,13 +298,13 @@
             {
               "label": "Specify",
               "type": "obs",
+              "id": "specifyOtherDisability",
               "questionOptions": {
                 "rendering": "text",
                 "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
-              "id": "specifyOtherDisability",
               "hide": {
-                "hideWhenExpression": "isEmpty(disaBilityTypes) || !arrayContins(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], disaBilityTypes) "
+                "hideWhenExpression": "isEmpty(disaBilityTypes) || !arrayContains(disaBilityTypes, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             }
           ]
@@ -407,13 +407,18 @@
                     "concept": "166606AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Social Contact",
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "166517AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Needle Sharing",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 ]
               },
               "id": "cricChild",
               "required": "true",
               "hide": {
-                "hideWhenExpression": "!(age <=9)"
+                "hideWhenExpression": "!(age <=10)"
               }
             },
             {
@@ -424,13 +429,13 @@
                 "concept": "166570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
                     "concept": "163565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Sexual Contact",
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  },
-                  {
-                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "None"
                   },
                   {
                     "concept": "166606AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -447,7 +452,7 @@
               "id": "cricAdulT",
               "required": "true",
               "hide": {
-                "hideWhenExpression": "!(age >9)"
+                "hideWhenExpression": "!(age >10)"
               }
             }
           ]
@@ -861,7 +866,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "age > 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "age > 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1556,7 +1561,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1671,7 +1676,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(screenedTB) || screenedTB !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age > 5"
+                "hideWhenExpression": "isEmpty(screenedTB) || screenedTB !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age > 10"
               }
             },
             {
