@@ -281,12 +281,13 @@
 						},
 						{
 							"label": "Time of Placement(device) or first surgical cut(conventional surgical)[time in 24 hour clock:",
-							"type": "encounterDatetime",
-							"questionOptions": {
-								"rendering": "ui-select-extended",
-								"concept": "160715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-							},
+							"type": "obs",
 							"id": "timeofPlacement",
+							"datePickerFormat": "timer",
+							"questionOptions": {
+							  "concept": "160715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "rendering": "date"
+							},
 							"validators": [
 								{
 									"type": "date",
@@ -298,22 +299,28 @@
 									"message": "Tme of placement should be greater than the encounter date."
 								}
 							]
-						},
-						{
+						  },
+						  {
 							"label": "Time of making the last slit(device) or time of wound closure (conventional surgical)[time in 24 hour clock:",
-							"type": "encounterDatetime",
-							"questionOptions": {
-								"rendering": "ui-select-extended",
-								"concept": "167132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-							},
+							"type": "obs",
 							"id": "timeofSlit",
+							"datePickerFormat": "timer",
+							"questionOptions": {
+							  "concept": "167132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+							  "rendering": "date"
+							},
 							"validators": [
 								{
 									"type": "date",
 									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+									"message": "Tme of making the last slit should be greater than the encounter date."
 								}
 							]
-						}
+						  }
 					]
 				},
 				{
