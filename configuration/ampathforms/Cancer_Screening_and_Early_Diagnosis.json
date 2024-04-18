@@ -36,7 +36,7 @@
               "label": "Provider:",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-provider"
               },
               "id": "encProvider "
             },
@@ -44,7 +44,7 @@
               "label": "Location:",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-location"
               },
               "id": "encLocation"
             }
@@ -89,7 +89,7 @@
                 "max": "500"
               },
               "hide": {
-                "hideWhenExpression": "sMokingStatus === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "sMokingStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && sMokingStatus !== '158939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -103,7 +103,7 @@
                 "max": "500"
               },
               "hide": {
-                "hideWhenExpression": "sMokingStatus === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "sMokingStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && sMokingStatus !== '158939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -118,7 +118,7 @@
                 }
               },
               "hide": {
-                "hideWhenExpression": "sMokingStatus === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "sMokingStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && sMokingStatus !== '158939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -438,7 +438,7 @@
                 "rendering": "text"
               },
               "hide": {
-                "hideWhenExpression": "!arrayContains(symptomsSignsFemale, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                "hideWhenExpression": "isEmpty(symptomsSignsFemale) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], symptomsSignsFemale)"
               }
             },
             {
@@ -544,7 +544,7 @@
                 "rendering": "text"
               },
               "hide": {
-                "hideWhenExpression": "!arrayContains(symptomsSignsMale, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                "hideWhenExpression": "isEmpty(symptomsSignsMale) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], symptomsSignsMale)"
               }
             }
           ]
@@ -640,9 +640,6 @@
                     "label": "Oral cancer"
                   }
                 ]
-              },
-              "hide": {
-                "hideWhenExpression": "sex !== 'F' "
               }
             },
             {
@@ -652,7 +649,7 @@
               "required": "true",
               "questionOptions": {
                 "concept": "116030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "checkbox",
+                "rendering": "Checkbox",
                 "answers": [
                   {
                     "concept": "116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -677,7 +674,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "sex !== 'M' "
+                "hideWhenExpression": "sex !== 'M' || age < 15"
               }
             },
             {
@@ -690,7 +687,7 @@
               },
               "validator": [],
               "hide": {
-                "hideWhenExpression": "sex !== 'F'  ||  sex ==='F' && (age < 10)"
+                "hideExpressionWhen": "sex !== 'F' || age < 15"
               },
               "questions": [
                 {
@@ -734,7 +731,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(hpvScreening_method)"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -743,7 +740,7 @@
                   "id": "actionCACX",
                   "questionOptions": {
                     "concept": "bfe0cbb2-eea0-4431-a5c5-d0f49a4ed21b",
-                    "rendering": "checkbox",
+                    "rendering": "multiCheckbox",
                     "answers": [
                       {
                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -837,7 +834,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(viAScreeningMethod)"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1069,7 +1066,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(papScreeningMethod)"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1078,7 +1075,7 @@
                   "id": "cACXPapSMear",
                   "questionOptions": {
                     "concept": "166663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "checkbox",
+                    "rendering": "multiCheckbox",
                     "answers": [
                       {
                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1100,7 +1097,7 @@
                   "id": "papReferrals",
                   "questionOptions": {
                     "concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "radio",
+                    "rendering": "select",
                     "answers": [
                       {
                         "concept": "160705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1113,7 +1110,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(papsmearResponses, '145808AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(papsmearResponses, '145805AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(papsmearResponses, '155424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(papsmearResponses, '145822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(papsmearResponses, '155208AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "isEmpty(papsmearResponses)"
                   }
                 }
               ]
@@ -1167,7 +1164,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(screeninGmeThod)"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1176,10 +1173,10 @@
                   "id": "cACXColposCopy",
                   "questionOptions": {
                     "concept": "bfe0cbb2-eea0-4431-a5c5-d0f49a4ed21b",
-                    "rendering": "checkbox",
+                    "rendering": "multiCheckbox",
                     "answers": [
                       {
-                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Counseled on negative results"
                       },
                       {
@@ -1187,7 +1184,7 @@
                         "label": "Re-screen after 5 years"
                       },
                       {
-                        "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Re-screening after 2 years"
                       }
                     ]
@@ -1331,13 +1328,9 @@
             {
               "label": "Breast",
               "type": "obsGroup",
-              "id": "breastScrn",
               "questionOptions": {
                 "concept": "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "group"
-              },
-              "hide": {
-                "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               },
               "questions": [
                 {
@@ -1351,11 +1344,19 @@
                       {
                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Clinical Breast Examination(CBE)"
+                      },
+                      {
+                        "concept": "3cb64490-aa67-4d23-b7d2-fb29b5b894da",
+                        "label": "Ultrasound"
+                      },
+                      {
+                        "concept": "163591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Mammogram"
                       }
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1377,7 +1378,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(breastScreeningMethod)"
+                    "hideWhenExpression": "isEmpty(breastScreeningMethod) || !arrayContains(breastScreeningMethod, '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1395,7 +1396,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(cbeQuetionOptions, '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(['1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], cbeQuetionOptions)"
                   }
                 },
                 {
@@ -1413,25 +1414,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(cbeQuetionOptions, '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-                  }
-                },
-                {
-                  "label": "Screening Test",
-                  "type": "obs",
-                  "id": "ultrascreeningMethod",
-                  "questionOptions": {
-                    "concept": "7d1bd60b-bc97-4194-8688-727360199492",
-                    "rendering": "checkbox",
-                    "answers": [
-                      {
-                        "concept": "3cb64490-aa67-4d23-b7d2-fb29b5b894da",
-                        "label": "Ultrasound"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(['1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], cbeQuetionOptions)"
                   }
                 },
                 {
@@ -1447,10 +1430,6 @@
                         "label": "BIRADS 0(Incomplete Need additional imaging evaluation)"
                       },
                       {
-                        "concept": "deec6439-884f-4921-b9d3-cfa77666d6e6",
-                        "label": "BIRADS 4(Suspicious)"
-                      },
-                      {
                         "concept": "935ed682-1f42-405b-9f88-e0c47dcd519e",
                         "label": "BIRADS 1(Negative)"
                       },
@@ -1463,17 +1442,21 @@
                         "label": "BIRADS 3(Probably Benign)"
                       },
                       {
-                        "concept": "89683205-f2c6-45e7-824d-9db0a29ca6c8",
-                        "label": "BIRADS 6(Known Biopsy-Proven Malignancy)"
+                        "concept": "deec6439-884f-4921-b9d3-cfa77666d6e6",
+                        "label": "BIRADS 4(Suspicious)"
                       },
                       {
                         "concept": "fbfd99cf-2be1-403d-b8c3-15b686d5cc78",
                         "label": "BIRADS 5(Highly Suggestive of Malignancy)"
+                      },
+                      {
+                        "concept": "89683205-f2c6-45e7-824d-9db0a29ca6c8",
+                        "label": "BIRADS 6(Known Biopsy-Proven Malignancy)"
                       }
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(ultrascreeningMethod)"
+                    "hideWhenExpression": "isEmpty(breastScreeningMethod) || !arrayContains(breastScreeningMethod, '3cb64490-aa67-4d23-b7d2-fb29b5b894da')"
                   }
                 },
                 {
@@ -1491,7 +1474,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "ultraSoundFindings !== 'e799649c-6508-4660-9d9d-4df3449df20e' || ultraSoundFindings !== '935ed682-1f42-405b-9f88-e0c47dcd519e'"
+                    "hideWhenExpression": "ultraSoundFindings !== 'e799649c-6508-4660-9d9d-4df3449df20e' && ultraSoundFindings !== '935ed682-1f42-405b-9f88-e0c47dcd519e'"
                   }
                 },
                 {
@@ -1545,7 +1528,29 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "ultraSoundFindings !== 'deec6439-884f-4921-b9d3-cfa77666d6e6' || ultraSoundFindings !== 'fbfd99cf-2be1-403d-b8c3-15b686d5cc78'"
+                    "hideWhenExpression": "ultraSoundFindings !== 'deec6439-884f-4921-b9d3-cfa77666d6e6' && ultraSoundFindings !== 'fbfd99cf-2be1-403d-b8c3-15b686d5cc78'"
+                  }
+                },
+                {
+                  "label": "Action",
+                  "type": "obs",
+                  "id": "TissueDiagnosis",
+                  "questionOptions": {
+                    "concept": "0054aae2-d945-47fd-8fba-8b515e780f41",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Done"
+                      },
+                      {
+                        "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Not Done"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(BreastC)"
                   }
                 },
                 {
@@ -1581,7 +1586,7 @@
                     }
                   ],
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(cbeQuetionOptions, '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "isEmpty(TissueDiagnosis) || !arrayContains(['1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], TissueDiagnosis)"
                   }
                 },
                 {
@@ -1593,7 +1598,7 @@
                     "rendering": "text"
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(cbeQuetionOptions, '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "isEmpty(TissueDiagnosis) || !arrayContains(['1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], TissueDiagnosis)"
                   }
                 },
                 {
@@ -1613,6 +1618,138 @@
                   "hide": {
                     "hideWhenExpression": "ultraSoundFindings !== '89683205-f2c6-45e7-824d-9db0a29ca6c8'"
                   }
+                },
+                {
+                  "label": "Findings",
+                  "type": "obs",
+                  "id": "mammogramFindings",
+                  "questionOptions": {
+                    "concept": "166664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "e799649c-6508-4660-9d9d-4df3449df20e",
+                        "label": "BIRADS 0(Incomplete Need additional imaging evaluation)"
+                      },
+                      {
+                        "concept": "935ed682-1f42-405b-9f88-e0c47dcd519e",
+                        "label": "BIRADS 1(Negative)"
+                      },
+                      {
+                        "concept": "8cc5d428-0bfd-41f0-a7fb-a239aadadb0d",
+                        "label": "BIRADS 2(Benign)"
+                      },
+                      {
+                        "concept": "2ab46b88-b87a-4321-839f-b1351410335d",
+                        "label": "BIRADS 3(Probably Benign)"
+                      },
+                      {
+                        "concept": "deec6439-884f-4921-b9d3-cfa77666d6e6",
+                        "label": "BIRADS 4(Suspicious)"
+                      },
+                      {
+                        "concept": "fbfd99cf-2be1-403d-b8c3-15b686d5cc78",
+                        "label": "BIRADS 5(Highly Suggestive of Malignancy)"
+                      },
+                      {
+                        "concept": "89683205-f2c6-45e7-824d-9db0a29ca6c8",
+                        "label": "BIRADS 6(Known Biopsy-Proven Malignancy)"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(breastScreeningMethod) || !arrayContains(breastScreeningMethod, '163591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  }
+                },
+                {
+                  "label": "Treatment/Action",
+                  "type": "obs",
+                  "id": "ultraSoundAction",
+                  "questionOptions": {
+                    "concept": "89875192-b834-4525-a021-e67c24e661f2",
+                    "rendering": "checkbox",
+                    "answers": [
+                      {
+                        "concept": "1609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Recall for additional imaging"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "mammogramFindings !== 'e799649c-6508-4660-9d9d-4df3449df20e'"
+                  }
+                },
+                {
+                  "label": "Treatment/Action",
+                  "type": "obs",
+                  "id": "ultraSoundA",
+                  "questionOptions": {
+                    "concept": "89875192-b834-4525-a021-e67c24e661f2",
+                    "rendering": "checkbox",
+                    "answers": [
+                      {
+                        "concept": "432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Routine Ultra Sound screening"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "mammogramFindings !== '935ed682-1f42-405b-9f88-e0c47dcd519e' && mammogramFindings !== '8cc5d428-0bfd-41f0-a7fb-a239aadadb0d'"
+                  }
+                },
+                {
+                  "label": "Treatment/Action",
+                  "type": "obs",
+                  "id": "ultraSoundB",
+                  "questionOptions": {
+                    "concept": "89875192-b834-4525-a021-e67c24e661f2",
+                    "rendering": "checkbox",
+                    "answers": [
+                      {
+                        "concept": "164080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Short-interval(6 months) follow-up"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "mammogramFindings !== '2ab46b88-b87a-4321-839f-b1351410335d'"
+                  }
+                },
+                {
+                  "label": "Treatment/Action",
+                  "type": "obs",
+                  "id": "ultraSoundC",
+                  "questionOptions": {
+                    "concept": "89875192-b834-4525-a021-e67c24e661f2",
+                    "rendering": "checkbox",
+                    "answers": [
+                      {
+                        "concept": "136785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Tissue Diagnosis(U/S guided biopsy)"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "mammogramFindings !== 'deec6439-884f-4921-b9d3-cfa77666d6e6' && mammogramFindings !== 'fbfd99cf-2be1-403d-b8c3-15b686d5cc78'"
+                  }
+                },
+                {
+                  "label": "Treatment/Action",
+                  "type": "obs",
+                  "id": "ultraSoundE",
+                  "questionOptions": {
+                    "concept": "89875192-b834-4525-a021-e67c24e661f2",
+                    "rendering": "checkbox",
+                    "answers": [
+                      {
+                        "concept": "159619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Surgical excision when clinically appropriate)"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "mammogramFindings !== '89683205-f2c6-45e7-824d-9db0a29ca6c8'"
+                  }
                 }
               ]
             },
@@ -1625,12 +1762,12 @@
               },
               "questions": [
                 {
-                  "label": "Screening Test",
+                  "label": "",
                   "type": "obs",
                   "id": "colerectalaCncerType",
                   "questionOptions": {
                     "concept": "b61c1482-1697-404c-ab96-fd698d5fd317",
-                    "rendering": "checkbox",
+                    "rendering": "select",
                     "answers": [
                       {
                         "concept": "159362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1639,7 +1776,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "isEmpty(caCXMale) || !arrayContains(caCXMale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || isEmpty(canCerTyPEFemale) || !arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
                   }
                 },
                 {
@@ -1661,7 +1798,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(colerectalaCncerType)"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1715,7 +1852,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1749,7 +1886,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(colerectalCancerType)"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1803,7 +1940,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(colonoscopyFindings, '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(colonoscopyFindings, '118606AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "colonoscopyFindings !== '133350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || colonoscopyFindings !== '118606AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1835,7 +1972,7 @@
               },
               "questions": [
                 {
-                  "label": "Screening Test",
+                  "label": "",
                   "type": "obs",
                   "id": "retinoblastomaCancerType",
                   "questionOptions": {
@@ -1849,7 +1986,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1871,7 +2008,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(retinoblastomaCancerType)"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -1916,7 +2053,7 @@
                   "id": "retinoblastomCancerType",
                   "questionOptions": {
                     "concept": "163589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "checkbox",
+                    "rendering": "select",
                     "answers": [
                       {
                         "concept": "2d6104a0-b21c-4f2f-ab9b-759611714f18",
@@ -1925,7 +2062,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "isEmpty(caCXMale) || !arrayContains(caCXMale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || isEmpty(canCerTyPEFemale) || !arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
                   }
                 },
                 {
@@ -1947,7 +2084,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(retinoblastomCancerType)"
+                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '127527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -2019,7 +2156,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(caCXMale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "isEmpty(caCXMale) || !arrayContains(caCXMale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -2085,7 +2222,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(caCXMale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "isEmpty(caCXMale) || !arrayContains(caCXMale, '146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                   }
                 },
                 {
@@ -2171,7 +2308,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "isEmpty(caCXMale) || !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || isEmpty(canCerTyPEFemale) || !arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
                   }
                 },
                 {
@@ -2180,7 +2317,7 @@
                   "id": "VisuALTX",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "checkbox",
+                    "rendering": "multiCheckbox",
                     "answers": [
                       {
                         "concept": "f056993d-5726-4553-8625-295a1abb5a13",
@@ -2198,7 +2335,7 @@
                   "id": "VisuALTXb",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "checkbox",
+                    "rendering": "multiCheckbox",
                     "answers": [
                       {
                         "concept": "8cba5f27-830a-4c87-8be1-6fd8a8ed228a",
@@ -2211,61 +2348,25 @@
                   }
                 },
                 {
-                  "label": "Cytology Findings",
+                  "label": "Cytology",
                   "type": "obs",
                   "id": "cTyolOGY",
                   "questionOptions": {
                     "concept": "4131126a-0692-4ea4-b4ad-f3c87ca169fd",
-                    "rendering": "radio",
-                    "answers": [
-                      {
-                        "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-                  }
-                },
-                {
-                  "label": "Treatment Actions",
-                  "type": "obs",
-                  "id": "cytoAction",
-                  "questionOptions": {
-                    "concept": "4131126a-0692-4ea4-b4ad-f3c87ca169fd",
-                    "rendering": "radio",
+                    "rendering": "multiCheckbox",
                     "answers": [
                       {
                         "concept": "f056993d-5726-4553-8625-295a1abb5a13",
                         "label": "Counseled on normal findings"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "cTyolOGY !== '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  }
-                },
-                {
-                  "label": "Treatment Actions",
-                  "type": "obs",
-                  "id": "cytologyPosAction",
-                  "questionOptions": {
-                    "concept": "4131126a-0692-4ea4-b4ad-f3c87ca169fd",
-                    "rendering": "radio",
-                    "answers": [
+                      },
                       {
-                        "concept": "f056993d-5726-4553-8625-295a1abb5a13",
-                        "label": "Refer for further evaluation"
+                        "concept": "8cba5f27-830a-4c87-8be1-6fd8a8ed228a",
+                        "label": "Referred for further evaluation"
                       }
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "cTyolOGY !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(caCXMale) || !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || isEmpty(canCerTyPEFemale) || !arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
                   }
                 },
                 {
@@ -2287,7 +2388,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "isEmpty(caCXMale) || !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || isEmpty(canCerTyPEFemale) || !arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
                   }
                 },
                 {
@@ -2296,7 +2397,7 @@
                   "id": "imagETX",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "checkbox",
+                    "rendering": "multiCheckbox",
                     "answers": [
                       {
                         "concept": "f056993d-5726-4553-8625-295a1abb5a13",
@@ -2314,7 +2415,7 @@
                   "id": "imaGeeTXb",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "checkbox",
+                    "rendering": "multiCheckbox",
                     "answers": [
                       {
                         "concept": "8cba5f27-830a-4c87-8be1-6fd8a8ed228a",
@@ -2345,7 +2446,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "!arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') && !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    "hideWhenExpression": "isEmpty(caCXMale) || !arrayContains(caCXMale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || isEmpty(canCerTyPEFemale) || !arrayContains(canCerTyPEFemale, '115355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') "
                   }
                 },
                 {
@@ -2354,7 +2455,7 @@
                   "id": "biOPsYTX",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "checkbox",
+                    "rendering": "multiCheckbox",
                     "answers": [
                       {
                         "concept": "f056993d-5726-4553-8625-295a1abb5a13",
@@ -2372,7 +2473,7 @@
                   "id": "biOpSYTXb",
                   "questionOptions": {
                     "concept": "176f881b-1da0-4ec4-a463-90523b2252d4",
-                    "rendering": "checkbox",
+                    "rendering": "multiCheckbox",
                     "answers": [
                       {
                         "concept": "8cba5f27-830a-4c87-8be1-6fd8a8ed228a",
@@ -2442,6 +2543,52 @@
                         "label": "No"
                       }
                     ]
+                  }
+                },
+                {
+                  "label": "Referred out to?",
+                  "type": "obs",
+                  "id": "referralTo",
+                  "questionOptions": {
+                    "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Kenya"
+                      },
+                      {
+                        "concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Outside Kenya"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "refErRed !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Referred out to:",
+                  "type": "obs",
+                  "id": "transferToFacility",
+                  "questionOptions": {
+                    "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "encounterLocation"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Referred out to Facility Name:",
+                  "type": "obs",
+                  "id": "thisfacility",
+                  "questionOptions": {
+                    "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "referralTo !=='163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
