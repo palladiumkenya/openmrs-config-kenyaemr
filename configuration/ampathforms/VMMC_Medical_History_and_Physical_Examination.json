@@ -201,21 +201,27 @@
                   }
                 },
                 {
-                  "label": "Date of next appointment:",
-                  "type": "obs",
-                  "id": "patientTcaDate",
+                  "label": "Next review date:",
+                  "required": "true",
+                  "id": "appointmentWorkspaceLauncher",
                   "questionOptions": {
-                    "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "date"
+                    "rendering": "workspace-launcher",
+                    "buttonLabel": "Add appointments",
+                    "workspaceName": "appointments-form-workspace"
                   },
                   "validators": [
                     {
                       "type": "date",
                       "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Next Appointment should be greater than the encounter date."
                     }
                   ],
                   "hide": {
-                    "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "patientHivStatus !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -258,7 +264,10 @@
                   "id": "thisFacility",
                   "questionOptions": {
                     "concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "ui-select-extended"
+                    "rendering": "text",
+                    "calculate": {
+                      "calculateExpression": "facilityConfirmed === '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && userLocation.display"
+                    }
                   },
                   "hide": {
                     "hideWhenExpression": "careFacility !== '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -412,6 +421,7 @@
                   "label": "Patient CD4",
                   "type": "obs",
                   "id": "cd4",
+                  "historicalExpression": "HD.getObject('prevEnc').getValue('5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
                   "questionOptions": {
                     "concept": "5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "number"
@@ -1029,9 +1039,14 @@
                   "label": "Systolic BP (mmHg)",
                   "type": "obs",
                   "id": "systolicBP",
+                  "historicalExpression": "HD.getObject('prevEnc').getValue('5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
                   "questionOptions": {
                     "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "number"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue && (myValue >= 130.5 || myValue < 119.5)",
+                    "message": "Systolic is out of range (Normal range 120-130)"
                   },
                   "hide": {
                     "hideWhenExpression": "consentGiven !== 'true' && assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -1041,9 +1056,14 @@
                   "label": "Diastolic BP (mmHg)",
                   "type": "obs",
                   "id": "diastolicBP",
+                  "historicalExpression": "HD.getObject('prevEnc').getValue('5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
                   "questionOptions": {
                     "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "number"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue && (myValue >= 85.5 || myValue < 79.5)",
+                    "message": "Diastolic is out of range (Normal range 80-85)"
                   },
                   "hide": {
                     "hideWhenExpression": "consentGiven !== 'true' && assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -1053,9 +1073,14 @@
                   "label": "Pulse Rate",
                   "type": "obs",
                   "id": "pulsRate",
+                  "historicalExpression": "HD.getObject('prevEnc').getValue('5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
                   "questionOptions": {
                     "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "number"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue && (myValue >= 100.5 || myValue < 59.5)",
+                    "message": "Pulse Rate is out of range (Normal range 60-100)"
                   },
                   "hide": {
                     "hideWhenExpression": "consentGiven !== 'true' && assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -1065,9 +1090,14 @@
                   "label": " Temperature (C)",
                   "type": "obs",
                   "id": "temperature",
+                  "historicalExpression": "HD.getObject('prevEnc').getValue('5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
                   "questionOptions": {
                     "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "number"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue && (myValue >= 37.5 || myValue < 35)",
+                    "message": "Temperature is out of range (Normal range 35-37)"
                   },
                   "hide": {
                     "hideWhenExpression": "consentGiven !== 'true' && assentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
