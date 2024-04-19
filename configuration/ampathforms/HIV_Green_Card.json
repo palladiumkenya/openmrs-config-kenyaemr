@@ -997,7 +997,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age > || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
                   }
                 },
                 {
@@ -4240,9 +4240,33 @@
           "isExpanded": "true",
           "questions": [
             {
+              "label": "Please select the client status on ART:",
+              "type": "obs",
+              "id": "CliesTatusonART",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1687AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Newly on ART",
+                    "concept": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Continuing on ART",
+                    "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
               "label": "1. Do you ever forget to take your medicine?",
               "type": "control",
               "id": "forget",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4259,13 +4283,14 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "2. Are you careless at times about taking your medicine?",
               "type": "control",
               "id": "carelessAtTimes",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4282,13 +4307,14 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "3.Sometimes if you feel worse when you take the medicine, do you stop taking it?",
               "type": "control",
               "id": "feelWorse",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4305,13 +4331,14 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "4.When you feel better do you sometimes stop taking your medicine?",
               "type": "control",
               "id": "feelBetter",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4328,7 +4355,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -4819,7 +4846,6 @@
             },
             {
               "label": "Return Visit Date:",
-              "required": "true",
               "id": "appointmentWorkspaceLauncher",
               "questionOptions": {
                 "rendering": "workspace-launcher",
