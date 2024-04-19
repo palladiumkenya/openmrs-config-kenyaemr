@@ -53,7 +53,7 @@ echo
 sudo service tomcat9 stop
 
 echo "========= Upgrading Concept Dictionary to the latest"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/dictionary/kenyaemr_FW_concepts_dump-2024-03-25.sql"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/dictionary/kenyaemr_FW_concepts_dump-2024-04-20.sql"
 echo
 
 if [ "$?" -gt 0 ]; then
@@ -72,10 +72,14 @@ echo "========= Deleting liquibase entries for ML modules updates========"
 mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemr-ML%';"
 echo
 
-
 echo "========= Deleting liquibase entries for IL  updates"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM openmrs.liquibasechangelog where id like '%kenyaemrIL%';"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemr-ML%';"
 echo "========= Deleting liquibase entries for IL done"
+
+
+echo "========= Updating machine and IIT risk score threshold ========"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/global_properties/global_properties.sql"
+echo "========= Done updating machine and IIT risk score threshold"
 
 echo '=======================================================================
                 mysql operations done !!
