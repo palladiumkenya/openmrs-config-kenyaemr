@@ -33,7 +33,7 @@
               "label": "HTS Provider",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-provider"
               },
               "id": "encounterProvider"
             },
@@ -41,7 +41,7 @@
               "label": "Facility name",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-location"
               },
               "id": "encounterLocation"
             }
@@ -410,7 +410,7 @@
               "questionOptions": {
                 "rendering": "number",
                 "concept": "159813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "max": "",
+                "max": "250",
                 "min": "0",
                 "showDate": "",
                 "conceptMappings": [
@@ -425,7 +425,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "everTested === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(everTested) || everTested === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -554,7 +554,7 @@
               },
               "id": "willingToShareResults",
               "hide": {
-                "hideWhenExpression": "isEmpty(selfTestLastTwelveMonths) || selfTestLastTwelveMonths != '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(selfTestLastTwelveMonths) || selfTestLastTwelveMonths !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -646,8 +646,7 @@
                   }
                 ]
               },
-              "id": "htsApproach",
-              "required": "true"
+              "id": "htsApproach"
             }
           ]
         },
@@ -697,6 +696,7 @@
             {
               "label": "Indicate HTS strategy used:",
               "type": "obs",
+              "required": "true",
               "questionOptions": {
                 "rendering": "select",
                 "concept": "d85ff219-0f5a-408d-8df0-96bcc9be5071",
@@ -999,13 +999,13 @@
               }
             },
             {
-              "label": "HIV Test One",
+              "label": "HIV Test(s)",
               "type": "obsGroup",
               "questionOptions": {
                 "rendering": "group",
                 "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
-              "id": "hivTestOne",
+              "id": "hivTest",
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
@@ -1023,10 +1023,6 @@
                         "label": "Determine"
                       },
                       {
-                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
-                        "label": "First Response"
-                      },
-                      {
                         "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
                         "label": "Dual Kit"
                       }
@@ -1035,7 +1031,7 @@
                   "id": "kitName",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1054,29 +1050,24 @@
                 {
                   "label": "Expiry Date",
                   "type": "obs",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    }
+                  ],
                   "questionOptions": {
                     "rendering": "date",
                     "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "weeksList": ""
                   },
                   "id": "expiryDate",
-                  "validators": [
-                    {
-                      "type": "date",
-                      "allowFutureDates": "true"
-                    },
-                    {
-                      "type": "js_expression",
-                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
-                      "message": "The Expiry date should be in the future."
-                    }
-                  ],
                   "hide": {
                     "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
                   }
                 },
                 {
-                  "label": "HIV Test 1 Results:",
+                  "label": "HIV Test  Results:",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -1103,43 +1094,6 @@
                   }
                 },
                 {
-                  "label": "Syphillis Results",
-                  "type": "obs",
-                  "questionOptions": {
-                    "rendering": "select",
-                    "concept": "163276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "answers": [
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
-                      }
-                    ]
-                  },
-                  "id": "syPhResulTs",
-                  "hide": {
-                    "hideWhenExpression": "kitName !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
-                  }
-                }
-              ]
-            },
-            {
-              "label": "HIV Test Two",
-              "type": "obsGroup",
-              "questionOptions": {
-                "rendering": "group",
-                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-              },
-              "id": "hivTestTwo",
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
-              },
-              "questions": [
-                {
                   "label": "Kit Name",
                   "type": "obs",
                   "questionOptions": {
@@ -1149,13 +1103,17 @@
                       {
                         "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
                         "label": "First Response"
+                      },
+                      {
+                        "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
+                        "label": "Dual Kit"
                       }
                     ]
                   },
                   "id": "kitNameB",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResults) || testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1168,39 +1126,34 @@
                   "id": "lotNumberB",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResults) || testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
                   "label": "Expiry Date",
                   "type": "obs",
-                  "questionOptions": {
-                    "rendering": "date",
-                    "concept": "162501AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "weeksList": ""
-                  },
-                  "id": "expiryDateB",
                   "validators": [
                     {
                       "type": "date",
                       "allowFutureDates": "true"
-                    },
-                    {
-                      "type": "js_expression",
-                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
-                      "message": "The Expiry date should be in the future."
                     }
                   ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateB",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResults) || testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
-                  "label": "HIV Test 2 Results:",
+                  "label": "HIV Test  Results:",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
-                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "answers": [
                       {
                         "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1219,7 +1172,7 @@
                   "id": "testResultsB",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResults) || testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ]
@@ -1248,7 +1201,7 @@
                   }
                 ]
               },
-              "id": "finalResult",
+              "id": "hivFinalResult",
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
@@ -1257,6 +1210,7 @@
             {
               "label": "Results given to client?",
               "type": "obs",
+              "required": "true",
               "questionOptions": {
                 "rendering": "select",
                 "concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1316,7 +1270,6 @@
                 ]
               },
               "id": "resultsGiven",
-              "required": "true",
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
@@ -1342,6 +1295,11 @@
                   }
                 ],
                 "answers": [
+                  {
+                    "concept": "c3eba392-6f4d-4990-809f-91000503afbc",
+                    "label": "Couple",
+                    "disableWhenExpression": "myValue === '1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes",
@@ -1429,9 +1387,9 @@
                   }
                 ]
               },
-              "id": "clientReferred",
+              "id": "ClieNtReferrEd",
               "hide": {
-                "hideWhenExpression": "isEmpty(testResults) || testResults !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  || testResults === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  "
+                "hideWhenExpression": "isEmpty(hivFinalResult)"
               }
             },
             {
@@ -1497,7 +1455,7 @@
                   },
                   "id": "refeRRalSerVicEs",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(clientReferred) || clientReferred !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(ClieNtReferrEd) || ClieNtReferrEd !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hivFinalResult !=='664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ]
@@ -1505,7 +1463,7 @@
             {
               "label": "Specify Referral",
               "type": "obs",
-              "id": "speCrEferRed",
+              "id": "SpeCrEferRed",
               "questionOptions": {
                 "rendering": "textbox",
                 "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -1521,26 +1479,18 @@
                 "rendering": "radio",
                 "concept": "1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "calculate": {
-                  "calculateExpression": "String(finalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(finalResult) === '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '167441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : '08657979-0a23-411d-be18-2ddceeb2f346'"
+                  "calculateExpression": "String(hivFinalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '08657979-0a23-411d-be18-2ddceeb2f346' : ''"
                 },
                 "answers": [
                   {
                     "concept": "08657979-0a23-411d-be18-2ddceeb2f346",
                     "label": "Confirmatory Test"
-                  },
-                  {
-                    "concept": "162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Comprehensive care center"
-                  },
-                  {
-                    "concept": "167441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "DBS for PCR"
                   }
                 ]
               },
-              "id": "referredForCare",
+              "id": "ReferredForCare",
               "hide": {
-                "hideWhenExpression": "isEmpty(testResults) || isEmpty(testResultsB) || testResults === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults !== '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(ClieNtReferrEd) || ClieNtReferrEd !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hivFinalResult !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1560,13 +1510,13 @@
                   }
                 ]
               },
-              "id": "referredToCare",
+              "id": "ReferredToCare",
               "hide": {
-                "hideWhenExpression": "isEmpty(testResults) || isEmpty(testResultsB) || testResults === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults !== '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsB === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
-              "label": "Facility name :",
+              "label": "Other Facility name :",
               "type": "obs",
               "id": "otherFacility",
               "questionOptions": {
@@ -1574,7 +1524,22 @@
                 "rendering": "text"
               },
               "hide": {
-                "hideWhenExpression": "referredToCare !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "ReferredToCare !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "This Facility:",
+              "type": "obs",
+              "id": "thisfacility",
+              "questionOptions": {
+                "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text",
+                "calculate": {
+                  "calculateExpression": "ReferredToCare === '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && userLocation.display"
+                }
+              },
+              "hide": {
+                "hideWhenExpression": "ReferredToCare !== '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -1602,12 +1567,12 @@
               },
               "id": "recencyScreening",
               "hide": {
-                "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "type": "patientIdentifier",
-              "label": "Recency Id",
+              "label": "Recency Id (REC14130-00001)",
               "questionInfo": "",
               "id": "recencyId",
               "required": "false",
@@ -1624,7 +1589,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "isEmpty(finalResult) || finalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(recencyScreening) || recencyScreening === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(recencyScreening) || recencyScreening === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
               }
             }
           ]

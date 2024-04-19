@@ -1,0 +1,1917 @@
+{
+    "name": "NCD Follow Up",
+    "pages": [
+      {
+        "label": "Visit Details",
+        "sections": [
+          {
+            "label": "Status of patient",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Visit date",
+                "type": "encounterDatetime",
+                "required": true,
+                "id": "encounterDate",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "163137"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "364713004"
+                    }
+                  ],
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Type of visit",
+                "type": "obs",
+                "required": true,
+                "id": "visitType",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "164181"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Unscheduled"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Sick"
+                    },
+                    {
+                      "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Scheduled"
+                    }
+                  ]
+                },
+                "validators": []
+              }
+            ]
+          },
+          {
+            "label": "Patient Medical cover",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Patient insurance cover",
+                "type": "obs",
+                "required": false,
+                "id": "patientInsurance",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "159356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "159356"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "302148006"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "National Health Insurance Fund Member"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other"
+                    },
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "NHIF Number",
+                "type": "obs",
+                "required": false,
+                "id": "nhifNumber",
+                "questionOptions": {
+                  "rendering": "number",
+                  "concept": "1917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "1917"
+                    }
+                  ],
+                  "answers": []
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(patientInsurance) || patientInsurance != '1917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Specify other insurance",
+                "type": "obs",
+                "required": true,
+                "id": "specifyInsurance",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "160632"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "1915"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "LOINC",
+                      "value": "48767-8"
+                    }
+                  ],
+                  "answers": []
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(patientInsurance) || patientInsurance != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Insurance status",
+                "type": "obs",
+                "required": true,
+                "id": "insuranceStatus",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "165911AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [],
+                  "answers": [
+                    {
+                      "concept": "161636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Active"
+                    },
+                    {
+                      "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Inactive"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(patientInsurance) || patientInsurance === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "History",
+        "sections": [
+          {
+            "label": "Current lifestyle",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Tobacco use",
+                "type": "obs",
+                "required": true,
+                "id": "useTobacco",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "152722"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "3BT",
+                      "value": "10096379"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "PIH",
+                      "value": "1551"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "IMO ProblemIT",
+                      "value": "603399"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "ICD-10-WHO",
+                      "value": "F17.1"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED CT",
+                      "value": "77176002"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "ICPC2",
+                      "value": "A23"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "PIH",
+                      "value": "2239"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "PIH Malawi",
+                      "value": "3339"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    },
+                    {
+                      "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stopped"
+                    },
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Drink alcohol",
+                "type": "obs",
+                "required": true,
+                "id": "alcoholDrink",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "159449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "PIH",
+                      "value": "1552"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED MVP",
+                      "value": "1594491000105002"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "228273003"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "159449"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "159450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "159452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stopped"
+                    },
+                    {
+                      "concept": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Adequate physical activity",
+                "type": "obs",
+                "required": true,
+                "id": "physicalActivity",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "355970d3-b6d6-4695-a99b-a222119fd5b4",
+                  "conceptMappings": [],
+                  "answers": [
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    },
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Healthy diet",
+                "type": "obs",
+                "required": true,
+                "id": "dietHealthy",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "5715ed44-696f-4ace-b7d1-7da0d5846d95",
+                  "conceptMappings": [],
+                  "answers": [
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    },
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    }
+                  ]
+                },
+                "validators": []
+              }
+            ]
+          },
+          {
+            "label": "Complications",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Patient having complications?",
+                "type": "obs",
+                "required": true,
+                "id": "havingComplications",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "6042"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "439401001"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED MVP",
+                      "value": "60421000105005"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "6042"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Which complications?",
+                "type": "obs",
+                "required": true,
+                "id": "specifyComplications",
+                "questionOptions": {
+                  "rendering": "multiCheckbox",
+                  "concept": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "6042"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "439401001"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED MVP",
+                      "value": "60421000105005"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "6042"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stroke"
+                    },
+                    {
+                      "concept": "159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Visual impairment"
+                    },
+                    {
+                      "concept": "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Heart failure"
+                    },
+                    {
+                      "concept": "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Foot ulcers/deformity"
+                    },
+                    {
+                      "concept": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Renal disease"
+                    },
+                    {
+                      "concept": "116123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Erectile dysfunction"
+                    },
+                    {
+                      "concept": "118983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Peripheral Neuropathy"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(havingComplications) || havingComplications != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Specify",
+                "type": "obs",
+                "required": false,
+                "id": "specifFyOther",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "161011"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "LOINC",
+                      "value": "48767-8"
+                    }
+                  ],
+                  "answers": []
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(specifyComplications) || specifyComplications != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Examination",
+        "sections": [
+          {
+            "label": "Physical examination",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "General examination findings:",
+                "type": "obs",
+                "required": true,
+                "id": "genExamFindings",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "CIEL",
+                      "value": "167092"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED CT",
+                      "value": "363791007"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "PIH",
+                      "value": "14126"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Jaundice"
+                    },
+                    {
+                      "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Oedema"
+                    },
+                    {
+                      "concept": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Pallor"
+                    },
+                    {
+                      "concept": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Cyanosis"
+                    },
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Cardiovascular",
+                "type": "obs",
+                "required": true,
+                "id": "cardioVascular",
+                "questionOptions": {
+                  "rendering": "select",
+                  "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "1124"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "PIH",
+                      "value": "2423"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "1124"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED CT",
+                      "value": "271910006"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Normal"
+                    },
+                    {
+                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Abnormal"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Description",
+                "type": "obs",
+                "required": true,
+                "id": "CadioDesc",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "LOINC",
+                      "value": "11391-0"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "272016000"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "160689"
+                    }
+                  ],
+                  "answers": []
+                },
+                "validators": []
+              },
+              {
+                "label": "Respiratory",
+                "type": "obs",
+                "required": true,
+                "id": "resPiratory",
+                "questionOptions": {
+                  "rendering": "select",
+                  "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "1124"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "PIH",
+                      "value": "2423"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "1124"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED CT",
+                      "value": "271910006"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Normal"
+                    },
+                    {
+                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Abnormal"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Description",
+                "type": "obs",
+                "required": true,
+                "id": "resPiratoryDesc",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "LOINC",
+                      "value": "11391-0"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "272016000"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "160689"
+                    }
+                  ],
+                  "answers": []
+                },
+                "validators": []
+              },
+              {
+                "label": "Abdominal pelvic\t",
+                "type": "obs",
+                "required": true,
+                "id": "abdominalPelvic\t",
+                "questionOptions": {
+                  "rendering": "select",
+                  "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "1124"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "PIH",
+                      "value": "2423"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "1124"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED CT",
+                      "value": "271910006"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Normal"
+                    },
+                    {
+                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Abnormal"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Description",
+                "type": "obs",
+                "required": false,
+                "id": "pelvicDescription",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "163046"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "271910006"
+                    }
+                  ],
+                  "answers": []
+                },
+                "validators": []
+              },
+              {
+                "label": "Neurological exam\t",
+                "type": "obs",
+                "required": true,
+                "id": "neurologicalExam\t",
+                "questionOptions": {
+                  "rendering": "select",
+                  "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "1124"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "PIH",
+                      "value": "2423"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "1124"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED CT",
+                      "value": "271910006"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Normal"
+                    },
+                    {
+                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Abnormal"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Description",
+                "type": "obs",
+                "required": false,
+                "id": "neurologicalDesc",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "163046"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "271910006"
+                    }
+                  ],
+                  "answers": []
+                },
+                "validators": []
+              },
+              {
+                "label": " Oral exam",
+                "type": "obs",
+                "required": true,
+                "id": "examOral",
+                "questionOptions": {
+                  "rendering": "select",
+                  "concept": "163308AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED CT",
+                      "value": "423941000"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "163308"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Normal"
+                    },
+                    {
+                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Abnormal"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Foot exam",
+                "type": "obs",
+                "required": false,
+                "id": "footExam",
+                "questionOptions": {
+                  "rendering": "multiCheckbox",
+                  "concept": "155388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [],
+                  "answers": [
+                    {
+                      "concept": "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Calluses"
+                    },
+                    {
+                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ulcers"
+                    },
+                    {
+                      "concept": "165471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Deformity"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Diabetic foot",
+                "type": "obs",
+                "required": true,
+                "id": "footDiabetic",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "439401001"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "1284"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "org.openmrs.module.emrapi",
+                      "value": "Coded Diagnosis"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED MVP",
+                      "value": "12841000105004"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "1284"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Foot Risk assessment",
+                "type": "obs",
+                "required": false,
+                "id": "footRiskAccess",
+                "questionOptions": {
+                  "rendering": "multiCheckbox",
+                  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "439401001"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "1284"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "org.openmrs.module.emrapi",
+                      "value": "Coded Diagnosis"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED MVP",
+                      "value": "12841000105004"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "1284"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Foot Risk assessment"
+                    },
+                    {
+                      "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Loss of sensation"
+                    },
+                    {
+                      "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Absent pulses "
+                    },
+                    {
+                      "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Foot deformity"
+                    },
+                    {
+                      "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "History of ulcer"
+                    },
+                    {
+                      "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Prior amputation"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(footDiabetic) || footDiabetic != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Diabetic foot risk",
+                "type": "obs",
+                "required": false,
+                "id": "footDiabeticRisk",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "166879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "439401001"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "1284"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "org.openmrs.module.emrapi",
+                      "value": "Coded Diagnosis"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED MVP",
+                      "value": "12841000105004"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "1284"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Low Risk"
+                    },
+                    {
+                      "concept": "166674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "High Risk"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(footDiabetic) || footDiabetic != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Management",
+        "sections": [
+          {
+            "label": "Treatment",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Adhering to current medications?",
+                "type": "obs",
+                "id": "adherence",
+                "required": true,
+                "questionOptions": {
+                  "concept": "164075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    },
+                    {
+                      "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "N/A"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "label": "Known Allergies",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Patient has any known allergie(s)?  ",
+                "type": "obs",
+                "id": "KnoWnAllerg",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "160557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "select",
+                  "answers": [
+                    {
+                      "concept": "true",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "false",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Any known allergy(ies)",
+                "type": "obsGroup",
+                "questionOptions": {
+                  "rendering": "repeating",
+                  "concept": "121689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "id": "ClientADvAllergies",
+                "hide": {
+                  "hideWhenExpression": "KnoWnAllerg !== 'true'"
+                },
+                "questions": [
+                  {
+                    "label": "Causative agent",
+                    "type": "obs",
+                    "id": "AllerGyField",
+                    "questionOptions": {
+                      "concept": "160643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "162539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Mold"
+                        },
+                        {
+                          "concept": "162542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Adhesive Tape"
+                        },
+                        {
+                          "concept": "162547AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Milk Protein"
+                        },
+                        {
+                          "concept": "72609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Caffeine"
+                        },
+                        {
+                          "concept": "162172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Peanuts"
+                        },
+                        {
+                          "concept": "162538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Latex"
+                        },
+                        {
+                          "concept": "162543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Beef"
+                        },
+                        {
+                          "concept": "162175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Shellfish"
+                        },
+                        {
+                          "concept": "162546AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Fish"
+                        },
+                        {
+                          "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Other"
+                        },
+                        {
+                          "concept": "162537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Dust"
+                        },
+                        {
+                          "concept": "162176AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Soy"
+                        },
+                        {
+                          "concept": "162540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Pollen"
+                        },
+                        {
+                          "concept": "162545AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Dairy Food"
+                        },
+                        {
+                          "concept": "162171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Eggs"
+                        },
+                        {
+                          "concept": "162548AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Strawberries"
+                        },
+                        {
+                          "concept": "162544AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Chocolate"
+                        },
+                        {
+                          "concept": "162177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Wheat"
+                        },
+                        {
+                          "concept": "162541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Ragweed"
+                        },
+                        {
+                          "concept": "162536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Bee Stings"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "label": "Reaction",
+                    "type": "obs",
+                    "id": "reaCTION",
+                    "questionOptions": {
+                      "concept": "159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Itching"
+                        },
+                        {
+                          "concept": "121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Myalgia"
+                        },
+                        {
+                          "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Fever"
+                        },
+                        {
+                          "concept": "159347AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Musculoskeletal pain"
+                        },
+                        {
+                          "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Headache"
+                        },
+                        {
+                          "concept": "108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Bronchospasm"
+                        },
+                        {
+                          "concept": "148787AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Angioedema"
+                        },
+                        {
+                          "concept": "159098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Hepatotoxicity"
+                        },
+                        {
+                          "concept": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Diarrhea"
+                        },
+                        {
+                          "concept": "140039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Flushing"
+                        },
+                        {
+                          "concept": "148888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Anaphylaxis"
+                        },
+                        {
+                          "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Other"
+                        },
+                        {
+                          "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Unknown"
+                        },
+                        {
+                          "concept": "120148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Arrhythmia"
+                        },
+                        {
+                          "concept": "118773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Dystonia"
+                        },
+                        {
+                          "concept": "121677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Mental status change"
+                        },
+                        {
+                          "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Hypertension"
+                        },
+                        {
+                          "concept": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Anaemia"
+                        },
+                        {
+                          "concept": "139581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "GI upset"
+                        },
+                        {
+                          "concept": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Cough"
+                        },
+                        {
+                          "concept": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Rash"
+                        },
+                        {
+                          "concept": "111061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Hives"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "label": "Severity",
+                    "type": "obs",
+                    "id": "severITY",
+                    "questionOptions": {
+                      "concept": "162760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "160755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Moderate"
+                        },
+                        {
+                          "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Unknown"
+                        },
+                        {
+                          "concept": "160754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Mild"
+                        },
+                        {
+                          "concept": "160756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Severe"
+                        },
+                        {
+                          "concept": "160758AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Fatal"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "label": "Date of Onset",
+                    "type": "obs",
+                    "id": "DateOfOnset",
+                    "questionOptions": {
+                      "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "date"
+                    },
+                    "validators": [
+                      {
+                        "type": "date",
+                        "allowFutureDates": "false"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Glucose Lowering Drugs",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Metformin",
+                "type": "obs",
+                "id": "metformin",
+                "questionOptions": {
+                  "concept": "79651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Glibenclamide",
+                "type": "obs",
+                "id": "glibenclamide",
+                "questionOptions": {
+                  "concept": "77071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Insulin",
+                "type": "obs",
+                "id": "insulin",
+                "questionOptions": {
+                  "concept": "78056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "NPH",
+                "type": "obs",
+                "id": "nph",
+                "questionOptions": {
+                  "concept": "78068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Soluble insulin",
+                "type": "obs",
+                "id": "solubleInsulin",
+                "questionOptions": {
+                  "concept": "282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Anti hypertensive agents",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Enalapril",
+                "type": "obs",
+                "id": "enalapril",
+                "questionOptions": {
+                  "concept": "75633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "HCTZ",
+                "type": "obs",
+                "id": "hctz",
+                "questionOptions": {
+                  "concept": "77696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Losartan",
+                "type": "obs",
+                "id": "losartan",
+                "questionOptions": {
+                  "concept": "79074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Nifedipine",
+                "type": "obs",
+                "id": "nifedipine",
+                "questionOptions": {
+                  "concept": "80637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Atenolol",
+                "type": "obs",
+                "id": "atenolol",
+                "questionOptions": {
+                  "concept": "71652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          },
+          {
+            "label": "CVD Prophylaxis",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "J. ASA",
+                "type": "obs",
+                "id": "jasa",
+                "questionOptions": {
+                  "concept": "71617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '119270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Atorvastatin",
+                "type": "obs",
+                "id": "atorvastatin",
+                "questionOptions": {
+                  "concept": "71665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Change"
+                    },
+                    {
+                      "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stop"
+                    },
+                    {
+                      "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CT"
+                    },
+                    {
+                      "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Start"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(coughtTests) || coughtTests != '119270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Follow up plan",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Next appointment date",
+                "type": "obs",
+                "id": "followup",
+                "questionOptions": {
+                  "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "js_expression",
+                    "failsWhenExpression": "(new moment(encounterDate)).isAfter((new moment(myValue)), 'day') || (new moment(encounterDate)).isSame((new moment(myValue)), 'day')",
+                    "message": "Date of next visit should be greater than the visit date."
+                  }
+                ]
+              },
+              {
+                "label": "Transfer care to another health facility",
+                "type": "obs",
+                "required": false,
+                "id": "transferOut",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "1285AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "AMPATH",
+                      "value": "1285"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "19712007"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "1285"
+                    },
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "SNOMED MVP",
+                      "value": "12851000105002"
+                    }
+                  ],
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Specify facility name",
+                "type": "obs",
+                "required": true,
+                "id": "facilityName",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "162724"
+                    },
+                    {
+                      "relationship": "NARROWER-THAN",
+                      "type": "SNOMED NP",
+                      "value": "398321007"
+                    }
+                  ],
+                  "answers": []
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(transferOut) || transferOut != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Reason for referral",
+                "type": "obs",
+                "required": true,
+                "id": "",
+                "questionOptions": {
+                  "rendering": "select",
+                  "concept": "159623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "138202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Further management of HTN"
+                    },
+                    {
+                      "concept": "160552AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nutrition"
+                    },
+                    {
+                      "concept": "159364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Physiotherapy"
+                    },
+                    {
+                      "concept": "161623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Surgical review"
+                    },
+                    {
+                      "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "CVD review"
+                    },
+                    {
+                      "concept": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Renal review"
+                    },
+                    {
+                      "concept": "850a960b-e8b5-4775-ba74-aaddb2abbf51",
+                      "label": "Eye review"
+                    },
+                    {
+                      "concept": "164103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Further management of DM"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(transferOut) || transferOut != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "processor": "EncounterFormProcessor",
+    "encounterType": "4224f8bf-11b2-4e47-a958-1dbdfd7fa41d",
+    "referencedForms": [],
+    "uuid": "70372312-6c09-4140-aeee-ad3f90d43a22",
+    "version": "1",
+    "description": "NCD Follow UP updates"
+  }

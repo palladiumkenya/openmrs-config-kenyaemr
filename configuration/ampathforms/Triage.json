@@ -1,7 +1,7 @@
 {
   "name": "Triage",
   "description": "Triage",
-  "version": "1",
+  "version": "2.0",
   "published": true,
   "uuid": "37f6bd8d-586a-4169-95fa-5781f987fe62",
   "retired": false,
@@ -32,7 +32,7 @@
               "label": "Provider:",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-provider"
               },
               "id": "encProvider "
             },
@@ -40,7 +40,7 @@
               "label": "Location:",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-location"
               },
               "id": "encLocation"
             }
@@ -86,7 +86,9 @@
               "id": "pulseRate",
               "questionOptions": {
                 "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "0",
+                "max": "230"
               },
               "alert": {
                 "alertWhenExpression": "myValue && (myValue >= 100.5 || myValue < 59.5)",
@@ -99,7 +101,9 @@
               "id": "sysBP",
               "questionOptions": {
                 "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "0",
+                "max": "250"
               },
               "alert": {
                 "alertWhenExpression": "myValue && (myValue >= 130.5 || myValue < 119.5)",
@@ -112,7 +116,9 @@
               "id": "diasBP",
               "questionOptions": {
                 "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "0",
+                "max": "150"
               },
               "alert": {
                 "alertWhenExpression": "myValue && (myValue >= 85.5 || myValue < 79.5)",
@@ -125,11 +131,13 @@
               "id": "respRate",
               "questionOptions": {
                 "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "0",
+                "max": "99"
               },
               "alert": {
-                "alertWhenExpression": "myValue && (myValue >= 16.5 || myValue < 11.5)",
-                "message": "Respiratory Rate is out of range (Normal range 12-16)"
+                "alertWhenExpression": "myValue && (myValue >= 20.5 || myValue < 11.5)",
+                "message": "Respiratory Rate is out of range (Normal range 12-20)"
               }
             },
             {
@@ -138,7 +146,9 @@
               "id": "oxygenSat",
               "questionOptions": {
                 "concept": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "min": "0",
+                "max": "100"
               },
               "alert": {
                 "alertWhenExpression": "myValue && (myValue >= 100.5 || myValue < 94.5)",
@@ -304,6 +314,40 @@
               }
             },
             {
+              "label": "Nutritional Interventions",
+              "type": "obs",
+              "id": "childNutritionalInterventions",
+              "questionOptions": {
+                "concept": "163304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nutritional counselling for a Normal Case"
+                  },
+                  {
+                    "concept": "159854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "For a client with MAM(Supplementary Feeding Program)"
+                  },
+                  {
+                    "concept": "161650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "For a client with SAM without complications(Outpatient Therapeutic Program)"
+                  },
+                  {
+                    "concept": "163302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inpatient Management for clients with SAM Complications"
+                  },
+                  {
+                    "concept": "983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Weight Management follow up for clients with Overweight/Obesity"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(nutritionalStatus) || !(age <=5) || nutritionalStatus === '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
               "label": "Nutritional status",
               "type": "obs",
               "id": "adultNutRitionalStatus",
@@ -338,6 +382,40 @@
               },
               "hide": {
                 "hideWhenExpression": "!(age >5)"
+              }
+            },
+            {
+              "label": "Nutritional Interventions",
+              "type": "obs",
+              "id": "adultNutritionalInterventions",
+              "questionOptions": {
+                "concept": "163304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nutritional counselling for a Normal Case"
+                  },
+                  {
+                    "concept": "159854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "For a client with MAM(Supplementary Feeding Program)"
+                  },
+                  {
+                    "concept": "161650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "For a client with SAM without complications(Outpatient Therapeutic Program)"
+                  },
+                  {
+                    "concept": "163302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inpatient Management for clients with SAM Complications"
+                  },
+                  {
+                    "concept": "983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Weight Management follow up for clients with Overweight/Obesity"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(adultNutRitionalStatus) || !(age >5) || adultNutRitionalStatus === '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {

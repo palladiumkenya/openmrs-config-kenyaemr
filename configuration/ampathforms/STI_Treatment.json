@@ -1,7 +1,7 @@
 {
 	"name": "STI Treatment",
 	"description": "STI Treatment",
-	"version": "1",
+	"version": "2.0",
 	"published": true,
 	"uuid": "318ad7be-e4da-481f-bcdd-0368cb7601c8",
 	"retired": false,
@@ -343,13 +343,14 @@
 										"concept": "163743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"rendering": "radio",
 										"answers": [
-											{
-												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "No"
-											},
+											
 											{
 												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
 											}
 										]
 									}
@@ -362,13 +363,14 @@
 										"concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"rendering": "radio",
 										"answers": [
-											{
-												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "No"
-											},
+											
 											{
 												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
 											}
 										]
 									}
@@ -394,13 +396,14 @@
 										"concept": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"rendering": "radio",
 										"answers": [
-											{
-												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "No"
-											},
+											
 											{
 												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
 											}
 										]
 									}
@@ -426,13 +429,14 @@
 										"concept": "890a488f-6a1d-4b27-a5f4-054c59782cc2",
 										"rendering": "radio",
 										"answers": [
-											{
-												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "No"
-											},
+											
 											{
 												"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 												"label": "Yes"
+											},
+											{
+												"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+												"label": "No"
 											}
 										]
 									}
@@ -453,13 +457,14 @@
 								"concept": "6fb34a18-82eb-4b7f-9710-f580a3718cef",
 								"rendering": "radio",
 								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
+									
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
 								]
 							}
@@ -487,13 +492,14 @@
 								"concept": "159777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
 								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
+									
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
 								]
 							}
@@ -538,26 +544,26 @@
 							}
 						},
 						{
-							"label": "Date of next visit:",
-							"type": "obs",
+							"label": "Next review date:",
+							"required": "true",
+							"id": "appointmentWorkspaceLauncher",
 							"questionOptions": {
-								"rendering": "date",
-								"concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							  "rendering": "workspace-launcher",
+							  "buttonLabel": "Add appointments",
+							  "workspaceName": "appointments-form-workspace"
 							},
 							"validators": [
-								{
-									"type": "date",
-									"allowFutureDates": "true"
-								},
-								{
-									"type": "js_expression",
-									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
-									"message": "Next visit date should not be in the past."
-								}
-							],
-							"id": "returnVisitDate",
-							"required": "true"
-						}
+							  {
+								"type": "date",
+								"allowFutureDates": "true"
+							  },
+							  {
+								"type": "js_expression",
+								"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+								"message": "Next Appointment should be greater than the encounter date."
+							  }
+							]
+						  }
 					]
 				}
 			]

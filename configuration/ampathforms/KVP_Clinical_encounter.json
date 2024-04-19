@@ -1,0 +1,910 @@
+{
+  "name": "KVP Clinical Encounter form",
+  "description": "KVP Clinical Encounter form",
+  "version": "1",
+  "published": true,
+  "uuid": "92e041ac-9686-11e9-bc42-526af7764f64",
+  "retired": false,
+  "encounter": "KP Clinic Visit form",
+  "pages": [
+    {
+      "label": "KVP Clinical Encounter form",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Clinical encounter Form",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "HIV Testing Done?:",
+              "type": "obs",
+              "id": "hivTesting",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "HIV Test result:",
+              "type": "obs",
+              "id": "hivTestResult",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inconclusive"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivTesting) || hivTesting !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "HIV Test Date",
+              "type": "obs",
+              "id": "hivTestDate",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "164400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivTesting) || hivTesting !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "On ART?",
+              "type": "obs",
+              "id": "onArt",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivTestResult) || hivTestResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "STI Screened:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "161558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "stiScreened",
+              "required": "true"
+            },
+            {
+              "label": "STI Results",
+              "type": "obs",
+              "id": "stiResults",
+              "questionOptions": {
+                "concept": "ec1b6d72-728f-4ab0-a4e4-7335731075b9",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(stiScreened) || stiScreened == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify diagnosis",
+              "type": "obs",
+              "id": "stiTxt",
+              "questionOptions": {
+                "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(stiScreened) || stiScreened == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(stiResults) || stiResults == '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(stiReferred) || stiReferred == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+              }
+            },
+            {
+              "label": "Risk Reduction Counselling Screened",
+              "type": "obs",
+              "id": "riskScreened",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "5c99a708-66df-45c6-a049-afef4f633615",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Done"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not done"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Education and promotion offered",
+              "type": "obs",
+              "id": "educationPromotionOffered",
+              "questionOptions": {
+                "concept": "c91622c8-9dbe-46ac-89dd-133945463c2c",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Condom provision",
+              "type": "obs",
+              "id": "condomProvision",
+              "questionOptions": {
+                "concept": "771638d9-9600-4a6b-8e5d-c6dcdedbc9cd",
+                "rendering": "numeric"
+              }
+            },
+            {
+              "label": "Lubricant provision",
+              "type": "obs",
+              "id": "lubricantProvision",
+              "questionOptions": {
+                "concept": "bc8e7707-c95e-45dc-9367-e0ee75e9a126",
+                "rendering": "numeric"
+              }
+            },
+            {
+              "label": "NSP provision",
+              "type": "obs",
+              "id": "nspProvision",
+              "questionOptions": {
+                "concept": "27c0e645-674c-4b8a-ac6a-605e60564b97",
+                "rendering": "numeric"
+              }
+            },
+            {
+              "label": "TB Screened :",
+              "type": "obs",
+              "id": "tbScreened",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "cddbf6fe-4bcd-40b6-a7ea-8573e4080192",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "TB Screening Results",
+              "type": "obs",
+              "id": "tbResults",
+              "questionOptions": {
+                "concept": "f2b2dc3b-faf4-4069-a0df-044b9034ac59",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumptive"
+                  },
+                  {
+                    "concept": "1661AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diagnosed with TB"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(tbScreened) || tbScreened == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Hepatitis B Antigen Test",
+              "type": "obs",
+              "id": "hepbScreened",
+              "questionOptions": {
+                "concept": "6ec3d456-ba0c-4df1-9254-4dd77037ffb8",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "NA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Hepatitis B Antigen Results",
+              "type": "obs",
+              "id": "hepbResults",
+              "questionOptions": {
+                "concept": "1322AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(hepbScreened) || hepbScreened == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Vaccine given?",
+              "type": "obs",
+              "id": "vaccineGiven",
+              "questionOptions": {
+                "concept": "b66b73a1-76ee-4edd-8337-594447cdad83",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "NA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Hepatitis C Antibody test done?",
+              "type": "obs",
+              "id": "hepcScreened",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "b7416ecd-c3e3-4987-bf9d-194fb365ec2c",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "NA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Hepatitis C Antibody test Results",
+              "type": "obs",
+              "id": "hepcResults",
+              "questionOptions": {
+                "concept": "161471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(hepcScreened) || hepcScreened == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "PrEP Screened",
+              "type": "obs",
+              "id": "prepScreened",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "ff7972ae-8618-4814-813a-2c1a21fecb2b",
+                "answers": [
+                  {
+                    "concept": "ccf759b9-bdd4-4265-a71a-67a894d89dec",
+                    "label": "Eligible"
+                  },
+                  {
+                    "concept": "8877e01c-10ee-45c6-bf6d-645dc6e30f27",
+                    "label": "Not eligible"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "NA"
+                  },
+                  {
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not done"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "PrEP Status",
+              "type": "obs",
+              "id": "prepStatus",
+              "questionOptions": {
+                "concept": "166535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "164463AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Initiated"
+                  },
+                  {
+                    "concept": "2f3e668b-695e-4a79-9531-15872b89e5c6",
+                    "label": "Initiated"
+                  },
+                  {
+                    "concept": "159835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Continuing"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(prepScreened) || prepScreened !== 'ccf759b9-bdd4-4265-a71a-67a894d89dec'"
+              }
+            },
+            {
+              "label": "PEP Type of exposure:",
+              "type": "obs",
+              "id": "pepTypeExposure",
+              "questionOptions": {
+                "concept": "da39aa0f-7a66-418e-b744-504b6789ca66",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivSelfreported) || hivSelfreported != '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  "
+              }
+            },
+            {
+              "label": "Pep Status:",
+              "type": "obs",
+              "id": "pepStatus",
+              "questionOptions": {
+                "concept": "165911AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Initiated"
+                  },
+                  {
+                    "concept": "164463AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Initiated"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Pep Completion Status:",
+              "type": "obs",
+              "id": "pepCompletionStatus",
+              "questionOptions": {
+                "concept": "165911AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Completed"
+                  },
+                  {
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Completed"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(pepStatus) || pepStatus != '166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Anal Cancer Screened:",
+              "type": "obs",
+              "id": "analCancerScreening",
+              "questionOptions": {
+                "concept": "116030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Anal Cancer Screening results:",
+              "type": "obs",
+              "id": "analCancerScreeningResults",
+              "questionOptions": {
+                "concept": "166664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Suspected"
+                  },
+                  {
+                    "concept": "1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Suspected"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(analCancerScreening) || analCancerScreening != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "HPV Vaccination  Status",
+              "type": "obs",
+              "id": "hpvVaccinationStatus",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "62a2e091-688e-40f4-b70f-dab1aef62388",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaccinated"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not vaccinated"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' && (age >= 9 && age <=14)"
+              }
+            },
+            {
+              "label": "Cervical Cancer Screened",
+              "type": "obs",
+              "id": "cervScreened",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "06398e78-0d3e-43d5-8017-f2fc3865e2e0",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F'"
+              }
+            },
+            {
+              "label": "Cervical Cancer Screening Results",
+              "type": "obs",
+              "id": "cervScreeningResults",
+              "questionOptions": {
+                "concept": "23bee3ab-f241-4e56-8d92-1116dc6b516a",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Suspected"
+                  },
+                  {
+                    "concept": "1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Suspected"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(cervScreened) || cervScreened == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Violence Screened",
+              "type": "obs",
+              "id": "vioScreened",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "92ffb6e5-31b4-4a8b-a5e3-2a2a44645454",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "On Family Planning",
+              "type": "obs",
+              "id": "onFamilyPlanning",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Family Planning Method",
+              "type": "obs",
+              "id": "MalefamMethod",
+              "questionOptions": {
+                "concept": "160576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vasectomy"
+                  },
+                  {
+                    "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Condoms"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(onFamilyPlanning) || onFamilyPlanning !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
+              }
+            },
+            {
+              "label": "Family Planning Method",
+              "type": "obs",
+              "id": "femaleFamMethod",
+              "questionOptions": {
+                "concept": "160576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oral contraception"
+                  },
+                  {
+                    "concept": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Emergency contraceptive pills"
+                  },
+                  {
+                    "concept": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Female sterilization"
+                  },
+                  {
+                    "concept": "159589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Implantable contraceptive (unspecified type)"
+                  },
+                  {
+                    "concept": "5278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diaphragm"
+                  },
+                  {
+                    "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Condoms"
+                  },
+                  {
+                    "concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intrauterine device"
+                  },
+                  {
+                    "concept": "136163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lactational amenorrhea"
+                  },
+                  {
+                    "concept": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Natural family planning"
+                  },
+                  {
+                    "concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Injectable contraceptives"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(onFamilyPlanning) || onFamilyPlanning !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+              }
+            },
+            {
+              "label": "Mental health Screened",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "66940ede-beba-4569-85ef-d238b21cc0f8",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "menScreened",
+              "required": "Yes"
+            },
+            {
+              "label": "Overdose management diagnosis Results",
+              "type": "obs",
+              "id": "overdoseResults",
+              "questionOptions": {
+                "concept": "0df5df9a-57c2-4fd9-b29a-6c537c450840",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Received naloxone",
+              "type": "obs",
+              "id": "naloxane",
+              "questionOptions": {
+                "concept": "2dfea836-bed0-43da-8819-9bb03690187e",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(overdoseResults) || overdoseResults != '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Clinician sign off and Date",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Next Visit Date",
+              "type": "obs",
+              "id": "nextVisitDate",
+              "questionOptions": {
+                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                  "message": "Next visit date should be greater than the encounter date."
+                }
+              ]
+            },
+            {
+              "label": "Clinician name",
+              "type": "obs",
+              "id": "clinicianName",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Sign off date",
+              "type": "obs",
+              "id": "signOffDate",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+                  "message": "Next Appointment Date should not be in the past."
+                }
+              ],
+              "questionOptions": {
+                "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": [],
+  "encounterType": "92e03f22-9686-11e9-bc42-526af7764f64"
+}

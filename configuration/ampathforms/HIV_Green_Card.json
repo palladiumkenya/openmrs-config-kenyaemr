@@ -1,7 +1,7 @@
 {
   "name": "HIV Green Card",
   "description": "HIV Green Card",
-  "version": "1",
+  "version": "2.0",
   "published": true,
   "uuid": "22c68f86-bbf0-49ba-b2d1-23fa7ccf0259",
   "retired": false,
@@ -33,7 +33,7 @@
               "label": "Provider:",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-provider"
               },
               "id": "encProvider "
             },
@@ -41,7 +41,7 @@
               "label": "Location:",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-location"
               },
               "id": "encLocation"
             }
@@ -140,12 +140,8 @@
                     "concept": "5d308c8c-ad49-45e1-9885-e5d09a8e5587"
                   },
                   {
-                    "label": "Key population",
+                    "label": "Key and Vulnerable population:",
                     "concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550"
-                  },
-                  {
-                    "concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Priority Population"
                   }
                 ]
               },
@@ -156,10 +152,11 @@
               "id": "popType"
             },
             {
-              "label": "Key population:",
+              "label": "Key and Vulnerable population:",
               "type": "obs",
+              "required": "true",
               "questionOptions": {
-                "rendering": "select",
+                "rendering": "radio",
                 "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "conceptMappings": [
                   {
@@ -179,6 +176,38 @@
                       {
                         "type": "MCL/CIEL",
                         "value": "105"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People who use drugs"
+                  },
+                  {
+                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fisher folk",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "105"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "105"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Truck driver",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "9785"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160578"
                       }
                     ]
                   },
@@ -197,8 +226,8 @@
                     ]
                   },
                   {
-                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "People in prison and other closed settings",
+                    "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Discordant Couple",
                     "conceptMappings": [
                       {
                         "type": "local",
@@ -211,18 +240,8 @@
                     ]
                   },
                   {
-                    "concept": "bd370cad-06fe-4950-a36f-ed991b280ce6",
-                    "label": "Transgender",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "1832"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160579"
-                      }
-                    ]
+                    "label": "People in Prison",
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                   }
                 ]
               },
@@ -233,10 +252,38 @@
               "id": "femaleKeyPop"
             },
             {
-              "label": "Key population:",
+              "label": "People in prison",
               "type": "obs",
+              "required": "true",
               "questionOptions": {
-                "rendering": "select",
+                "rendering": "radio",
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "answers": [
+                  {
+                    "label": "Inmates",
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Staff",
+                    "concept": "1142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Community"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(femaleKeyPop) || femaleKeyPop !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+              }
+            },
+            {
+              "label": "Key and Vulnerable population:",
+              "type": "obs",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
                 "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "conceptMappings": [
                   {
@@ -260,6 +307,38 @@
                     ]
                   },
                   {
+                    "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People who use drugs"
+                  },
+                  {
+                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fisher folk",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "105"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "105"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Truck driver",
+                    "conceptMappings": [
+                      {
+                        "type": "local",
+                        "value": "9785"
+                      },
+                      {
+                        "type": "MCL/CIEL",
+                        "value": "160578"
+                      }
+                    ]
+                  },
+                  {
                     "concept": "160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Men who has sex with men",
                     "conceptMappings": [
@@ -274,8 +353,12 @@
                     ]
                   },
                   {
-                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "People in prison and other closed settings",
+                    "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Male sex worker"
+                  },
+                  {
+                    "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Discordant Couple",
                     "conceptMappings": [
                       {
                         "type": "local",
@@ -288,18 +371,8 @@
                     ]
                   },
                   {
-                    "concept": "bd370cad-06fe-4950-a36f-ed991b280ce6",
-                    "label": "Transgender",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "1832"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160579"
-                      }
-                    ]
+                    "label": "People in Prison",
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                   }
                 ]
               },
@@ -310,200 +383,32 @@
               "id": "maleKeyPop"
             },
             {
-              "label": "Priority population:",
+              "label": "People in prison",
               "type": "obs",
+              "required": "true",
+              "id": "peopleinprisonmaleKeyPop",
               "questionOptions": {
-                "rendering": "select",
-                "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "conceptMappings": [
-                  {
-                    "type": "MCL/CIEL",
-                    "value": "160581"
-                  }
-                ],
+                "rendering": "radio",
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
                 "answers": [
                   {
-                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Fisher folk",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "105"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "105"
-                      }
-                    ]
+                    "label": "Inmates",
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                   },
                   {
-                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Truck driver",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "9785"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160578"
-                      }
-                    ]
+                    "label": "Staff",
+                    "concept": "1142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                   },
                   {
-                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Prisoner",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "1832"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160579"
-                      }
-                    ]
-                  },
-                  {
-                    "concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
-                    "label": "Military and other uniformed services",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "1832"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160579"
-                      }
-                    ]
-                  },
-                  {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not applicable",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "1832"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160579"
-                      }
-                    ]
+                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Community"
                   }
                 ]
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": " isEmpty(popType) || popType !== '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
-              },
-              "id": "malePriOrityPop"
-            },
-            {
-              "label": "Priority population:",
-              "type": "obs",
-              "questionOptions": {
-                "rendering": "select",
-                "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "conceptMappings": [
-                  {
-                    "type": "MCL/CIEL",
-                    "value": "160581"
-                  }
-                ],
-                "answers": [
-                  {
-                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Fisher folk",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "105"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "105"
-                      }
-                    ]
-                  },
-                  {
-                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Truck driver",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "9785"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160578"
-                      }
-                    ]
-                  },
-                  {
-                    "concept": "160549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Adolescent and young girls",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "1832"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160579"
-                      }
-                    ]
-                  },
-                  {
-                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Prisoner",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "1832"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160579"
-                      }
-                    ]
-                  },
-                  {
-                    "concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
-                    "label": "Military and other uniformed services",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "1832"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160579"
-                      }
-                    ]
-                  },
-                  {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not applicable",
-                    "conceptMappings": [
-                      {
-                        "type": "local",
-                        "value": "1832"
-                      },
-                      {
-                        "type": "MCL/CIEL",
-                        "value": "160579"
-                      }
-                    ]
-                  }
-                ]
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(popType) || popType !== '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
-              },
-              "id": "femalePriOrityPop"
+                "hideWhenExpression": "isEmpty(maleKeyPop) || maleKeyPop !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
+              }
             }
           ]
         }
@@ -860,19 +765,30 @@
                         "label": "Other"
                       }
                     ]
+                  }
+                },
+                {
+                  "label": "Specify other complaints",
+                  "type": "obs",
+                  "id": "OtherSpecificComplaints",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
                   },
+                  "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || comPlaiNtsToday !== 'true'"
+                    "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || comPlaiNtsToday !== 'true' || complaintField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
                   "label": "Duration (Days)",
                   "type": "obs",
-                  "id": "complaint-duration",
+                  "id": "complaintDuration",
                   "questionOptions": {
                     "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "number",
-                    "min": "0"
+                    "min": "0",
+                    "max": "99"
                   },
                   "validators": [],
                   "hide": {
@@ -882,31 +798,23 @@
                 {
                   "label": "Onset Date",
                   "type": "obs",
-                  "id": "OnSETdate",
+                  "id": "onSetDate",
                   "questionOptions": {
                     "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "date"
                   },
-                  "validators": [],
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "false"
+                    }
+                  ],
                   "hide": {
                     "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || comPlaiNtsToday !== 'true'"
                   }
                 }
               ],
               "id": "ComplaintLodgeByClient"
-            },
-            {
-              "label": "Specify other complaints",
-              "type": "obs",
-              "id": "OtherSpecificComplaints",
-              "questionOptions": {
-                "concept": "20395601-257c-490c-86c2-acffb627f91f",
-                "rendering": "textarea"
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || comPlaiNtsToday !== 'true' || cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
             },
             {
               "label": "Clinical notes",
@@ -934,7 +842,7 @@
               "required": "true",
               "questionOptions": {
                 "concept": "89264964-919b-4f39-816e-c0554b55df51",
-                "rendering": "select",
+                "rendering": "radio",
                 "required": "true",
                 "answers": [
                   {
@@ -957,7 +865,7 @@
               "id": "OnTpT",
               "questionOptions": {
                 "concept": "c49549c5-f761-408b-bc71-c0ae1fd16b73",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -978,7 +886,7 @@
               "type": "obs",
               "questionOptions": {
                 "concept": "1adbdc14-2324-4298-90d1-5b590c3cf094",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1013,7 +921,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1035,7 +943,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1057,7 +965,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1079,7 +987,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1089,7 +997,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 16 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
                   }
                 },
                 {
@@ -1101,7 +1009,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1111,7 +1019,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'|| age > 15 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'|| age > 5 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
                   }
                 },
                 {
@@ -1123,7 +1031,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1133,121 +1041,99 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age > 15 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age > 5 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
                   }
                 }
               ]
             },
             {
+              "label": "Resulting TB Status:",
+              "type": "obs",
+              "id": "tbResultstaTuS",
+              "questionOptions": {
+                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "readOnly": "true",
+                "calculate": {
+                  "calculateExpression": "String(OnantiTBdrugs) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  || String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) === 0 ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cliNicalDiagnosisAction) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) > 0 ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  },
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Confirmed"
+                  },
+                  {
+                    "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Screening Not Done"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age < 5 && (String(OnantiTBdrugs) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) === 0 && isEmpty(OnantiTBdrugs) || isEmpty(cOughDuratiOn) || isEmpty(FeverIsh) || isEmpty(WeigHtLossGain) || isEmpty(NighTsWeatS)"
+              }
+            },
+            {
+              "label": "Resulting TB Status:",
+              "type": "obs",
+              "id": "tbResultstaTuSUnderfiVe",
+              "questionOptions": {
+                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "readOnly": "true",
+                "calculate": {
+                  "calculateExpression": "String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  || String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) === 0 ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cliNicalDiagnosisAction) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) > 0 ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  },
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Confirmed"
+                  },
+                  {
+                    "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Screening Not Done"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age > 5 || (String(OnantiTBdrugs) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) === 0 || isEmpty(OnantiTBdrugs) || isEmpty(cOughDuratiOn) || isEmpty(FeverIsh) || isEmpty(WeigHtLossGain) || isEmpty(NighTsWeatS)"
+              }
+            },
+            {
               "label": "Indicate Action Taken",
-              "isExpanded": "true",
+              "type": "obsGroup",
+              "id": "actionTaken",
+              "questionOptions": {
+                "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "group"
+              },
               "questions": [
                 {
-                  "label": "Test ordered ",
-                  "type": "obs",
-                  "id": "testOrdered",
+                  "label": "Lab Order",
+                  "required": false,
+                  "id": "labsWorkspaceLauncher",
                   "questionOptions": {
-                    "concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "checkbox",
-                    "answers": [
-                      {
-                        "concept": "307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Sputum Smear"
-                      },
-                      {
-                        "concept": "12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chest Xray"
-                      },
-                      {
-                        "concept": "162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "GeneXpert"
-                      }
-                    ]
+                    "rendering": "workspace-launcher",
+                    "buttonLabel": "Add lab order",
+                    "workspaceName": "add-lab-order"
                   },
                   "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
-                  }
-                },
-                {
-                  "label": "Sputum smear result",
-                  "type": "obs",
-                  "id": "sPutUmResuLts",
-                  "questionOptions": {
-                    "concept": "307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "POSITIVE"
-                      },
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "NEGATIVE"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
-                  }
-                },
-                {
-                  "label": "Chest Xray result ",
-                  "type": "obs",
-                  "id": "chEstXrAyAction",
-                  "questionOptions": {
-                    "concept": "12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Normal"
-                      },
-                      {
-                        "concept": "152526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Abnormal Chest X-Ray"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
-                  }
-                },
-                {
-                  "label": "GeneXpert:",
-                  "type": "obs",
-                  "id": "geneXpertActiOn",
-                  "questionOptions": {
-                    "concept": "162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "INDETERMINATE"
-                      },
-                      {
-                        "concept": "162204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mycobacterium tuberculosis detected without rifampin resistance"
-                      },
-                      {
-                        "concept": "164104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mycobacterium tuberculosis detected with indeterminate rifampin resistance"
-                      },
-                      {
-                        "concept": "162203AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mycobacterium tuberculosis detected with rifampin resistance"
-                      },
-                      {
-                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Invalid"
-                      },
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "NEGATIVE"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+                    "hideWhenExpression": "((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
                   }
                 },
                 {
@@ -1269,7 +1155,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+                    "hideWhenExpression": "((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
                   }
                 },
                 {
@@ -1291,7 +1177,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+                    "hideWhenExpression": "((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
                   }
                 },
                 {
@@ -1313,7 +1199,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+                    "hideWhenExpression": "((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
                   }
                 },
                 {
@@ -1335,7 +1221,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "sPutUmResuLts !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "cliNicalDiagnosisAction !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1365,7 +1251,7 @@
                     }
                   ],
                   "hide": {
-                    "hideWhenExpression": "sPutUmResuLts !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && cliNicalDiagnosisAction !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1385,16 +1271,28 @@
                         "label": "ISONIAZID"
                       },
                       {
+                        "concept": "767AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "RIFAMPICIN"
+                      },
+                      {
+                        "concept": "75948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "ETHAMBUTOL"
+                      },
+                      {
+                        "concept": "82900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "PYRAZINAMIDE"
+                      },
+                      {
+                        "concept": "84360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "STREPTOMYCIN"
+                      },
+                      {
                         "concept": "160096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "5HR + E"
                       },
                       {
                         "concept": "160092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Isoniazid/Rifampin/Pyrazinamide/Ethambutol prophylaxis for 2 months"
-                      },
-                      {
-                        "concept": "82900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "PYRAZINAMIDE"
                       },
                       {
                         "concept": "768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1421,20 +1319,8 @@
                         "label": "2S + HRZE"
                       },
                       {
-                        "concept": "75948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "ETHAMBUTOL"
-                      },
-                      {
-                        "concept": "84360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "STREPTOMYCIN"
-                      },
-                      {
                         "concept": "160095AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "1HRZE"
-                      },
-                      {
-                        "concept": "767AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "RIFAMPICIN"
                       },
                       {
                         "concept": "160093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1447,43 +1333,10 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "sPutUmResuLts !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && cliNicalDiagnosisAction !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ]
-            },
-            {
-              "label": "Resulting TB Status:",
-              "type": "obs",
-              "id": "tbResultstaTuS",
-              "questionOptions": {
-                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "calculate": {
-                  "calculateExpression": "String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(ConTacTbCase) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(LeSSpLayFul) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(sPutUmResuLts) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(chEstXrAyAction) === '152526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(testOrdered) === '307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(testOrdered) === '12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)+ (String(testOrdered) === '162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0 ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cliNicalDiagnosisAction) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(sPutUmResuLts) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '162203AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '162204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '164104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) > 0 ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' :((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(sPutUmResuLts) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(chEstXrAyAction) === '152526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(testOrdered) === '307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(testOrdered) === '12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)+ (String(testOrdered) === '162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) > 0 ?'142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
-                },
-                "answers": [
-                  {
-                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No TB Signs"
-                  },
-                  {
-                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Presumed TB"
-                  },
-                  {
-                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "TB Confirmed"
-                  },
-                  {
-                    "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "TB Screening Not Done"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
-              }
             },
             {
               "label": "Tuberculosis Preventive Therapy (TPT) Client Workup",
@@ -1502,7 +1355,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "162311AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1512,7 +1365,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1524,7 +1377,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "132652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1534,11 +1387,11 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
-                  "label": "1. Yellowness of eyes",
+                  "label": "3. Yellowness of eyes",
                   "type": "obs",
                   "id": "YellOwEyEs",
                   "questionOptions": {
@@ -1546,7 +1399,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "5192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1556,11 +1409,11 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
-                  "label": "2.Tenderness in the upper right quadrant of the abdomen",
+                  "label": "4.Tenderness in the upper right quadrant of the abdomen",
                   "type": "obs",
                   "id": "teNderNessaBdOmeN",
                   "questionOptions": {
@@ -1568,7 +1421,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "124994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1577,291 +1430,16 @@
                       }
                     ]
                   },
+                  "alert": {
+                    "alertWhenExpression": "!isEmpty(myValue) && (myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && 'NumBnessHaFeT' && 'yeLLOwUrine' && 'YellOwEyEs') && tbResultstaTuS == '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnantiTBdrugs == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                    "message": "Patient is candidate for TPT Initiation"
+                  },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ],
               "id": "TpTWorkUp"
-            }
-          ]
-        },
-        {
-          "label": "Known Allergies",
-          "isExpanded": "true",
-          "questions": [
-            {
-              "label": "Patient has any known allergie(s)?  ",
-              "type": "obs",
-              "id": "KnoWnAllerg",
-              "required": "true",
-              "questionOptions": {
-                "concept": "160557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
-                "answers": [
-                  {
-                    "concept": "true",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "false",
-                    "label": "No"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "Any known allergy(ies)",
-              "type": "obsGroup",
-              "questionOptions": {
-                "rendering": "repeating",
-                "concept": "121689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-              },
-              "id": "ClientADvAllergies",
-              "hide": {
-                "hideWhenExpression": "KnoWnAllerg !== 'true'"
-              },
-              "questions": [
-                {
-                  "label": "Causative agent",
-                  "type": "obs",
-                  "id": "AllerGyField",
-                  "questionOptions": {
-                    "concept": "160643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "162539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mold"
-                      },
-                      {
-                        "concept": "162542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Adhesive Tape"
-                      },
-                      {
-                        "concept": "162547AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Milk Protein"
-                      },
-                      {
-                        "concept": "72609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Caffeine"
-                      },
-                      {
-                        "concept": "162172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Peanuts"
-                      },
-                      {
-                        "concept": "162538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Latex"
-                      },
-                      {
-                        "concept": "162543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Beef"
-                      },
-                      {
-                        "concept": "162175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Shellfish"
-                      },
-                      {
-                        "concept": "162546AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Fish"
-                      },
-                      {
-                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Other"
-                      },
-                      {
-                        "concept": "162537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Dust"
-                      },
-                      {
-                        "concept": "162176AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Soy"
-                      },
-                      {
-                        "concept": "162540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Pollen"
-                      },
-                      {
-                        "concept": "162545AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Dairy Food"
-                      },
-                      {
-                        "concept": "162171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Eggs"
-                      },
-                      {
-                        "concept": "162548AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Strawberries"
-                      },
-                      {
-                        "concept": "162544AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chocolate"
-                      },
-                      {
-                        "concept": "162177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Wheat"
-                      },
-                      {
-                        "concept": "162541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Ragweed"
-                      },
-                      {
-                        "concept": "162536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Bee Stings"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Reaction",
-                  "type": "obs",
-                  "id": "reaCTION",
-                  "questionOptions": {
-                    "concept": "159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Itching"
-                      },
-                      {
-                        "concept": "121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Myalgia"
-                      },
-                      {
-                        "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Fever"
-                      },
-                      {
-                        "concept": "159347AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Musculoskeletal pain"
-                      },
-                      {
-                        "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Headache"
-                      },
-                      {
-                        "concept": "108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Bronchospasm"
-                      },
-                      {
-                        "concept": "148787AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Angioedema"
-                      },
-                      {
-                        "concept": "159098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hepatotoxicity"
-                      },
-                      {
-                        "concept": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diarrhea"
-                      },
-                      {
-                        "concept": "140039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Flushing"
-                      },
-                      {
-                        "concept": "148888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Anaphylaxis"
-                      },
-                      {
-                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Other"
-                      },
-                      {
-                        "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Unknown"
-                      },
-                      {
-                        "concept": "120148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Arrhythmia"
-                      },
-                      {
-                        "concept": "118773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Dystonia"
-                      },
-                      {
-                        "concept": "121677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mental status change"
-                      },
-                      {
-                        "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hypertension"
-                      },
-                      {
-                        "concept": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Anaemia"
-                      },
-                      {
-                        "concept": "139581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "GI upset"
-                      },
-                      {
-                        "concept": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cough"
-                      },
-                      {
-                        "concept": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Rash"
-                      },
-                      {
-                        "concept": "111061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hives"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Severity",
-                  "type": "obs",
-                  "id": "severITY",
-                  "questionOptions": {
-                    "concept": "162760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "160755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Moderate"
-                      },
-                      {
-                        "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Unknown"
-                      },
-                      {
-                        "concept": "160754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mild"
-                      },
-                      {
-                        "concept": "160756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Severe"
-                      },
-                      {
-                        "concept": "160758AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Fatal"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Date of Onset",
-                  "type": "obs",
-                  "id": "DateOfOnset",
-                  "questionOptions": {
-                    "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "date"
-                  },
-                  "validators": [
-                    {
-                      "type": "date",
-                      "allowFutureDates": "false"
-                    }
-                  ]
-                }
-              ]
             }
           ]
         },
@@ -1934,124 +1512,124 @@
                     ],
                     "answers": [
                       {
-                        "concept": "149019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Alzheimer's Disease and other Dementias"
-                      },
-                      {
-                        "concept": "153754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Asthma"
-                      },
-                      {
-                        "concept": "148432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Arthritis"
-                      },
-                      {
-                        "concept": "159351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cancer"
-                      },
-                      {
-                        "concept": "119270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cardiovascular diseases"
-                      },
-                      {
-                        "concept": "145438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chronic Kidney Disease"
-                      },
-                      {
-                        "concept": "120637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chronic Hepatitis"
-                      },
-                      {
-                        "concept": "1295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chronic Obstructive Pulmonary Disease(COPD)"
-                      },
-                      {
-                        "concept": "120576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chronic Renal Failure"
-                      },
-                      {
-                        "concept": "119956AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Congenital heart disease"
-                      },
-                      {
-                        "concept": "119692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cystic Fibrosis"
-                      },
-                      {
-                        "concept": "120291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Deafness and Hearing impairment"
-                      },
-                      {
-                        "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetes"
-                      },
-                      {
-                        "concept": "144481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Down Syndrome"
-                      },
-                      {
-                        "concept": "141623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Dyslipidemia"
-                      },
-                      {
-                        "concept": "118631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Endometriosis"
-                      },
-                      {
-                        "concept": "117855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Epilepsy"
-                      },
-                      {
-                        "concept": "117789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Glaucoma"
-                      },
-                      {
-                        "concept": "139071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Heart Disease"
-                      },
-                      {
-                        "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hypertension"
+                        "concept": "114662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Osteoporosis"
                       },
                       {
                         "concept": "115728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Hyperlipidaemia"
                       },
                       {
-                        "concept": "117321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Hypothyroidism"
+                        "concept": "149019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Alzheimer's Disease and other Dementias"
                       },
                       {
-                        "concept": "151342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mental illness"
+                        "concept": "117789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Glaucoma"
+                      },
+                      {
+                        "concept": "117855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Epilepsy"
                       },
                       {
                         "concept": "133687AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Multiple Sclerosis"
                       },
                       {
-                        "concept": "116331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Leukemia"
+                        "concept": "148432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Arthritis"
                       },
                       {
-                        "concept": "115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Obesity"
+                        "concept": "145438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Chronic Kidney Disease"
                       },
                       {
-                        "concept": "114662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Osteoporosis"
+                        "concept": "119692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Cystic Fibrosis"
+                      },
+                      {
+                        "concept": "118631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Endometriosis"
                       },
                       {
                         "concept": "117703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Sickle Cell Anaemia"
                       },
                       {
+                        "concept": "159351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Cancer"
+                      },
+                      {
+                        "concept": "1295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Chronic Obstructive Pulmonary Disease(COPD)"
+                      },
+                      {
+                        "concept": "119270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Cardiovascular diseases"
+                      },
+                      {
+                        "concept": "115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Obesity"
+                      },
+                      {
+                        "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Diabetes"
+                      },
+                      {
+                        "concept": "139071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Heart Disease"
+                      },
+                      {
+                        "concept": "120576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Chronic Renal Failure"
+                      },
+                      {
+                        "concept": "117321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypothyroidism"
+                      },
+                      {
                         "concept": "118976AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Thyroid disease"
+                      },
+                      {
+                        "concept": "120637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Chronic Hepatitis"
+                      },
+                      {
+                        "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypertension"
+                      },
+                      {
+                        "concept": "120291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Deafness and Hearing impairment"
+                      },
+                      {
+                        "concept": "153754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Asthma"
+                      },
+                      {
+                        "concept": "151342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Mental illness"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
                       }
                     ]
                   },
                   "id": "coughtTests"
+                },
+                {
+                  "label": "Specify other illness",
+                  "type": "obs",
+                  "id": "OtherSpecificIllness",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(coughtTests) || coughtTests !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
                 },
                 {
                   "label": "Onset date",
@@ -2251,10 +1829,6 @@
                         "label": "Cephalosporins"
                       },
                       {
-                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Other"
-                      },
-                      {
                         "concept": "75948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Ethambutol"
                       },
@@ -2293,14 +1867,30 @@
                       {
                         "concept": "162170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Sulfonamides"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
                       }
                     ]
                   }
                 },
                 {
+                  "label": "Specify other medicine causing reaction",
+                  "type": "obs",
+                  "id": "specifyOtherIllness",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(AdVerseMed) || AdVerseMed !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
                   "label": "Reaction",
                   "type": "obs",
-                  "id": "rEAction",
+                  "id": "reactionMed",
                   "questionOptions": {
                     "concept": "159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "select",
@@ -2350,10 +1940,6 @@
                         "label": "Anaphylaxis"
                       },
                       {
-                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Other"
-                      },
-                      {
                         "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Unknown"
                       },
@@ -2392,8 +1978,24 @@
                       {
                         "concept": "111061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Hives"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
                       }
                     ]
+                  }
+                },
+                {
+                  "label": "Specify other reaction",
+                  "type": "obs",
+                  "id": "specifyOtherReaction",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(reactionMed) || reactionMed !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -2430,11 +2032,17 @@
                 {
                   "label": "Date of Onset",
                   "type": "obs",
-                  "id": "DatEoNSETA",
+                  "id": "DateOfOnset",
                   "questionOptions": {
                     "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "date"
-                  }
+                  },
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "false"
+                    }
+                  ]
                 },
                 {
                   "label": "Action taken",
@@ -2539,13 +2147,13 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(VaccineRecePTchIld) && !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], VaccineRecePTchIld) || age > 10"
+                "hideWhenExpression": "isEmpty(VaccineRecePTchIld) || !arrayContains(VaccineRecePTchIld, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
               "label": "Vaccine Received",
               "type": "obs",
-              "id": "VaccineRecePTAdultM",
+              "id": "vaccineReceptAdult",
               "questionOptions": {
                 "concept": "1198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "checkbox",
@@ -2578,7 +2186,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(VaccineRecePTAdultM) && !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], VaccineRecePTAdultM) || age < 10"
+                "hideWhenExpression": "isEmpty(vaccineReceptAdult) || !arrayContains(vaccineReceptAdult, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             }
           ]
@@ -2867,12 +2475,12 @@
                 "rendering": "select",
                 "answers": [
                   {
-                    "concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not using Family Planning"
-                  },
-                  {
                     "concept": "965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "On Family Planning"
+                  },
+                  {
+                    "concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not using Family Planning"
                   },
                   {
                     "concept": "1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2887,7 +2495,7 @@
             {
               "label": "If currently using Family Planning, or wants Family Planning, specify which method(s)",
               "required": "true",
-              "type": "obsGroup",
+              "type": "obs",
               "questionOptions": {
                 "rendering": "checkbox",
                 "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2953,12 +2561,12 @@
                 "concept": "160575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {
-                    "concept": "159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not sexually active"
-                  },
-                  {
                     "concept": "160572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Thinks can't get pregnant"
+                  },
+                  {
+                    "concept": "159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not sexually active now"
                   },
                   {
                     "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2988,15 +2596,15 @@
               "id": "MalefPlanning",
               "questionOptions": {
                 "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
+                "rendering": "select",
                 "answers": [
-                  {
-                    "concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not using Family Planning"
-                  },
                   {
                     "concept": "965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "On Family Planning"
+                  },
+                  {
+                    "concept": "160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not using Family Planning"
                   },
                   {
                     "concept": "1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -3011,7 +2619,7 @@
             {
               "label": "If currently using Family Planning, or wants Family Planning, specify which method(s)",
               "required": "true",
-              "type": "obsGroup",
+              "type": "obs",
               "questionOptions": {
                 "rendering": "checkbox",
                 "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -3090,6 +2698,11 @@
                     "label": "None"
                   },
                   {
+                    "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Convulsions",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
                     "concept": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Cyanosis",
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -3145,11 +2758,6 @@
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   },
                   {
-                    "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Convulsions",
-                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  },
-                  {
                     "concept": "823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Wasting",
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -3161,151 +2769,6 @@
                 "hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               },
               "id": "genExamFindings"
-            },
-            {
-              "label": "Grading",
-              "type": "obs",
-              "required": "true",
-              "id": "jaundiceGrading",
-              "questionOptions": {
-                "concept": "164448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "None"
-                  },
-                  {
-                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "+"
-                  },
-                  {
-                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "++"
-                  },
-                  {
-                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "+++"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-              }
-            },
-            {
-              "label": "Site",
-              "type": "obs",
-              "required": "true",
-              "id": "oedemaLocation",
-              "questionOptions": {
-                "concept": "166852AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Face"
-                  },
-                  {
-                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Foot"
-                  },
-                  {
-                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Generalized"
-                  },
-                  {
-                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Hands"
-                  },
-                  {
-                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Knee"
-                  },
-                  {
-                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Periorbital"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-              }
-            },
-            {
-              "label": "Grading",
-              "type": "obs",
-              "required": "true",
-              "id": "oedemaGrading",
-              "questionOptions": {
-                "concept": "164494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "None"
-                  },
-                  {
-                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "+"
-                  },
-                  {
-                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "++"
-                  },
-                  {
-                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "+++"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-              }
-            },
-            {
-              "label": "Grading",
-              "type": "obs",
-              "required": "true",
-              "id": "pallorGrading",
-              "questionOptions": {
-                "concept": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "None"
-                  },
-                  {
-                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "+"
-                  },
-                  {
-                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "++"
-                  },
-                  {
-                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "+++"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-              }
-            },
-            {
-              "label": "General Examination Notes",
-              "type": "obs",
-              "id": "generalExamNotes",
-              "questionOptions": {
-                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "textarea"
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
             }
           ]
         },
@@ -3320,7 +2783,7 @@
               "id": "syStemsRevieW",
               "questionOptions": {
                 "concept": "159615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -3383,7 +2846,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "syStemsRevieW !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "syStemsRevieW !=='1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -4627,16 +4090,16 @@
                 "concept": "1109AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {
-                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "None"
-                  },
-                  {
                     "concept": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Cotrimoxazole"
                   },
                   {
                     "concept": "74250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Dapsone"
+                  },
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
                   }
                 ]
               },
@@ -4661,20 +4124,20 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "163794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Fair (F)"
-                  },
-                  {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not applicable (N/A)"
-                  },
-                  {
                     "concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Good (G)"
                   },
                   {
                     "concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Poor (P)"
+                  },
+                  {
+                    "concept": "163794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fair (F)"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable (N/A)"
                   }
                 ]
               },
@@ -4692,16 +4155,16 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not applicable (N/A)"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
                   },
                   {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable (N/A)"
                   }
                 ]
               },
@@ -4725,12 +4188,12 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "163794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Fair (F)"
-                  },
-                  {
                     "concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Good (G)"
+                  },
+                  {
+                    "concept": "163794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fair (F)"
                   },
                   {
                     "concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -4752,16 +4215,16 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not applicable (N/A)"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
                   },
                   {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable (N/A)"
                   }
                 ]
               },
@@ -4777,9 +4240,33 @@
           "isExpanded": "true",
           "questions": [
             {
+              "label": "Please select the client status on ART:",
+              "type": "obs",
+              "id": "CliesTatusonART",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1687AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Newly on ART",
+                    "concept": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Continuing on ART",
+                    "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
               "label": "1. Do you ever forget to take your medicine?",
               "type": "control",
               "id": "forget",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4796,13 +4283,14 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "2. Are you careless at times about taking your medicine?",
               "type": "control",
               "id": "carelessAtTimes",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4819,13 +4307,14 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "3.Sometimes if you feel worse when you take the medicine, do you stop taking it?",
               "type": "control",
               "id": "feelWorse",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4842,13 +4331,14 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "4.When you feel better do you sometimes stop taking your medicine?",
               "type": "control",
               "id": "feelBetter",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4865,7 +4355,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -4946,24 +4436,12 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Never/Rarely"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
-                    "concept": "159416AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Once in a while"
-                  },
-                  {
-                    "concept": "1385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Sometimes"
-                  },
-                  {
-                    "concept": "1804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Usually"
-                  },
-                  {
-                    "concept": "1358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "All the time"
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
                   }
                 ]
               },
@@ -5023,20 +4501,20 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "N/A"
-                  },
-                  {
-                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Unkown"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
                   },
                   {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unkown"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "N/A"
                   }
                 ]
               },
@@ -5053,20 +4531,20 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "N/A"
-                  },
-                  {
-                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Unkown"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
                   },
                   {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unkown"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "N/A"
                   }
                 ]
               },
@@ -5083,20 +4561,20 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "N/A"
-                  },
-                  {
-                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Unkown"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
                   },
                   {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unkown"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "N/A"
                   }
                 ]
               },
@@ -5113,20 +4591,20 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "N/A"
-                  },
-                  {
-                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Unkown"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
                   },
                   {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unkown"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "N/A"
                   }
                 ]
               },
@@ -5143,20 +4621,20 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "N/A"
-                  },
-                  {
-                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not Done"
-                  },
-                  {
                     "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Positive"
                   },
                   {
                     "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Negative"
+                  },
+                  {
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Done"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "N/A"
                   }
                 ]
               },
@@ -5164,6 +4642,28 @@
                 "hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15 || age > 66"
               },
               "validators": []
+            },
+            {
+              "label": "Has the client been treated for CaCx",
+              "type": "obs",
+              "id": "cacxTreatment",
+              "questionOptions": {
+                "concept": "a869d37b-bf4d-4946-9318-15ff505211a5",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "cacxPhDpScreening !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
             },
             {
               "label": "Has the client been screened for STI (in this visit)?",
@@ -5175,20 +4675,20 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "N/A"
-                  },
-                  {
-                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not Done"
-                  },
-                  {
                     "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Positive"
                   },
                   {
                     "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Negative"
+                  },
+                  {
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Done"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "N/A"
                   }
                 ]
               },
@@ -5205,17 +4705,89 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  },
-                  {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
                   }
                 ]
               },
               "hide": {
                 "hideWhenExpression": "screenedSti !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Has the client been a victim of GBV?",
+              "type": "obs",
+              "id": "gbvVictim",
+              "questionOptions": {
+                "concept": "167161AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Has the client been screened for depression?",
+              "type": "obs",
+              "id": "depressionScreen",
+              "questionOptions": {
+                "concept": "7a58e4da-3544-457b-84eb-014f65a01d83",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "If Yes, What was the depression assessment score",
+              "type": "obs",
+              "id": "depressionScore",
+              "questionOptions": {
+                "concept": "161140AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "b9a3f63f-8e5b-40c9-99a2-eabe511f85f4",
+                    "label": "Depression Unlikely"
+                  },
+                  {
+                    "concept": "157790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ",
+                    "label": "Mild Depression"
+                  },
+                  {
+                    "concept": "134016AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Moderate Depression"
+                  },
+                  {
+                    "concept": "134011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Moderate Severe Depression"
+                  },
+                  {
+                    "concept": "126627AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Severe Depression"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "depressionScreen !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -5231,7 +4803,7 @@
               "required": "true",
               "questionOptions": {
                 "concept": "1855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "true",
@@ -5273,25 +4845,13 @@
               }
             },
             {
-              "label": "Return visit Date:",
-              "type": "obs",
-              "id": "returnVisitDate",
-              "required": "true",
+              "label": "Return Visit Date:",
+              "id": "appointmentWorkspaceLauncher",
               "questionOptions": {
-                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date"
-              },
-              "validators": [
-                {
-                  "type": "date",
-                  "allowFutureDates": "true"
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-                  "message": "Return visit date should be greater than the encounter date."
-                }
-              ]
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add appointments",
+                "workspaceName": "appointments-form-workspace"
+              }
             },
             {
               "label": "Return visit Reason:",
@@ -5303,20 +4863,20 @@
                 "rendering": "select",
                 "answers": [
                   {
-                    "concept": "160521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Pharmacy Refill"
-                  },
-                  {
                     "concept": "160523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Follow up"
+                  },
+                  {
+                    "concept": "1283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lab tests"
                   },
                   {
                     "concept": "159382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Counseling"
                   },
                   {
-                    "concept": "1283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Lab tests"
+                    "concept": "160521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pharmacy Refill"
                   },
                   {
                     "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -5407,14 +4967,7 @@
               },
               "hide": {
                 "hideWhenExpression": "updateClientPhoneNumber !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              },
-              "validators": [
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
-                  "message": "Please enter the telephone number in the correct format e.g 0720200200 thats is 10 digits"
-                }
-              ]
+              }
             },
             {
               "label": "Differentiated Care",
@@ -5426,14 +4979,6 @@
                 "required": "true",
                 "answers": [
                   {
-                    "concept": "53447431-147e-4071-9c12-f6baf9463c2f",
-                    "label": "Community ART Distribution - HCW Led"
-                  },
-                  {
-                    "concept": "3740fc18-bb23-4ddc-bba7-b010fba072b7",
-                    "label": "Facility ART Distribution Group"
-                  },
-                  {
                     "concept": "7e18712d-8cda-49f5-bfeb-940406cc2e32",
                     "label": "Standard Care"
                   },
@@ -5442,8 +4987,32 @@
                     "label": "Fast Track"
                   },
                   {
+                    "concept": "166443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led facility ART group(HFAG)"
+                  },
+                  {
+                    "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led Community ART group(HCAG)"
+                  },
+                  {
+                    "concept": "166444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peer Led Facility ART Group(PFAG)"
+                  },
+                  {
                     "concept": "27b7ea34-4ea9-48b5-82a3-9981c430c808",
-                    "label": "Community ART Distribution - Peer Led"
+                    "label": "Peer Led Community ART Group(PCAG)"
+                  },
+                  {
+                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
+                    "label": "Community Pharmacy(CP)"
+                  },
+                  {
+                    "concept": "53447431-147e-4071-9c12-f6baf9463c2f",
+                    "label": "Community ART Distribution Points(CAPD)"
+                  },
+                  {
+                    "concept": "166583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Individual patient ART Community Distribution(IACD)"
                   }
                 ]
               },
@@ -5463,6 +5032,34 @@
                   {
                     "concept": "7e18712d-8cda-49f5-bfeb-940406cc2e32",
                     "label": "Standard Care"
+                  },
+                  {
+                    "concept": "166443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led facility ART group(HFAG)"
+                  },
+                  {
+                    "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led Community ART group(HCAG)"
+                  },
+                  {
+                    "concept": "166444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peer Led Facility ART Group(PFAG)"
+                  },
+                  {
+                    "concept": "27b7ea34-4ea9-48b5-82a3-9981c430c808",
+                    "label": "Peer Led Community ART Group(PCAG)"
+                  },
+                  {
+                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
+                    "label": "Community Pharmacy(CP)"
+                  },
+                  {
+                    "concept": "53447431-147e-4071-9c12-f6baf9463c2f",
+                    "label": "Community ART Distribution Points(CAPD)"
+                  },
+                  {
+                    "concept": "166583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Individual patient ART Community Distribution(IACD)"
                   }
                 ]
               },
@@ -5476,5 +5073,6 @@
     }
   ],
   "processor": "EncounterFormProcessor",
-  "referencedForms": []
+  "referencedForms": [],
+  "encounterType": "a0034eee-1940-4e35-847f-97537a35d05e"
 }

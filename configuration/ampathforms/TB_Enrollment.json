@@ -1,7 +1,7 @@
 {
   "name": "TB Enrollment",
   "description": "TB Enrollment",
-  "version": "1",
+  "version": "2.0",
   "published": true,
   "uuid": "89994550-9939-40f3-afa6-173bce445c79",
   "retired": false,
@@ -55,31 +55,54 @@
               "label": "Date Start of Treatment:",
               "type": "obs",
               "id": "dstartoftreatment",
+              "required": "true",
               "questionOptions": {
                 "concept": "1113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
-              }
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
             },
             {
-              "label": "District:",
+              "label": "Sub-County:",
               "type": "obs",
-              "id": "district",
+              "id": "subCounty",
               "questionOptions": {
                 "concept": "161564AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "text"
               }
             },
-						{
-							"type": "patientIdentifier",
-							"label": "District Reg Number",
-							"questionInfo": "",
-							"id": "districtRegNum",
-							"default": "",
-							"questionOptions": {
-								"rendering": "text",
-								"identifierType": "d8ee3b8c-a8fc-4d6b-af6a-9423be5f8906"
-							}
-						}
+            {
+              "type": "patientIdentifier",
+              "label": "Sub-County TB Reg Number",
+              "questionInfo": "",
+              "id": "subCountyRegNum",
+              "default": "",
+              "questionOptions": {
+                "rendering": "text",
+                "identifierType": "d8ee3b8c-a8fc-4d6b-af6a-9423be5f8906"
+              }
+            },
+            {
+              "type": "obs",
+              "label": "Sub-County registration date",
+              "questionInfo": "",
+              "id": "subCountyRegDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "164889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            }
           ]
         },
         {
@@ -93,7 +116,13 @@
               "questionOptions": {
                 "concept": "161561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
-              }
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
             },
             {
               "label": "Method of enrollment",
@@ -157,93 +186,346 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Body Weight in Kgs",
+              "label": "Patient HIV status",
               "type": "obs",
-              "id": "BodWeight",
+              "id": "patientHivStatus",
               "questionOptions": {
-                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number",
-                "max": "250",
-                "min": "0"
-              }
-            },
-            {
-              "label": "Height in centimeters",
-              "type": "obs",
-              "id": "heiGht",
-              "questionOptions": {
-                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number",
-                "max": "270",
-                "min": "10"
-              }
-            }
-          ]
-        },
-        {
-          "label": "Treatment Supported Information",
-          "isExpanded": "true",
-          "questions": [
-            {
-              "label": "Treatment supporters Name",
-              "type": "obs",
-              "id": "tSupporterNames",
-              "questionOptions": {
-                "concept": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text"
-              }
-            },
-            {
-              "label": "Relation to patient",
-              "type": "obs",
-              "id": "tSupporterRelation",
-              "questionOptions": {
-                "concept": "160640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "concept": "1169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "5617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "PARTNER OR SPOUSE"
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive(Pos)"
                   },
                   {
-                    "concept": "973AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Grandparent"
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative(Neg)"
                   },
                   {
-                    "concept": "972AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Sibling"
+                    "concept": "162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Declined(D)"
                   },
                   {
-                    "concept": "160639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Guardian"
-                  },
-                  {
-                    "concept": "1527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Parent"
-                  },
-                  {
-                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Other"
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not done(ND)"
                   }
                 ]
               }
             },
             {
-              "label": "Address",
+              "label": "Facility where receiving ART services?",
               "type": "obs",
-              "id": "tSupporterAddress",
+              "id": "facilityReceivingArt",
               "questionOptions": {
-                "concept": "160641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text"
+                "concept": "162723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "This facility"
+                  },
+                  {
+                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other facility"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
-              "label": "Cell Phone",
+              "label": "Other Facility:",
               "type": "obs",
-              "id": "treatmentSupportedNumber",
+              "id": "otherfacility",
               "questionOptions": {
-                "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "facilityReceivingArt !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "This Facility:",
+              "type": "obs",
+              "id": "thisfacility",
+              "questionOptions": {
+                "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text",
+                "calculate": {
+                  "calculateExpression": "facilityReceivingArt === '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && userLocation.display"
+                }
+              },
+              "hide": {
+                "hideWhenExpression": "facilityReceivingArt !== '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "ART Regimen:",
+              "type": "obs",
+              "id": "artRegimen",
+              "questionOptions": {
+                "concept": "164855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "162559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/DDI/LPV/r"
+                  },
+                  {
+                    "concept": "162562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/LPV/R/TDF"
+                  },
+                  {
+                    "concept": "161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "EDF/3TC/EFV"
+                  },
+                  {
+                    "concept": "792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "D4T/3TC/NVP"
+                  },
+                  {
+                    "concept": "9fb85385-b4fb-468c-b7c1-22f75834b4b0",
+                    "label": "TDF/3TC/DTG"
+                  },
+                  {
+                    "concept": "162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/ABC/LPV/r"
+                  },
+                  {
+                    "concept": "4dc0119b-b2a6-4565-8d90-174b97ba31db",
+                    "label": "ABC/3TC/DTG"
+                  },
+                  {
+                    "concept": "164511AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AZT-3TC-ATV/r"
+                  },
+                  {
+                    "concept": "162563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/ABC/EFV"
+                  },
+                  {
+                    "concept": "6dec7d7d-0fda-4e8d-8295-cb6ef426878d",
+                    "label": "AZT/3TC/DTG"
+                  },
+                  {
+                    "concept": "164505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF-3TC-EFV"
+                  },
+                  {
+                    "concept": "817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/3TC/AZT"
+                  },
+                  {
+                    "concept": "1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/NVP/AZT"
+                  },
+                  {
+                    "concept": "162560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/D4T/LPV/r"
+                  },
+                  {
+                    "concept": "162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/NVP/3TC"
+                  },
+                  {
+                    "concept": "164512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF-3TC-ATV/r"
+                  },
+                  {
+                    "concept": "104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "EFV/FTC/TDF"
+                  },
+                  {
+                    "concept": "162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/LPV/TDF/r"
+                  },
+                  {
+                    "concept": "162565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/NVP/TDF"
+                  },
+                  {
+                    "concept": "162561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/AZT/LPV/r"
+                  },
+                  {
+                    "concept": "160124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AZT/3TC/EFV"
+                  },
+                  {
+                    "concept": "160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "D4T/3TC/EFV"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(facilityReceivingArt) || facilityReceivingArt !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date regimen started:",
+              "type": "obs",
+              "id": "dateRegimenStarted",
+              "questionOptions": {
+                "concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date",
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(facilityReceivingArt) || facilityReceivingArt !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Prophylaxis for Opportunistic Infections?",
+              "type": "obs",
+              "id": "prophylaxisForOpportunistic",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1109AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cotrimoxazole"
+                  },
+                  {
+                    "concept": "74250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dapsone"
+                  },
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(facilityReceivingArt) || facilityReceivingArt !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "CD4 Count results(Date)",
+              "type": "obs",
+              "id": "cd4Results",
+              "questionOptions": {
+                "concept": "5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(facilityReceivingArt) || facilityReceivingArt !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Last CD4 Count Date",
+              "type": "obs",
+              "id": "cd4Date",
+              "questionOptions": {
+                "concept": "160103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date",
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(facilityReceivingArt) || facilityReceivingArt !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Viral Load Results",
+              "type": "obs",
+              "id": "viralLoadResults",
+              "questionOptions": {
+                "concept": "163545AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "answers": []
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(facilityReceivingArt) || facilityReceivingArt !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Last Viral load result date",
+              "type": "obs",
+              "id": "lastViralLoadDate",
+              "questionOptions": {
+                "concept": "163281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date",
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(facilityReceivingArt) || facilityReceivingArt !== '164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Partner HIV Status",
+              "type": "obs",
+              "id": "partnerHivStatus",
+              "questionOptions": {
+                "concept": "1436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Declined"
+                  },
+                  {
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Done/Unknown"
+                  },
+                  {
+                    "concept": "5617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No partner"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Date when test was done",
+              "type": "obs",
+              "id": "dateTestDone",
+              "questionOptions": {
+                "concept": "164400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date",
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && partnerHivStatus !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -253,7 +535,7 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Disease classification",
+              "label": "Type of TB",
               "type": "obs",
               "id": "DiSclassification",
               "questionOptions": {
@@ -280,16 +562,12 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Smear not done"
+                    "concept": "164397AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Bacteriologically confirmed"
                   },
                   {
-                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Smear Positive"
-                  },
-                  {
-                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Smear Negative"
+                    "concept": "164398AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Clinically diagnosed"
                   }
                 ]
               },
@@ -359,8 +637,9 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Patient Classification",
+              "label": "Type of Patient",
               "type": "obs",
+              "required": "true",
               "id": "patientClassification",
               "questionOptions": {
                 "concept": "159871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -375,24 +654,24 @@
                     "label": "Smear negative Relapse"
                   },
                   {
-                    "concept": "159874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Treatment after Failure"
+                    "concept": "159877AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Smear positive Relapse"
                   },
                   {
-                    "concept": "159872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Transfer in"
-                  },
-                  {
-                    "concept": "159873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Treatment resumed after defaulting"
+                    "concept": "159979AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other Previously treated (PT)"
                   },
                   {
                     "concept": "163609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Previous treatment history unknown"
+                    "label": "Previous treatment history unknown (THU)"
                   },
                   {
-                    "concept": "159877AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Smear positive Relapse"
+                    "concept": "159872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transfer in (TI)"
+                  },
+                  {
+                    "concept": "159873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Treatment after Lost to Follow up (TLF)"
                   }
                 ]
               }
@@ -411,6 +690,12 @@
                 "concept": "160534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
               },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
               "hide": {
                 "hideWhenExpression": "patientClassification !== '159872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
@@ -428,7 +713,7 @@
               }
             },
             {
-              "label": "District",
+              "label": "Sub-County",
               "type": "obs",
               "id": "newDistrict",
               "questionOptions": {
@@ -447,9 +732,90 @@
                 "concept": "161552AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
               },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
               "hide": {
                 "hideWhenExpression": "patientClassification !== '159872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
+            }
+          ]
+        },
+        {
+          "label": "Treatment Supported Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Treatment supporters Name",
+              "type": "obs",
+              "id": "tSupporterNames",
+              "questionOptions": {
+                "concept": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Relation to patient",
+              "type": "obs",
+              "id": "tSupporterRelation",
+              "questionOptions": {
+                "concept": "160640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "5617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "PARTNER OR SPOUSE"
+                  },
+                  {
+                    "concept": "973AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Grandparent"
+                  },
+                  {
+                    "concept": "972AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sibling"
+                  },
+                  {
+                    "concept": "160639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Guardian"
+                  },
+                  {
+                    "concept": "1527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Parent"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Address",
+              "type": "obs",
+              "id": "tSupporterAddress",
+              "questionOptions": {
+                "concept": "160641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Cell Phone",
+              "type": "obs",
+              "id": "treatmentSupportedNumber",
+              "questionOptions": {
+                "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators":[
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
+									"message": "Please enter the telephone number in the correct format e.g 0713888198 thats is 10 digits"
+								  }
+							]
             }
           ]
         }
