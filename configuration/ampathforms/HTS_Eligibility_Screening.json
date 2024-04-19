@@ -32,7 +32,7 @@
               "label": "Provider:",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-provider"
               },
               "id": "encProvider "
             },
@@ -40,7 +40,7 @@
               "label": "Location:",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-location"
               },
               "id": "encLocation"
             }
@@ -358,20 +358,25 @@
                 "concept": "166570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
                     "concept": "166606AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Social Contact",
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   },
                   {
-                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "None"
+                    "concept": "166517AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Needle Sharing",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 ]
               },
               "id": "cricChild",
               "required": "true",
               "hide": {
-                "hideWhenExpression": "!(age <=9)"
+                "hideWhenExpression": "!(age <=10)"
               }
             },
             {
@@ -381,6 +386,10 @@
                 "rendering": "checkbox",
                 "concept": "166570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
                   {
                     "concept": "163565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Sexual Contact",
@@ -395,17 +404,13 @@
                     "concept": "166517AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Needle Sharing",
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  },
-                  {
-                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "None"
                   }
                 ]
               },
               "id": "cricAdulT",
               "required": "true",
               "hide": {
-                "hideWhenExpression": "!(age >9)"
+                "hideWhenExpression": "!(age >10)"
               }
             }
           ]
@@ -566,7 +571,7 @@
                     "label": "Positive"
                   },
                   {
-                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Negative"
                   },
                   {
@@ -649,7 +654,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'])"
+                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA']) || testHistory === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -672,11 +677,11 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA']) || testedResultsprovider === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA']) || testedResultsprovider === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
-              "label": "Self Test Result:",
+              "label": "Self Test Result :",
               "type": "obs",
               "id": "testedResultsself",
               "questionOptions": {
@@ -684,22 +689,22 @@
                 "rendering": "select",
                 "answers": [
                   {
-                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Unknown"
-                  },
-                  {
                     "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Positive"
                   },
                   {
                     "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Negative"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
                   }
                 ]
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['2797e57b-d1ff-4928-b10e-b72e95b63faf'])"
+                "hideWhenExpression": "isEmpty(teSteR) || !arrayContains(teSteR, ['2797e57b-d1ff-4928-b10e-b72e95b63faf']) || testHistory === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -722,7 +727,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "isEmpty(teSteR)|| !arrayContains(teSteR, ['2797e57b-d1ff-4928-b10e-b72e95b63faf'])"
+                "hideWhenExpression": "isEmpty(teSteR)|| !arrayContains(teSteR, ['2797e57b-d1ff-4928-b10e-b72e95b63faf']) || testHistory === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -731,7 +736,7 @@
               "id": "startedArt",
               "questionOptions": {
                 "concept": "64132ecd-3a0f-41b8-b743-78c26af2f4b9",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -792,7 +797,34 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "age > 15 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "(age < 10 || age > 14) || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Has the child been defiled?",
+              "type": "obs",
+              "id": "childDefiledMother",
+              "questionOptions": {
+                "concept": "160109AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Declined to answer"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "age > 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -815,7 +847,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "(age < 15 ) || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -842,7 +874,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || sexuallyActive == '162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || age < 9 || sexuallyActive == '162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -869,7 +901,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || sexuallyActive == '162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 "
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0'   || age < 9 || sexuallyActive == '162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -881,16 +913,16 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Unknown"
-                  },
-                  {
                     "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "HIV Positive"
                   },
                   {
                     "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "HIV Negative"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
                   },
                   {
                     "concept": "162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -900,7 +932,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || sexuallyActive == '162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 10 "
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || sexuallyActive == '162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 10"
               }
             },
             {
@@ -927,7 +959,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1' || age < 10"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1' || age < 10 || partnerHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -960,12 +992,12 @@
               "questionOptions": {
                 "concept": "5570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
-                "max": "",
+                "max": "10000",
                 "min": "0"
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(multipleSexPartners) || multipleSexPartners !== '1' || age < 9"
+                "hideWhenExpression": "isEmpty(multipleSexPartners) || multipleSexPartners !== '1'"
               }
             },
             {
@@ -977,16 +1009,16 @@
                 "rendering": "radio",
                 "answers": [
                   {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not at all"
+                  },
+                  {
                     "concept": "0d2f24cd-0bd9-4159-b71d-a92f2c11a396",
                     "label": "Always"
                   },
                   {
                     "concept": "1385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Sometimes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not at all"
                   },
                   {
                     "concept": "162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -996,7 +1028,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1' || age < 9"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1' || age < 9 "
               }
             },
             {
@@ -1023,7 +1055,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1' || age < 9"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1'"
               }
             },
             {
@@ -1050,7 +1082,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1' || age < 9"
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1'"
               }
             },
             {
@@ -1077,7 +1109,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1' || age < 9 "
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1'"
               }
             },
             {
@@ -1104,7 +1136,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1' || age < 9 "
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive !== '1'"
               }
             },
             {
@@ -1127,7 +1159,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || age < 9 "
+                "hideWhenExpression": "isEmpty(sexuallyActive) || sexuallyActive == '0' || kpTypeMale !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kpTypeFemale !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1156,7 +1188,7 @@
             {
               "label": "Traditional /non-medical procedures e.g. scarification, plastic tooth extraction, Circumcision, uvulectomy etc",
               "type": "obs",
-              "id": "__tDI8Dp4Ly",
+              "id": "traditionalMethds",
               "required": "true",
               "questionOptions": {
                 "concept": "166365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1173,7 +1205,30 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || (age < 10)"
+              }
+            },
+            {
+              "label": "Traditional /non-medical procedures e.g. scarification, plastic tooth extraction, Circumcision, uvulectomy etc",
+              "type": "obs",
+              "id": "traditionalMethdsMother",
+              "required": "true",
+              "questionOptions": {
+                "concept": "166365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age > 9 || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1219,7 +1274,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age > 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "age > 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -1248,7 +1303,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "age < 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1271,7 +1326,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(experiencedGbv) || experiencedGbv !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 "
+                "hideWhenExpression": "isEmpty(experiencedGbv) || experiencedGbv !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
               }
             },
             {
@@ -1294,7 +1349,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(experiencedGbv) || experiencedGbv !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 "
+                "hideWhenExpression": "isEmpty(experiencedGbv) || experiencedGbv !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -1318,7 +1373,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "age < 15 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1336,12 +1391,16 @@
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
+                  },
+                  {
+                    "concept": "162570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Declined to answer"
                   }
                 ]
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(prepService) || !arrayContains(prepService, ['1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA']) || age < 9"
+                "hideWhenExpression": "isEmpty(prepService) || !arrayContains(prepService, ['1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA']) || age < 15 || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1359,7 +1418,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 9 || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1404,7 +1463,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "age < 9 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
               }
             },
             {
@@ -1460,7 +1519,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1556,6 +1615,29 @@
               }
             },
             {
+              "label": "Client Lethargic, less playful than usual?",
+              "type": "obs",
+              "id": "LetHargy",
+              "questionOptions": {
+                "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "0",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(screenedTB) || screenedTB !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age > 10"
+              }
+            },
+            {
               "label": "Resulting TB Status:",
               "type": "obs",
               "id": "tbResultstaTuS",
@@ -1614,7 +1696,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "sex !== 'F' || age < 10 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "sex !== 'F' || age < 10 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1636,7 +1718,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "sex !== 'F' || age < 10 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "sex !== 'F' || age < 10 || testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || motHersHivstatus == '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testHistory == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -1673,7 +1755,8 @@
               "id": "riskScore",
               "questionOptions": {
                 "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "machine-learning"
+                "rendering": "machine-learning",
+                "readOnly": "true"
               },
               "hide": {
                 "hideWhenExpression": "testedResultsprovider === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -1682,11 +1765,9 @@
             {
               "label": "Generated HIV Risk Category",
               "type": "obs",
-              "read-only": "true",
               "questionOptions": {
                 "rendering": "radio",
                 "concept": "d79488b7-eb63-49ba-b99c-a52f777a1a7f",
-                "readOnly": "true",
                 "answers": [
                   {
                     "concept": "166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1772,7 +1853,7 @@
                 "answers": [
                   {
                     "concept": "ccf759b9-bdd4-4265-a71a-67a894d89dec",
-                    "label": "Client is eligible"
+                    "label": "Client is not eligible"
                   },
                   {
                     "concept": "d79488b7-eb63-49ba-b99c-a52f777a1a7f",
@@ -1780,7 +1861,7 @@
                   },
                   {
                     "concept": "1163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Both eligible and risk category"
+                    "label": "Both not eligible and risk category"
                   }
                 ]
               },
