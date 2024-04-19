@@ -1,7 +1,7 @@
 {
   "name": "MCH Antenatal Visit",
   "description": "MCH Antenatal Visit",
-  "version": "1",
+  "version": "2.0",
   "published": true,
   "uuid": "e8f98494-af35-4bb8-9fc7-c409c8fed843",
   "retired": false,
@@ -55,12 +55,23 @@
               "type": "obs",
               "questionOptions": {
                 "rendering": "number",
-                "concept": "1425AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "min": "0",
-                "max": "99"
+                "concept": "1425AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "id": "visitNumber",
-              "required": "true"
+              "required": "true",
+              "min": "0",
+              "max": "99"
+            },
+            {
+              "label": "ANC Clinic Number:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "163530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "clinicNumber",
+              "required": "true",
+              "min": "0"
             }
           ]
         },
@@ -117,8 +128,8 @@
               "questionOptions": {
                 "concept": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
-                "min": "0",
-                "max": "45"
+                "min": "2",
+                "max": "42"
               }
             },
             {
@@ -128,8 +139,8 @@
               "questionOptions": {
                 "concept": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
-                "min": "0",
-                "max": "50"
+                "min": "12",
+                "max": "42"
               }
             },
             {
@@ -237,7 +248,7 @@
               },
               "questions": [
                 {
-                  "label": "Kit 1 Name",
+                  "label": "Kit Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -269,7 +280,7 @@
                   "id": "lotNumber",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName)"
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
                   }
                 },
                 {
@@ -293,7 +304,7 @@
                   },
                   "id": "expiryDate",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName)"
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
                   }
                 },
                 {
@@ -320,11 +331,11 @@
                   "id": "testResults",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName)"
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
                   }
                 },
                 {
-                  "label": "Kit 2 Name",
+                  "label": "Kit Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -352,7 +363,7 @@
                   "id": "lotNumberB",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameB)"
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -376,7 +387,7 @@
                   },
                   "id": "expiryDateB",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameB)"
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -403,11 +414,11 @@
                   "id": "testResultsB",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameB)"
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
-                  "label": "Kit 1 Name",
+                  "label": "Kit Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -439,7 +450,7 @@
                   "id": "lotNumberD",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameD)"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -463,7 +474,7 @@
                   },
                   "id": "expiryDateD",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameD)"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -490,11 +501,11 @@
                   "id": "testResultsD",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameD)"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
-                  "label": "Kit 3 Name",
+                  "label": "Kit Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -522,7 +533,7 @@
                   "id": "lotNumberC",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameC)"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -546,7 +557,7 @@
                   },
                   "id": "expiryDateC",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameC)"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -573,7 +584,7 @@
                   "id": "testResultsC",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameC)"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ]
@@ -615,6 +626,60 @@
               "questionOptions": {
                 "concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
+                "required": "true",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Syphilis serology:",
+              "type": "obs",
+              "id": "syphilisTestResults",
+              "questionOptions": {
+                "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Requested"
+                  },
+                  {
+                    "concept": "1402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Tested"
+                  },
+                  {
+                    "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Poor Sample quality"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(kitName) || kitName !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
+              }
+            },
+            {
+              "label": "Has the client been treated for syphilis?",
+              "type": "obs",
+              "id": "syphilisTreated",
+              "questionOptions": {
+                "concept": "159918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -627,7 +692,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(hivFinalResult)"
+                "hideWhenExpression": "syphilisTestResults !== '1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -676,474 +741,6 @@
               }
             }
           ]
-        },
-        {
-          "label": "Urinalysis",
-          "isExpanded": "true",
-          "questions": [
-            {
-              "label": "Urinalysis ",
-              "type": "obsGroup",
-              "questionOptions": {
-                "rendering": "group",
-                "concept": "161446AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-              },
-              "id": "urinalysis",
-              "questions": [
-                {
-                  "label": "Urine Microscopy",
-                  "type": "obs",
-                  "id": "urinalysis",
-                  "questionOptions": {
-                    "concept": "56AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "textarea"
-                  }
-                },
-                {
-                  "label": "Urine Leukocyte Esterase Test",
-                  "type": "obs",
-                  "id": "lukocyte",
-                  "questionOptions": {
-                    "concept": "161441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Trace"
-                      },
-                      {
-                        "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "One Plus(+)"
-                      },
-                      {
-                        "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Two Plus(++)"
-                      },
-                      {
-                        "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Three Plus(+++)"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Urinary Albumin (mg/dL)",
-                  "type": "obs",
-                  "id": "albumin",
-                  "questionOptions": {
-                    "concept": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Trace - 15"
-                      },
-                      {
-                        "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "One Plus(+) - 30"
-                      },
-                      {
-                        "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Two Plus(++) - 100"
-                      },
-                      {
-                        "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Three Plus(+++) - 300"
-                      },
-                      {
-                        "concept": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Four Plus(++++) - 1000"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Urinary Ketone (mg/dL)",
-                  "type": "obs",
-                  "id": "ketone",
-                  "questionOptions": {
-                    "concept": "161442AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Trace - 5"
-                      },
-                      {
-                        "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "One Plus(+) - 15"
-                      },
-                      {
-                        "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Two Plus(++) - 50"
-                      },
-                      {
-                        "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Three Plus(+++) - 150"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Glucose Measurement (Qualitative)",
-                  "type": "obs",
-                  "id": "glucose",
-                  "questionOptions": {
-                    "concept": "159734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Normal"
-                      },
-                      {
-                        "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Trace"
-                      },
-                      {
-                        "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "One Plus(+)"
-                      },
-                      {
-                        "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Two Plus(++)"
-                      },
-                      {
-                        "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Three Plus(+++)"
-                      },
-                      {
-                        "concept": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Four Plus(++++)"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Urine Bile Salt Test (mg/dL)",
-                  "type": "obs",
-                  "id": "bile",
-                  "questionOptions": {
-                    "concept": "161444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Normal"
-                      },
-                      {
-                        "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Trace - 1"
-                      },
-                      {
-                        "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "One Plus(+) - 4"
-                      },
-                      {
-                        "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Two Plus(++) - 8"
-                      },
-                      {
-                        "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Three Plus(+++) - 12"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Urine pH",
-                  "type": "obs",
-                  "id": "urinePH",
-                  "questionOptions": {
-                    "concept": "161438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number",
-                    "max": "14",
-                    "min": "0"
-                  }
-                },
-                {
-                  "label": "Urine Bile Pigment Test",
-                  "type": "obs",
-                  "id": "bile",
-                  "questionOptions": {
-                    "concept": "161443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "One Plus(+)"
-                      },
-                      {
-                        "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Two Plus(++)"
-                      },
-                      {
-                        "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Three Plus(+++)"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Urine Specific Gravity",
-                  "type": "obs",
-                  "id": "urineSpecificGravity",
-                  "questionOptions": {
-                    "concept": "161439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number",
-                    "max": "1.1",
-                    "min": "1"
-                  }
-                },
-                {
-                  "label": "Urine Color",
-                  "type": "obs",
-                  "id": "urineColor",
-                  "questionOptions": {
-                    "concept": "162106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "162100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Brown color"
-                      },
-                      {
-                        "concept": "162099AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Colourless"
-                      },
-                      {
-                        "concept": "162098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Dark yellow colour"
-                      },
-                      {
-                        "concept": "162097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Light yellow colour"
-                      },
-                      {
-                        "concept": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Red color"
-                      },
-                      {
-                        "concept": "162105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Yellow-green colour"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Urine Nitrite Test",
-                  "type": "obs",
-                  "id": "urineNitrite",
-                  "questionOptions": {
-                    "concept": "161440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
-                      },
-                      {
-                        "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "One Plus(+)"
-                      },
-                      {
-                        "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Two Plus(++)"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Urine Turbidity",
-                  "type": "obs",
-                  "id": "urineTurbidity",
-                  "questionOptions": {
-                    "concept": "162101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "162103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Cloudy urine"
-                      },
-                      {
-                        "concept": "162102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Urine appears clear"
-                      },
-                      {
-                        "concept": "162104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Urine appears turbid"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "label": "Urine Dipstick for Blood",
-                  "type": "obs",
-                  "id": "urineDipstick",
-                  "questionOptions": {
-                    "concept": "162096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Trace"
-                      },
-                      {
-                        "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "One Plus(+)"
-                      },
-                      {
-                        "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Two Plus(++)"
-                      },
-                      {
-                        "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Three Plus(+++)"
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "label": "Other Tests",
-          "isExpanded": "true",
-          "questions": [
-            {
-              "label": "Syphilis serology:",
-              "type": "obs",
-              "id": "syphilisTestResults",
-              "questionOptions": {
-                "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
-                "answers": [
-                  {
-                    "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Negative"
-                  },
-                  {
-                    "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Positive"
-                  },
-                  {
-                    "concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Requested"
-                  },
-                  {
-                    "concept": "1402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not Tested"
-                  },
-                  {
-                    "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Poor Sample quality"
-                  }
-                ]
-              }
-            },
-            {
-              "label": "Has the client been treated for syphilis?",
-              "type": "obs",
-              "id": "syphilisTreated",
-              "questionOptions": {
-                "concept": "159918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "syphilisTestResults !== '1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "BS for MPS:",
-              "type": "obs",
-              "id": "bsForMps",
-              "questionOptions": {
-                "concept": "32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
-                "answers": [
-                  {
-                    "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "INDETERMINATE"
-                  },
-                  {
-                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "NEGATIVE"
-                  },
-                  {
-                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "POSITIVE"
-                  }
-                ]
-              }
-            },
-            {
-              "label": "Haemoglobin:",
-              "type": "obs",
-              "id": "hb",
-              "questionOptions": {
-                "concept": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
-              }
-            },
-            {
-              "label": "Blood sugar testing for Diabetes:",
-              "type": "obs",
-              "id": "bldSugar",
-              "questionOptions": {
-                "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No Diabetes"
-                  },
-                  {
-                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Has Diabetes"
-                  },
-                  {
-                    "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not Done"
-                  }
-                ]
-              }
-            }
-          ]
         }
       ]
     },
@@ -1183,19 +780,19 @@
                 "answers": [
                   {
                     "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No signs"
+                    "label": "NO signs"
                   },
                   {
                     "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "TB presumed"
+                    "label": "Presumed TB"
                   },
                   {
                     "concept": "164128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No signs and started on INH"
+                    "label": "On TPT"
                   },
                   {
                     "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "TB Rx"
+                    "label": "On TB Treatment"
                   },
                   {
                     "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1274,7 +871,7 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Positive"
                   },
                   {
@@ -1307,7 +904,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "hepBscreen !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "hepBscreen !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1337,7 +934,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1359,7 +956,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -1391,7 +988,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hivFinalResult) || !arrayContains(hivFinalResult, '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
@@ -1417,7 +1014,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hivFinalResult) || !arrayContains(hivFinalResult, '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
@@ -1443,7 +1040,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hivFinalResult) || !arrayContains(hivFinalResult, '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
@@ -1487,7 +1084,7 @@
                   },
                   {
                     "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "N/A"
+                    "label": "Not Applicable"
                   }
                 ]
               }
@@ -1511,14 +1108,6 @@
                   {
                     "concept": "3",
                     "label": "Third Dose"
-                  },
-                  {
-                    "concept": "0",
-                    "label": "No"
-                  },
-                  {
-                    "concept": "0",
-                    "label": "Not Applicable"
                   }
                 ]
               },
@@ -1587,7 +1176,7 @@
               "id": "fpCounselled",
               "questionOptions": {
                 "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "checkbox",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1794,7 +1383,7 @@
                   "type": "obs",
                   "id": "druG",
                   "questionOptions": {
-                    "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "166103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "text"
                   }
                 },
