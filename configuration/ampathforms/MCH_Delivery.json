@@ -299,16 +299,16 @@
               "required": "true"
             },
             {
-							"label": "Time of Delivery",
-							"type": "obs",
-							"id": "TtakEn",
-							"required": "true",
-							"datePickerFormat": "timer",
-							"questionOptions": {
-							  "concept": "a9e7c05e-7381-4e2b-a968-05d5d6a884f6",
-							  "rendering": "date"
-							}
-						  },
+              "label": "Time of Delivery",
+              "type": "obs",
+              "id": "TtakEn",
+              "required": "true",
+              "datePickerFormat": "timer",
+              "questionOptions": {
+                "concept": "a9e7c05e-7381-4e2b-a968-05d5d6a884f6",
+                "rendering": "date"
+              }
+            },
             {
               "label": "Blood loss during delivery in millilitres (mls):",
               "type": "obs",
@@ -317,7 +317,7 @@
                 "concept": "161928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
                 "min": "0",
-                "max": "100"
+                "max": "1000"
               }
             },
             {
@@ -407,6 +407,64 @@
               }
             },
             {
+              "label": "Select delivery complications ?",
+              "type": "obs",
+              "id": "specificComplications",
+              "questionOptions": {
+                "concept": "1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "113195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ruptured Uterus"
+                  },
+                  {
+                    "concept": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Eclampsia"
+                  },
+                  {
+                    "concept": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "APH"
+                  },
+                  {
+                    "concept": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "PPH"
+                  },
+                  {
+                    "concept": "115036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Obstructed Labor"
+                  },
+                  {
+                    "concept": "130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Puerperal sepsis"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(deliveryComplications) || deliveryComplications !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Other delivery complications",
+              "type": "obs",
+              "id": "otherComplications",
+              "questionOptions": {
+                "concept": "162093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(specificComplications) || specificComplications !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
               "label": "Counselled on infant feeding?",
               "type": "obs",
               "id": "infantFeeding",
@@ -450,60 +508,6 @@
                     "label": "Born Before Arrival"
                   }
                 ]
-              }
-            },
-            {
-              "label": "Select delivery complications ?",
-              "type": "obs",
-              "id": "specificComplications",
-              "questionOptions": {
-                "concept": "1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
-                "answers": [
-                  {
-                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Unknown"
-                  },
-                  {
-                    "concept": "113195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Ruptured Uterus"
-                  },
-                  {
-                    "concept": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Eclampsia"
-                  },
-                  {
-                    "concept": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "APH"
-                  },
-                  {
-                    "concept": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "PPH"
-                  },
-                  {
-                    "concept": "115036AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Obstructed Labor"
-                  },
-                  {
-                    "concept": "130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Puerperal sepsis"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(deliveryComplications) || deliveryComplications !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "Other delivery complications",
-              "type": "obs",
-              "id": "otherComplications",
-              "questionOptions": {
-                "concept": "162093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "textarea"
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(deliveryComplications) || deliveryComplications !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -606,9 +610,6 @@
               "questionOptions": {
                 "concept": "162588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "repeating"
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(deliveryOutcome) || deliveryOutcome !== ('159913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','159914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','159915AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               },
               "questions": [
                 {
