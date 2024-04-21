@@ -65,20 +65,20 @@ fi
 
 
 echo "========= Deleting liquibase entries for ETL modules updates"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like 'kenyaemrChart%';"
+mysql --user=${mysql_user} -v --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like 'kenyaemrChart%';"
 echo
 
 echo "========= Deleting liquibase entries for ML modules updates========"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemr-ML%';"
+mysql --user=${mysql_user} -v --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemr-ML%';"
 echo
 
 echo "========= Deleting liquibase entries for IL  updates"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemerIL%';"
+mysql --user=${mysql_user} -v --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemerIL%';"
 echo "========= Deleting liquibase entries for IL done"
 
 
 echo "========= Updating machine and IIT risk score threshold ========"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/global_properties/global_properties.sql"
+mysql --user=${mysql_user} -v --password=${mysql_password} ${mysql_base_database} < "${script_dir}/scripts/global_properties/global_properties.sql"
 echo "========= Done updating machine and IIT risk score threshold"
 
 echo '=======================================================================

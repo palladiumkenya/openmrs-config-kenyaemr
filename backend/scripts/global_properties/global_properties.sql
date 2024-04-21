@@ -1,3 +1,5 @@
+use openmrs;
+truncate truncate table kenyaemr_ml_patient_risk_score;
 update
     global_property
 set
