@@ -73,7 +73,7 @@ mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -
 echo
 
 echo "========= Deleting liquibase entries for IL  updates"
-mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemr-ML%';"
+mysql --user=${mysql_user} --password=${mysql_password} ${mysql_base_database} -Bse "DELETE FROM liquibasechangelog where id like '%kenyaemerIL%';"
 echo "========= Deleting liquibase entries for IL done"
 
 
