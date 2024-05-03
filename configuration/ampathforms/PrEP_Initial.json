@@ -1,7 +1,7 @@
 {
 	"name": "PrEP Initial Form",
 	"description": "PrEP Initial Form",
-	"version": "1",
+	"version": "2.0",
 	"published": true,
 	"uuid": "1bfb09fc-56d7-4108-bd59-b2765fd312b8",
 	"retired": false,
@@ -47,36 +47,6 @@
 			]
 		  },
 		  {
-			"label": "Partner HIV Status",
-			"isExpanded": "true",
-			"questions": [
-			  {
-				"label": "What is the partner HIV status?",
-				"type": "obs",
-				"questionOptions": {
-				  "concept": "162216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Positive"
-					},
-					{
-					  "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Negative"
-					},
-					{
-					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Unknown"
-					}
-				  ]
-				},
-				"validators": [],
-				"id": "partnerStatus"
-			  }
-			]
-		  },
-		  {
 			"label": "HIV Positive Partner Profile",
 			"type": "obsGroup",
 			"isExpanded": "true",
@@ -88,19 +58,6 @@
 			"validators": [],
 			"questions": [
 			  {
-				"label": "HIV+ partner CCC Number",
-				"type": "obs",
-				"id": "partnersCcc",
-				"questionOptions": {
-				  "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "number"
-				},
-				"validators": [],
-				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
 				"label": "CCC number/Enrollment status unknown",
 				"type": "obs",
 				"id": "cccEnrollmentStatus",
@@ -110,13 +67,23 @@
 				  "answers": [
 					{
 					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "CCC number/Enrollment status unknown",
-					  "disableWhenExpression": "myValue === '162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					  "label": "CCC number/Enrollment status unknown"
 					}
 				  ]
+				}
+			  },
+			  {
+				"label": "HIV+ partner CCC Number",
+				"type": "obs",
+				"questionInfo": "",
+				"id": "pArtnersCcc",
+				"default": "",
+				"questionOptions": {
+				  "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "string"
 				},
 				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(cccEnrollmentStatus)"
 				}
 			  },
 			  {
@@ -134,7 +101,7 @@
 				  }
 				],
 				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(cccEnrollmentStatus)"
 				}
 			  },
 			  {
@@ -146,7 +113,7 @@
 				  "rendering": "number"
 				},
 				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(cccEnrollmentStatus)"
 				}
 			  },
 			  {
@@ -158,13 +125,13 @@
 				  "rendering": "number"
 				},
 				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(cccEnrollmentStatus)"
 				}
 			  },
 			  {
 				"label": "Sex without a condom with a HIV+ partner in the past 30 days",
 				"type": "obs",
-				"id": "sexWithoutCondom",
+				"id": "sex-without-condom",
 				"questionOptions": {
 				  "concept": "6cb0434b-baa2-4862-aec8-9c468a7340ba",
 				  "rendering": "radio",
@@ -178,21 +145,15 @@
 					  "label": "No"
 					}
 				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
 				"label": "Number of living children with HIV+ partner",
 				"type": "obs",
-				"id": "numberOfChildren",
+				"id": "number-of-children",
 				"questionOptions": {
 				  "concept": "1825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "number"
-				},
-				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  }
 			]
@@ -235,27 +196,33 @@
 					},
 					{
 					  "concept": "145762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Genital Ulcer Disease(GUD)"
+					  "label": "Genital Ulcer Disease(GUD)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "121809AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Vaginitis and/or Vaginal Discharge(VG)"
+					  "label": "Vaginitis and/or Vaginal Discharge(VG)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "116995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Cervicitis and/or Cervical Discharge(CD)"
+					  "label": "Cervicitis and/or Cervical Discharge(CD)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "130644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Pelvic Inflammatory Disease(PID)"
+					  "label": "Pelvic Inflammatory Disease(PID)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "148895AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Anal Discharge(AD)"
+					  "label": "Anal Discharge(AD)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Other(O)"
+					  "label": "Other(O)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					}
 				  ]
 				},
@@ -320,7 +287,7 @@
 			  {
 				"label": "Treated",
 				"type": "obs",
-				"id": "STItrEAted",
+				"id": "StiTreated",
 				"questionOptions": {
 				  "concept": "d7b6a98f-025e-4732-b0b2-2fe8b00e6b4c",
 				  "rendering": "radio",
@@ -336,7 +303,7 @@
 				  ]
 				},
 				"hide": {
-				  "hideWhenExpression": "STIscrEEned !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(STIOptionsFemale) || STIOptionsFemale === ('1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || STIOptionsMale === ('1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
 				}
 			  }
 			]
@@ -376,16 +343,16 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Unknown"
-					},
-					{
 					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "No"
+					},
+					{
+					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Unknown"
 					}
 				  ]
 				},
@@ -1818,7 +1785,7 @@
 				  },
 				  "answers": [
 					{
-					  "concept": "981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "concept": "2f3e668b-695e-4a79-9531-15872b89e5c6",
 					  "label": "Start"
 					},
 					{
@@ -1841,6 +1808,76 @@
 				},
 				"id": "treatmentPlan",
 				"required": "true"
+			  },
+			  {
+				"label": "Reason for starting PrEP",
+				"type": "obs",
+				"id": "reasonForStartingPrep",
+				"questionOptions": {
+				  "concept": "159623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Sero-Serodiscordant Couples trying to conceive"
+					},
+					{
+					  "concept": "5566AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Partner +ve(not on ART, ART last 6mnt, Poor Viral suppression)"
+					},
+					{
+					  "concept": "5568AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Sex partner(s) high risk;  HIV status is unknown, partner multiple sex partners"
+					},
+					{
+					  "concept": "5567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Client has sex with more than one partner"
+					},
+					{
+					  "concept": "8f41ddb8-1b90-4375-9c46-8a4acdeef12d",
+					  "label": "On going IPV/ GBV"
+					},
+					{
+					  "concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Engaging in transactional sex"
+					},
+					{
+					  "concept": "112992AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Recent STI last 6 months"
+					},
+					{
+					  "concept": "1691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Recurrent use of PEP"
+					},
+					{
+					  "concept": "c8ae2850-abab-4b9c-927c-129ecc2c2752",
+					  "label": "Injection drug use with shared needles"
+					},
+					{
+					  "concept": "b19493e4-1a96-4fff-bfc6-3fbca37f02ec",
+					  "label": "Inconsistent or no condom use during intercourse"
+					},
+					{
+					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other Reasons"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "treatmentPlan !== '2f3e668b-695e-4a79-9531-15872b89e5c6'"
+				}
+			  },
+			  {
+				"label": "Specify Other reasons",
+				"type": "obs",
+				"id": "otherReason",
+				"questionOptions": {
+				  "rendering": "textarea",
+				  "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				"hide": {
+				  "hideWhenExpression": "reasonForStartingPrep !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
 			  },
 			  {
 				"label": "Reason for switching",
@@ -1919,7 +1956,7 @@
 			  {
 				"label": "Type of PrEP",
 				"type": "obs",
-				"id": "prepType",
+				"id": "prepTypeFemale",
 				"questionOptions": {
 				  "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "radio",
@@ -1935,6 +1972,28 @@
 					{
 					  "concept": "b3f6eab2-93bd-4fe0-81ce-5b7ec633a55a",
 					  "label": "Dapivirine ring"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+				}
+			  },
+			  {
+				"label": "Type of PrEP",
+				"type": "obs",
+				"id": "prepTypeMale",
+				"questionOptions": {
+				  "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+					  "label": "Daily Oral PrEP"
+					},
+					{
+					  "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+					  "label": "CAB-LA"
 					},
 					{
 					  "concept": "5424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1943,7 +2002,7 @@
 				  ]
 				},
 				"hide": {
-				  "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
 				}
 			  },
 			  {
@@ -1981,7 +2040,7 @@
 				  "rendering": "text"
 				},
 				"hide": {
-				  "hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan === '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(prescribedPrepToday) || prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
