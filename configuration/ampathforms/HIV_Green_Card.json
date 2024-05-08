@@ -519,36 +519,37 @@
             {
               "label": "Patient having complaint(s) today?",
               "type": "obs",
-              "id": "comPlaiNtsToday",
+              "id": "complaintsToday",
               "required": "true",
               "questionOptions": {
-                "concept": "1154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "true",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes"
                   },
                   {
-                    "concept": "false",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
                   }
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "Presenting complaints",
               "type": "obsGroup",
+              "id": "ComplaintLodgeByClient",
               "questionOptions": {
                 "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "repeating"
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || comPlaiNtsToday !== 'true'"
+                "hideWhenExpression": "complaintsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               },
               "questions": [
                 {
@@ -629,7 +630,7 @@
                       },
                       {
                         "concept": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diarrhoea"
+                        "label": "Diarrhea"
                       },
                       {
                         "concept": "122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -678,10 +679,6 @@
                       {
                         "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Fever"
-                      },
-                      {
-                        "concept": "135367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": " General Body Malaise"
                       },
                       {
                         "concept": "135462AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -785,7 +782,7 @@
                       },
                       {
                         "concept": "127777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Red Eye/ Conjuctivitis"
+                        "label": "Red Eye"
                       },
                       {
                         "concept": "6017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -832,10 +829,6 @@
                         "label": "Urinary Symptoms"
                       },
                       {
-                        "concept": "161887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Watery Diarrhoea"
-                      },
-                      {
                         "concept": "157498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Weakness of Limbs"
                       },
@@ -860,9 +853,42 @@
                         "label": "Other"
                       }
                     ]
+                  }
+                },
+                {
+                  "label": "Specify other complaints",
+                  "type": "obs",
+                  "id": "OtherSpecificComplaints",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Patient had contact with TB Infected person in the last 12 months?",
+                  "type": "obs",
+                  "id": "contactTB",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || comPlaiNtsToday !== 'true'"
+                    "hideWhenExpression": "cOmplaIntField !== '143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -874,10 +900,7 @@
                     "rendering": "number",
                     "min": "0"
                   },
-                  "validators": [],
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || comPlaiNtsToday !== 'true'"
-                  }
+                  "validators": []
                 },
                 {
                   "label": "Onset Date",
@@ -887,26 +910,33 @@
                     "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "date"
                   },
-                  "validators": [],
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || comPlaiNtsToday !== 'true'"
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "false"
+                    }
+                  ]
+                },
+                {
+                  "label": "Onset Status",
+                  "type": "obs",
+                  "id": "onsetStatus",
+                  "questionOptions": {
+                    "concept": "d7a3441d-6aeb-49be-b7d6-b2a3bb39e78d",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Gradual"
+                      },
+                      {
+                        "concept": "162707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sudden"
+                      }
+                    ]
                   }
                 }
-              ],
-              "id": "ComplaintLodgeByClient"
-            },
-            {
-              "label": "Specify other complaints",
-              "type": "obs",
-              "id": "OtherSpecificComplaints",
-              "questionOptions": {
-                "concept": "20395601-257c-490c-86c2-acffb627f91f",
-                "rendering": "textarea"
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || comPlaiNtsToday !== 'true' || cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
+              ]
             },
             {
               "label": "Clinical notes",
@@ -918,7 +948,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -934,7 +964,7 @@
               "required": "true",
               "questionOptions": {
                 "concept": "89264964-919b-4f39-816e-c0554b55df51",
-                "rendering": "select",
+                "rendering": "radio",
                 "required": "true",
                 "answers": [
                   {
@@ -957,7 +987,7 @@
               "id": "OnTpT",
               "questionOptions": {
                 "concept": "c49549c5-f761-408b-bc71-c0ae1fd16b73",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -978,7 +1008,7 @@
               "type": "obs",
               "questionOptions": {
                 "concept": "1adbdc14-2324-4298-90d1-5b590c3cf094",
-                "rendering": "select",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1013,7 +1043,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1035,7 +1065,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1057,7 +1087,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1079,7 +1109,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1089,7 +1119,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 16 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
                   }
                 },
                 {
@@ -1101,7 +1131,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1111,7 +1141,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'|| age > 15 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'|| age > 5 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
                   }
                 },
                 {
@@ -1123,7 +1153,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1133,121 +1163,99 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age > 15 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age > 5 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
                   }
                 }
               ]
             },
             {
+              "label": "Resulting TB Status:",
+              "type": "obs",
+              "id": "tbResultstaTuS",
+              "questionOptions": {
+                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "readOnly": "true",
+                "calculate": {
+                  "calculateExpression": "String(OnantiTBdrugs) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  || String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) === 0 ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cliNicalDiagnosisAction) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) > 0 ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  },
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Confirmed"
+                  },
+                  {
+                    "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Screening Not Done"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age < 5 && (String(OnantiTBdrugs) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) === 0 && isEmpty(OnantiTBdrugs) || isEmpty(cOughDuratiOn) || isEmpty(FeverIsh) || isEmpty(WeigHtLossGain) || isEmpty(NighTsWeatS)"
+              }
+            },
+            {
+              "label": "Resulting TB Status:",
+              "type": "obs",
+              "id": "tbResultstaTuSUnderfiVe",
+              "questionOptions": {
+                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "readOnly": "true",
+                "calculate": {
+                  "calculateExpression": "String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  || String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) === 0 ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cliNicalDiagnosisAction) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) > 0 ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  },
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Confirmed"
+                  },
+                  {
+                    "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Screening Not Done"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age > 5 || (String(OnantiTBdrugs) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) === 0 || isEmpty(OnantiTBdrugs) || isEmpty(cOughDuratiOn) || isEmpty(FeverIsh) || isEmpty(WeigHtLossGain) || isEmpty(NighTsWeatS)"
+              }
+            },
+            {
               "label": "Indicate Action Taken",
-              "isExpanded": "true",
+              "type": "obsGroup",
+              "id": "actionTaken",
+              "questionOptions": {
+                "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "group"
+              },
               "questions": [
                 {
-                  "label": "Test ordered ",
-                  "type": "obs",
-                  "id": "testOrdered",
+                  "label": "Lab Order",
+                  "required": false,
+                  "id": "labsWorkspaceLauncher",
                   "questionOptions": {
-                    "concept": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "checkbox",
-                    "answers": [
-                      {
-                        "concept": "307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Sputum Smear"
-                      },
-                      {
-                        "concept": "12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Chest Xray"
-                      },
-                      {
-                        "concept": "162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "GeneXpert"
-                      }
-                    ]
+                    "rendering": "workspace-launcher",
+                    "buttonLabel": "Add lab order",
+                    "workspaceName": "add-lab-order"
                   },
                   "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
-                  }
-                },
-                {
-                  "label": "Sputum smear result",
-                  "type": "obs",
-                  "id": "sPutUmResuLts",
-                  "questionOptions": {
-                    "concept": "307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "POSITIVE"
-                      },
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "NEGATIVE"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
-                  }
-                },
-                {
-                  "label": "Chest Xray result ",
-                  "type": "obs",
-                  "id": "chEstXrAyAction",
-                  "questionOptions": {
-                    "concept": "12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Normal"
-                      },
-                      {
-                        "concept": "152526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Abnormal Chest X-Ray"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
-                  }
-                },
-                {
-                  "label": "GeneXpert:",
-                  "type": "obs",
-                  "id": "geneXpertActiOn",
-                  "questionOptions": {
-                    "concept": "162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "INDETERMINATE"
-                      },
-                      {
-                        "concept": "162204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mycobacterium tuberculosis detected without rifampin resistance"
-                      },
-                      {
-                        "concept": "164104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mycobacterium tuberculosis detected with indeterminate rifampin resistance"
-                      },
-                      {
-                        "concept": "162203AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Mycobacterium tuberculosis detected with rifampin resistance"
-                      },
-                      {
-                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Invalid"
-                      },
-                      {
-                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "NEGATIVE"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+                    "hideWhenExpression": "((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
                   }
                 },
                 {
@@ -1269,7 +1277,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+                    "hideWhenExpression": "((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
                   }
                 },
                 {
@@ -1291,7 +1299,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+                    "hideWhenExpression": "((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
                   }
                 },
                 {
@@ -1313,7 +1321,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
+                    "hideWhenExpression": "((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
                   }
                 },
                 {
@@ -1335,7 +1343,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "sPutUmResuLts !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "cliNicalDiagnosisAction !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1365,7 +1373,7 @@
                     }
                   ],
                   "hide": {
-                    "hideWhenExpression": "sPutUmResuLts !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && cliNicalDiagnosisAction !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1385,16 +1393,28 @@
                         "label": "ISONIAZID"
                       },
                       {
+                        "concept": "767AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "RIFAMPICIN"
+                      },
+                      {
+                        "concept": "75948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "ETHAMBUTOL"
+                      },
+                      {
+                        "concept": "82900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "PYRAZINAMIDE"
+                      },
+                      {
+                        "concept": "84360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "STREPTOMYCIN"
+                      },
+                      {
                         "concept": "160096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "5HR + E"
                       },
                       {
                         "concept": "160092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Isoniazid/Rifampin/Pyrazinamide/Ethambutol prophylaxis for 2 months"
-                      },
-                      {
-                        "concept": "82900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "PYRAZINAMIDE"
                       },
                       {
                         "concept": "768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1421,20 +1441,8 @@
                         "label": "2S + HRZE"
                       },
                       {
-                        "concept": "75948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "ETHAMBUTOL"
-                      },
-                      {
-                        "concept": "84360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "STREPTOMYCIN"
-                      },
-                      {
                         "concept": "160095AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "1HRZE"
-                      },
-                      {
-                        "concept": "767AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "RIFAMPICIN"
                       },
                       {
                         "concept": "160093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1447,43 +1455,10 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "sPutUmResuLts !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && cliNicalDiagnosisAction !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ]
-            },
-            {
-              "label": "Resulting TB Status:",
-              "type": "obs",
-              "id": "tbResultstaTuS",
-              "questionOptions": {
-                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "calculate": {
-                  "calculateExpression": "String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(ConTacTbCase) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(LeSSpLayFul) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(sPutUmResuLts) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(chEstXrAyAction) === '152526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(testOrdered) === '307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(testOrdered) === '12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)+ (String(testOrdered) === '162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0 ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cliNicalDiagnosisAction) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(sPutUmResuLts) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '162203AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '162204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '164104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) > 0 ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' :((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(sPutUmResuLts) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(geneXpertActiOn) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(chEstXrAyAction) === '152526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(testOrdered) === '307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(testOrdered) === '12AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)+ (String(testOrdered) === '162202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) > 0 ?'142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
-                },
-                "answers": [
-                  {
-                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No TB Signs"
-                  },
-                  {
-                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Presumed TB"
-                  },
-                  {
-                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "TB Confirmed"
-                  },
-                  {
-                    "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "TB Screening Not Done"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0"
-              }
             },
             {
               "label": "Tuberculosis Preventive Therapy (TPT) Client Workup",
@@ -1502,7 +1477,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "162311AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1512,7 +1487,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1524,7 +1499,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "132652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1534,11 +1509,11 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
-                  "label": "1. Yellowness of eyes",
+                  "label": "3. Yellowness of eyes",
                   "type": "obs",
                   "id": "YellOwEyEs",
                   "questionOptions": {
@@ -1546,7 +1521,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "5192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1556,11 +1531,11 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
-                  "label": "2.Tenderness in the upper right quadrant of the abdomen",
+                  "label": "4.Tenderness in the upper right quadrant of the abdomen",
                   "type": "obs",
                   "id": "teNderNessaBdOmeN",
                   "questionOptions": {
@@ -1568,7 +1543,7 @@
                     "rendering": "radio",
                     "answers": [
                       {
-                        "concept": "124994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Yes"
                       },
                       {
@@ -1577,8 +1552,12 @@
                       }
                     ]
                   },
+                  "alert": {
+                    "alertWhenExpression": "((String(teNderNessaBdOmeN) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 0 : 1) + (String(YellOwEyEs) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 0 : 1) + (String(NumBnessHaFeT) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 0 : 1) + (String(yeLLOwUrine) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 0 : 1) + (String(EverOnTPT) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 0 : 1)) === 0",
+                    "message": "Patient is candidate for TPT Initiation"
+                  },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(cOughDuratiOn) || cOughDuratiOn === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(FeverIsh) || FeverIsh === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(WeigHtLossGain) || WeigHtLossGain === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(NighTsWeatS) || NighTsWeatS === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(ConTacTbCase) || ConTacTbCase === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(LeSSpLayFul) || LeSSpLayFul === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "tbResultstaTuS !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && tbResultstaTuSUnderfiVe !== '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ],
@@ -4777,9 +4756,33 @@
           "isExpanded": "true",
           "questions": [
             {
+              "label": "Please select the client status on ART:",
+              "type": "obs",
+              "id": "CliesTatusonART",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1687AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "label": "Newly on ART",
+                    "concept": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Continuing on ART",
+                    "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
               "label": "1. Do you ever forget to take your medicine?",
               "type": "control",
               "id": "forget",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4796,13 +4799,14 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "2. Are you careless at times about taking your medicine?",
               "type": "control",
               "id": "carelessAtTimes",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4819,13 +4823,14 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "3.Sometimes if you feel worse when you take the medicine, do you stop taking it?",
               "type": "control",
               "id": "feelWorse",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4842,13 +4847,14 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "4.When you feel better do you sometimes stop taking your medicine?",
               "type": "control",
               "id": "feelBetter",
+              "required": "true",
               "questionOptions": {
                 "concept": "",
                 "rendering": "radio",
@@ -4865,7 +4871,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(CliesTatusonART) || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -4946,24 +4952,12 @@
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Never/Rarely"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
-                    "concept": "159416AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Once in a while"
-                  },
-                  {
-                    "concept": "1385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Sometimes"
-                  },
-                  {
-                    "concept": "1804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Usually"
-                  },
-                  {
-                    "concept": "1358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "All the time"
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
                   }
                 ]
               },
@@ -5005,7 +4999,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || CliesTatusonART !=='160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
