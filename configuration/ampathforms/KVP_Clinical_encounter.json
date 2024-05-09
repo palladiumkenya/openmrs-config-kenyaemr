@@ -1,7 +1,7 @@
 {
   "name": "KVP Clinical Encounter form",
   "description": "KVP Clinical Encounter form",
-  "version": "1",
+  "version": "2.0",
   "published": true,
   "uuid": "92e041ac-9686-11e9-bc42-526af7764f64",
   "retired": false,
@@ -196,6 +196,29 @@
               }
             },
             {
+              "label": "STI Issued Medication",
+              "type": "obs",
+              "id": "stiIssuesMedication",
+              "questionOptions": {
+                "concept": "1417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(stiScreened) || stiScreened == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(stiResults) || stiResults == '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(stiReferred) || stiReferred == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+              }
+            },
+            {
               "label": "Risk Reduction Counselling Screened",
               "type": "obs",
               "id": "riskScreened",
@@ -220,16 +243,20 @@
               "type": "obs",
               "id": "educationPromotionOffered",
               "questionOptions": {
-                "concept": "c91622c8-9dbe-46ac-89dd-133945463c2c",
-                "rendering": "radio",
+                "concept": "d0776798-042f-4ecb-b43d-f14d287adee1",
+                "rendering": "checkbox",
                 "answers": [
                   {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "concept": "c91622c8-9dbe-46ac-89dd-133945463c2c",
+                    "label": "Condom"
                   },
                   {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
+                    "concept": "162138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lubricant"
+                  },
+                  {
+                    "concept": "162377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Needle and Syringe Provision(NSP)"
                   }
                 ]
               }
@@ -241,6 +268,9 @@
               "questionOptions": {
                 "concept": "771638d9-9600-4a6b-8e5d-c6dcdedbc9cd",
                 "rendering": "numeric"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(educationPromotionOffered) || !arrayContains(educationPromotionOffered, 'c91622c8-9dbe-46ac-89dd-133945463c2c')"
               }
             },
             {
@@ -250,6 +280,9 @@
               "questionOptions": {
                 "concept": "bc8e7707-c95e-45dc-9367-e0ee75e9a126",
                 "rendering": "numeric"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(educationPromotionOffered) || !arrayContains(educationPromotionOffered, '162138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
@@ -259,6 +292,9 @@
               "questionOptions": {
                 "concept": "27c0e645-674c-4b8a-ac6a-605e60564b97",
                 "rendering": "numeric"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(educationPromotionOffered) || !arrayContains(educationPromotionOffered, '162377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
@@ -351,7 +387,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(hepbScreened) || hepbScreened == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hepbScreened) || hepbScreened === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -375,6 +411,9 @@
                     "label": "NA"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hepbResults) || hepbResults === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -719,12 +758,29 @@
                   {
                     "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Condoms"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
                   }
                 ]
               },
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(onFamilyPlanning) || onFamilyPlanning !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
+              }
+            },
+            {
+              "label": "Other Specify",
+              "type": "obs",
+              "id": "otherSpecify",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(MalefamMethod) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], MalefamMethod)"
               }
             },
             {
@@ -774,12 +830,29 @@
                   {
                     "concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Injectable contraceptives"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
                   }
                 ]
               },
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(onFamilyPlanning) || onFamilyPlanning !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+              }
+            },
+            {
+              "label": "Other Specify",
+              "type": "obs",
+              "id": "otherSpecifyFemale",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(femaleFamMethod) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], femaleFamMethod)"
               }
             },
             {
@@ -843,6 +916,122 @@
               "hide": {
                 "hideWhenExpression": "isEmpty(overdoseResults) || overdoseResults != '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
+            },
+            {
+              "label": "Offsite ART Status",
+              "type": "obs",
+              "id": "offsiteArtTracking",
+              "questionOptions": {
+                "concept": "3d608267-a366-4409-be99-eb39aea151fd",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "161636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Active"
+                  },
+                  {
+                    "concept": "160031AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inactive"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Viral Load results",
+              "type": "obs",
+              "id": "viralLoadResults",
+              "questionOptions": {
+                "concept": "3d608267-a366-4409-be99-eb39aea151fd",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "167484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "LDL"
+                  },
+                  {
+                    "concept": "167485AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Copies"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(offsiteArtTracking) || offsiteArtTracking !== '161636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Viral Load results (Copies)",
+              "type": "obs",
+              "id": "viralLoadResultsCopies",
+              "questionOptions": {
+                "concept": "856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(viralLoadResults) || viralLoadResults !== '167485AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Abscess Screened",
+              "type": "obs",
+              "id": "abscess",
+              "questionOptions": {
+                "concept": "2dfea836-bed0-43da-8819-9bb03690187e",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Abscess Screening results",
+              "type": "obs",
+              "id": "abscessScreeningResults",
+              "questionOptions": {
+                "concept": "02c98d7b-0ca7-493f-a38b-1a3f360f73e7",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(abscess) || abscess !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Abscess treated?",
+              "type": "obs",
+              "id": "abscessTreated",
+              "questionOptions": {
+                "concept": "98c9fc35-2e59-4c15-a725-2f7a15d114f1",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(abscessScreeningResults) || abscessScreeningResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
             }
           ]
         },
@@ -851,24 +1040,13 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Next Visit Date",
-              "type": "obs",
-              "id": "nextVisitDate",
+              "label": "Date of Next Visit:",
+              "id": "appointmentWorkspaceLauncher",
               "questionOptions": {
-                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date"
-              },
-              "validators": [
-                {
-                  "type": "date",
-                  "allowFutureDates": "true"
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-                  "message": "Next visit date should be greater than the encounter date."
-                }
-              ]
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add appointments",
+                "workspaceName": "appointments-form-workspace"
+              }
             },
             {
               "label": "Clinician name",
