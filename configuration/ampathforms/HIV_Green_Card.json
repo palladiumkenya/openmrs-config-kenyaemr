@@ -5267,85 +5267,46 @@
               }
             },
             {
-              "label": "Return visit Date:",
-              "type": "obs",
-              "id": "returnVisitDate",
-              "required": "true",
+              "label": "Return Visit Date:",
+              "id": "appointmentWorkspaceLauncher",
               "questionOptions": {
-                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date"
-              },
-              "validators": [
-                {
-                  "type": "date",
-                  "allowFutureDates": "true"
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-                  "message": "Return visit date should be greater than the encounter date."
-                }
-              ]
-            },
-            {
-              "label": "Return visit Reason:",
-              "type": "obs",
-              "id": "CCCVisit",
-              "required": "true",
-              "questionOptions": {
-                "concept": "160288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
-                "answers": [
-                  {
-                    "concept": "160521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Pharmacy Refill"
-                  },
-                  {
-                    "concept": "160523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Follow up"
-                  },
-                  {
-                    "concept": "159382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Counseling"
-                  },
-                  {
-                    "concept": "1283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Lab tests"
-                  },
-                  {
-                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Other"
-                  }
-                ]
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add appointments",
+                "workspaceName": "appointments-form-workspace"
               }
             },
             {
-              "label": "Refill Date:",
+              "label": "Does the client need a refill?",
               "type": "obs",
-              "id": "refillVisitDate",
+              "id": "rEfillReminder",
+              "required": "true",
               "questionOptions": {
-                "concept": "162549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date"
+                "concept": "63da4194-a26a-4aa5-b5d5-4125b4822cf7",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Refill Date:",
+              "id": "appointmentWorkspaceLauncherRefill",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Refill appointment",
+                "workspaceName": "appointments-form-workspace"
               },
               "hide": {
-                "hideWhenExpression": "CCCVisit !== '160521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              },
-              "validators": [
-                {
-                  "type": "date",
-                  "allowFutureDates": "true"
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-                  "message": "Refill date should be greater than the encounter date."
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "isEmpty(myValue) && !isEmpty(CCCVisit) && CCCVisit === '160521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-                  "message": "Please specify refill date."
-                }
-              ]
+                "hideWhenExpression": "isEmpty(rEfillReminder) || rEfillReminder !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
             },
             {
               "label": "Willing to receive reminders/notifications about the appointments?",
@@ -5401,14 +5362,7 @@
               },
               "hide": {
                 "hideWhenExpression": "updateClientPhoneNumber !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              },
-              "validators": [
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
-                  "message": "Please enter the telephone number in the correct format e.g 0720200200 thats is 10 digits"
-                }
-              ]
+              }
             },
             {
               "label": "Differentiated Care",
@@ -5420,14 +5374,6 @@
                 "required": "true",
                 "answers": [
                   {
-                    "concept": "53447431-147e-4071-9c12-f6baf9463c2f",
-                    "label": "Community ART Distribution - HCW Led"
-                  },
-                  {
-                    "concept": "3740fc18-bb23-4ddc-bba7-b010fba072b7",
-                    "label": "Facility ART Distribution Group"
-                  },
-                  {
                     "concept": "7e18712d-8cda-49f5-bfeb-940406cc2e32",
                     "label": "Standard Care"
                   },
@@ -5436,8 +5382,32 @@
                     "label": "Fast Track"
                   },
                   {
+                    "concept": "166443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led facility ART group(HFAG)"
+                  },
+                  {
+                    "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led Community ART group(HCAG)"
+                  },
+                  {
+                    "concept": "166444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peer Led Facility ART Group(PFAG)"
+                  },
+                  {
                     "concept": "27b7ea34-4ea9-48b5-82a3-9981c430c808",
-                    "label": "Community ART Distribution - Peer Led"
+                    "label": "Peer Led Community ART Group(PCAG)"
+                  },
+                  {
+                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
+                    "label": "Community Pharmacy(CP)"
+                  },
+                  {
+                    "concept": "53447431-147e-4071-9c12-f6baf9463c2f",
+                    "label": "Community ART Distribution Points(CAPD)"
+                  },
+                  {
+                    "concept": "166583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Individual patient ART Community Distribution(IACD)"
                   }
                 ]
               },
@@ -5457,6 +5427,34 @@
                   {
                     "concept": "7e18712d-8cda-49f5-bfeb-940406cc2e32",
                     "label": "Standard Care"
+                  },
+                  {
+                    "concept": "166443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led facility ART group(HFAG)"
+                  },
+                  {
+                    "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led Community ART group(HCAG)"
+                  },
+                  {
+                    "concept": "166444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peer Led Facility ART Group(PFAG)"
+                  },
+                  {
+                    "concept": "27b7ea34-4ea9-48b5-82a3-9981c430c808",
+                    "label": "Peer Led Community ART Group(PCAG)"
+                  },
+                  {
+                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
+                    "label": "Community Pharmacy(CP)"
+                  },
+                  {
+                    "concept": "53447431-147e-4071-9c12-f6baf9463c2f",
+                    "label": "Community ART Distribution Points(CAPD)"
+                  },
+                  {
+                    "concept": "166583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Individual patient ART Community Distribution(IACD)"
                   }
                 ]
               },
