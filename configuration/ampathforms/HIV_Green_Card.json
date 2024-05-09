@@ -4854,64 +4854,37 @@
               }
             },
             {
-              "label": "Return visit Reason:",
+              "label": "Does the client need a refill?",
               "type": "obs",
-              "id": "CCCVisit",
+              "id": "rEfillReminder",
               "required": "true",
               "questionOptions": {
-                "concept": "160288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "concept": "63da4194-a26a-4aa5-b5d5-4125b4822cf7",
+                "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "160523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Follow up"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
-                    "concept": "1283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Lab tests"
-                  },
-                  {
-                    "concept": "159382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Counseling"
-                  },
-                  {
-                    "concept": "160521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Pharmacy Refill"
-                  },
-                  {
-                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Other"
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
                   }
                 ]
-              }
+              },
+              "validators": []
             },
             {
               "label": "Refill Date:",
-              "type": "obs",
-              "id": "refillVisitDate",
+              "id": "appointmentWorkspaceLauncherRefill",
               "questionOptions": {
-                "concept": "162549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date"
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Refill appointment",
+                "workspaceName": "appointments-form-workspace"
               },
               "hide": {
-                "hideWhenExpression": "CCCVisit !== '160521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              },
-              "validators": [
-                {
-                  "type": "date",
-                  "allowFutureDates": "true"
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-                  "message": "Refill date should be greater than the encounter date."
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "isEmpty(myValue) && !isEmpty(CCCVisit) && CCCVisit === '160521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-                  "message": "Please specify refill date."
-                }
-              ]
+                "hideWhenExpression": "isEmpty(rEfillReminder) || rEfillReminder !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
             },
             {
               "label": "Willing to receive reminders/notifications about the appointments?",
