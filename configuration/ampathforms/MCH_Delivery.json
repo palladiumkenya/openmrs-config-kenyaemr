@@ -98,6 +98,25 @@
               ]
             },
             {
+              "label": "Estimated date of Delivery",
+              "type": "obs",
+              "id": "lastDeliveryDate",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date",
+                "calculate": {
+                  "calculateExpression": "moment(lastLmpDate).isValid() ? moment(lastLmpDate).add(280, 'days').toDate() : ''"
+                }
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                }
+              ]
+            },
+            {
               "label": "VDRL/RPR Results:",
               "type": "obs",
               "id": "vdrlResults",
@@ -119,22 +138,6 @@
                   }
                 ]
               }
-            },
-            {
-              "label": "Estimated date of Delivery",
-              "type": "obs",
-              "id": "lastDeliveryDate",
-              "required": "true",
-              "questionOptions": {
-                "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date"
-              },
-              "validators": [
-                {
-                  "type": "date",
-                  "allowFutureDates": "true"
-                }
-              ]
             },
             {
               "label": "Placenta complete?",
@@ -240,7 +243,7 @@
               "questionOptions": {
                 "concept": "1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
-                "min": "0",
+                "min": "24",
                 "max": "50"
               }
             },
@@ -286,7 +289,7 @@
               "label": "Date of Delivery:",
               "type": "encounterDatetime",
               "questionOptions": {
-                "rendering": "ui-select-extended",
+                "rendering": "date",
                 "concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "id": "deliveryDateTime",
@@ -302,7 +305,6 @@
               "label": "Time of Delivery",
               "type": "obs",
               "id": "TtakEn",
-              "required": "true",
               "datePickerFormat": "timer",
               "questionOptions": {
                 "concept": "a9e7c05e-7381-4e2b-a968-05d5d6a884f6",
@@ -579,26 +581,14 @@
                   {
                     "concept": "159915AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Triplets"
-                  }
-                ]
-              }
-            },
-            {
-              "label": "Chlorhexidine applied on cord stump:",
-              "type": "obs",
-              "id": "chlorhexidine",
-              "required": "true",
-              "questionOptions": {
-                "concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
                   },
                   {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
+                    "concept": "113450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Quadruplets"
+                  },
+                  {
+                    "concept": "113440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Quintuplets"
                   }
                 ]
               }
@@ -728,6 +718,26 @@
                   }
                 },
                 {
+                  "label": "Chlorhexidine applied on cord stump:",
+                  "type": "obs",
+                  "id": "chlorhexidine",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  }
+                },
+                {
                   "label": "TEO given at birth ?",
                   "type": "obs",
                   "id": "babyTEOAtBirth",
@@ -823,6 +833,33 @@
                   }
                 },
                 {
+                  "label": "Kangaroo Mother care given:",
+                  "type": "obs",
+                  "id": "kangarooMotherCare",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "161094AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      },
+                      {
+                        "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "N/A"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(birthWeight) || birthWeight > 2.4"
+                  }
+                },
+                {
                   "label": "Apgar Score (1 min):",
                   "type": "obs",
                   "id": "babyApgarScore1Min",
@@ -882,17 +919,14 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "HIV Test(s)",
+              "label": "HIV Test",
               "type": "obsGroup",
               "questionOptions": {
                 "rendering": "group",
                 "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
-              "id": "hivTest",
+              "id": "hivTest1",
               "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
-              },
               "questions": [
                 {
                   "label": "Kit 1 Name",
@@ -912,10 +946,7 @@
                     ]
                   },
                   "id": "kitName",
-                  "validators": [],
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  }
+                  "validators": []
                 },
                 {
                   "label": "Lot Number",
@@ -980,7 +1011,19 @@
                   "hide": {
                     "hideWhenExpression": "isEmpty(kitName)"
                   }
-                },
+                }
+              ]
+            },
+            {
+              "label": "HIV Test(s)",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest2",
+              "validators": [],
+              "questions": [
                 {
                   "label": "Kit 2 Name",
                   "type": "obs",
@@ -989,7 +1032,7 @@
                     "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
                     "answers": [
                       {
-                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+                        "concept": "66ee72aa-7639-4f79-ab97-ef2eaadda7c0",
                         "label": "One Step"
                       }
                     ]
@@ -1042,7 +1085,7 @@
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
-                    "concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "answers": [
                       {
                         "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1063,7 +1106,19 @@
                   "hide": {
                     "hideWhenExpression": "isEmpty(kitNameB)"
                   }
-                },
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest4",
+              "validators": [],
+              "questions": [
                 {
                   "label": "Kit 1 Name",
                   "type": "obs",
@@ -1129,7 +1184,7 @@
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
-                    "concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "answers": [
                       {
                         "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1150,7 +1205,19 @@
                   "hide": {
                     "hideWhenExpression": "isEmpty(kitNameD)"
                   }
-                },
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest3",
+              "validators": [],
+              "questions": [
                 {
                   "label": "Kit 3 Name",
                   "type": "obs",
@@ -1212,7 +1279,7 @@
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
-                    "concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "83038d41-e832-498b-928f-974ec5bb23dc",
                     "answers": [
                       {
                         "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1303,10 +1370,6 @@
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
-                  },
-                  {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "NA"
                   }
                 ]
               }
@@ -1418,7 +1481,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || startedHaartAnc === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
