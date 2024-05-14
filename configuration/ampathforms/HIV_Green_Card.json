@@ -33,7 +33,7 @@
               "label": "Provider:",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "encounter-provider"
+                "rendering": "ui-select-extended"
               },
               "id": "encProvider "
             },
@@ -41,7 +41,7 @@
               "label": "Location:",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "encounter-location"
+                "rendering": "ui-select-extended"
               },
               "id": "encLocation"
             }
@@ -4818,6 +4818,169 @@
               "hide": {
                 "hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
+            },
+            {
+              "label": "Differentiated Care Model?",
+              "type": "obs",
+              "id": "differentiatedCareF",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1a2dba33-55d6-477a-b171-c09a489bc37f",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "3740fc18-bb23-4ddc-bba7-b010fba072b7",
+                    "label": "Facility ART distribution group"
+                  },
+                  {
+                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
+                    "label": "Community ART distribution group"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || stability !==  'true' && stability !==  'false'"
+              }
+            },
+            {
+              "label": "Facility Differentiated Care",
+              "type": "obs",
+              "id": "fastTrackF",
+              "questionOptions": {
+                "concept": "1a2dba33-55d6-477a-b171-c09a489bc37f",
+                "rendering": "select",
+                "required": "true",
+                "answers": [
+                  {
+                    "concept": "7e18712d-8cda-49f5-bfeb-940406cc2e32",
+                    "label": "Standard Care"
+                  },
+                  {
+                    "concept": "f55781c1-461c-4f44-b575-d87519d38c34",
+                    "label": "Fast Track"
+                  },
+                  {
+                    "concept": "166443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led facility ART group(HFAG)"
+                  },
+                  {
+                    "concept": "166444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peer Led Facility ART Group(PFAG)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(differentiatedCareF) || differentiatedCareF !== '3740fc18-bb23-4ddc-bba7-b010fba072b7' || stability !==  'true'"
+              }
+            },
+            {
+              "label": "Facility Differentiated Care",
+              "type": "obs",
+              "id": "standardF",
+              "questionOptions": {
+                "concept": "1a2dba33-55d6-477a-b171-c09a489bc37f",
+                "rendering": "select",
+                "required": "true",
+                "answers": [
+                  {
+                    "concept": "7e18712d-8cda-49f5-bfeb-940406cc2e32",
+                    "label": "Standard Care"
+                  },
+                  {
+                    "concept": "166443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led facility ART group(HFAG)"
+                  },
+                  {
+                    "concept": "166444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peer Led Facility ART Group(PFAG)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(differentiatedCareF) || differentiatedCareF !== '3740fc18-bb23-4ddc-bba7-b010fba072b7' || stability !==  'false'"
+              }
+            },
+            {
+              "label": "Community Differentiated Care",
+              "type": "obs",
+              "id": "fastTrackC",
+              "questionOptions": {
+                "concept": "1a2dba33-55d6-477a-b171-c09a489bc37f",
+                "rendering": "select",
+                "required": "true",
+                "answers": [
+                  {
+                    "concept": "7e18712d-8cda-49f5-bfeb-940406cc2e32",
+                    "label": "Standard Care"
+                  },
+                  {
+                    "concept": "f55781c1-461c-4f44-b575-d87519d38c34",
+                    "label": "Fast Track"
+                  },
+                  {
+                    "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led Community ART group(HCAG)"
+                  },
+                  {
+                    "concept": "27b7ea34-4ea9-48b5-82a3-9981c430c808",
+                    "label": "Peer Led Community ART Group(PCAG)"
+                  },
+                  {
+                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
+                    "label": "Community Pharmacy(CP)"
+                  },
+                  {
+                    "concept": "53447431-147e-4071-9c12-f6baf9463c2f",
+                    "label": "Community ART Distribution Points(CAPD)"
+                  },
+                  {
+                    "concept": "166583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Individual patient ART Community Distribution(IACD)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(differentiatedCareF) || differentiatedCareF !== '4fcf003e-71cf-47a5-a967-47d24aa61092' || stability !==  'true'"
+              }
+            },
+            {
+              "label": "Community Differentiated Care",
+              "type": "obs",
+              "id": "standardC",
+              "questionOptions": {
+                "concept": "1a2dba33-55d6-477a-b171-c09a489bc37f",
+                "rendering": "select",
+                "required": "true",
+                "answers": [
+                  {
+                    "concept": "7e18712d-8cda-49f5-bfeb-940406cc2e32",
+                    "label": "Standard Care"
+                  },
+                  {
+                    "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health care worker Led Community ART group(HCAG)"
+                  },
+                  {
+                    "concept": "27b7ea34-4ea9-48b5-82a3-9981c430c808",
+                    "label": "Peer Led Community ART Group(PCAG)"
+                  },
+                  {
+                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
+                    "label": "Community Pharmacy(CP)"
+                  },
+                  {
+                    "concept": "53447431-147e-4071-9c12-f6baf9463c2f",
+                    "label": "Community ART Distribution Points(CAPD)"
+                  },
+                  {
+                    "concept": "166583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Individual patient ART Community Distribution(IACD)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(differentiatedCareF) || differentiatedCareF !== '4fcf003e-71cf-47a5-a967-47d24aa61092' || stability !==  'false'"
+              }
             }
           ]
         },
@@ -4940,104 +5103,6 @@
               },
               "hide": {
                 "hideWhenExpression": "updateClientPhoneNumber !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "Differentiated Care",
-              "type": "obs",
-              "id": "fastTrack",
-              "questionOptions": {
-                "concept": "1a2dba33-55d6-477a-b171-c09a489bc37f",
-                "rendering": "select",
-                "required": "true",
-                "answers": [
-                  {
-                    "concept": "7e18712d-8cda-49f5-bfeb-940406cc2e32",
-                    "label": "Standard Care"
-                  },
-                  {
-                    "concept": "f55781c1-461c-4f44-b575-d87519d38c34",
-                    "label": "Fast Track"
-                  },
-                  {
-                    "concept": "166443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Health care worker Led facility ART group(HFAG)"
-                  },
-                  {
-                    "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Health care worker Led Community ART group(HCAG)"
-                  },
-                  {
-                    "concept": "166444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Peer Led Facility ART Group(PFAG)"
-                  },
-                  {
-                    "concept": "27b7ea34-4ea9-48b5-82a3-9981c430c808",
-                    "label": "Peer Led Community ART Group(PCAG)"
-                  },
-                  {
-                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
-                    "label": "Community Pharmacy(CP)"
-                  },
-                  {
-                    "concept": "53447431-147e-4071-9c12-f6baf9463c2f",
-                    "label": "Community ART Distribution Points(CAPD)"
-                  },
-                  {
-                    "concept": "166583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Individual patient ART Community Distribution(IACD)"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "stability !== 'true'"
-              }
-            },
-            {
-              "label": "Differentiated Care",
-              "type": "obs",
-              "id": "standard",
-              "questionOptions": {
-                "concept": "1a2dba33-55d6-477a-b171-c09a489bc37f",
-                "rendering": "select",
-                "required": "true",
-                "answers": [
-                  {
-                    "concept": "7e18712d-8cda-49f5-bfeb-940406cc2e32",
-                    "label": "Standard Care"
-                  },
-                  {
-                    "concept": "166443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Health care worker Led facility ART group(HFAG)"
-                  },
-                  {
-                    "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Health care worker Led Community ART group(HCAG)"
-                  },
-                  {
-                    "concept": "166444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Peer Led Facility ART Group(PFAG)"
-                  },
-                  {
-                    "concept": "27b7ea34-4ea9-48b5-82a3-9981c430c808",
-                    "label": "Peer Led Community ART Group(PCAG)"
-                  },
-                  {
-                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
-                    "label": "Community Pharmacy(CP)"
-                  },
-                  {
-                    "concept": "53447431-147e-4071-9c12-f6baf9463c2f",
-                    "label": "Community ART Distribution Points(CAPD)"
-                  },
-                  {
-                    "concept": "166583AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Individual patient ART Community Distribution(IACD)"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(stability) || stability !== 'false'"
               }
             }
           ]
