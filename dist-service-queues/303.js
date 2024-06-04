@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunk_openmrs_esm_service_queues_app=globalThis.webpackChunk_openmrs_esm_service_queues_app||[]).push([[303,152],{2303:(e,a,s)=>{s.r(a),s.d(a,{default:()=>t,immutable:()=>l});var r=s(3255),i=s(3325);const l=e=>(a,s,r)=>(r.revalidateOnFocus=!1,r.revalidateIfStale=!1,r.revalidateOnReconnect=!1,e(a,s,r));var t=(0,i.withMiddleware)(r.ZP,l)}}]);
