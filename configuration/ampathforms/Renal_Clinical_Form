@@ -1,0 +1,424 @@
+{
+  "name": "Renal Clinical Form",
+  "description": "A form used to capture renal clinical Cases",
+  "version": "1.0",
+  "published": true,
+  "uuid": "6d0be8bd-5320-45a0-9463-60c9ee2b1338",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Patient Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Type?",
+              "type": "obs",
+              "required": true,
+              "id": "visitType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+               
+                "answers": [
+                  {
+                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New visit"
+                  },
+                  {
+                    "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Return Visit"
+                  },
+                  {
+                    "concept": "160551AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referral"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Visit To:",
+              "type": "obs",
+              "id": "visitTo",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "161643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Outpatient department(OPD)"
+                  },
+                  {
+                    "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inpatient department(IPD)"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "visitType !== '160551AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient History",
+      "sections": [
+        {
+          "label": "Complaints and History of complaints",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient having complaint(s) today?",
+              "type": "obs",
+              "id": "complaintsToday",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Presenting complaints",
+              "type": "obsGroup",
+              "id": "ComplaintLodgeByClient",
+              "questionOptions": {
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "complaintsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "questions": [
+                {
+                  "label": "Complaint",
+                  "type": "obs",
+                  "id": "cOmplaIntField",
+                  "questionOptions": {
+                    "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "148035AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Back pain"
+                      },
+                      {
+                        "concept": "119293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Bladder Incontinence"
+                      },
+                      {
+                        "concept": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dysuria"
+                      },
+                      {
+                        "concept": "140070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Flank Pain"
+                      },
+                      {
+                        "concept": "157530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Loin Pain"
+                      },
+                      {
+                        "concept": "159253AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Urgency of micturition"
+                      },
+                      {
+                        "concept": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Pelvic Pain"
+                      },
+                      {
+                        "concept": "129510AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Polyuria"
+                      },
+                      {
+                        "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sexual dysfunction"
+                      },
+                      {
+                        "concept": "132418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Oliguria"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Specify other complaints",
+                  "type": "obs",
+                  "id": "OtherSpecificComplaints",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Patient had contact with TB Infected person in the last 12 months?",
+                  "type": "obs",
+                  "id": "contactTB",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "cOmplaIntField !== '143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Duration (Days)",
+                  "type": "obs",
+                  "id": "complaint-duration",
+                  "questionOptions": {
+                    "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number",
+                    "min": "0"
+                  },
+                  "validators": []
+                },
+                
+                {
+                  "label": "Onset Status",
+                  "type": "obs",
+                  "id": "onsetStatus",
+                  "questionOptions": {
+                    "concept": "d7a3441d-6aeb-49be-b7d6-b2a3bb39e78d",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Gradual"
+                      },
+                      {
+                        "concept": "162707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sudden"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Clinical notes",
+              "type": "obs",
+              "id": "ClinICNotes",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": []
+            }
+          ]
+        },
+        {
+          "label": "Patient Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Current Medication",
+              "type": "obs",
+              "id": "currentMed",
+              "questionOptions": {
+                "concept": "1772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": []
+            },
+            {
+              "label": "General Examination",
+              "type": "obs",
+              "id": "GeneralExam",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": []
+            },
+            {
+              "label": "Examination Findings",
+              "type": "obs",
+              "id": "examFindings",
+              "questionOptions": {
+                "concept": "166823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "147255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Distended bladder",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "135761AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Facial lipodystrophy",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "139441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Gum hypertrophy",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hepatomegaly",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Jaundice",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "157530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Loin pain/tenderness",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "135488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lymphadenopathy",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "130457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Periorbital oedema",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "130428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peripheral oedema",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "136134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Swollen or tender prostate",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "125014AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Telangiectasia",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "123555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Uremia",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "122813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Xanthelasma",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify other complaints",
+              "type": "obs",
+              "id": "OtherSpecificComplaints",
+              "questionOptions": {
+                "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(examFindings) || !arrayContains(examFindings, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Clinical Notes",
+              "type": "obs",
+              "id": "clinicalNotes",
+              "questionOptions": {
+                "concept": "160629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+ 
+  "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8",
+  "referencedForms": []
+  
+ 
+}
