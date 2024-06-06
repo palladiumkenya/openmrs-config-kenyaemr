@@ -51,26 +51,6 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "HIV Testing Done?:",
-              "type": "obs",
-              "id": "hivTesting",
-              "required": "true",
-              "questionOptions": {
-                "rendering": "radio",
-                "concept": "164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  }
-                ]
-              }
-            },
-            {
               "label": "HIV Test result:",
               "type": "obs",
               "id": "hivTestResult",
@@ -90,11 +70,12 @@
                   {
                     "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Inconclusive"
+                  },
+                  {
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not done"
                   }
                 ]
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(hivTesting) || hivTesting !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -113,7 +94,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "isEmpty(hivTesting) || hivTesting !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hivTestResult) || hivTestResult === '1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -123,7 +104,7 @@
               "required": "true",
               "questionOptions": {
                 "rendering": "radio",
-                "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "23578b66-f49b-45e2-b876-445524638c0e",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -137,6 +118,25 @@
               },
               "hide": {
                 "hideWhenExpression": "isEmpty(hivTestResult) || hivTestResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date Started on ART?",
+              "type": "obs",
+              "id": "dateSatrtedOnArt",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(onArt) || onArt !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -391,6 +391,56 @@
               }
             },
             {
+              "label": "Confirmatory test",
+              "type": "obs",
+              "id": "confirmResults",
+              "questionOptions": {
+                "concept": "159430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Done"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(hepbResults) || hepbResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Hep B Rx/Management",
+              "type": "obs",
+              "id": "hepBManagement",
+              "questionOptions": {
+                "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(confirmResults) || confirmResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
               "label": "Vaccine given?",
               "type": "obs",
               "id": "vaccineGiven",
@@ -461,6 +511,52 @@
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(hepcScreened) || hepcScreened == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Hep C Confirmatory PCR Result",
+              "type": "obs",
+              "id": "hepcConfirmPcrResults",
+              "questionOptions": {
+                "concept": "cc7b3db1-00b8-4cee-84c1-1f0389fe8d7a",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(hepcResults) || hepcResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Treated for HEP C",
+              "type": "obs",
+              "id": "treatedForHep",
+              "questionOptions": {
+                "concept": "81573411-a301-4c46-bc63-c2095e36e7e6",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(hepcConfirmPcrResults) || hepcConfirmPcrResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -700,6 +796,33 @@
               }
             },
             {
+              "label": "HPV Vaccination  Status",
+              "type": "obs",
+              "id": "hpvCervicalVaccinationStatus",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaccinated"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not vaccinated"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' && (age >= 9 && age <=14)"
+              }
+            },
+            {
               "label": "Violence Screened",
               "type": "obs",
               "id": "vioScreened",
@@ -725,19 +848,19 @@
               "id": "typeViolenceScreened",
               "required": "true",
               "questionOptions": {
-                "rendering": "radio",
-                "concept": "0b37e771-aea2-4745-8632-80be809d70a8",
+                "rendering": "checkbox",
+                "concept": "167255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {
-                    "concept": "121387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "158358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Physical"
                   },
                   {
-                    "concept": "127910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "152370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Sexual"
                   },
                   {
-                    "concept": "123007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "117510AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Emotional & Psychological"
                   },
                   {
@@ -786,7 +909,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(onFamilyPlanning) || onFamilyPlanning !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
+                "hideWhenExpression": "isEmpty(typeViolenceScreened)"
               }
             },
             {
@@ -992,21 +1115,42 @@
               "type": "obs",
               "id": "offsiteArtTracking",
               "questionOptions": {
-                "concept": "3d608267-a366-4409-be99-eb39aea151fd",
+                "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "161636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Active"
                   },
                   {
-                    "concept": "160031AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Inactive"
                   }
                 ]
+              }
+            },
+            {
+              "label": "Name of primary ART Facility",
+              "type": "obs",
+              "id": "nameOfArtFacility",
+              "questionOptions": {
+                "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(hivTestResult) || hivTestResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(offsiteArtTracking)"
+              }
+            },
+            {
+              "label": "CCC Number",
+              "type": "obs",
+              "id": "cccNumber",
+              "questionOptions": {
+                "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(offsiteArtTracking)"
               }
             },
             {
@@ -1024,6 +1168,10 @@
                   {
                     "concept": "167485AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Copies"
+                  },
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
                   }
                 ]
               },
@@ -1041,6 +1189,24 @@
               },
               "hide": {
                 "hideWhenExpression": "isEmpty(viralLoadResults) || viralLoadResults !== '167485AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Viral Load results date",
+              "type": "obs",
+              "id": "viralLoadResultsDate",
+              "questionOptions": {
+                "concept": "163281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(viralLoadResults)"
               }
             },
             {
