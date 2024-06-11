@@ -2,7 +2,7 @@
 
 ![KenyaEMR OpenMRS 3.x Deployment](https://github.com/palladiumkenya/openmrs-config-kenyaemr/workflows/KenyaEMR%20CI/badge.svg)
 
-This is the OpenMRS backend configuration for the [OpenMRS distribution KenyaEMR](https://github.com/openmrs/openmrs-distro-kenyaemr).
+This is the OpenMRS backend configuration for the OpenMRS distribution KenyaEMR.
 
 This configuration is designed to be loaded by:
 
@@ -44,60 +44,61 @@ Please note that our work on patient-registration and esm-login contain custom c
 1. Download the version of KenyaEMR you want to run from github release [latest](https://github.com/palladiumkenya/kenyahmis-releases/releases)
 
 2. Spin up the docker compose file by running
-    ```sh
-    docker compose up -d
-    ```
+   ```sh
+   docker compose up -d
+   ```
 3. Get the containers id. By running the above command two containers are spinned up namely:
 
-    mysql-container
+   mysql-container
 
-    tomcat-container
+   tomcat-container
 
-    ```sh
-    docker ps
-    ```
+   ```sh
+   docker ps
+   ```
+
 4. Copy the modules folder and `openmrs.war` file to tomcat container
 
-    ```sh
-    docker cp modules <containerID>:/usr/local/tomcat
-    docker cp openmr.war <containerId>:/usr/local/tomcat/webapps
-    ```
+   ```sh
+   docker cp modules <containerID>:/usr/local/tomcat
+   docker cp openmr.war <containerId>:/usr/local/tomcat/webapps
+   ```
 
 5. Copy `demo.sql` database file to mysql container. This is back-up file of an existing instance
 
-    ```sh
-    docker cp demo.sql <containerID>:/home
-    ```
-
+   ```sh
+   docker cp demo.sql <containerID>:/home
+   ```
 
 6. Execute the following sql in mysql container file
 
-    ```sh
-    docker exec -it <MySQLContaineID> bash
-    ```
+   ```sh
+   docker exec -it <MySQLContaineID> bash
+   ```
 
-    Once in the container
+   Once in the container
 
-    ```sql
-    mysql -u root -p
-    ```
+   ```sql
+   mysql -u root -p
+   ```
 
-    ```sql
-    create database openmrs;
-    use openmrs;
-    source /path-to-mysql-demo.sql
-    grant all privileges on *.* to 'openmrs_user'@'%';flush privileges;use openmrs;delete from liquibasechangelog where id like '%charts%';where id like '%charts%';
-    ```
+   ```sql
+   create database openmrs;
+   use openmrs;
+   source /path-to-mysql-demo.sql
+   grant all privileges on *.* to 'openmrs_user'@'%';flush privileges;use openmrs;delete from liquibasechangelog where id like '%charts%';where id like '%charts%';
+   ```
 
-    Run this stored procedures to create etl tables for KenyaEMR
+   Run this stored procedures to create etl tables for KenyaEMR
 
-    ```sql
-    call create_etl_tables();
-    call sp_first_time_setup();
-    ```
+   ```sql
+   call create_etl_tables();
+   call sp_first_time_setup();
+   ```
+
 7. Restart both container sequentially, important to note that restart mysql-container first then tomcat container after
 
-    ```sh
-    docker restart <MySQLContainerID>
-    docker restart <TomcatContainerID>
-    ```
+   ```sh
+   docker restart <MySQLContainerID>
+   docker restart <TomcatContainerID>
+   ```
