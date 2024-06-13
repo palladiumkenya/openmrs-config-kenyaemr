@@ -1,14 +1,14 @@
 {
 	"name": "CWC Follow Up",
 	"description": "CWC Follow Up",
-	"version": "2",
+	"version": "2.1",
 	"published": true,
 	"uuid": "755b59e6-acbb-4853-abaf-be302039f902",
 	"retired": false,
 	"encounter": "CWC Consultation",
 	"pages": [
 	  {
-		"label": "CWC Follow Up",
+		"label": "Visit Details",
 		"sections": [
 		  {
 			"label": "Visit Details",
@@ -51,26 +51,24 @@
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "Visit Date",
+				"label": "Revisit this year?",
 				"type": "obs",
+				"required": "true",
+				"id": "revisitThisYear",
 				"questionOptions": {
-				  "rendering": "date",
-				  "concept": "163260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "weeksList": "",
-				  "conceptMappings": [
+				  "concept": "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
 					{
-					  "type": "SNOMED-CT",
-					  "value": "406543005"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
 					}
 				  ]
-				},
-				"validators": [
-				  {
-					"type": "date",
-					"allowFutureDates": "false"
-				  }
-				],
-				"id": "visitDate"
+				}
 			  },
 			  {
 				"label": "Follow-up",
@@ -82,11 +80,11 @@
 				  "answers": [
 					{
 					  "concept": "160552AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Nutrion services"
+					  "label": "Nutrition services"
 					},
 					{
 					  "concept": "161624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Rehabilitaon services"
+					  "label": "Rehabilitation services"
 					},
 					{
 					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -104,26 +102,7 @@
 				  "rendering": "text"
 				},
 				"hide": {
-				  "hideWhenExpression": "isEmpty(followupfor) || followupfor != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Revisit this year?",
-				"type": "obs",
-				"id": "revisitThisYear",
-				"questionOptions": {
-				  "concept": "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
+				  "hideWhenExpression": "isEmpty(followupfor) || followupfor !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
@@ -183,13 +162,25 @@
 				  "min": "0"
 				},
 				"hide": {
-				  "hideWhenExpression": "isEmpty(primaryCaregiver) || primaryCaregiver != '970AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(primaryCaregiver) || primaryCaregiver !== '970AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
-			  },
+			  }
+			]
+		  }
+		]
+	  },
+	  {
+		"label": "Patient History",
+		"sections": [
+		  {
+			"label": "History",
+			"isExpanded": "true",
+			"questions": [
 			  {
 				"label": "Infant Feeding",
 				"type": "obs",
 				"id": "infantFeeding",
+				"required": "true",
 				"questionOptions": {
 				  "concept": "1151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "radio",
@@ -210,98 +201,41 @@
 				}
 			  },
 			  {
-				"label": "Any Danger Signs (l)",
+				"label": "Any Danger Signs",
 				"type": "obs",
 				"id": "",
 				"questionOptions": {
 				  "concept": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Unable to drink or breastfeed"
-					},
-					{
-					  "concept": "1983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Unable to drink fluids"
-					},
-					{
-					  "concept": "164482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Vomiting everything"
-					},
-					{
-					  "concept": "138868AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Hemorrhagic diarrhea"
-					},
-					{
-					  "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Oedema"
-					},
-					{
-					  "concept": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Currently convulsing"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Medication Given If HIV Exposed",
-				"type": "obs",
-				"id": "Medication",
-				"questionOptions": {
-				  "concept": "966AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "checkbox",
 				  "answers": [
 					{
-					  "concept": "86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "ZIDOVUDINE (AZT)"
+					  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "None"
 					},
 					{
-					  "concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "NEVIRAPINE (NVP)"
+					  "concept": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Unable to drink or breastfeed",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
-					  "concept": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "SULFAMETHOXAZOLE / TRIMETHOPRIM (CTX)"
+					  "concept": "164482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Vomiting everything",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
-					  "concept": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "MULTIVITAMIN (M/vit)"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "TB Assessment Outcome",
-				"type": "obs",
-				"id": "btAssesmentOutcome",
-				"questionOptions": {
-				  "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
-				  "answers": [
-					{
-					  "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No signs"
+					  "concept": "138868AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Hemorrhagic diarrhea",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
-					  "concept": "1679AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "TPT"
+					  "concept": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Currently convulsing",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
-					  "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Presumed TB"
-					},
-					{
-					  "concept": "1661AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Confirmed"
-					},
-					{
-					  "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "TB Rx"
-					},
-					{
-					  "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Not done"
+					  "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Lethargy/Unconscious",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					}
 				  ]
 				}
@@ -324,13 +258,7 @@
 					}
 				  ]
 				}
-			  }
-			]
-		  },
-		  {
-			"label": "Milestones",
-			"isExpanded": "true",
-			"questions": [
+			  },
 			  {
 				"label": "Development Milestones by Age",
 				"id": "developmentMilestones",
@@ -378,6 +306,7 @@
 				"label": "Achieving Milestones?",
 				"type": "obs",
 				"id": "achievingMilestones",
+				"required": "true",
 				"questionOptions": {
 				  "concept": "1189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "radio",
@@ -398,11 +327,51 @@
 				}
 			  }
 			]
-		  },
+		  }
+		]
+	  },
+	  {
+		"label": "Patient Examination",
+		"sections": [
 		  {
-			"label": "Laboratory Information",
+			"label": "Examination",
 			"isExpanded": "true",
 			"questions": [
+			  {
+				"label": "TB Assessment Outcome",
+				"type": "obs",
+				"id": "btAssesmentOutcome",
+				"questionOptions": {
+				  "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No signs"
+					},
+					{
+					  "concept": "1679AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "TPT"
+					},
+					{
+					  "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Presumed TB"
+					},
+					{
+					  "concept": "1661AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Confirmed"
+					},
+					{
+					  "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "TB Rx"
+					},
+					{
+					  "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Not done"
+					}
+				  ]
+				}
+			  },
 			  {
 				"label": "Order any Investigation?",
 				"type": "obs",
@@ -437,18 +406,114 @@
 				"hide": {
 				  "hideWhenExpression": "investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
+			  },
+			  {
+				"label": "PUPIL",
+				"type": "obs",
+				"id": "pupilExamination",
+				"questionOptions": {
+				  "concept": "162064AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "162065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Black"
+					},
+					{
+					  "concept": "1075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "White"
+					}
+				  ]
+				},
+				"alert": {
+				  "alertWhenExpression": "myValue === '1075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+				  "message": "Refer to eye clinic"
+				}
+			  },
+			  {
+				"label": "SIGHT",
+				"type": "obs",
+				"id": "sightExamination",
+				"questionOptions": {
+				  "concept": "162067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Not Following Objects"
+					},
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Following Objects"
+					}
+				  ]
+				},
+				"alert": {
+				  "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+				  "message": "Refer to eye clinic"
+				}
+			  },
+			  {
+				"label": "SQUINT (Crossed Eyes)",
+				"type": "obs",
+				"id": "squint",
+				"questionOptions": {
+				  "concept": "162066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No Squint"
+					},
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Squint"
+					}
+				  ]
+				},
+				"alert": {
+				  "alertWhenExpression": "myValue === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+				  "message": "Refer to eye clinic"
+				}
 			  }
 			]
 		  }
 		]
 	  },
 	  {
-		"label": "Early Eye Examination",
+		"label": "Patient Management",
 		"sections": [
 		  {
-			"label": "Eye Care Assessment",
+			"label": "Management",
 			"isExpanded": "true",
 			"questions": [
+			  {
+				"label": "Medication given if HIV Exposed",
+				"type": "obs",
+				"id": "Medication",
+				"questionOptions": {
+				  "concept": "966AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "checkbox",
+				  "answers": [
+					{
+					  "concept": "86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Zidovudine (AZT)"
+					},
+					{
+					  "concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Nevirapine (NVP)"
+					},
+					{
+					  "concept": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Sulfamethoxazole/Trimethoprim (Ctx)"
+					},
+					{
+					  "concept": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Multivitamin (M/vit)"
+					}
+				  ]
+				}
+			  },
 			  {
 				"label": "Tetracycline Eye Ointment (TEO) Given?",
 				"type": "obs",
@@ -469,78 +534,6 @@
 				}
 			  },
 			  {
-				"label": "PUPIL",
-				"type": "obs",
-				"id": "pupilExamination",
-				"questionOptions": {
-				  "concept": "162064AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "162065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Black"
-					},
-					{
-					  "concept": "1075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "White"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "SIGHT",
-				"type": "obs",
-				"id": "sightExamination",
-				"questionOptions": {
-				  "concept": "162067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Not Following Objects"
-					},
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Following Objects"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "SQUINT (Crossed Eyes)",
-				"type": "obs",
-				"id": "squint",
-				"questionOptions": {
-				  "concept": "162066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No Squint"
-					},
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Squint"
-					}
-				  ]
-				}
-			  }
-			]
-		  },
-		  {
-			"label": "Physical features",
-			"isExpanded": "true",
-			"questions": [
-			  {
-				"label": "Physical features: ",
-				"type": "obs",
-				"id": "physicalFeatures",
-				"questionOptions": {
-				  "concept": "1391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "textarea"
-				}
-			  },
-			  {
 				"label": "Clinician's Notes",
 				"type": "obs",
 				"id": "cliniciansNotes",
@@ -558,7 +551,7 @@
 				  "buttonLabel": "Add appointments",
 				  "workspaceName": "appointments-form-workspace"
 				}
-				}
+			  }
 			]
 		  }
 		]
