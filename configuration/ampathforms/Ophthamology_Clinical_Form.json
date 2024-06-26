@@ -1,0 +1,727 @@
+{
+    "name": "Ophthamology Clinical Form",
+    "description": "A form used to capture ophthamology clinical Cases",
+    "version": "1.1",
+    "published": true,
+  "uuid": "235900ff-4d4a-4575-9759-96f325f5e291",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Patient Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Type?",
+              "type": "obs",
+              "required": true,
+              "id": "visitType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "164181"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New visit"
+                  },
+                  {
+                    "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Return Visit"
+                  },
+                  {
+                    "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referral"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Reffered From:",
+              "type": "obs",
+              "id": "referFrom",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "161643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "3806ee11-4f21-4176-82da-1a27be1aeaaf",
+                    "label": "CHU"
+                  },
+                  {
+                    "concept": "159928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "School"
+                  },
+                  {
+                    "concept": "411dcfe9-3188-4473-8dfd-9f6ea223a6e6",
+                    "label": "Within"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Applicable(N/A)"
+                  },
+                  {
+                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other facility"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "visitType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient History",
+      "sections": [
+        {
+          "label": "Complaints and History of complaints",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient having complaint(s) today?",
+              "type": "obs",
+              "id": "complaintsToday",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Presenting complaints",
+              "type": "obsGroup",
+              "id": "ComplaintLodgeByClient",
+              "questionOptions": {
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "complaintsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "questions": [
+                {
+                  "label": "Complaint",
+                  "type": "obs",
+                  "id": "cOmplaIntField",
+                  "questionOptions": {
+                    "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Blurry Vision"
+                      },
+                      {
+                        "concept": "144580AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Colour vision changes"
+                      },
+                      {
+                        "concept": "142281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Decreased vision"
+                      },
+                      {
+                        "concept": "141830AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dizziness"
+                      },
+                      {
+                        "concept": "142263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Double Vision"
+                      },
+                      {
+                        "concept": "141695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dryness"
+                      },
+                      {
+                        "concept": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dysuria"
+                      },
+                      {
+                        "concept": "141585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Ear Pain"
+                      },
+                      {
+                        "concept": "141118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Epiphoria"
+                      },
+                      {
+                        "concept": "874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Eye Discharge"
+                      },
+                      {
+                        "concept": "136455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Eye itching"
+                      },
+                      {
+                        "concept": "131040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Eye Pain"
+                      },
+                      {
+                        "concept": "133548AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Eye Twitching"
+                      },
+                      {
+                        "concept": "130238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Floaters and flashes(photopsia)"
+                      },
+                      {
+                        "concept": "155355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Gritty Sensation"
+                      },
+                      {
+                        "concept": "123068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Haloes around light"
+                      },
+                      {
+                        "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Headache"
+                      },
+                      {
+                        "concept": "141117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Lacrimation"
+                      },
+                      {
+                        "concept": "118393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Macropsia"
+                      },
+                      {
+                        "concept": "118882AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Metamorphopsia"
+                      },
+                      {
+                        "concept": "116653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Micropsia"
+                      },
+                      {
+                        "concept": "114159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Photophobia"
+                      },
+                      {
+                        "concept": "5953AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Poor Vision"
+                      },
+                      {
+                        "concept": "139417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Protrusion of the globe"
+                      },
+                      {
+                        "concept": "127777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Red Eye"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Specify other complaints",
+                  "type": "obs",
+                  "id": "OtherSpecificComplaints",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Patient had contact with TB Infected person in the last 12 months?",
+                  "type": "obs",
+                  "id": "contactTB",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "cOmplaIntField !== '143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Duration (Days)",
+                  "type": "obs",
+                  "id": "complaint-duration",
+                  "questionOptions": {
+                    "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number",
+                    "min": "0"
+                  },
+                  "validators": []
+                },
+                {
+                  "label": "Onset Date",
+                  "type": "obs",
+                  "id": "OnSETdate",
+                  "questionOptions": {
+                    "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "date"
+                  },
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "false"
+                    }
+                  ]
+                },
+                {
+                  "label": "Onset Status",
+                  "type": "obs",
+                  "id": "onsetStatus",
+                  "questionOptions": {
+                    "concept": "d7a3441d-6aeb-49be-b7d6-b2a3bb39e78d",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Gradual"
+                      },
+                      {
+                        "concept": "162707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sudden"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Clinical notes",
+              "type": "obs",
+              "id": "ClinICNotes",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": []
+            }
+          ]
+        },
+        {
+          "label": "Patient Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Current Medication",
+              "type": "obs",
+              "id": "currentMed",
+              "questionOptions": {
+                "concept": "1772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": []
+            },
+            {
+              "label": "Surgical History",
+              "type": "obs",
+              "id": "surgHis",
+              "questionOptions": {
+                "concept": "1772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": []
+            },
+            {
+              "label": "Social History",
+              "type": "obs",
+              "id": "socialHis",
+              "questionOptions": {
+                "concept": "1772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient Examination",
+      "sections": [
+        {
+          "label": "General Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "General Examination",
+              "type": "obs",
+              "id": "GeneralExam",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": []
+            },
+            {
+              "label": "Examination Findings",
+              "type": "obs",
+              "id": "examFindings",
+              "questionOptions": {
+                "concept": "166823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "multiCheckbox",
+                "answers": [
+                  {
+                    "concept": "148740AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Anisocoria"
+                  },
+                  {
+                    "concept": "142263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Double vision"
+                  },
+                  {
+                    "concept": "120860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cataracts"
+                  },
+                  {
+                    "concept": "142283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Enlarged pupil"
+                  },
+                  {
+                    "concept": "118613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Enophthalmos"
+                  },
+                  {
+                    "concept": "141192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Entropion"
+                  },
+                  {
+                    "concept": "874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Eye discharge"
+                  },
+                  {
+                    "concept": "140919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Exophthalmos"
+                  },
+                  {
+                    "concept": "131763AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Optic atrophy"
+                  },
+                  {
+                    "concept": "114367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Papilloedema"
+                  },
+                  {
+                    "concept": "113516AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ptosis"
+                  },
+                  {
+                    "concept": "112710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Squint"
+                  },
+                  {
+                    "concept": "112198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Trichiasis"
+                  },
+                  {
+                    "concept": "135803AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Upper eye lid retraction"
+                  },
+                  {
+                    "concept": "160348AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Visual Acuity"
+                  },
+                  {
+                    "concept": "122813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Xanthelasma"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify other complaints",
+              "type": "obs",
+              "id": "OtherSpecificComplaints",
+              "questionOptions": {
+                "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(examFindings) || !arrayContains(examFindings, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Visual Acuity Findings",
+              "type": "obs",
+              "required": "true",
+              "id": "acuityFinding",
+              "questionOptions": {
+                "concept": "164448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "163345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal vision(6/6-3/18)"
+                  },
+                  {
+                    "concept": "137723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Low vision(6/18-6/30) "
+                  },
+                  {
+                    "concept": "147215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Blind (<3/60-NPL)"
+                  },
+                  {
+                    "concept": "135566AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hand Movement(HMS)"
+                  },
+                  {
+                    "concept": "135791AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Light perception(LP)"
+                  },
+                  {
+                    "concept": "158461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No Light Perception(NLP)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(examFindings) || !arrayContains(examFindings, '160348AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Clinical Notes",
+              "type": "obs",
+              "id": "clinicalNotes",
+              "questionOptions": {
+                "concept": "160629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": []
+            },
+            {
+              "label": "Clinical Diagnosis",
+              "id": "clinicalDiagnosisId",
+              "type": "diagnosis",
+              "questionOptions": {
+                "rendering": "repeating",
+                "dataSource": "diagnoses",
+                "rank": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient Management",
+      "sections": [
+        {
+          "label": "Treatment/Management Plan",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Final Diagnosis",
+              "id": "finalDiagnosisId",
+              "type": "diagnosis",
+              "questionOptions": {
+                "rendering": "repeating",
+                "dataSource": "diagnoses",
+                "rank": 2
+              }
+            },
+            {
+              "label": "Drug Order",
+              "required": false,
+              "id": "drugsWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add drug order",
+                "workspaceName": "add-drug-order"
+              }
+            },
+            {
+              "label": "Any Assistive prescribed?",
+              "type": "obs",
+              "id": "devicesPrescribed",
+              "questionOptions": {
+                "concept": "164204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "d988ce46-bb43-4c4f-9f36-7f26888c95b4",
+                    "label": "Spectacles",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "155310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Magnifiers",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Other (Specify)",
+              "type": "obs",
+              "id": "otherDevicesOrderd",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(devicesPrescribed) || !arrayContains(devicesPrescribed, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Visual Rehabilitation done?",
+              "type": "obs",
+              "id": "visualRehab",
+              "questionOptions": {
+                "concept": "1651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Referred to?",
+              "type": "obs",
+              "id": "referralTo",
+              "questionOptions": {
+                "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "159928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "School"
+                  },
+                  {
+                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
+                    "label": "CHU"
+                  },
+                  {
+                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other health facility"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Transfer to Facility:",
+              "type": "obs",
+              "id": "transferToFacility",
+              "questionOptions": {
+                "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "encounterLocation"
+              },
+              "hide": {
+                "hideWhenExpression": "referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Next review date:",
+              "required": false,
+              "id": "appointmentWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add appointments",
+                "workspaceName": "appointments-form-workspace"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+    "processor": "EncounterFormProcessor",
+    "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8",
+    "referencedForms": []
+    
+   
+  }
