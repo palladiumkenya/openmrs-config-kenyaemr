@@ -1,0 +1,1341 @@
+{
+    "name": "Diabetic Clinical Encounter",
+    "description": "A form for collecting diabetic information",
+    "version": "1.0",
+    "published": true,
+    "uuid": "9f6543e4-0821-4f9c-9264-94e45dc35e17",
+    "retired": false,
+    "encounter": "Consultation",
+    
+   
+    "pages": [
+      {
+        "label": "Visit Details",
+        "sections": [
+          {
+            "label": "Encounter Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Visit date:",
+                "type": "encounterDatetime",
+                "required": "true",
+                "id": "encDate",
+                "questionOptions": {
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Provider:",
+                "type": "encounterProvider",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encProvider "
+              },
+              {
+                "label": "Location:",
+                "type": "encounterLocation",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encLocation"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Diabetes History",
+        "sections": [
+          {
+            "label": "Diabetes History",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Type of Diabetes",
+                "type": "obs",
+                "id": "typeOfDiabetes",
+                "questionOptions": {
+                  "concept": "74eb8e8d-d078-4fa3-8973-2d710d8f46df",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "142474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Type 1 Diabetes"
+                    },
+                    {
+                      "concept": "142473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Type 2 Diabetes"
+                    },
+                    {
+                      "concept": "158473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Pre-Diabetes"
+                    },
+                    {
+                      "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Don’t know"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "sex !== 'M'"
+                }
+              },
+              {
+                "label": "Type of Diabetes",
+                "type": "obs",
+                "id": "typeOfDiabetesFemale",
+                "questionOptions": {
+                  "concept": "74eb8e8d-d078-4fa3-8973-2d710d8f46df",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "142474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Type 1 Diabetes"
+                    },
+                    {
+                      "concept": "142473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Type 2 Diabetes"
+                    },
+                    {
+                      "concept": "158473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Pre-Diabetes"
+                    },
+                    {
+                      "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Don’t know"
+                    },
+                    {
+                      "concept": "117807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Gestational Diabetes Mellitus(GDM)"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "sex !== 'F'"
+                }
+              },
+              {
+                "label": "Other Specify",
+                "type": "obs",
+                "id": "typeSpecify",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(typeOfDiabetes) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], typeOfDiabetes)"
+                }
+              },
+              {
+                "label": "Other Specify",
+                "type": "obs",
+                "id": "typeSpecifyFemale",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(typeOfDiabetesFemale) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], typeOfDiabetesFemale)"
+                }
+              },
+              {
+                "label": "Year of Diagnosis",
+                "type": "obs",
+                "id": "yearOfDiagnosis",
+                "questionOptions": {
+                  "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Presenting complaints",
+                "type": "obs",
+                "id": "presentingComplaints",
+                "questionOptions": {
+                  "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    },
+                    {
+                      "concept": "141692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dry Skin",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "162626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Fatigue and weakness",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "123067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Loss of Sight",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "132652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Numbness/Tingling  in hands or feet",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "128211AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Polydipsia",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "118483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Polyphagia",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "129510AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Polyuria",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "126826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Sexual Dysfunction",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "126371AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Sleep Apnea/Snoring",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "162937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Slow Healing Wounds",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Blurred vision",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Other Specify",
+                "type": "obs",
+                "id": "typeSpecifyComplaints",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(presentingComplaints) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], presentingComplaints)"
+                }
+              },
+              {
+                "label": "Medical History",
+                "type": "obs",
+                "id": "medicalHistoryFemale",
+                "questionOptions": {
+                  "concept": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "156637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Heart Problems"
+                    },
+                    {
+                      "concept": "117441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hyperlipidaemia"
+                    },
+                    {
+                      "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hypertension"
+                    },
+                    {
+                      "concept": "116506AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nephropathy"
+                    },
+                    {
+                      "concept": "117807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Previous Gestional Diabetes Mellitus(GDM)"
+                    },
+                    {
+                      "concept": "127758AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Reflux/Digestion Problems"
+                    },
+                    {
+                      "concept": "118976AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Thyroid Problems"
+                    },
+                    {
+                      "concept": "111633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Urinary Tract Infections"
+                    },
+                    {
+                      "concept": "129569AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Polycystic Ovary Syndrome (PCOS)"
+                    },
+                    {
+                      "concept": "115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Obesity"
+                    },
+                    {
+                      "concept": "113257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Retinopathy"
+                    },
+                    {
+                      "concept": "117686AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stroke"
+                    },
+                    {
+                      "concept": "154007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Coronary Artery Disease (CAD)"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "sex !== 'F'"
+                }
+              },
+              {
+                "label": "Medical History",
+                "type": "obs",
+                "id": "medicalHistoryMale",
+                "questionOptions": {
+                  "concept": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "156637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Heart Problems"
+                    },
+                    {
+                      "concept": "117441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hyperlipidaemia"
+                    },
+                    {
+                      "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hypertension"
+                    },
+                    {
+                      "concept": "116506AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nephropathy"
+                    },
+                    {
+                      "concept": "127758AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Reflux/Digestion Problems"
+                    },
+                    {
+                      "concept": "118976AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Thyroid Problems"
+                    },
+                    {
+                      "concept": "111633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Urinary Tract Infections"
+                    },
+                    {
+                      "concept": "129569AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Polycystic Ovary Syndrome (PCOS)"
+                    },
+                    {
+                      "concept": "115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Obesity"
+                    },
+                    {
+                      "concept": "113257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Retinopathy"
+                    },
+                    {
+                      "concept": "117686AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Stroke"
+                    },
+                    {
+                      "concept": "154007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Coronary Artery Disease (CAD)"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "sex !== 'M'"
+                }
+              },
+              {
+                "label": "Other Specify",
+                "type": "obs",
+                "id": "otherSpecifyMedicalHistoryFemale",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(medicalHistoryFemale) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], medicalHistoryFemale)"
+                }
+              },
+              {
+                "label": "Other Specify",
+                "type": "obs",
+                "id": "otherSpecifyMedicalHistoryMale",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(medicalHistoryMale) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], medicalHistoryMale)"
+                }
+              },
+              {
+                "label": "Recent hospital admission?",
+                "type": "obs",
+                "id": "recentHospitalAdmission",
+                "questionOptions": {
+                  "concept": "165644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Pregnant?",
+                "type": "obs",
+                "id": "pregnant",
+                "questionOptions": {
+                  "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "sex !== 'F'"
+                }
+              },
+              {
+                "label": "Gestational Age(in weeks)?",
+                "type": "obs",
+                "id": "gestationalAge",
+                "questionOptions": {
+                  "concept": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number"
+                },
+                "hide": {
+                  "hideWhenExpression": "sex !== 'F' || pregnant !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Estimated Date of Delivery",
+                "type": "obs",
+                "id": "estimatedDateOfDelivery",
+                "questionOptions": {
+                  "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "date"
+                },
+                "hide": {
+                  "hideWhenExpression": "sex !== 'F' || pregnant !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Planning to get pregnant?",
+                "type": "obs",
+                "id": "planningToGetPregnant",
+                "questionOptions": {
+                  "concept": "b3b2fa9f-d4ac-42c1-8ac2-5cba19fa0403",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "sex !== 'F' || pregnant !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Contraceptive use?",
+                "type": "obs",
+                "id": "contraceptiveUse",
+                "questionOptions": {
+                  "concept": "1386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    },
+                    {
+                      "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "NA"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "sex !== 'F' || pregnant !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Family History with Diabetes?",
+                "type": "obs",
+                "id": "familyHistoryWithDiabetes",
+                "questionOptions": {
+                  "concept": "140228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "152909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Diabetes Type 1"
+                    },
+                    {
+                      "concept": "152910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Diabetes Type 2"
+                    },
+                    {
+                      "concept": "1449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Gestational Diabetes Melitus(GDM)"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Current Diabetes Treatment",
+                "type": "obs",
+                "id": "currentDiabetesTreatment",
+                "questionOptions": {
+                  "concept": "482c9f37-e7b3-41ef-91ea-ecc868ce4016",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    },
+                    {
+                      "concept": "159596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Diet & Exercise"
+                    },
+                    {
+                      "concept": "159460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Oral Diabetes Medication"
+                    },
+                    {
+                      "concept": "0aeb848d-aaa3-49d7-a1a1-f24b6a163611",
+                      "label": "Injections"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(typeOfDiabetes) || typeOfDiabetes === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || typeOfDiabetesFemale === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "How much Insulin do you take?",
+                "type": "obs",
+                "id": "InsulinDoYouTake",
+                "questionOptions": {
+                  "concept": "160856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "161015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Before breakfast"
+                    },
+                    {
+                      "concept": "161016AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Before Lunch "
+                    },
+                    {
+                      "concept": "161017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Before Supper"
+                    },
+                    {
+                      "concept": "160863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "At Bedtime"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(currentDiabetesTreatment) || currentDiabetesTreatment !== '0aeb848d-aaa3-49d7-a1a1-f24b6a163611'"
+                }
+              },
+              {
+                "label": "Problems/Side Effects from medications?",
+                "type": "obs",
+                "id": "sideEffectsFromMedications",
+                "questionOptions": {
+                  "concept": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                }
+              },
+              {
+                "label": "Do you monitor your blood sugar?",
+                "type": "obs",
+                "id": "monitorBloodSugar",
+                "questionOptions": {
+                  "concept": "dda4a1e6-003f-450d-8255-eb0f66e042c0",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Current fasting/before breakfast(mmol/l)?",
+                "type": "obs",
+                "id": "currentFasting",
+                "questionOptions": {
+                  "concept": "160912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "1000",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(monitorBloodSugar) || monitorBloodSugar !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Current blood sugar 2hours post meal?",
+                "type": "obs",
+                "id": "currentBloodSugar2Hours",
+                "questionOptions": {
+                  "concept": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "1000",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(monitorBloodSugar) || monitorBloodSugar !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Others?",
+                "type": "obs",
+                "id": "others",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text",
+                  "max": "1000",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(monitorBloodSugar) || monitorBloodSugar !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Do you have low blood sugars?",
+                "type": "obs",
+                "id": "doYouHaveLowBloodSugar",
+                "questionOptions": {
+                  "concept": "163331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Never"
+                    },
+                    {
+                      "concept": "156242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Infrequently"
+                    },
+                    {
+                      "concept": "1100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Daily"
+                    },
+                    {
+                      "concept": "1099AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Weekly"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(monitorBloodSugar) || monitorBloodSugar !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Do you have any concerns about your ability to afford treatment?",
+                "type": "obs",
+                "id": "abilityToAffordTreatment",
+                "questionOptions": {
+                  "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(monitorBloodSugar) || monitorBloodSugar !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Physical Activity ",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Do you exercise regularly?",
+                "type": "obs",
+                "id": "exerciseRegularly",
+                "questionOptions": {
+                  "concept": "355970d3-b6d6-4695-a99b-a222119fd5b4",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Duration?",
+                "type": "obs",
+                "id": "duration",
+                "questionOptions": {
+                  "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(exerciseRegularly) || exerciseRegularly !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Frequency?",
+                "type": "obs",
+                "id": "frequency",
+                "questionOptions": {
+                  "concept": "163170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(exerciseRegularly) || exerciseRegularly !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Intensity?",
+                "type": "obs",
+                "id": "intensity",
+                "questionOptions": {
+                  "concept": "166080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Light"
+                    },
+                    {
+                      "concept": "159533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Medium"
+                    },
+                    {
+                      "concept": "1408AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Heavy"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(exerciseRegularly) || exerciseRegularly !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Do you have Diet Restriction?",
+                "type": "obs",
+                "id": "dietRestriction",
+                "questionOptions": {
+                  "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Specify (Diet restriction)",
+                "type": "obs",
+                "id": "specifyDietRestriction",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(dietRestriction) || !arrayContains(['1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], dietRestriction)"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Social History",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Tobacco use?",
+                "type": "obs",
+                "id": "tobaccoUse",
+                "questionOptions": {
+                  "concept": "163731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "How long ?(in Years)",
+                "type": "obs",
+                "id": "howLong",
+                "questionOptions": {
+                  "concept": "159931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(tobaccoUse) || !arrayContains(['1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], tobaccoUse)"
+                }
+              },
+              {
+                "label": "How many packs per day",
+                "type": "obs",
+                "id": "howManyPacksPerDay",
+                "questionOptions": {
+                  "concept": "443b4338-16cd-43e8-910d-d1d9b22860c4",
+                  "rendering": "number"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(tobaccoUse) || !arrayContains(['1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], tobaccoUse)"
+                }
+              },
+              {
+                "label": "Alcohol intake",
+                "type": "obs",
+                "id": "alcoholIntake",
+                "questionOptions": {
+                  "concept": "159449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Substance drug use",
+                "type": "obs",
+                "id": "substanceDrugUse",
+                "questionOptions": {
+                  "concept": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Diabetes Complications",
+                "type": "obs",
+                "id": "diabetesComplications",
+                "questionOptions": {
+                  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "119816AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Coronary Heart Disease (CHD)"
+                    },
+                    {
+                      "concept": "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Cerebrovascular Accident (CVA)"
+                    },
+                    {
+                      "concept": "145074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Peripheral artery Disease"
+                    },
+                    {
+                      "concept": "113257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Retinopathy"
+                    },
+                    {
+                      "concept": "116506AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nephropathy"
+                    },
+                    {
+                      "concept": "118983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Peripheral neuropathy"
+                    },
+                    {
+                      "concept": "114212AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Peripheral vascular disease"
+                    },
+                    {
+                      "concept": "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Foot ulcer"
+                    },
+                    {
+                      "concept": "1295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Chronic Obstructive Pulmonary Disease (COPD)"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Specify (Other diabetes complications)",
+                "type": "obs",
+                "id": "specifyDiabetesComplications",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(diabetesComplications) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], diabetesComplications)"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Patient's Management",
+        "sections": [
+          {
+            "label": "Treatment/Management Plan",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Diagnosis",
+                "id": "DiagNosIS",
+                "required": "true",
+                "type": "diagnosis",
+                "questionOptions": {
+                  "rendering": "repeating",
+                  "dataSource": "diagnoses",
+                  "rank": 1
+                }
+              },
+              {
+                "label": "Diabetes Education Needs and support",
+                "type": "obs",
+                "id": "diabetesEducationNeeds",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "d0776798-042f-4ecb-b43d-f14d287adee1",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Disease Process & Treatment Options"
+                    },
+                    {
+                      "concept": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nutritional Management "
+                    },
+                    {
+                      "concept": "355970d3-b6d6-4695-a99b-a222119fd5b4",
+                      "label": "Physical Activity"
+                    },
+                    {
+                      "concept": "159611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Medication Use"
+                    },
+                    {
+                      "concept": "160912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Monitoring Blood Glucose"
+                    },
+                    {
+                      "concept": "120240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Complications"
+                    },
+                    {
+                      "concept": "1855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Healthy Coping"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Diabetes Management",
+                "type": "obsGroup",
+                "questionOptions": {
+                  "rendering": "group",
+                  "concept": "159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "id": "diabetesManagement",
+                "questions": [
+                  {
+                    "label": "Diabetes Management",
+                    "type": "obs",
+                    "id": "manageMentPlan",
+                    "questionOptions": {
+                      "concept": "163104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "checkbox",
+                      "answers": [
+                        {
+                          "concept": "135797AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Lifestyle modification"
+                        },
+                        {
+                          "concept": "159596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Diet and exercise"
+                        },
+                        {
+                          "concept": "160240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Oral Agents"
+                        },
+                        {
+                          "concept": "4bba8791-6e89-40bf-a301-27919f22f61d",
+                          "label": "Non-Insulin Injectables"
+                        },
+                        {
+                          "concept": "78056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Insulin"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "label": "Drug Order",
+                "required": false,
+                "id": "drugsWorkspaceLauncher",
+                "questionOptions": {
+                  "rendering": "workspace-launcher",
+                  "buttonLabel": "Add drug order",
+                  "workspaceName": "add-drug-order"
+                },
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              }
+            ]
+          },
+          {
+            "label": "Procedures",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Procedure Done",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "120198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    },
+                    {
+                      "concept": "1933AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Aural toilet(Microsuction)",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "127642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hearing Aid",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "162158AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Myringotomy and ventilation tube insertion",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "123498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Adenoidectomy",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "20d112d0-3811-41d6-935f-62de96a769bf",
+                      "label": "Tympanoplasty",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ossiculoplasty",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "160925AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Endoscopic Sphenopalatine artery ligation",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "136117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Septoplasty",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Functional Endoscopic Sinus Surgery",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "137971AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Tinnitus Retraining Therapy(TRT)",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  ]
+                },
+                "id": "proceDureDoen",
+                "required": "true",
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "OthersUsed",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(proceDureDoen) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], proceDureDoen)"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Referral Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Referral Reasons",
+                "type": "obs",
+                "id": "freeText",
+                "questionOptions": {
+                  "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                }
+              },
+              {
+                "label": "Where referred:",
+                "type": "obs",
+                "id": "whereReferred",
+                "questionOptions": {
+                  "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other facility"
+                    },
+                    {
+                      "concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "This Facility"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Facility name:",
+                "type": "obs",
+                "id": "faciliName",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(whereReferred) || !arrayContains(['164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], whereReferred)"
+                }
+              },
+              {
+                "label": "This Facility:",
+                "type": "obs",
+                "id": "thisfacility",
+                "questionOptions": {
+                  "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text",
+                  "calculate": {
+                    "calculateExpression": "whereReferred === '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && userLocation.display"
+                  }
+                },
+                "hide": {
+                  "hideWhenExpression": "whereReferred !== '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Department referred:",
+                "type": "obs",
+                "id": "departmentWhereReferred",
+                "questionOptions": {
+                  "concept": "164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "5484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dietitian/Nutritionist Consultation"
+                    },
+                    {
+                      "concept": "5490AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Diabetes Support Groups"
+                    },
+                    {
+                      "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Community Resources"
+                    },
+                    {
+                      "concept": "160454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ophthalmologist"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(whereReferred)"
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "OthersDepartment",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(departmentWhereReferred) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], departmentWhereReferred)"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Follow Up Date",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Appointments",
+                "required": false,
+                "id": "appointmentWorkspaceLauncher",
+                "questionOptions": {
+                  "rendering": "workspace-launcher",
+                  "buttonLabel": "Add appointments",
+                  "workspaceName": "appointments-form-workspace"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "processor": "EncounterFormProcessor",
+    "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8",
+    "referencedForms": []
+  }
