@@ -1,0 +1,580 @@
+{
+    "name": "Cardiology  Clinical Form",
+    "description": "A form used to capture cardiology clinical Cases",
+    "version": "1.1",
+    "published": true,
+    "uuid": "998be6de-bd13-4136-ba0d-3f772139895f",
+    "retired": false,
+    "encounter": "Consultation",
+    "pages": [
+      {
+        "label": "Visit Details",
+        "sections": [
+          {
+            "label": "Encounter Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Visit date:",
+                "type": "encounterDatetime",
+                "required": "true",
+                "id": "encDate",
+                "questionOptions": {
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Provider:",
+                "type": "encounterProvider",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encProvider "
+              },
+              {
+                "label": "Location:",
+                "type": "encounterLocation",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encLocation"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Patient History",
+        "sections": [
+          {
+            "label": "Complaints and History of complaints",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Patient having complaint(s) today?",
+                "type": "obs",
+                "id": "complaintsToday",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Presenting complaints",
+                "type": "obsGroup",
+                "id": "ComplaintLodgeByClient",
+                "questionOptions": {
+                  "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "repeating"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "complaintsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                },
+                "questions": [
+                  {
+                    "label": "Complaint",
+                    "type": "obs",
+                    "id": "cOmplaIntField",
+                    "questionOptions": {
+                      "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "147913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Belching"
+                        },
+                        {
+                          "concept": "120749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Chest Pain"
+                        },
+                        {
+                          "concept": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Confusion"
+                        },
+                        {
+                          "concept": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Cough"
+                        },
+                        {
+                          "concept": "122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Difficult in breathing"
+                        },
+                        {
+                          "concept": " 141599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Dyspnea"
+                        },
+                        {
+                          "concept": "162626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Fatigue/weakness"
+                        },
+                        {
+                          "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Fever"
+                        },
+                        {
+                          "concept": "138905AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Hemoptysis"
+                        },
+                        {
+                          "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Headache"
+                        },
+                        {
+                          "concept": "138662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Hiccough/Hiccups"
+                        },
+                        {
+                          "concept": "121609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Rest angina"
+                        },
+                        {
+                          "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Seizure"
+                        },
+                        {
+                          "concept": "112989AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Shock"
+                        },
+                        {
+                          "concept": "125166AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Syncope"
+                        },
+                        {
+                          "concept": "112200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Tremors"
+                        },
+                        {
+                          "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Other"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "label": "Specify other complaints",
+                    "type": "obs",
+                    "id": "OtherSpecificComplaints",
+                    "questionOptions": {
+                      "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                      "rendering": "textarea"
+                    },
+                    "validators": [],
+                    "hide": {
+                      "hideWhenExpression": "cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  },
+                  {
+                    "label": "Patient had contact with TB Infected person in the last 12 months?",
+                    "type": "obs",
+                    "id": "contactTB",
+                    "required": "true",
+                    "questionOptions": {
+                      "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "radio",
+                      "answers": [
+                        {
+                          "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Yes"
+                        },
+                        {
+                          "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "No"
+                        }
+                      ]
+                    },
+                    "hide": {
+                      "hideWhenExpression": "cOmplaIntField !== '143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  },
+                  {
+                    "label": "Duration (Days)",
+                    "type": "obs",
+                    "id": "complaint-duration",
+                    "questionOptions": {
+                      "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "number",
+                      "min": "0"
+                    },
+                    "validators": []
+                  },
+                  {
+                    "label": "Onset Status",
+                    "type": "obs",
+                    "id": "onsetStatus",
+                    "questionOptions": {
+                      "concept": "d7a3441d-6aeb-49be-b7d6-b2a3bb39e78d",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Gradual"
+                        },
+                        {
+                          "concept": "162707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Sudden"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "label": "Clinical notes",
+                "type": "obs",
+                "id": "ClinICNotes",
+                "questionOptions": {
+                  "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "validators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Patient Examination",
+        "sections": [
+          {
+            "label": "Patient Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "General Examination",
+                "type": "obs",
+                "id": "GeneralExam",
+                "questionOptions": {
+                  "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "validators": []
+              },
+              {
+                "label": "Examination Findings",
+                "type": "obs",
+                "id": "examFindings",
+                "questionOptions": {
+                  "concept": "166823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    },
+                    {
+                      "concept": "149957AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Acromegalyy",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "80AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Arthralgia",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "146862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Bruit",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "162509AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Cold extremities ",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "142401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Diastolic murmur",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "126398AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Gangrene",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "116214AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hypotension",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "136394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Jugular venous distention",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "114367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Papilledema",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "130428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Peripheral oedema",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "130054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Pleural Friction Rub",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "128091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Pulsus paradoxus",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "125072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Systolic murmur",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "135966AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Swelling of the leg",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "125063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Tachycardia",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Tachypnea",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "123346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Varicose Veins",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "123257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Venous Ulcer of Leg",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Specify other complaints",
+                "type": "obs",
+                "id": "OtherSpecificComplaints",
+                "questionOptions": {
+                  "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                  "rendering": "textarea"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "examFindings !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Clinical Notes",
+                "type": "obs",
+                "id": "clinicalNotes",
+                "questionOptions": {
+                  "concept": "160629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "validators": []
+              },
+              {
+                "label": "Clinical Diagnosis",
+                "id": "clinicalDiagnosisId",
+                "type": "diagnosis",
+                "questionOptions": {
+                  "rendering": "repeating",
+                  "dataSource": "diagnoses",
+                  "rank": 1
+                }
+              },
+              {
+                "label": "Lab Order",
+                "required": false,
+                "id": "labsWorkspaceLauncher",
+                "questionOptions": {
+                  "rendering": "workspace-launcher",
+                  "buttonLabel": "Add lab order",
+                  "workspaceName": "add-lab-order"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Patient Management",
+        "sections": [
+          {
+            "label": "Treatment/Management Plan",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Final Diagnosis",
+                "id": "finalDiagnosisId",
+                "type": "diagnosis",
+                "questionOptions": {
+                  "rendering": "repeating",
+                  "dataSource": "diagnoses",
+                  "rank": 2
+                }
+              },
+              {
+                "label": "Drug Order",
+                "required": false,
+                "id": "drugsWorkspaceLauncher",
+                "questionOptions": {
+                  "rendering": "workspace-launcher",
+                  "buttonLabel": "Add drug order",
+                  "workspaceName": "add-drug-order"
+                }
+              },
+              {
+                "label": "Any Procedure prescribed?",
+                "type": "obs",
+                "id": "procedureOrdered",
+                "questionOptions": {
+                  "concept": "164204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    },
+                    {
+                      "concept": "161898AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Compression stockings",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "165944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Continuous positive airway pressure (CPAP)",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "165935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Endotracheal intubation",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "165998AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Mechanical ventilation",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "2c4168b3-3501-4546-a79a-0c6edf3081fa",
+                      "label": "Oxygen administration",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "dfd74bee-44f3-4b62-bb6e-e5b74bcc8a7e",
+                      "label": "Urinary catheter",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "otherDevicesOrderd",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(procedureOrdered) || !arrayContains(procedureOrdered, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Referred to?",
+                "type": "obs",
+                "id": "referralTo",
+                "questionOptions": {
+                  "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other health facility"
+                    },
+                    {
+                      "concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "This health facility"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Transfer to Facility:",
+                "type": "obs",
+                "id": "transferToFacility",
+                "questionOptions": {
+                  "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "encounterLocation"
+                },
+                "hide": {
+                  "hideWhenExpression": "referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "This Facility:",
+                "type": "obs",
+                "id": "thisfacility",
+                "questionOptions": {
+                  "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text",
+                  "calculate": {
+                    "calculateExpression": "referralTo === '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && userLocation.display"
+                  }
+                },
+                "hide": {
+                  "hideWhenExpression": "referralTo !=='163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Follow up date:",
+                "required": false,
+                "id": "appointmentWorkspaceLauncher",
+                "questionOptions": {
+                  "rendering": "workspace-launcher",
+                  "buttonLabel": "Add appointments",
+                  "workspaceName": "appointments-form-workspace"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "processor": "EncounterFormProcessor",
+    "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8",
+    "referencedForms": []
+  }
