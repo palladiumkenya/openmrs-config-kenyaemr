@@ -107,15 +107,22 @@
         "startVisit": "Check in",
         "startAVisit": "Check in",
         "endAVisit": "Check out",
-        "Vitals & Biometrics dashboard": "Vitals & Anthropometrics",
-        "vitalsAndBiometrics": "Vitals & Anthropometrics"
+        "Vitals & Biometrics dashboard": "Vitals & Anthropometric",
+        "vitalsAndBiometrics": "Vitals & Anthropometric"
       }
     }
   },
   "@openmrs/esm-home-app": {
     "extensionSlots": {
       "homepage-widgets-slot": {
-        "remove": ["home-appointments"]
+        "remove": ["home-appointments"],
+        "configure": {
+          "active-visits-widget": {
+            "Display conditions": {
+              "privileges": ["o3: View Active Visits"]
+            }
+          }
+        }
       },
       "homepage-dashboard-slot": {
         "remove": ["home-appointments"],
@@ -143,6 +150,11 @@
           "bed-admission-dashboard-link": {
             "Display conditions": {
               "privileges": ["o3: View Bed Management"]
+            }
+          },
+          "home-widget-db-link": {
+            "Display conditions": {
+              "privileges": ["o3: View Home"]
             }
           }
         }
@@ -459,7 +471,7 @@
       "privileges": ["o3: View Vitals and Biometrics"]
     }
   },
-  "@openmrs/esm-service-queues-app": {
+  "@kenyaemr/esm-service-queues-app": {
     "concepts": {
       "priorityConceptSetUuid": "2260a79e-f391-40f7-9eba-2e0e67028392",
       "defaultPriorityConceptUuid": "80cd8f8c-5d82-4cdc-b96e-a6addeb94b7f",
@@ -488,6 +500,30 @@
       }
     ],
     "visitQueueNumberAttributeUuid": "c61ce16f-272a-41e7-9924-4c555d0932c5",
+    "queueTables": {
+      "columnDefinitions": [
+        {
+          "id": "serve-patient",
+          "columnType": "extension",
+          "header": "Serve Patient"
+        }
+      ],
+      "tableDefinitions": [
+        {
+          "columns": [
+            "patient-name",
+            "queue-number",
+            "coming-from",
+            "priority",
+            "status",
+            "queue",
+            "wait-time",
+            "serve-patient",
+            "actions"
+          ]
+        }
+      ]
+    },
     "showQueueTableTab": false,
     "defaultIdentifierTypes": [
       "05ee9cf4-7242-4a17-b4d4-00f707265c8a",
@@ -501,10 +537,11 @@
       "privileges": ["o3: View Service Queues"]
     }
   },
-  "@openmrs/esm-appointments-app": {
+  "@kenyaemr/esm-appointments-app": {
     "concepts": {
       "visitQueueNumberAttributeUuid": "c61ce16f-272a-41e7-9924-4c555d0932c5"
     },
+    "allowAllDayAppointments": true,
     "showServiceQueueFields": true,
     "defaultFacilityUrl": "/ws/rest/v1/kenyaemr/default-facility",
     "patientIdentifierType": "Unique Patient Number",
@@ -721,7 +758,13 @@
           }
         }
       }
-    }
+    },
+    "excludedPaymentMode": [
+      {
+        "uuid": "eb6173cb-9678-4614-bbe1-0ccf7ed9d1d4",
+        "label": "Waiver"
+      }
+    ]
   },
   "@kenyaemr/esm-patient-clinical-view-app": {
     "extensionSlots": {
@@ -749,7 +792,75 @@
           }
         }
       }
-    }
+    },
+    "specialClinics": [
+      {
+        "id": "renal-clinic",
+        "title": "Renal",
+        "formUuid": "6d0be8bd-5320-45a0-9463-60c9ee2b1338",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      },
+      {
+        "id": "physiotherapy-clinic",
+        "title": "Physiotherapy",
+        "formUuid": "18c209ac-0787-4b51-b9aa-aa8b1581239c",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      },
+      {
+        "id": "dental-clinic",
+        "title": "Dental",
+        "formUuid": "a3c01460-c346-4f3d-a627-5c7de9494ba0",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      },
+      {
+        "id": "fertility-clinic",
+        "title": "Fertility",
+        "formUuid": "32e43fc9-6de3-48e3-aafe-3b92f167753d",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      },
+      {
+        "id": "ent-clinic",
+        "title": "Ear Nose and Throat (ENT)",
+        "formUuid": "c5055956-c3bb-45f2-956f-82e114c57aa7",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      },
+      {
+        "id": "opthamology-clinic",
+        "title": "Opthamology",
+        "formUuid": "235900ff-4d4a-4575-9759-96f325f5e291",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      },
+      {
+        "id": "orthopaedic-clinic",
+        "title": "Orthopaedic",
+        "formUuid": "beec83df-6606-4019-8223-05a54a52f2b0",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      },
+      {
+        "id": "occupational-therapy-clinic",
+        "title": "Occupational therapy",
+        "formUuid": "062a24b5-728b-4639-8176-197e8f458490",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      },
+      {
+        "id": "cardiology-clinic",
+        "title": "Cardiology",
+        "formUuid": "998be6de-bd13-4136-ba0d-3f772139895f",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      },
+      {
+        "id": "gastroentology-clinic",
+        "title": "Gastroentology",
+        "formUuid": "6b4fa553-f2b3-47d0-a4c5-fc11f38b0b24",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      },
+      {
+        "id": "diabetic-clinic",
+        "title": "Diabetic",
+        "formUuid": "9f6543e4-0821-4f9c-9264-94e45dc35e17",
+        "encounterTypeUuid": "465a92f2-baf8-42e9-9612-53064be868e8"
+      }
+    ]
   },
   "@openmrs/esm-patient-search-app": {
     "search": {
@@ -791,6 +902,20 @@
     "procedureOrderTypeUuid": "b4a7c280-369e-4d12-9ce8-18e36783fed6",
     "Display conditions": {
       "privileges": ["o3: Manage Procedures"]
+    }
+  },
+  "core": {
+    "Translation overrides": {
+      "en": {
+        "address1": "Postal Address",
+        "address2": "Landmark",
+        "address4": "Ward",
+        "address5": "Sub-location",
+        "address6": "Location",
+        "city": "Village",
+        "district": "County",
+        "state": "Sub county"
+      }
     }
   }
 }
