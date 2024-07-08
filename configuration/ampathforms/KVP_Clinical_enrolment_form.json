@@ -1,11 +1,11 @@
 {
   "name": "KVP Clinical Enrollment",
   "description": "KVP Clinical Enrollment",
-  "version": "1",
+  "version": "2.0",
   "published": true,
-  "uuid": "185dec84-df6f-4fc7-a370-15aa8be531ec",
+  "uuid": "c7f47cea-207b-11e9-ab14-d663bd873d93",
   "retired": false,
-  "encounter": "KVP Enrollment",
+  "encounter": "KP Enrollment",
   "pages": [
     {
       "label": "KVP Clinical Enrolment",
@@ -89,6 +89,18 @@
                   }
                 ]
               }
+            },
+            {
+              "label": "How many sexual partners do you have? (VPs )?",
+              "type": "obs",
+              "required": "true",
+              "id": "howManySexPartner",
+              "questionOptions": {
+                "concept": "5570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "100"
+              }
             }
           ]
         },
@@ -97,42 +109,22 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Which year did you start sex work?",
+              "label": "Which year did you start sex work (FSW)?",
               "type": "obs",
               "id": "startSex",
               "questionOptions": {
                 "concept": "c453778e-d2f0-4c58-939a-518af10badd2",
                 "rendering": "number"
-              },
-              "validators": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'year')",
-                  "message": "Should not be less than the date of birth."
-                }
-              ]
+              }
             },
             {
-              "label": "Which year did you start having sex with men?",
+              "label": "Which year did you start having sex with men (MSM)?",
               "type": "obs",
               "id": "sexWithMen",
               "questionOptions": {
                 "concept": "2916bf43-7abd-48b9-8719-3ba775973526",
                 "rendering": "number"
               },
-              "validators": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'year')",
-                  "message": "Should not be less than the date of birth."
-                }
-              ],
               "hide": {
                 "hideWhenExpression": "keyPopTypeMale !== '160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex ==='M'"
               }
@@ -146,22 +138,12 @@
                 "rendering": "number",
                 "min": "0"
               },
-              "validators": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "(new moment(birthdate)).isAfter((new moment(myValue)), 'year')",
-                  "message": "Should not be less than the date of birth."
-                }
-              ],
               "hide": {
                 "hideWhenExpression": "keyPopTypeFemale !=='642945a8-045a-4010-b3f3-bc50aaaab386' && keyPopTypeMale !== '642945a8-045a-4010-b3f3-bc50aaaab386' || keyPopTypeFemale !=='105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && keyPopTypeMale !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
-              "label": "How long are you on Transit? (Truckers)?",
+              "label": "How long are you on Transit? (Truckers)? (Hrs, Days, Weeks, Months)",
               "type": "obs",
               "id": "transitTruckers",
               "questionOptions": {
@@ -176,34 +158,36 @@
               ]
             },
             {
-              "label": "How long have you been working as a Trucker/Fisherfolk?",
+              "label": "How long have you been working as a Trucker? (Months, Years)",
               "type": "obs",
               "id": "workingTruckers",
               "questionOptions": {
                 "concept": "163191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
-                "min": "0"
-              },
-              "validators": [
-                {
-                  "type": "number"
-                }
-              ]
+                "min": "0",
+                "max": "100"
+              }
+            },
+            {
+              "label": "How long have you been working as a Fisherfolk? (Months, Years)",
+              "type": "obs",
+              "id": "workingFisherfolk",
+              "questionOptions": {
+                "concept": "63e3266b-6333-4ee5-8229-8685a391cfa7",
+                "rendering": "number",
+                "min": "0",
+                "max": "100"
+              }
             },
             {
               "label": "Which Year were you tested as Discordant Couple?",
               "type": "obs",
-              "id": "workingTruckers",
+              "id": "yearTestedDiscordantCouple",
               "questionOptions": {
                 "concept": "159813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
                 "min": "0"
-              },
-              "validators": [
-                {
-                  "type": "number"
-                }
-              ]
+              }
             },
             {
               "label": "Have you ever experienced violence??",
@@ -303,7 +287,7 @@
               }
             },
             {
-              "label": "Would you like to share your LAST test result with me?  (circle the number)",
+              "label": "Would you like to share your LAST test result with me?",
               "type": "obs",
               "required": "true",
               "id": "shareTest",
@@ -351,7 +335,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "shareTest !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "shareTest !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && everTested !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -396,6 +380,10 @@
               "validators": [],
               "hide": {
                 "hideWhenExpression": "shareTest !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Refer for HIV care"
               }
             },
             {
@@ -427,7 +415,7 @@
               "id": "careProvidedDpd",
               "questionOptions": {
                 "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": ""
+                "rendering": "encounterLocation"
               },
               "validators": [],
               "hide": {
@@ -469,10 +457,10 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "In case you are due for clinical services, could we contact you?",
+              "label": "As part of providing quality services to you, we will require to follow and reach out to you time to time either physically or electronically by one of the team member. Do you consent for regular follow ups?",
               "type": "obs",
               "required": "true",
-              "id": "contactedIncaseAppointment",
+              "id": "consentForFollowups",
               "questionOptions": {
                 "concept": "722aaeee-d839-41aa-9f4e-b1a759cf02c3",
                 "rendering": "radio",
@@ -486,41 +474,6 @@
                     "label": "No"
                   }
                 ]
-              }
-            },
-            {
-              "label": "How would you like to be contated",
-              "type": "obs",
-              "id": "contactType",
-              "questionOptions": {
-                "concept": "a55f9516-ddb6-47ec-b10d-cb99d1d0bd41",
-                "rendering": "checkbox",
-                "answers": [
-                  {
-                    "concept": "161642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Treatment supporter / buddy"
-                  },
-                  {
-                    "concept": "8f45b9c7-ee84-4ae8-b846-e6f1c1087a97",
-                    "label": "Peer educator"
-                  },
-                  {
-                    "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Outreach worker"
-                  },
-                  {
-                    "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Phone number"
-                  },
-                  {
-                    "concept": "5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Clinician/HTS Counsellor"
-                  }
-                ]
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "contactedIncaseAppointment !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]

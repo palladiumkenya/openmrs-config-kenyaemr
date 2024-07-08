@@ -619,12 +619,38 @@
               "type": "obs",
               "id": "pepTypeExposure",
               "questionOptions": {
-                "concept": "da39aa0f-7a66-418e-b744-504b6789ca66",
-                "rendering": "textarea"
+                "concept": "3ac6cb43-0fc9-437d-aca2-bc2b66066941",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "127910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Rape"
+                  },
+                  {
+                    "concept": "bf27b756-d8cf-460a-8df1-4a190ac90089",
+                    "label": "Condom burst"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
               },
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(hivSelfreported) || hivSelfreported != '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  "
+              }
+            },
+            {
+              "label": "Specify:",
+              "type": "obs",
+              "id": "otherPepExposure",
+              "questionOptions": {
+                "concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pepTypeExposure) || !arrayContains(pepTypeExposure, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
@@ -651,6 +677,28 @@
               }
             },
             {
+              "label": "Pep initiated less than 72 hours?:",
+              "type": "obs",
+              "id": "timePepStart",
+              "questionOptions": {
+                "concept": "d3f845d4-3a6a-447e-9c68-89a32830071d",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pepStatus) || pepStatus !== '166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
               "label": "Pep Completion Status:",
               "type": "obs",
               "id": "pepCompletionStatus",
@@ -670,7 +718,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(pepStatus) || pepStatus != '166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(pepStatus) || pepStatus !== '166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -715,7 +763,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(analCancerScreening) || analCancerScreening != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(analCancerScreening) || analCancerScreening !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -792,7 +840,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(cervScreened) || cervScreened == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(cervScreened) || cervScreened !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
