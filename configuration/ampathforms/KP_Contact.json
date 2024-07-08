@@ -423,6 +423,16 @@
               }
             },
             {
+              "label": "Hotspot Code",
+              "type": "control",
+              "required": false,
+              "id": "hotSpotCode",
+              "questionOptions": {
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
               "type": "patientIdentifier",
               "label": "Unique Identifier Code",
               "questionInfo": "",
@@ -430,8 +440,11 @@
               "required": "true",
               "default": "",
               "questionOptions": {
-                "rendering": "string",
-                "identifierType": "b7bfefd0-239b-11e9-ab14-d663bd873d93"
+                "rendering": "text",
+                "identifierType": "b7bfefd0-239b-11e9-ab14-d663bd873d93",
+                "calculate": {
+                  "calculateExpression": "ward && subCounty && (keyPopTypeFemale || keyPopTypeMale) && hotSpotCode && fetchData(`/openmrs/ws/rest/v1/kenyaemr/kpIdentifier?patientUuid=${patientUuid}&kpType=${keyPopTypeFemale ? keyPopTypeFemale : keyPopTypeMale}&ward=${ward}&hotspotCode=${hotSpotCode}&subCounty=${subCounty}`,'kpIdentifier')"
+                }
               }
             },
             {

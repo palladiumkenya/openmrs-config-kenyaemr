@@ -9,7 +9,7 @@ rm -rf frontend
 echo "Building Kenya EMR 3.x assets ..."
 CWD=$(pwd)
 npx --legacy-peer-deps openmrs@5.6.1-pre.1996 build \
-  --build-config ./configuration/prod-build-config.json \
+  --build-config ./configuration/staging-build-config.json \
   --target ./frontend \
   --page-title "KenyaEMR" \
   --support-offline false
@@ -19,7 +19,7 @@ echo "Assembling assets ..."
 npx --legacy-peer-deps openmrs@5.6.1-pre.1996 assemble \
   --manifest \
   --mode config \
-  --config ./configuration/prod-build-config.json \
+  --config ./configuration/staging-build-config.json \
   --target ./frontend
 
 # Copy required files
@@ -27,8 +27,8 @@ echo "Copying required files ..."
 cp "${CWD}/assets/kenyaemr-login-logo.png" "${CWD}/frontend"
 cp "${CWD}/assets/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
-cp "${CWD}/configuration/prod-config.json" "${CWD}/frontend"
-mv "${CWD}/frontend/prod-config.json" "${CWD}/frontend/config.json"
+cp "${CWD}/configuration/staging-config.json" "${CWD}/frontend"
+mv "${CWD}/frontend/staging-config.json" "${CWD}/frontend/config.json"
 
 # Function to handle openmrs-esm apps
 # Function to handle the renaming process
@@ -59,7 +59,6 @@ rename_dist_folder() {
 
 # Handle renaming for openmrs-esm-form-entry-app-*
 rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
-rename_dist_folder "@openmrs/esm-service-queues-app-*" "dist-service-queues"
 
 
 # Exit with success status
