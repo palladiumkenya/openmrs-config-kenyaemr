@@ -1,0 +1,299 @@
+{
+    "name": "High IIT Intervention Form",
+    "description": "A form for collecting the interventions offered to a case by a case manager.",
+    "version": "1.0",
+      "published": true,
+    "uuid": "6817d322-f938-4f38-8ccf-caa6fa7a499f",
+      "retired": false,
+      "encounter": "High IIT Intervention",
+  
+  
+    "pages": [
+      {
+        "label": "Package of interventions",
+        "sections": [
+          {
+            "label": "interventions",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Interventions offered",
+                "type": "obs",
+                "id": "interventionsOffered",
+                "questionOptions": {
+                  "concept": "166937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "160947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Appointment management"
+                    },
+                    {
+                      "concept": "164836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Assigning Case managers"
+                    },
+                    {
+                      "concept": "079eb3c7-ae85-4d6c-84b0-d015836f810e",
+                      "label": "Robust client literacy"
+                    },
+                    {
+                      "concept": "1a2dba33-55d6-477a-b171-c09a489bc37f",
+                      "label": "Expanding Differentiated Service Delivery"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Appointment management interventions ",
+                "type": "obs",
+                "required": false,
+                "id": "appointmentManagementInterventions",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "166937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "162135AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Individualized discussion with the recipient of care to understand their preferences for appointments."
+                    },
+                    {
+                      "concept": "166065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Agree on a plan if the recipient of care cannot honor their given appointment:"
+                    },
+                    {
+                      "concept": "163164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Willngness to receive reminders"
+                    },
+                    {
+                      "concept": "d2ccf511-f352-4bee-823a-f72ad7b3458f",
+                      "label": "Immediate follow up via phone calls on the day of missed appointment, next day and intensely up to 7 days."
+                    },
+                    {
+                      "concept": "eb113c76-aef8-4890-a611-fe22ba003123",
+                      "label": "Physical tracing by the CHW/Volunteers if not returned by day 7."
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(interventionsOffered) || !arrayContains(interventionsOffered, '160947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Way of receiving the reminders",
+                "type": "obs",
+                "required": false,
+                "id": "wayOfReceivingReminders",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "166607AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "162135AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "SMS"
+                    },
+                    {
+                      "concept": "166065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Phone call"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(appointmentManagementInterventions) || !arrayContains(appointmentManagementInterventions, '163164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Client enrolled in Ushauri?",
+                "type": "obs",
+                "required": false,
+                "id": "clientEnrolledInUshauri",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "163777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(wayOfReceivingReminders) || !arrayContains(wayOfReceivingReminders, '162135AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                },
+                "alert": {
+                  "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                  "message": "Recommended for Ushauri enrollment"
+                }
+              },
+              {
+                "label": "Date of Appointment management interventions",
+                "type": "obs",
+                "required": false,
+                "id": "dateOfAppointmentIntervention",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(interventionsOffered) || !arrayContains(interventionsOffered, '160947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Date assigned case manager",
+                "type": "obs",
+                "required": false,
+                "id": "dateAssignedCaseManager",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(interventionsOffered) || !arrayContains(interventionsOffered, '164836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "3 EACs recommended?",
+                "type": "obs",
+                "required": false,
+                "id": "participationOfRecipientsOfCareForAtLeast3Sessions",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "a921a72a-f33f-42eb-8297-4026e35f19a7",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(interventionsOffered) || !arrayContains(interventionsOffered, '079eb3c7-ae85-4d6c-84b0-d015836f810e')"
+                },
+                "alert": {
+                  "alertWhenExpression": "myValue === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                  "message": "Kindly fill the EAC form"
+                }
+              },
+              {
+                "label": "Client enrolled in a psychosocial support group?",
+                "type": "obs",
+                "required": false,
+                "id": "clientEnrolledInPsychosocial",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "d242f0e5-bd5a-4962-8fa9-ec4879ee0399",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(interventionsOffered) || !arrayContains(interventionsOffered, '079eb3c7-ae85-4d6c-84b0-d015836f810e')"
+                }
+              },
+              {
+                "label": "Date of Robust client literacy Interventions",
+                "type": "obs",
+                "required": false,
+                "id": "dateOfRobustLiteracy",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(interventionsOffered) || !arrayContains(interventionsOffered, '079eb3c7-ae85-4d6c-84b0-d015836f810e')"
+                }
+              },
+              {
+                "label": "Expanding Differentiated Service Delivery Interventions",
+                "type": "obs",
+                "required": false,
+                "id": "expandingDifferentiatedServiceDeliveryInterventions",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "1a2dba33-55d6-477a-b171-c09a489bc37f",
+                  "answers": [
+                    {
+                      "concept": "166443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Offer options for community delivery of drugs including courier if eligible for MMD"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(interventionsOffered) || !arrayContains(interventionsOffered, '1a2dba33-55d6-477a-b171-c09a489bc37f')"
+                }
+              },
+              {
+                "label": "Client enrolled in Nishauri?",
+                "type": "obs",
+                "required": false,
+                "id": "clientEnrolledInNishauri",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "163766AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(expandingDifferentiatedServiceDeliveryInterventions)"
+                },
+                "alert": {
+                  "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                  "message": "recommended for Nishauri enrollment"
+                }
+              },
+              {
+                "label": "Date of Expanding Differentiated Service Delivery Interventions",
+                "type": "obs",
+                "required": false,
+                "id": "dateOfDsd",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "166865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(interventionsOffered) || !arrayContains(interventionsOffered, '1a2dba33-55d6-477a-b171-c09a489bc37f')"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "processor": "EncounterFormProcessor",
+    "encounterType": "84d66c25-e2bd-48a2-8686-c1652eb9d283",
+    "referencedForms": []
+    
+  }
