@@ -3,6 +3,7 @@
   "description": "Triage",
   "version": "2.0",
   "published": true,
+
   "uuid": "37f6bd8d-586a-4169-95fa-5781f987fe62",
   "retired": false,
   "encounter": "Triage",
@@ -461,15 +462,6 @@
                   }
                 }
               ]
-            },
-            {
-              "label": "Triage notes",
-              "type": "obs",
-              "id": "ClinICNotes",
-              "questionOptions": {
-                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "textarea"
-              }
             }
           ]
         },
@@ -490,6 +482,32 @@
               "alert": {
                 "alertWhenExpression": "myValue && (myValue >= 37.5 || myValue < 35)",
                 "message": "Temperature is out of range (Normal range 35-37)"
+              }
+            },
+            {
+              "label": "Mode of Collection?",
+              "type": "obs",
+              "id": "tempMode",
+              "questionOptions": {
+                "concept": "167231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "5112AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Axiliary"
+                  },
+                  {
+                    "concept": "166242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Forehead thermometer gun"
+                  },
+                  {
+                    "concept": "160240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oral"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(temperature)"
               }
             },
             {
@@ -555,6 +573,28 @@
               "alert": {
                 "alertWhenExpression": "myValue && (myValue >= 100.5 || myValue < 94.5)",
                 "message": "Oxygen Saturation is out of range (Normal range 95-100)"
+              }
+            },
+            {
+              "label": "Mode of Collection?",
+              "type": "obs",
+              "id": "satMode",
+              "questionOptions": {
+                "concept": "165932AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162735AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Room air"
+                  },
+                  {
+                    "concept": "162738AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On supplemental oxygen"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(oxygenSat)"
               }
             }
           ]
