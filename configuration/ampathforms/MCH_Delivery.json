@@ -1244,7 +1244,50 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "HIV Test(s)",
+              "label": "Has consent been given? ",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "true",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "false",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "consentGiven",
+              "required": "true"
+            },
+            {
+              "label": "Client tested as?  ",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "b61c1482-1697-404c-ab96-fd698d5fd317",
+                "answers": [
+                  {
+                    "concept": "147082f4-0662-4bfa-a54c-914f1db97373",
+                    "label": "Individual"
+                  },
+                  {
+                    "concept": "c3eba392-6f4d-4990-809f-91000503afbc",
+                    "label": "Couple"
+                  }
+                ]
+              },
+              "id": "testedAs",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              }
+            },
+            {
+              "label": "HIV Test",
               "type": "obsGroup",
               "questionOptions": {
                 "rendering": "group",
@@ -1252,6 +1295,9 @@
               },
               "id": "hivTest1",
               "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
               "questions": [
                 {
                   "label": "Kit 1 Name",
@@ -1265,13 +1311,66 @@
                         "label": "Trinscreen"
                       },
                       {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Determine"
+                      }
+                    ]
+                  },
+                  "id": "kitName",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'M'"
+                  }
+                },
+                {
+                  "label": "Kit 1 Name",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      },
+                      {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Determine"
+                      }
+                    ]
+                  },
+                  "id": "kitNameFe",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age > 9)"
+                  }
+                },
+                {
+                  "label": "Kit 1 Name",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      },
+                      {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Determine"
+                      },
+                      {
                         "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
                         "label": "Dual Kit"
                       }
                     ]
                   },
-                  "id": "kitName",
-                  "validators": []
+                  "id": "kitNameA",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age < 9)"
+                  }
                 },
                 {
                   "label": "Lot Number",
@@ -1283,7 +1382,7 @@
                   "id": "lotNumber",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
                   }
                 },
                 {
@@ -1307,7 +1406,7 @@
                   },
                   "id": "expiryDate",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
                   }
                 },
                 {
@@ -1334,7 +1433,7 @@
                   "id": "testResults",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
                   }
                 },
                 {
@@ -1360,7 +1459,7 @@
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName) || kitName !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
+                    "hideWhenExpression": "isEmpty(kitNameA) || kitNameA !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
                   }
                 }
               ]
@@ -1374,6 +1473,9 @@
               },
               "id": "hivTest2",
               "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
               "questions": [
                 {
                   "label": "Kit 2 Name",
@@ -1385,6 +1487,10 @@
                       {
                         "concept": "3de9db8a-32a2-4518-8887-c8f25208dade",
                         "label": "One Step"
+                      },
+                      {
+                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+                        "label": "First Response"
                       }
                     ]
                   },
@@ -1467,11 +1573,14 @@
                 "rendering": "group",
                 "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
-              "id": "hivTest4",
+              "id": "hivTestA2",
               "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
               "questions": [
                 {
-                  "label": "Kit 3 Name",
+                  "label": "Kit 1 Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -1480,17 +1589,13 @@
                       {
                         "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
                         "label": "Trinscreen"
-                      },
-                      {
-                        "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
-                        "label": "Dual Kit"
                       }
                     ]
                   },
                   "id": "kitNameD",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e' || kitNameA ==='2f5a80fa-6f26-4832-b8a8-f47649bb60de' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
                   }
                 },
                 {
@@ -1556,32 +1661,6 @@
                   "hide": {
                     "hideWhenExpression": "isEmpty(kitNameD)"
                   }
-                },
-                {
-                  "label": "Syphilis Results:",
-                  "type": "obs",
-                  "id": "syphilisTestResults2",
-                  "questionOptions": {
-                    "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "select",
-                    "answers": [
-                      {
-                        "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
-                      },
-                      {
-                        "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Poor Sample quality"
-                      }
-                    ]
-                  },
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameD) || kitNameD !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
-                  }
                 }
               ]
             },
@@ -1594,6 +1673,9 @@
               },
               "id": "hivTest3",
               "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
               "questions": [
                 {
                   "label": "Kit 3 Name",
@@ -1611,7 +1693,7 @@
                   "id": "kitNameC",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
                   }
                 },
                 {
@@ -1684,8 +1766,37 @@
               "label": "Final Results:",
               "type": "obs",
               "questionOptions": {
-                "rendering": "radio",
-                "readOnly": "true",
+                "rendering": "select",
+                "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "calculate": {
+                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inconclusive"
+                  }
+                ]
+              },
+              "id": "hivFinalResultOld",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameFe === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameA === '9c4011c2-2579-49cf-ab53-93d009f03e7b'"
+              }
+            },
+            {
+              "label": "Final Results:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "select",
                 "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "calculate": {
                   "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsC) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsD) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
@@ -1708,29 +1819,149 @@
               "id": "hivFinalResult",
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e' || kitNameA === '2f5a80fa-6f26-4832-b8a8-f47649bb60de' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitNameA === '7cf927f8-e734-474f-b71a-1459bb566aa2' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "Results given to client?",
               "type": "obs",
-              "id": "resultsGivenToClient",
+              "required": "true",
               "questionOptions": {
+                "rendering": "select",
                 "concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "label": "Yes",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373066001"
+                      },
+                      {
+                        "type": "PIH Malawi",
+                        "value": "Malawi: 1065"
+                      },
+                      {
+                        "type": "CIEL",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1065"
+                      }
+                    ]
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
+                    "label": "No",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "PIH Malawi",
+                        "value": "Malawi: 1066"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "CIEL",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373067005"
+                      }
+                    ]
                   }
                 ]
               },
+              "id": "resultsGiven",
+              "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(hivFinalResult)"
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              }
+            },
+            {
+              "label": "Couple is discordant:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "calculate": {
+                  "calculateExpression": "String(testedAs) === '147082f4-0662-4bfa-a54c-914f1db97373' ? '1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373066001"
+                      },
+                      {
+                        "type": "PIH Malawi",
+                        "value": "Malawi: 1065"
+                      },
+                      {
+                        "type": "CIEL",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1065"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "PIH Malawi",
+                        "value": "Malawi: 1066"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "CIEL",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373067005"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "N/A"
+                  }
+                ]
+              },
+              "id": "coupleDiscordant",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
               }
             },
             {
