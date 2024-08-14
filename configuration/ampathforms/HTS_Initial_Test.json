@@ -1,7 +1,7 @@
 {
   "name": "HTS Initial Form",
   "description": "Form for HTS testing services",
-  "version": "2.0",
+  "version": "2.1",
   "published": true,
   "uuid": "402dc5d7-46da-42d4-b2be-f43ea4ad87b0",
   "retired": false,
@@ -1004,8 +1004,12 @@
                     "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
                     "answers": [
                       {
-                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
                         "label": "Trinscreen"
+                      },
+                      {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Determine"
                       }
                     ]
                   },
@@ -1023,8 +1027,12 @@
                     "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
                     "answers": [
                       {
-                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
                         "label": "Trinscreen"
+                      },
+                      {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Determine"
                       }
                     ]
                   },
@@ -1042,8 +1050,12 @@
                     "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
                     "answers": [
                       {
-                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
                         "label": "Trinscreen"
+                      },
+                      {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Determine"
                       },
                       {
                         "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
@@ -1148,8 +1160,8 @@
                         "label": "One Step"
                       },
                       {
-                        "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
-                        "label": "Dual Kit"
+                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+                        "label": "First Response"
                       }
                     ]
                   },
@@ -1249,13 +1261,12 @@
                         "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
                         "label": "Trinscreen"
                       }
-                     
                     ]
                   },
                   "id": "kitNameD",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
                   }
                 },
                 {
@@ -1353,7 +1364,7 @@
                   "id": "kitNameC",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
                   }
                 },
                 {
@@ -1429,6 +1440,36 @@
                 "rendering": "select",
                 "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "calculate": {
+                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inconclusive"
+                  }
+                ]
+              },
+              "id": "hivFinalResultOld",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameFe === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameA === '9c4011c2-2579-49cf-ab53-93d009f03e7b'"
+              }
+            },
+            {
+              "label": "Final Results:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "calculate": {
                   "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsC) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsD) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
                 },
                 "answers": [
@@ -1449,7 +1490,7 @@
               "id": "hivFinalResult",
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
               }
             },
             {
