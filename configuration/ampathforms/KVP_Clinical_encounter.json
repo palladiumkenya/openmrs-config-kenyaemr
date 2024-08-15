@@ -1,7 +1,7 @@
 {
   "name": "KVP Clinical Encounter form",
   "description": "KVP Clinical Encounter form",
-  "version": "2.0",
+  "version": "2.1",
   "published": true,
   "uuid": "92e041ac-9686-11e9-bc42-526af7764f64",
   "retired": false,
@@ -749,7 +749,7 @@
               "type": "obs",
               "id": "analCancerScreeningResults",
               "questionOptions": {
-                "concept": "166664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "1193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -764,6 +764,32 @@
               },
               "hide": {
                 "hideWhenExpression": "isEmpty(analCancerScreening) || analCancerScreening !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Anal Cancer Treated:",
+              "type": "obs",
+              "id": "analCancerTreated",
+              "questionOptions": {
+                "concept": "8e3af23c-cb62-45f8-96e3-e590672efa59",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not applicable"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(analCancerScreeningResults) || analCancerScreeningResults !== '162743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -944,7 +970,7 @@
               "required": "true",
               "questionOptions": {
                 "rendering": "radio",
-                "concept": "bddb3732-1c6c-43b0-abb3-e6a337d9b9a4",
+                "concept": "ef766f57-5a8b-4864-ac24-0529806f15cf",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1175,6 +1201,10 @@
                     "label": "Inactive"
                   }
                 ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivTestResult) || hivTestResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || onArt !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1318,6 +1348,108 @@
               },
               "hide": {
                 "hideWhenExpression": "isEmpty(abscessScreeningResults) || abscessScreeningResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "MAT Service",
+              "type": "obs",
+              "id": "MatServ",
+              "required": "false",
+              "questionOptions": {
+                "concept": "166663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "MAT Service Results",
+              "type": "obs",
+              "id": "MaTResUlts",
+              "questionOptions": {
+                "concept": "166664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(MatServ) || MatServ == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Treated for MAT",
+              "type": "obs",
+              "id": "MatTreateMent",
+              "questionOptions": {
+                "concept": "bddb3732-1c6c-43b0-abb3-e6a337d9b9a4",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(MaTResUlts) || MaTResUlts == '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "MAT Referred",
+              "type": "obs",
+              "id": "matReferred",
+              "questionOptions": {
+                "concept": "c9404c8f-cf83-4bfe-acc0-4881599c78ba",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(MatTreateMent) || MatTreateMent !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "If yes specify",
+              "type": "obs",
+              "id": "maTExt",
+              "questionOptions": {
+                "concept": "166637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(matReferred) || matReferred !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
