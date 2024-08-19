@@ -53,10 +53,8 @@
             {
               "label": "Population Type :",
               "type": "obs",
-              "id": "populationType",
-              "required": "true",
               "questionOptions": {
-                "rendering": "radio",
+                "rendering": "select",
                 "concept": "cf543666-ce76-4e91-8b8d-c0b54a436a2e",
                 "answers": [
                   {
@@ -65,38 +63,21 @@
                   },
                   {
                     "concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550",
-                    "label": "Key and Vulnerable Population"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "age < 15"
-              }
-            },
-            {
-              "label": "Population Type :",
-              "type": "obs",
-              "id": "populationTypechild",
-              "required": "true",
-              "questionOptions": {
-                "rendering": "radio",
-                "concept": "cf543666-ce76-4e91-8b8d-c0b54a436a2e",
-                "answers": [
+                    "label": "Key Population"
+                  },
                   {
-                    "concept": "5d308c8c-ad49-45e1-9885-e5d09a8e5587",
-                    "label": "General Population"
+                    "concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Priority Population"
                   }
                 ]
               },
-              "hide": {
-                "hideWhenExpression": "age > 15"
-              }
+              "id": "populationType",
+              "required": "true"
             },
             {
-              "label": "Key and Vulnerable Population Type :",
+              "label": "Key Population Type :",
               "type": "obs",
               "id": "kpTypeFemale",
-              "required": "true",
               "questionOptions": {
                 "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
@@ -104,46 +85,45 @@
                   {
                     "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "People who inject drugs"
-                  },
-                  {
-                    "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "People who use drugs"
                   },
                   {
                     "concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Female sex Worker"
                   },
                   {
-                    "concept": "160549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Adolescent and young girls"
-                  },
-                  {
                     "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "People in prison"
+                    "label": "People in prison or enclosed spaces"
                   },
                   {
-                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Fisher folk"
+                    "concept": "bd370cad-06fe-4950-a36f-ed991b280ce6",
+                    "label": "Transgender"
                   },
                   {
-                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Truck driver"
-                  },
-                  {
-                    "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Discordant Couple"
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
                   }
                 ]
               },
               "hide": {
-                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || age < 15 || sex != 'F'"
+                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || age <15 || sex != 'F'"
               }
             },
             {
-              "label": "Key and Vulnerable Population Type :",
+              "label": "Specify:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "163761AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "kPfmalEOther",
+              "hide": {
+                "hideWhenExpression": "isEmpty(kpTypeFemale) || kpTypeFemale !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Key Population Type :",
               "type": "obs",
               "id": "kpTypeMale",
-              "required": "true",
               "questionOptions": {
                 "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
@@ -151,14 +131,6 @@
                   {
                     "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "People who inject drugs"
-                  },
-                  {
-                    "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "People who use drugs"
-                  },
-                  {
-                    "concept": "973e5b6c-ae5e-4d6a-a624-2d259763771f",
-                    "label": "Male Sex Worker"
                   },
                   {
                     "concept": "160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -166,8 +138,42 @@
                   },
                   {
                     "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "People in prison"
+                    "label": "People in prison or enclosed spaces"
                   },
+                  {
+                    "concept": "bd370cad-06fe-4950-a36f-ed991b280ce6",
+                    "label": "Transgender"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || age <15 || sex != 'M'"
+              }
+            },
+            {
+              "label": "Specify:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "163761AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "kPmalEOther",
+              "hide": {
+                "hideWhenExpression": "isEmpty(kpTypeMale) || kpTypeMale !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Priority Population Type :",
+              "type": "obs",
+              "id": "ppType",
+              "questionOptions": {
+                "concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
                   {
                     "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Fisher folk"
@@ -177,69 +183,21 @@
                     "label": "Truck driver"
                   },
                   {
-                    "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Discordant Couple"
+                    "concept": "160549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Adolescent and young girls"
+                  },
+                  {
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People in prison or enclosed spaces"
+                  },
+                  {
+                    "concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
+                    "label": "Military and other uniformed services"
                   }
                 ]
               },
               "hide": {
-                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || age < 15 || sex != 'M'"
-              }
-            },
-            {
-              "label": "People in prison",
-              "type": "obs",
-              "id": "PPleInPrionF",
-              "required": "true",
-              "questionOptions": {
-                "rendering": "radio",
-                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
-                "answers": [
-                  {
-                    "label": "Inmates",
-                    "concept": "2ad718de-8020-49e9-a129-a00b07752d4e"
-                  },
-                  {
-                    "label": "Staff",
-                    "concept": "1142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                  },
-                  {
-                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Community"
-                  }
-                ]
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(kpTypeFemale) || kpTypeFemale !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !== 'F'"
-              }
-            },
-            {
-              "label": "People in prison",
-              "type": "obs",
-              "id": "PPleInPrionM",
-              "required": "true",
-              "questionOptions": {
-                "rendering": "radio",
-                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
-                "answers": [
-                  {
-                    "label": "Inmates",
-                    "concept": "2ad718de-8020-49e9-a129-a00b07752d4e"
-                  },
-                  {
-                    "label": "Staff",
-                    "concept": "1142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                  },
-                  {
-                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Community"
-                  }
-                ]
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(kpTypeMale) || kpTypeMale !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !== 'M'"
+                "hideWhenExpression": "populationType !== '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age <15"
               }
             },
             {
@@ -264,7 +222,6 @@
             {
               "label": "Please indicated the type of disability :",
               "type": "obs",
-              "id": "disaBilityTypes",
               "questionOptions": {
                 "rendering": "checkbox",
                 "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -291,6 +248,7 @@
                   }
                 ]
               },
+              "id": "disaBilityTypes",
               "hide": {
                 "hideWhenExpression": "isEmpty(DisabilityClienT) || DisabilityClienT != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
@@ -298,13 +256,13 @@
             {
               "label": "Specify",
               "type": "obs",
-              "id": "specifyOtherDisability",
               "questionOptions": {
                 "rendering": "text",
                 "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
+              "id": "specifyOtherDisability",
               "hide": {
-                "hideWhenExpression": "isEmpty(disaBilityTypes) || !arrayContains(disaBilityTypes, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                "hideWhenExpression": "isEmpty(disaBilityTypes) || disaBilityTypes != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
