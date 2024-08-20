@@ -36,7 +36,7 @@
               "label": "Provider:",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-provider"
               },
               "id": "encProvider "
             },
@@ -44,7 +44,7 @@
               "label": "Location:",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-location"
               },
               "id": "encLocation"
             }
@@ -111,8 +111,8 @@
               "type": "obs",
               "id": "pacKyrs",
               "questionOptions": {
-                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "numeric",
+                "concept": "1546AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text",
                 "calculate": {
                   "calculateExpression": "(smokeYears * smokeDays) / 20"
                 }
@@ -289,18 +289,6 @@
               },
               "hide": {
                 "hideWhenExpression": "sex !== 'F'  ||  sex ==='F' && (age < 10)"
-              }
-            },
-            {
-              "label": "Gravida:",
-              "type": "obs",
-              "id": "graVida",
-              "questionOptions": {
-                "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number",
-                "calculate": {
-                  "calculateExpression": "calcGravida(parityTerm,parityAbortion)"
-                }
               }
             },
             {
@@ -2519,14 +2507,24 @@
               },
               "questions": [
                 {
-                  "label": "Follow Up date",
-                  "required": false,
-                  "id": "appointmentWorkspaceLauncher",
+                  "label": "Follow up date:",
+                  "type": "obs",
+                  "id": "followUPdatE",
                   "questionOptions": {
-                    "rendering": "workspace-launcher",
-                    "buttonLabel": "Add appointments",
-                    "workspaceName": "appointments-form-workspace"
-                  }
+                    "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "date"
+                  },
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Follow up date should be greater than the encounter date."
+                    }
+                  ]
                 },
                 {
                   "label": "Referred:",
@@ -2626,7 +2624,7 @@
                 {
                   "label": "Other reasons",
                   "type": "obs",
-                  "id": "otherReasons",
+                  "id": "",
                   "questionOptions": {
                     "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "textarea"
@@ -2638,7 +2636,7 @@
                 {
                   "label": "Clinical notes",
                   "type": "obs",
-                  "id": "clinikNotes",
+                  "id": "",
                   "questionOptions": {
                     "concept": "164879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "textarea"

@@ -56,7 +56,7 @@
 				"id": "partnerHivStatus",
 				"questionOptions": {
 				  "concept": "1436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
+				  "rendering": "select",
 				  "answers": [
 					{
 					  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -76,19 +76,19 @@
 			  {
 				"label": "Partner Risk",
 				"type": "obs",
-				"id": "partnerRisk",
+				"id": "PartnerRisk",
 				"questionOptions": {
-				  "concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "checkbox",
+				  "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "calculate": {
+					"calculateExpression": "String(partnerHivStatus) === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '5564AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+				  },
 				  "answers": [
 					{
-					  "concept": "166674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "High Risk Partner"
 					}
 				  ]
-				},
-				"calculate": {
-				  "calculateExpression": "String(partnerHivStatus) === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '5564AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
 				},
 				"hide": {
 				  "hideWhenExpression": "isEmpty (partnerHivStatus) || partnerHivStatus === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || partnerHivStatus === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && partnerHivStatus !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -100,7 +100,7 @@
 				"id": "onArt",
 				"questionOptions": {
 				  "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
+				  "rendering": "radio",
 				  "answers": [
 					{
 					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -314,23 +314,28 @@
 					},
 					{
 					  "concept": "159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Side effects(ADR)"
+					  "label": "Side effects(ADR)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "366aa52d-67cf-4f8a-bcef-095252b21e9e",
-					  "label": "Stigma"
+					  "label": "Stigma",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "160588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Pill burden"
+					  "label": "Pill burden",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Too many HIV tests"
+					  "label": "Too many HIV tests",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "161888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Taking pills for a long time"
+					  "label": "Taking pills for a long time",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					}
 				  ]
 				},
@@ -370,18 +375,6 @@
 				},
 				"hide": {
 				  "hideWhenExpression": "riskEductionOffered !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Other(specify)",
-				"type": "obs",
-				"id": "referralSpecify",
-				"questionOptions": {
-				  "concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "textarea"
-				},
-				"hide": {
-				  "hideWhenExpression": "!arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], riskReductionReferral)"
 				}
 			  }
 			]
@@ -544,7 +537,7 @@
 			  {
 				"label": "Referral for other prevention services",
 				"type": "obs",
-				"id": "riskReductionReferral",
+				"id": "riskReductionReferralMale",
 				"questionOptions": {
 				  "concept": "c9404c8f-cf83-4bfe-acc0-4881599c78ba",
 				  "rendering": "checkbox",
@@ -590,19 +583,85 @@
 					  "label": "Other"
 					}
 				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "sex !=='M'"
 				}
 			  },
 			  {
 				"label": "Other Specify:",
 				"type": "obs",
-				"id": "otherSpecify",
+				"id": "otherSpecifyMale",
 				"questionOptions": {
-				  "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+				  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "Text"
 				},
 				"validators": [],
 				"hide": {
-				  "hideWhenExpression": "isEmpty(riskReductionReferral) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], riskReductionReferral)"
+				  "hideWhenExpression": "riskReductionReferralMale !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Referral for other prevention services",
+				"type": "obs",
+				"id": "riskReductionReferralFemale",
+				"questionOptions": {
+				  "concept": "c9404c8f-cf83-4bfe-acc0-4881599c78ba",
+				  "rendering": "checkbox",
+				  "answers": [
+					{
+					  "concept": "7197a2d9-1eeb-4ad1-9ff9-426ca0d34ed3",
+					  "label": "Risk reduction counselling"
+					},
+					{
+					  "concept": "159612AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Safer sex practices"
+					},
+					{
+					  "concept": "161594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Consistent and correct use of male and female Condom with compatible lubricant"
+					},
+					{
+					  "concept": "39d37cb2-5b5b-468a-a598-b02a6cef1fd0",
+					  "label": "Post-exposure prophylaxis"
+					},
+					{
+					  "concept": "164882AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Prevention and treatment of STIs"
+					},
+					{
+					  "concept": "7989d8ed-abf9-42f3-816b-c0e69406cd03",
+					  "label": "Substance abuse and mental health treatment"
+					},
+					{
+					  "concept": "a0608624-b613-419e-9c14-15c844c9dbe2",
+					  "label": "Prevention of GBV"
+					},
+					{
+					  "concept": "1459AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "HIV testing and re-testing"
+					},
+					{
+					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "sex !=='F'"
+				}
+			  },
+			  {
+				"label": "Other Specify:",
+				"type": "obs",
+				"id": "otherSpecifyFemale",
+				"questionOptions": {
+				  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "Text"
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "riskReductionReferralFemale !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  }
 			]

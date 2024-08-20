@@ -1,7 +1,7 @@
 {
   "name": "Generalized Anxiety Disorder Assessment",
   "description": "Generalized Anxiety Disorder Assessment",
-  "version": "1.0",
+  "version": "2.0",
   "published": true,
   "uuid": "524d078e-936a-4543-9ca6-7a8d9ed4db06",
   "retired": false,
@@ -32,7 +32,7 @@
               "label": "Provider:",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-provider"
               },
               "id": "encProvider "
             },
@@ -40,7 +40,7 @@
               "label": "Location:",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "ui-select-extended"
+                "rendering": "encounter-location"
               },
               "id": "encLocation"
             }
@@ -240,22 +240,21 @@
               }
             },
             {
-							"label": "Anxiety score rating:",
-							"id": "anxietyScore",
-							"questionOptions": {
-								"concept": "",
-								"rendering": "text",
-								"calculate": {
-									"calculateExpression": "(String(anxious) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(anxious) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(anxious) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(controlWorrying) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(controlWorrying) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 :  String(controlWorrying)==='167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(worryingMuch) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(worryingMuch) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(worryingMuch) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(troubleRelaxing) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(troubleRelaxing) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(troubleRelaxing) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) +(String(feelingAfraid) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(feelingAfraid) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(feelingAfraid) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(restless) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(restless) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(restless) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(feelingBad) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(feelingBad) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(feelingBad) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0)"
-								}
-							},
-							"type": "control",
-							"validators": [],
+              "label": "Anxiety score rating:",
+              "id": "anxietyScore",
+              "questionOptions": {
+                "concept": "",
+                "rendering": "text",
+                "calculate": {
+                  "calculateExpression": "(String(anxious) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(anxious) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(anxious) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(controlWorrying) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(controlWorrying) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 :  String(controlWorrying)==='167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(worryingMuch) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(worryingMuch) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(worryingMuch) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(troubleRelaxing) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(troubleRelaxing) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(troubleRelaxing) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) +(String(feelingAfraid) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(feelingAfraid) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(feelingAfraid) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(restless) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(restless) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(restless) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0) + (String(feelingBad) === '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : String(feelingBad) === '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 2 : String(feelingBad) === '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 3 : 0)"
+                }
+              },
+              "type": "control",
+              "validators": [],
               "hide": {
-								"hideWhenExpression": "isEmpty(myValue) || !isEmpty(myValue)"
-							}
-							
-						}
+                "hideWhenExpression": "isEmpty(myValue) || !isEmpty(myValue)"
+              }
+            }
           ]
         },
         {
@@ -266,6 +265,7 @@
               "label": "GAD 7 Rating",
               "type": "obs",
               "id": "gad7",
+              "required": "true",
               "questionOptions": {
                 "concept": "167267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -287,9 +287,9 @@
                     "label": "Severe Anxiety"
                   }
                 ],
-              "calculate": {
-                "calculateExpression": "(!isEmpty(anxious) || !isEmpty(feelingBad) || !isEmpty(worryingMuch) || !isEmpty(restless) || !isEmpty(controlWorrying)|| !isEmpty(troubleRelaxing)|| !isEmpty(feelingAfraid) ) && parseInt(anxietyScore) < 5 ? '159410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ( parseInt(anxietyScore) > 4 && parseInt(anxietyScore) < 10 ) ? '1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ( parseInt(anxietyScore) > 9 && parseInt(anxietyScore) < 15 ) ? '1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': parseInt(anxietyScore) >= 15 ?  '1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
-              }
+                "calculate": {
+                  "calculateExpression": "(!isEmpty(anxious) || !isEmpty(feelingBad) || !isEmpty(worryingMuch) || !isEmpty(restless) || !isEmpty(controlWorrying)|| !isEmpty(troubleRelaxing)|| !isEmpty(feelingAfraid) ) && parseInt(anxietyScore) < 5 ? '159410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ( parseInt(anxietyScore) > 4 && parseInt(anxietyScore) < 10 ) ? '1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ( parseInt(anxietyScore) > 9 && parseInt(anxietyScore) < 15 ) ? '1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': parseInt(anxietyScore) >= 15 ?  '1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                }
               }
             }
           ]
@@ -298,5 +298,6 @@
       "processor": "EncounterFormProcessor",
       "referencedForms": []
     }
-  ]
+  ],
+  "encounterType": "899d64ad-be13-4071-a879-2153847206b7"
 }

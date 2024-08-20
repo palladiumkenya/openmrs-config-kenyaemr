@@ -1,548 +1,668 @@
 {
 	"name": "COVID-19 Assessment form",
 	"description": "POC Cancer Screening Form",
-  	"version": "1",
-  	"published": true,
-  	"uuid": "86709f36-1490-11ec-82a8-0242ac130003",
-  	"retired": false,
-  	"encounter": "COVID-19 Assessment Encounter",
+	"version": "2.0",
+	"published": true,
+	"uuid": "86709f36-1490-11ec-82a8-0242ac130003",
+	"retired": false,
+	"encounter": "COVID-19 Assessment Encounter",
 	"pages": [
-		{
-			"label": "COVID-19 Assessment form",
-			"sections": [
-				{
-					"label": "Visit Details",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "Date:",
-							"type": "encounterDatetime",
-							"questionOptions": {
-								"rendering": "ui-select-extended"
-							},
-							"id": "encDate"
-						},
-						{
-							"label": "Provider:",
-							"type": "encounterProvider",
-							"questionOptions": {
-								"rendering": "ui-select-extended"
-							},
-							"id": "encProvider "
-						},
-						{
-							"label": "Location:",
-							"type": "encounterLocation",
-							"questionOptions": {
-								"rendering": "ui-select-extended"
-							},
-							"id": "encLocation"
-						}
-					]
+	  {
+		"label": "COVID-19 Assessment form",
+		"sections": [
+		  {
+			"label": "Visit Details",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Date:",
+				"type": "encounterDatetime",
+				"questionOptions": {
+				  "rendering": "ui-select-extended"
 				},
-				{
-					"label": "Vaccination",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "Have you ever been vaccinated?",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "radio",
-								"concept": "163100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									}
-								]
-							},
-							"id": "patientVaccinated",
-							"required": "true"
-						},
-						{
-							"label": "Vaccination details",
-							"type": "obsGroup",
-							"questionOptions": {
-								"rendering": "repeating",
-								"concept": "1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-							},
-							"id": "vaccination_details",
-							"validators": [],
-							"questions": [
-								{
-									"label": "Vaccine",
-									"type": "obs",
-									"id": "vaccine",
-									"questionOptions": {
-										"concept": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "select",
-										"answers": [
-											{
-												"concept": "166156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Astrazeneca"
-											},
-											{
-												"concept": "166355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Johnson and Johnson"
-											},
-											{
-												"concept": "166154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Moderna"
-											},
-											{
-												"concept": "166155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Pfizer"
-											},
-											{
-												"concept": "166157AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Sputnik"
-											},
-											{
-												"concept": "166379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Sinopharm"
-											},
-											{
-												"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Unknown"
-											},
-											{
-												"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Other(Specify)"
-											}
-
-										]
-									},
-									"validators":[
-										{
-											"type": "js_expression",
-											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(patientVaccinated) && patientVaccinated === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-											"message": "Vaccine type should not be empty."
-										}
-									]
-								},
-								{
-									"label": "Vaccine name",
-									"type": "obs",
-									"id": "otherVaccine",
-									"questionOptions": {
-										"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "text"
-									},
-									"validators": [],
-									"hide": {
-										"hideWhenExpression": "isEmpty(vaccine) || vaccine !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
-									}
-								},
-								{
-									"label": "Dose",
-									"type": "obs",
-									"id": "dose",
-									"questionOptions": {
-										"concept": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "select",
-										"answers": [
-											{
-												"concept": "1",
-												"label": "First"
-											},
-											{
-												"concept": "2",
-												"label": "Second"
-											}
-
-										]
-									}
-								},
-								{
-									"label": "Date/Estimated",
-									"type": "obs",
-									"id": "vaccinationDate",
-									"questionOptions": {
-										"concept": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "date"
-									},
-									"validators": [
-										{
-											"type": "date",
-											"allowFutureDate": "false"
-										},
-										{
-											"type": "js_expression",
-											"failsWhenExpression": "isEmpty(myValue) && !isEmpty(patientVaccinated) && patientVaccinated === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-											"message": "Vaccine date is required"
-										}
-									]
-								},
-								{
-									"label": "Verified",
-									"type": "obs",
-									"id": "verified",
-									"questionOptions": {
-										"concept": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "checkbox",
-										"answers": [
-											{
-												"concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Verified"
-											}
-										]
-									}
-								}
-									
-							],
-							"hide": {
-								"hideWhenExpression": "isEmpty(patientVaccinated) || patientVaccinated !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Vaccination Status",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "radio",
-								"concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "5585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Fully Vaccinated"
-									},
-									{
-										"concept": "166192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Partially Vaccinated"
-									}
-								]
-							},
-							"id": "completionStatus",
-							"validators": [
-								{
-									"type": "js_expression",
-									"failsWhenExpression": "isEmpty(myValue) && !isEmpty(patientVaccinated) && patientVaccinated === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-									"message": "Please specify final vaccination status."
-								}
-							],
-							"hide": {
-								"hideWhenExpression": "isEmpty(patientVaccinated) || patientVaccinated !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Have you received a booster COVID -19 dose?",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "radio",
-								"concept": "166063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									}
-								]
-							},
-							"id": "boosterReceived",
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(patientVaccinated) || patientVaccinated !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Booster COVID -19 dose",
-							"type": "obsGroup",
-							"questionOptions": {
-								"rendering": "repeating",
-								"concept": "1184AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-							},
-							"id": "boosterDose",
-							"validators": [],
-							"questions": [
-								{
-									"label": "Vaccine",
-									"type": "obs",
-									"id": "booster",
-									"questionOptions": {
-										"concept": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "select",
-										"answers": [
-											{
-												"concept": "166156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Astrazeneca"
-											},
-											{
-												"concept": "166355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Johnson and Johnson"
-											},
-											{
-												"concept": "166154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Moderna"
-											},
-											{
-												"concept": "166155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Pfizer"
-											},
-											{
-												"concept": "166157AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Sputnik"
-											},
-											{
-												"concept": "166379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Sinopharm"
-											},
-											{
-												"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Unknown"
-											},
-											{
-												"concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Other(Specify)"
-											}
-
-										]
-									}
-								},
-								{
-									"label": "Vaccine name",
-									"type": "obs",
-									"id": "otherVaccine",
-									"questionOptions": {
-										"concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "text"
-									},
-									"validators": [],
-									"hide": {
-										"hideWhenExpression": "isEmpty(booster) || booster !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
-									}
-								},
-								{
-									"label": "Dose",
-									"type": "obs",
-									"id": "dose",
-									"questionOptions": {
-										"concept": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "select",
-										"answers": [
-											{
-												"concept": "1",
-												"label": "First"
-											},
-											{
-												"concept": "2",
-												"label": "Second"
-											}
-
-										]
-									}
-								},
-								{
-									"label": "Date/Estimated",
-									"type": "obs",
-									"id": "vaccinationDate",
-									"questionOptions": {
-										"concept": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "date"
-									},
-									"validators": [
-										{
-											"type": "date",
-											"allowFutureDate": "false"
-										}
-									]
-								},
-								{
-									"label": "Verified",
-									"type": "obs",
-									"id": "verified",
-									"questionOptions": {
-										"concept": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "checkbox",
-										"answers": [
-											{
-												"concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-												"label": "Verified"
-											}
-										]
-									}
-								}
-									
-							],
-							"hide": {
-								"hideWhenExpression": "isEmpty(boosterReceived) || boosterReceived !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						}
-					]
+				"id": "encDate"
+			  },
+			  {
+				"label": "Provider:",
+				"type": "encounterProvider",
+				"questionOptions": {
+				  "rendering": "encounter-provider"
 				},
-				{
-					"label": "Diagnosis and management",
-					"isExpanded": "true",
-					"questions": [
-						{
-							"label": "Have you ever tested for COVID -19?",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "radio",
-								"concept": "165852AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									},
-									{
-										"concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Unknown"
-									}
-								]
-							},
-							"id": "testStatus",
-							"required": "true"
-						},
-						{
-							"label": "Test results for COVID -19",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "radio",
-								"concept": "166638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Positive"
-									},
-									{
-										"concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Negative"
-									}
-								]
-							},
-							"id": "testResult",
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(testStatus) || testStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Date tested ",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "date",
-								"concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-							},
-							"id": "dateTested",
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(testResult) || testResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-							
-						},
-						{
-							"label": "Presentation of Covid-19",
-							"type": "obs",
-							"questionOptions": {
-								"rendering": "radio",
-								"concept": "159640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"answers": [
-									{
-										"concept": "165912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Asymptomatic"
-									},
-									{
-										"concept": "1068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Symptomatic"
-									}
-								]
-							},
-							"id": "presentationStatus",
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(testResult) || testResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-							
-						},
-						{
-							"label": "Hospital admission",
-							"type": "obs",
-							"id": "admissionStatus",
-							"questionOptions": {
-								"concept": "162477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									}
-								]
-							},
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(presentationStatus) || presentationStatus == '165912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						},
-						{
-							"label": "Admission Unit",
-							"type": "obs",
-							"id": "admissionUnit",
-							"questionOptions": {
-								"concept": "161010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "161936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "ICU"
-									},
-									{
-										"concept": "165994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Isolation"
-									},
-									{
-										"concept": "165995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "HDU"
-									}
-								]
-							},
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(presentationStatus) || presentationStatus == '165912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(admissionStatus) || admissionStatus == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
-							}
-						},
-						{
-							"label": "Did you receive supplemental oxygen?",
-							"type": "obs",
-							"id": "oxygen",
-							"questionOptions": {
-								"concept": "165864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-								"rendering": "radio",
-								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
-									{
-										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "Yes"
-									}
-								]
-							},
-							"validators": [],
-							"hide": {
-								"hideWhenExpression": "isEmpty(presentationStatus) || presentationStatus == '165912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(admissionStatus) || admissionStatus == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-							}
-						}
-					]
-				}
+				"id": "encProvider "
+			  },
+			  {
+				"label": "Location:",
+				"type": "encounterLocation",
+				"questionOptions": {
+				  "rendering": "encounter-location"
+				},
+				"id": "encLocation"
+			  }
 			]
-		}
+		  },
+		  {
+			"label": "Vaccination",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Have you ever been vaccinated?",
+				"type": "obs",
+				"id": "patientVaccinated",
+				"required": "true",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "163100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "age < 12"
+				}
+			  },
+			  {
+				"label": "Vaccination details",
+				"type": "obsGroup",
+				"questionOptions": {
+				  "rendering": "group",
+				  "concept": "1421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				"id": "vaccinationDetails",
+				"validators": [],
+				"questions": [
+				  {
+					"label": "Vaccine",
+					"type": "obs",
+					"id": "vaccine",
+					"questionOptions": {
+					  "concept": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "select",
+					  "answers": [
+						{
+						  "concept": "166156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Astrazeneca"
+						},
+						{
+						  "concept": "166355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Johnson and Johnson"
+						},
+						{
+						  "concept": "166154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Moderna"
+						},
+						{
+						  "concept": "166155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Pfizer"
+						},
+						{
+						  "concept": "166157AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Sputnik"
+						},
+						{
+						  "concept": "166379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Sinopharm"
+						},
+						{
+						  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Unknown"
+						},
+						{
+						  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Other(Specify)"
+						}
+					  ]
+					},
+					"validators": [
+					  {
+						"type": "js_expression",
+						"failsWhenExpression": "isEmpty(myValue) && !isEmpty(patientVaccinated) && patientVaccinated === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+						"message": "Vaccine type should not be empty."
+					  }
+					],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(patientVaccinated) || patientVaccinated !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					}
+				  },
+				  {
+					"label": "Vaccine name",
+					"type": "obs",
+					"id": "otherVaccine",
+					"questionOptions": {
+					  "concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "text"
+					},
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(vaccine) || vaccine !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+					}
+				  },
+				  {
+					"label": "Dose",
+					"type": "obs",
+					"id": "dose",
+					"questionOptions": {
+					  "concept": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "select",
+					  "answers": [
+						{
+						  "concept": "1",
+						  "label": "First"
+						},
+						{
+						  "concept": "2",
+						  "label": "Second"
+						}
+					  ]
+					},
+					"hide": {
+					  "hideWhenExpression": "isEmpty(vaccine) || vaccine === '166355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+					}
+				  },
+				  {
+					"label": "Date/Estimated",
+					"type": "obs",
+					"id": "vaccinationDate",
+					"questionOptions": {
+					  "concept": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "date"
+					},
+					"validators": [
+					  {
+						"type": "date",
+						"allowFutureDate": "false"
+					  },
+					  {
+						"type": "js_expression",
+						"failsWhenExpression": "isEmpty(myValue) && !isEmpty(patientVaccinated) && patientVaccinated === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+						"message": "Vaccine date is required"
+					  }
+					],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(vaccine)"
+					}
+				  },
+				  {
+					"label": "Verified",
+					"type": "obs",
+					"id": "verified",
+					"questionOptions": {
+					  "concept": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "checkbox",
+					  "answers": [
+						{
+						  "concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Verified"
+						}
+					  ]
+					},
+					"hide": {
+					  "hideWhenExpression": "isEmpty(vaccine)"
+					}
+				  }
+				]
+			  },
+			  {
+				"label": "Vaccine",
+				"type": "obs",
+				"id": "vaccineB",
+				"questionOptions": {
+				  "concept": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "166156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Astrazeneca"
+					},
+					{
+					  "concept": "166355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Johnson and Johnson"
+					},
+					{
+					  "concept": "166154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Moderna"
+					},
+					{
+					  "concept": "166155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Pfizer"
+					},
+					{
+					  "concept": "166157AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Sputnik"
+					},
+					{
+					  "concept": "166379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Sinopharm"
+					},
+					{
+					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Unknown"
+					},
+					{
+					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other(Specify)"
+					}
+				  ]
+				},
+				"validators": [
+				  {
+					"type": "js_expression",
+					"failsWhenExpression": "isEmpty(myValue) && !isEmpty(dose) && vaccine === '166355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+					"message": "Vaccine type should not be empty."
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(dose) || dose !== '1' || vaccine === '166355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Dose",
+				"type": "obs",
+				"id": "doseB",
+				"questionOptions": {
+				  "concept": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "2",
+					  "label": "Second"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(vaccineB)"
+				}
+			  },
+			  {
+				"label": "Date/Estimated",
+				"type": "obs",
+				"id": "vaccinationDateB",
+				"questionOptions": {
+				  "concept": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDate": "false"
+				  },
+				  {
+					"type": "js_expression",
+					"failsWhenExpression": "isEmpty(myValue) && !isEmpty(dose) && vaccine === '166355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+					"message": "Vaccine date is required."
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(doseB)"
+				}
+			  },
+			  {
+				"label": "Verified",
+				"type": "obs",
+				"id": "verifiedB",
+				"questionOptions": {
+				  "concept": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "checkbox",
+				  "answers": [
+					{
+					  "concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Verified"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(doseB)"
+				}
+			  },
+			  {
+				"label": "Vaccination Status",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "calculate": {
+					"calculateExpression": "String(dose) === '1' && String(doseB) === '2' ? '5585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(dose) === '1' ? '166192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(dose) === '2' ? '5585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(vaccine) === '166355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '5585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+				  },
+				  "answers": [
+					{
+					  "concept": "5585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Fully Vaccinated"
+					},
+					{
+					  "concept": "166192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Partially Vaccinated"
+					}
+				  ]
+				},
+				"id": "completionStatus",
+				"validators": [
+				  {
+					"type": "js_expression",
+					"failsWhenExpression": "isEmpty(myValue) && !isEmpty(patientVaccinated) && patientVaccinated === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+					"message": "Please specify final vaccination status."
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(patientVaccinated) || patientVaccinated !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Have you received a booster COVID -19 dose?",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "166063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"id": "boosterReceived",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(patientVaccinated) || patientVaccinated !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Booster COVID -19 dose",
+				"type": "obsGroup",
+				"questionOptions": {
+				  "rendering": "repeating",
+				  "concept": "1184AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				"id": "boosterDose",
+				"validators": [],
+				"questions": [
+				  {
+					"label": "Vaccine",
+					"type": "obs",
+					"id": "booster",
+					"questionOptions": {
+					  "concept": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "select",
+					  "answers": [
+						{
+						  "concept": "166156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Astrazeneca"
+						},
+						{
+						  "concept": "166355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Johnson and Johnson"
+						},
+						{
+						  "concept": "166154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Moderna"
+						},
+						{
+						  "concept": "166155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Pfizer"
+						},
+						{
+						  "concept": "166157AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Sputnik"
+						},
+						{
+						  "concept": "166379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Sinopharm"
+						},
+						{
+						  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Unknown"
+						},
+						{
+						  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Other(Specify)"
+						}
+					  ]
+					}
+				  },
+				  {
+					"label": "Vaccine name",
+					"type": "obs",
+					"id": "otherVaccine",
+					"questionOptions": {
+					  "concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "text"
+					},
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(booster) || booster !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+					}
+				  },
+				  {
+					"label": "Dose",
+					"type": "obs",
+					"id": "dose",
+					"questionOptions": {
+					  "concept": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "select",
+					  "answers": [
+						{
+						  "concept": "1",
+						  "label": "First"
+						},
+						{
+						  "concept": "2",
+						  "label": "Second"
+						}
+					  ]
+					}
+				  },
+				  {
+					"label": "Date/Estimated",
+					"type": "obs",
+					"id": "vaccinationDate",
+					"questionOptions": {
+					  "concept": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "date"
+					},
+					"validators": [
+					  {
+						"type": "date",
+						"allowFutureDate": "false"
+					  }
+					]
+				  },
+				  {
+					"label": "Verified",
+					"type": "obs",
+					"id": "verified",
+					"questionOptions": {
+					  "concept": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "checkbox",
+					  "answers": [
+						{
+						  "concept": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Verified"
+						}
+					  ]
+					}
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(boosterReceived) || boosterReceived !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  }
+			]
+		  },
+		  {
+			"label": "Diagnosis and management",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Have you ever tested for COVID -19?",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "165852AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					},
+					{
+					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Unknown"
+					}
+				  ]
+				},
+				"id": "testStatus",
+				"required": "true"
+			  },
+			  {
+				"label": "Test results for COVID -19",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "166638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "answers": [
+					{
+					  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Positive"
+					},
+					{
+					  "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Negative"
+					}
+				  ]
+				},
+				"id": "testResult",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(testStatus) || testStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Date tested ",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "date",
+				  "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				"id": "dateTested",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(testResult) || testResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Presentation of Covid-19",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "159640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "answers": [
+					{
+					  "concept": "165912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Asymptomatic"
+					},
+					{
+					  "concept": "1068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Symptomatic"
+					}
+				  ]
+				},
+				"id": "presentationStatus",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(testResult) || testResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Hospital admission",
+				"type": "obs",
+				"id": "admissionStatus",
+				"questionOptions": {
+				  "concept": "162477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(presentationStatus) || presentationStatus == '165912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Admission Unit",
+				"type": "obs",
+				"id": "admissionUnit",
+				"questionOptions": {
+				  "concept": "161010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "161936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "ICU"
+					},
+					{
+					  "concept": "165994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Isolation"
+					},
+					{
+					  "concept": "165995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "HDU"
+					}
+				  ]
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(presentationStatus) || presentationStatus == '165912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(admissionStatus) || admissionStatus == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+				}
+			  },
+			  {
+				"label": "Did you receive supplemental oxygen?",
+				"type": "obs",
+				"id": "oxygen",
+				"questionOptions": {
+				  "concept": "165864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(presentationStatus) || presentationStatus == '165912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || isEmpty(admissionStatus) || admissionStatus == '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  }
+			]
+		  }
+		]
+	  }
 	],
 	"processor": "EncounterFormProcessor",
-	"referencedForms": []
-}
+	"referencedForms": [],
+	"encounterType": "86709cfc-1490-11ec-82a8-0242ac130003"
+  }

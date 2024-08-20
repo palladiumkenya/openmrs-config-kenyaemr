@@ -1,0 +1,536 @@
+{
+  "name": "CPM Discontinuation Form",
+  "description": "Community Pharmacy Model Discontinuation  Form",
+  "version": "1",
+  "published": true,
+  "uuid": "d1e7ebb4-afc0-412b-a98b-6720ab1169cc",
+  "retired": false,
+  "encounter": "CPM Discontinuation Encounter",
+  "meta": {
+  "programs": {
+    "uuid": "8cd42506-2ebd-485f-89d6-4bb9ed328ccc",
+    "isEnrollment": false,
+    "discontinuationDateQuestionId": "discontinueDate"
+    }
+  },
+  "pages": [
+      {
+        "label": "Visit Details",
+        "sections": [
+          {
+            "label": "Encounter Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Discontinuation date:",
+                "type": "encounterDatetime",
+                "required": "true",
+                "id": "encDate",
+                "questionOptions": {
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Provider:",
+                "type": "encounterProvider",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encProvider "
+              },
+              {
+                "label": "Location:",
+                "type": "encounterLocation",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encLocation"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "CPM Discontinuation Checklist",
+        "sections": [
+          {
+            "label": "ROC Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Has the ROC missed any of his/her scheduled appointment at the community pharmacy (Within 3 days)",
+                "type": "obs",
+                "required": "true",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "af430c90-a512-43eb-aa91-50143c385304",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "id": "ROCdisC",
+                "hide": {
+                  "hideWhenExpression": "age < 15"
+                }
+              },
+              {
+                "label": "Is the ROC pregnant or breastfeeding?",
+                "type": "obs",
+                "required": "true",
+                "id": "Indicatepregnancy",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "age < 15 || sex !== 'F'"
+                }
+              },
+              {
+                "label": "Is the ROC with any of the following danger signs:",
+                "type": "obs",
+                "id": "comPlaiNtsToday",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "1154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "true",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "false",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "age < 15"
+                }
+              },
+              {
+                "label": "Presenting complaints/signs",
+                "type": "obsGroup",
+                "questionOptions": {
+                  "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "repeating"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(comPlaiNtsToday) || comPlaiNtsToday !== 'true'"
+                },
+                "questions": [
+                  {
+                    "label": "Complaint",
+                    "type": "obs",
+                    "id": "cOmplaIntField",
+                    "questionOptions": {
+                      "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Abdominal pain"
+                        },
+                        {
+                          "concept": "141631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Abnormal Uterine Bleeding"
+                        },
+                        {
+                          "concept": "121543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Anxiety"
+                        },
+                        {
+                          "concept": "148035AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Back pain"
+                        },
+                        {
+                          "concept": "840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Bloody Urine"
+                        },
+                        {
+                          "concept": "117671AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Blood in stool"
+                        },
+                        {
+                          "concept": "131021AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Breast Pain"
+                        },
+                        {
+                          "concept": "120749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Chest Pain"
+                        },
+                        {
+                          "concept": "871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Cold and Chills"
+                        },
+                        {
+                          "concept": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Confusion"
+                        },
+                        {
+                          "concept": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Cough"
+                        },
+                        {
+                          "concept": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Convulsions"
+                        },
+                        {
+                          "concept": "144576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Coma"
+                        },
+                        {
+                          "concept": "106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Coryza"
+                        },
+                        {
+                          "concept": "143129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Crying Infant"
+                        },
+                        {
+                          "concept": "119574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Delirium"
+                        },
+                        {
+                          "concept": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Depression"
+                        },
+                        {
+                          "concept": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Diarrhoea"
+                        },
+                        {
+                          "concept": "122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Difficult in breathing"
+                        },
+                        {
+                          "concept": "118789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Difficulty in swallowing"
+                        },
+                        {
+                          "concept": "142247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Discharge from Penis"
+                        },
+                        {
+                          "concept": "141830AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Dizziness"
+                        },
+                        {
+                          "concept": "141585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Ear Pain"
+                        },
+                        {
+                          "concept": "141128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Epigastric Pain"
+                        },
+                        {
+                          "concept": "131040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Eye Pain"
+                        },
+                        {
+                          "concept": "140941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Excessive Sweating"
+                        },
+                        {
+                          "concept": "114399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Facial Pain"
+                        },
+                        {
+                          "concept": "162626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Fatigue/weakness"
+                        },
+                        {
+                          "concept": "140070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Flank Pain"
+                        },
+                        {
+                          "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Fever"
+                        },
+                        {
+                          "concept": "135367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": " General Body Malaise"
+                        },
+                        {
+                          "concept": "135462AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Genital Ulcer"
+                        },
+                        {
+                          "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Headache"
+                        },
+                        {
+                          "concept": "117698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Hearing Loss"
+                        },
+                        {
+                          "concept": "116214AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Hypotension"
+                        },
+                        {
+                          "concept": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Itchiness/Pruritus"
+                        },
+                        {
+                          "concept": "116558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Joint Pain"
+                        },
+                        {
+                          "concept": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Leg Pain"
+                        },
+                        {
+                          "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Lethargy"
+                        },
+                        {
+                          "concept": "135595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Loss of Appetite"
+                        },
+                        {
+                          "concept": "135488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Lymphadenopathy"
+                        },
+                        {
+                          "concept": "121657AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Memory Loss"
+                        },
+                        {
+                          "concept": "111721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Mouth Ulceration"
+                        },
+                        {
+                          "concept": "131015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Mouth Pain"
+                        },
+                        {
+                          "concept": "133028AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Muscle cramps"
+                        },
+                        {
+                          "concept": "133632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Muscle Pain"
+                        },
+                        {
+                          "concept": "121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Mylagia"
+                        },
+                        {
+                          "concept": "5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Nausea"
+                        },
+                        {
+                          "concept": "133469AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Neck Pain"
+                        },
+                        {
+                          "concept": "133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Night sweats"
+                        },
+                        {
+                          "concept": "132653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Numbness"
+                        },
+                        {
+                          "concept": "162628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Unexplained bleeding"
+                        },
+                        {
+                          "concept": "125225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Pain when Swallowing"
+                        },
+                        {
+                          "concept": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Pelvic Pain"
+                        },
+                        {
+                          "concept": "5953AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Poor Vision"
+                        },
+                        {
+                          "concept": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Rash"
+                        },
+                        {
+                          "concept": "127777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Red Eye/ Conjuctivitis"
+                        },
+                        {
+                          "concept": "6017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Refusal to feed"
+                        },
+                        {
+                          "concept": "113224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Running/Blocked nose"
+                        },
+                        {
+                          "concept": "131032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Scrotal Pain"
+                        },
+                        {
+                          "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Seizure"
+                        },
+                        {
+                          "concept": "126535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Shoulder Pain"
+                        },
+                        {
+                          "concept": "112989AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Shock"
+                        },
+                        {
+                          "concept": "158843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Sore Throat"
+                        },
+                        {
+                          "concept": "141597AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Sleep Disturbance"
+                        },
+                        {
+                          "concept": "125198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Swollen Legs"
+                        },
+                        {
+                          "concept": "112200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Tremors"
+                        },
+                        {
+                          "concept": "160208AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Urinary Symptoms"
+                        },
+                        {
+                          "concept": "161887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Watery Diarrhoea"
+                        },
+                        {
+                          "concept": "157498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Weakness of Limbs"
+                        },
+                        {
+                          "concept": "832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Weight Loss"
+                        },
+                        {
+                          "concept": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Vaginal Discharge"
+                        },
+                        {
+                          "concept": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Vomiting"
+                        },
+                        {
+                          "concept": "111525AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Vertigo"
+                        },
+                        {
+                          "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Other"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "label": "Specify other complaints",
+                    "type": "obs",
+                    "id": "SpecificComplaints",
+                    "questionOptions": {
+                      "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                      "rendering": "textarea"
+                    },
+                    "hide": {
+                      "hideWhenExpression": "cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  },
+                  {
+                    "label": "Duration (Days)",
+                    "type": "obs",
+                    "id": "complaintDuration",
+                    "questionOptions": {
+                      "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "number",
+                      "min": "0",
+                      "max": "99"
+                    },
+                    "validators": [],
+                    "hide": {
+                      "hideWhenExpression": "isEmpty(comPlaiNtsToday) || comPlaiNtsToday !== 'true'"
+                    }
+                  },
+                  {
+                    "label": "Onset Date",
+                    "type": "obs",
+                    "id": "onSetDate",
+                    "questionOptions": {
+                      "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "date"
+                    },
+                    "validators": [
+                      {
+                        "type": "date",
+                        "allowFutureDates": "false"
+                      }
+                    ],
+                    "hide": {
+                      "hideWhenExpression": "isEmpty(comPlaiNtsToday) || comPlaiNtsToday !== 'true'"
+                    }
+                  }
+                ],
+                "id": "ComplaintLodgeByClient"
+              },
+              {
+                "label": "The ROC has willingly opted out of community pharmacy model of care",
+                "type": "obs",
+                "required": "true",
+                "id": "optOut",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "162703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "age < 15"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+  "encounterType": "ddc73ecc-ad85-40bc-ad43-318ed9abfd00"
+}

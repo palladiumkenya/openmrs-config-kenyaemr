@@ -44,7 +44,9 @@
               "id": "gestation",
               "questionOptions": {
                 "concept": "1409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "50",
+                "min": "0"
               }
             },
             {
@@ -54,7 +56,9 @@
               "id": "weight",
               "questionOptions": {
                 "concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "10",
+                "min": "0"
               }
             },
             {
@@ -63,7 +67,9 @@
               "id": "birthLength",
               "questionOptions": {
                 "concept": "1503AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "100",
+                "min": "0"
               }
             },
             {
@@ -73,7 +79,9 @@
               "id": "birthOrderInFamily",
               "questionOptions": {
                 "concept": "163460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "number"
+                "rendering": "number",
+                "max": "99",
+                "min": "0"
               }
             },
             {
@@ -235,6 +243,7 @@
             {
               "type": "patientIdentifier",
               "label": "Patient Clinic No",
+              "questionInfo": "",
               "id": "patientClinicNo",
               "default": "",
               "questionOptions": {
@@ -270,18 +279,6 @@
               "questionOptions": {
                 "concept": "1646AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "text"
-              }
-            },
-            {
-              "type": "patientIdentifier",
-              "label": "National Unique Patient Identifier",
-              "id": "nuPi",
-              "default": "",
-              "questionOptions": {
-                "rendering": "text",
-                "identifierType": "f85081e2-b4be-4e48-b3a4-7994b69bb101",
-                "maxLength": "15",
-                "minLength": "10"
               }
             }
           ]
@@ -463,14 +460,19 @@
               "label": "HEI ID Number",
               "questionInfo": "",
               "id": "heiNo",
-              "required": "false",
+              "required": "true",
               "default": "",
               "questionOptions": {
                 "rendering": "text",
-                "identifierType": "0691f522-dd67-4eeb-92c8-af5083baf338",
-                "maxLength": "15",
-                "minLength": "12"
+                "identifierType": "0691f522-dd67-4eeb-92c8-af5083baf338"
               },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "doesNotMatchExpression('^\\\\\\d{13}$', heiNo)",
+                  "message": "Please provide the correct format for the HEI No. ie. mflCode+year+serial eg.1190720240062"
+                }
+              ],
               "hide": {
                 "hideWhenExpression": "isEmpty(hivExposedChild) || hivExposedChild !== '822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
@@ -498,8 +500,8 @@
               "type": "obs",
               "id": "motherAlive",
               "questionOptions": {
-                "concept": "159481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "concept": "160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -735,7 +737,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(hivExposedChild) || hivExposedChild !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(hivExposedChild) || hivExposedChild !== '822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -873,6 +875,10 @@
                   {
                     "concept": "160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "D4T/3TC/EFV"
+                  },
+                  {
+                    "concept": "9fb85385-b4fb-468c-b7c1-22f75834b4b0",
+                    "label": "TDF/3TC/DTG"
                   }
                 ]
               },
