@@ -12,7 +12,12 @@
             "restrictTotalQuantityDispensed": true,
             "allowModifyingPrescription": false
         },
-        "enableStockDispense": true
+        "enableStockDispense": true,
+        "Display conditions": {
+            "privileges": [
+                "o3: View Dispensing Dashboard"
+            ]
+        }
     },
     "@openmrs/esm-form-entry-app": {
         "customEncounterDatetime": true
@@ -117,19 +122,49 @@
                     "pick-lab-request-action"
                 ]
             }
+        },
+        "Display conditions": {
+            "privileges": [
+                "o3: View Laboratory Dashboard"
+            ]
         }
     },
-    "@openmrs/esm-patient-allergies-app": {},
-    "@openmrs/esm-patient-attachments-app": {},
     "@openmrs/esm-patient-banner-app": {
         "contactAttributeType": [
             "b2c38640-2603-4629-aebd-3b54f33f1e3a",
             "94614350-84c8-41e0-ac29-86bc107069be",
             "342a1d39-c541-4b29-8818-930916f4c2dc"
-        ]
+        ],
+        "Display conditions": {
+            "privileges": [
+                "o3: View Patient Banner"
+            ]
+        }
     },
     "@openmrs/esm-patient-chart-app": {
         "extensionSlots": {
+            "top-of-all-patient-dashboards-slot": {
+                "configure": {
+                    "patient-flag": {
+                        "Display conditions": {
+                            "privileges": [
+                                "o3: View Patient Chart Flags"
+                            ]
+                        }
+                    }
+                }
+            },
+            "patient-info-slot": {
+                "configure": {
+                    "patient-vitals-info": {
+                        "Display conditions": {
+                            "privileges": [
+                                "o3: View Patient Chart Vitals & Biometrics Dashboard"
+                            ]
+                        }
+                    }
+                }
+            },
             "patient-highlights-bar-slot": {
                 "remove": [
                     "patient-flag-tags"
@@ -335,11 +370,9 @@
             }
         }
     },
-    "@openmrs/esm-patient-conditions-app": {},
     "@openmrs/esm-patient-forms-app": {
         "customFormsUrl": "/ws/rest/v1/kenyaemr/forms"
     },
-    "@openmrs/esm-patient-immunizations-app": {},
     "@openmrs/esm-patient-labs-app": {
         "concepts": [
             {
@@ -472,9 +505,6 @@
             }
         }
     },
-    "@openmrs/esm-patient-programs-app": {
-        "customUrl": "/ws/rest/v1/kenyaemr/eligiblePrograms?patientUuid="
-    },
     "@openmrs/esm-patient-search-app": {
         "search": {
             "disableTabletSearchOnKeyUp": true
@@ -509,6 +539,24 @@
                     "dispensing-link",
                     "system-administration-app-menu-link"
                 ]
+            },
+            "top-nav-actions-slot": {
+                "configure": {
+                    "patient-search-icon": {
+                        "Display conditions": {
+                            "privileges": [
+                                "o3: Search Patient"
+                            ]
+                        }
+                    },
+                    "add-patient-action": {
+                        "Display conditions": {
+                            "privileges": [
+                                "o3: Register Patient"
+                            ]
+                        }
+                    }
+                }
             }
         }
     },
