@@ -28,7 +28,7 @@ cp "${CWD}/assets/kenyaemr-login-logo.png" "${CWD}/frontend"
 cp "${CWD}/assets/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
 cp "${CWD}/frontend-config/dev/kenyaemr.config.json" "${CWD}/frontend"
-mv "${CWD}/frontend-config/dev/openmrs.config.json" "${CWD}/frontend"
+cp "${CWD}/frontend-config/dev/openmrs.config.json" "${CWD}/frontend"
 
 # Function to handle openmrs-esm apps
 # Function to handle the renaming process
