@@ -1,0 +1,3344 @@
+{
+    "name": "GOPC Clinical Consultation Form",
+    "description": "GOPC Speciality Clinic Form",
+    "version": "1",
+    "published": true,
+    "uuid": "35ab0825-33af-49e7-ac01-bb0b05753732",
+    "retired": false,
+    "encounter": "GOPC",
+    "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Patient Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Type?",
+              "type": "obs",
+              "required": true,
+              "id": "visitType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "164181"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New visit"
+                  },
+                  {
+                    "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Return Visit"
+                  },
+                  {
+                    "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referrals"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Visit To:",
+              "type": "obs",
+              "id": "visitTo",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "161643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Outpatient department(OPD)"
+                  },
+                  {
+                    "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inpatient department(IPD)"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "visitType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient's History",
+      "sections": [
+        {
+          "label": "Patient Compalints",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient having complaint(s) today?",
+              "type": "obs",
+              "id": "complaintsToday",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Presenting complaints",
+              "type": "obsGroup",
+              "id": "ComplaintLodgeByClient",
+              "questionOptions": {
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "complaintsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "questions": [
+                {
+                  "label": "Complaint",
+                  "type": "obs",
+                  "id": "cOmplaIntField",
+                  "questionOptions": {
+                    "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Lower Abdominal pain"
+                      },
+                      {
+                        "concept": "121543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Anxiety"
+                      },
+                      {
+                        "concept": "148035AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Back pain"
+                      },
+                      {
+                        "concept": "840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Bloody Urine"
+                      },
+                      {
+                        "concept": "117671AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Blood in stool"
+                      },
+                      {
+                        "concept": "5953AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Blurred vision"
+                      },
+                      {
+                        "concept": "131021AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Breast Pain"
+                      },
+                      {
+                        "concept": "146928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Breast Soreness"
+                      },
+                      {
+                        "concept": "120749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Chest Pain"
+                      },
+                      {
+                        "concept": "871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Cold and Chills"
+                      },
+                      {
+                        "concept": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Mental confusion"
+                      },
+                      {
+                        "concept": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Cough"
+                      },
+                      {
+                        "concept": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Convulsions"
+                      },
+                      {
+                        "concept": "144576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Coma"
+                      },
+                      {
+                        "concept": "106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Coryza"
+                      },
+                      {
+                        "concept": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Constipation"
+                      },
+                      {
+                        "concept": "119574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Delirium"
+                      },
+                      {
+                        "concept": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Depression"
+                      },
+                      {
+                        "concept": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Diarrhea"
+                      },
+                      {
+                        "concept": "122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Difficult in breathing"
+                      },
+                      {
+                        "concept": "141830AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dizziness"
+                      },
+                      {
+                        "concept": "141762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Drowsiness"
+                      },
+                      {
+                        "concept": "141585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Ear Pain"
+                      },
+                      {
+                        "concept": "141128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Epigastric Pain"
+                      },
+                      {
+                        "concept": "131040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Eye Pain"
+                      },
+                      {
+                        "concept": "140941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Excessive Sweating"
+                      },
+                      {
+                        "concept": "114399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Facial Pain"
+                      },
+                      {
+                        "concept": "162626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Fatigue/weakness"
+                      },
+                      {
+                        "concept": "140070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Flank Pain"
+                      },
+                      {
+                        "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Fever"
+                      },
+                      {
+                        "concept": "135462AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Genital Ulcer"
+                      },
+                      {
+                        "concept": "125214AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Generalized body swelling"
+                      },
+                      {
+                        "concept": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Heartburn"
+                      },
+                      {
+                        "concept": "117698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hearing Loss"
+                      },
+                      {
+                        "concept": "116214AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypotension"
+                      },
+                      {
+                        "concept": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Itchiness/Pruritus"
+                      },
+                      {
+                        "concept": "116558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Joint Pain"
+                      },
+                      {
+                        "concept": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Leg Pain"
+                      },
+                      {
+                        "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Lethargy"
+                      },
+                      {
+                        "concept": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Loss of consciousness"
+                      },
+                      {
+                        "concept": "135595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Anorexia"
+                      },
+                      {
+                        "concept": "135488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Lymphadenopathy"
+                      },
+                      {
+                        "concept": "116130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Malaise"
+                      },
+                      {
+                        "concept": "121657AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Memory Loss"
+                      },
+                      {
+                        "concept": "111721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Mouth Ulceration"
+                      },
+                      {
+                        "concept": "131015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Mouth Pain"
+                      },
+                      {
+                        "concept": "133028AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Muscle cramps"
+                      },
+                      {
+                        "concept": "133632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Muscle Pain"
+                      },
+                      {
+                        "concept": "121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Mylagia"
+                      },
+                      {
+                        "concept": "5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Nausea"
+                      },
+                      {
+                        "concept": "133469AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Neck Pain"
+                      },
+                      {
+                        "concept": "133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Night sweats"
+                      },
+                      {
+                        "concept": "132653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Numbness"
+                      },
+                      {
+                        "concept": "162628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Unexplained bleeding"
+                      },
+                      {
+                        "concept": "125225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Pain when Swallowing"
+                      },
+                      {
+                        "concept": "130987AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Palpitations"
+                      },
+                      {
+                        "concept": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Pelvic Pain"
+                      },
+                      {
+                        "concept": "140856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Prostration"
+                      },
+                      {
+                        "concept": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Rash"
+                      },
+                      {
+                        "concept": "127777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Red Eye"
+                      },
+                      {
+                        "concept": "6017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Refusal to feed"
+                      },
+                      {
+                        "concept": "113224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Running/Blocked nose"
+                      },
+                      {
+                        "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Severe Headache"
+                      },
+                      {
+                        "concept": "131032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Scrotal Pain"
+                      },
+                      {
+                        "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Seizure"
+                      },
+                      {
+                        "concept": "126535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Shoulder Pain"
+                      },
+                      {
+                        "concept": "112989AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Shock"
+                      },
+                      {
+                        "concept": "158843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sore Throat"
+                      },
+                      {
+                        "concept": "141597AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sleep Disturbance"
+                      },
+                      {
+                        "concept": "126351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Slurred Speech"
+                      },
+                      {
+                        "concept": "125198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Swollen Legs"
+                      },
+                      {
+                        "concept": "122953AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Swelling of the Labia"
+                      },
+                      {
+                        "concept": "112200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Tremors"
+                      },
+                      {
+                        "concept": "160208AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Urinary Symptoms"
+                      },
+                      {
+                        "concept": "157498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Weakness of Limbs"
+                      },
+                      {
+                        "concept": "832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Weight Loss"
+                      },
+                      {
+                        "concept": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vaginal Discharge"
+                      },
+                      {
+                        "concept": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vomiting"
+                      },
+                      {
+                        "concept": "111525AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vertigo"
+                      },
+                      {
+                        "concept": "136455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Itching (Pruritus Vulvae)"
+                      },
+                      {
+                        "concept": "1249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Genital Rashes"
+                      },
+                      {
+                        "concept": "123394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vaginal dryness"
+                      },
+                      {
+                        "concept": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dysuria and Frequency"
+                      },
+                      {
+                        "concept": "127579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Urinary Retention (Incomplete emptying of urine)"
+                      },
+                      {
+                        "concept": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Urgency Urination"
+                      },
+                      {
+                        "concept": "111636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Urinary Incontinency"
+                      },
+                      {
+                        "concept": "137593AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Frequency Urination"
+                      },
+                      {
+                        "concept": "132417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Oliguria/Anuria"
+                      },
+                      {
+                        "concept": "133006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Nocturia"
+                      },
+                      {
+                        "concept": "123392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Gush of fluid from the vagina"
+                      },
+                      {
+                        "concept": "113612AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Bulge, fullness or pressure in the vagina"
+                      },
+                      {
+                        "concept": "163894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Protrusion at the vulva"
+                      },
+                      {
+                        "concept": "117208AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Fecal Incontinence"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Specify other complaints",
+                  "type": "obs",
+                  "id": "OtherSpecificComplaints",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "!isEmpty(cOmplaIntField) || cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Patient had contact with TB Infected person in the last 12 months?",
+                  "type": "obs",
+                  "id": "contactTB",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "cOmplaIntField !== '143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Duration (Days)",
+                  "type": "obs",
+                  "id": "complaint-duration",
+                  "questionOptions": {
+                    "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number",
+                    "min": "0"
+                  },
+                  "validators": []
+                },
+                {
+                  "label": "Onset Status",
+                  "type": "obs",
+                  "id": "onsetStatus",
+                  "questionOptions": {
+                    "concept": "d7a3441d-6aeb-49be-b7d6-b2a3bb39e78d",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Gradual"
+                      },
+                      {
+                        "concept": "162707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sudden"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "label": "History of presenting illiness notes",
+              "type": "obs",
+              "id": "ClinICNotes",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Gynaecological History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Has patient ever had menses?",
+              "type": "obs",
+              "id": "hasLMP",
+              "questionOptions": {
+                "concept": "162877AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' ||sex === 'F' && (age < 10 || age > 49)  || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Age at Menarche:",
+              "type": "obs",
+              "id": "menarcheAge",
+              "questionOptions": {
+                "concept": "160598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "18",
+                "min": "8"
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' ||sex === 'F' && (age < 10 || age > 49) || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "When was your LMP Date",
+              "type": "obs",
+              "id": "lmPdAte",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "hide": {
+                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDate": "true"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "isEmpty(myValue) && !isEmpty(hasLMP) && hasLMP === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                  "message": "Required!"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day')",
+                  "message": "LMP date should not be greater than the encounter date."
+                }
+              ]
+            },
+            {
+              "label": "Menses Frequency",
+              "type": "obs",
+              "id": "mensesFrequency",
+              "questionOptions": {
+                "concept": "160596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160600AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Regular"
+                  },
+                  {
+                    "concept": "116616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Irregular"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Menstrual Flow Characteristics",
+              "type": "obs",
+              "id": "mensesCharacteristic",
+              "questionOptions": {
+                "concept": "166080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "135795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Light"
+                  },
+                  {
+                    "concept": "140947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Heavy"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Duration of menstrual flow (days)",
+              "type": "obs",
+              "id": "mensesdays",
+              "questionOptions": {
+                "concept": "163732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "7",
+                "min": "4"
+              },
+              "hide": {
+                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Length of the menstrual cycle (days)",
+              "type": "obs",
+              "id": "menstRualdays",
+              "questionOptions": {
+                "concept": "160597AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "42",
+                "min": "21"
+              },
+              "hide": {
+                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Reasons for Primary Amenorrhea?",
+              "type": "obs",
+              "id": "amenorrheaSymptopmsNo",
+              "questionOptions": {
+                "concept": "4b59ac07-cf72-4f46-b8c0-4f62b1779f7e",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "154175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Premanarche"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "hasLMP !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Other Amenorrhea reason(Specify)",
+              "type": "obs",
+              "id": "otherAmenorrhea",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "amenorrheaSymptopmsNo !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Reasons for Secondary Amenorrhea?",
+              "type": "obs",
+              "id": "amenorrheaSecondary",
+              "questionOptions": {
+                "concept": "4b59ac07-cf72-4f46-b8c0-4f62b1779f7e",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hormonal contraceptive"
+                  },
+                  {
+                    "concept": "134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Menopause"
+                  },
+                  {
+                    "concept": "136163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lactational Amenorrhea"
+                  },
+                  {
+                    "concept": "159837AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hysterectomy"
+                  },
+                  {
+                    "concept": "137793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On going Illiness "
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "hasLMP !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Any post-menopausal bleeding?",
+              "type": "obs",
+              "id": "poStMenses",
+              "questionOptions": {
+                "concept": "",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify any menapause symptoms",
+              "type": "obs",
+              "id": "meNopauseSymptoms",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "History of intermenstrual vaginal Bleeding?",
+              "type": "obs",
+              "id": "intraMenstrualHistory",
+              "questionOptions": {
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' || hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ||sex === 'F' && (age < 10 || age > 49) || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+              }
+            },
+            {
+              "label": "Do you have severe cramping or pelvic pain with your periods?",
+              "type": "obs",
+              "id": "seVereCramping",
+              "questionOptions": {
+                "concept": "155579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "1358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Always",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "1385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sometimes",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' || hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ||sex === 'F' && (age < 10 || age > 49) || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+              }
+            },
+            {
+              "label": "Associated symptoms",
+              "type": "obs",
+              "id": "associatedSymptoms",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Any Previous gynacological surgery",
+              "type": "obs",
+              "id": "previousSurgeryGyno",
+              "questionOptions": {
+                "concept": "164258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' ||sex === 'F' && (age < 10 || age > 49) || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Name of the procedure",
+              "type": "obs",
+              "id": "nameOfProcedureOrderd",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "previousSurgeryGyno !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Family Planning History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Are you using family planning?",
+              "type": "obs",
+              "id": "fPlanning",
+              "questionOptions": {
+                "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age < 15 || sex !=='F'"
+              }
+            },
+            {
+              "label": "If currently using Family Planning, specify which method(s)",
+              "required": "true",
+              "type": "obs",
+              "id": "fpMethod",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Emergency contraceptive pills"
+                  },
+                  {
+                    "concept": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oral Contraceptives Pills"
+                  },
+                  {
+                    "concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Injectible"
+                  },
+                  {
+                    "concept": "1359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Implant"
+                  },
+                  {
+                    "concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intrauterine Device"
+                  },
+                  {
+                    "concept": "136163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lactational Amenorhea Method"
+                  },
+                  {
+                    "concept": "5278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diaphram/Cervical Cap"
+                  },
+                  {
+                    "concept": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fertility Awareness"
+                  },
+                  {
+                    "concept": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Tubal Ligation"
+                  },
+                  {
+                    "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Condoms"
+                  },
+                  {
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vasectomy(Partner)"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "fPlanning !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'|| age < 15 || sex !=='F'"
+              }
+            },
+            {
+              "label": "Duration (Days)",
+              "type": "obs",
+              "id": "conTraceptiveDays",
+              "questionOptions": {
+                "concept": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0"
+              }
+            },
+            {
+              "label": "Any contraceptive side effects?",
+              "type": "obs",
+              "id": "conTracEptiveEffects",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "163297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "115814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Spotting or bleeding in between menstrual periods"
+                  },
+                  {
+                    "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Severe headaches"
+                  },
+                  {
+                    "concept": "146928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Breast tenderness"
+                  },
+                  {
+                    "concept": "983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Weight change"
+                  },
+                  {
+                    "concept": "118879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mood change"
+                  },
+                  {
+                    "concept": "148989AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Amenorrhea"
+                  },
+                  {
+                    "concept": "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Stroke"
+                  },
+                  {
+                    "concept": "124743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Venous thrombosis or embolism"
+                  },
+                  {
+                    "concept": "151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abdominal pains"
+                  },
+                  {
+                    "concept": "133632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Severe calf muscle pain"
+                  },
+                  {
+                    "concept": "111049AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Eye problems"
+                  },
+                  {
+                    "concept": "120749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Chest pain or shortness of breath "
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "fPlanning !== '' || age < 15 || patient.gender !=='F'"
+              }
+            },
+            {
+              "label": "Other (Specify)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "otherFeMale",
+              "hide": {
+                "hideWhenExpression": "isEmpty(conTracEptiveEffects) || conTracEptiveEffects !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Reason for not using Family Planning Methods",
+              "type": "obs",
+              "id": "FnotOnFp",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "163297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not sexually active"
+                  },
+                  {
+                    "concept": "160572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Thinks can't get pregnant"
+                  },
+                  {
+                    "concept": "160571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Wants to get pregnant"
+                  },
+                  {
+                    "concept": "159640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health Concerns"
+                  },
+                  {
+                    "concept": "159837AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hysterectomy"
+                  },
+                  {
+                    "concept": "110360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Religious Prohibition"
+                  },
+                  {
+                    "concept": "1778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fear of Side Effects"
+                  },
+                  {
+                    "concept": "134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Menopause"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "fPlanning !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || patient.gender !=='F'"
+              }
+            },
+            {
+              "label": "Other (Specify)",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "otherFeMale",
+              "hide": {
+                "hideWhenExpression": "isEmpty(FnotOnFp) && FnotOnFp !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date of last cervical cancer screening",
+              "type": "obs",
+              "id": "DatEforScreeningrx",
+              "questionOptions": {
+                "concept": "165429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Method of screening used?",
+              "type": "obs",
+              "id": "methOdofScreening",
+              "questionOptions": {
+                "concept": "",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "164805AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "VIA/VILLI"
+                  },
+                  {
+                    "concept": "885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pap smear"
+                  },
+                  {
+                    "concept": "160705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Colposcopy"
+                  },
+                  {
+                    "concept": "159859AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HPV test"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Have you had treatment for abnormal smears",
+              "type": "obs",
+              "id": "abNormaLsmeaRs",
+              "questionOptions": {
+                "concept": "885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age < 15 || sex !=='F'"
+              }
+            },
+            {
+              "label": "What types(s) of treatment have you had?",
+              "type": "obs",
+              "id": "cancerTreatMents",
+              "questionOptions": {
+                "concept": "885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age < 15 || sex !=='F'"
+              }
+            },
+            {
+              "label": "What types(s) of treatment have you had?",
+              "type": "obs",
+              "id": "prevCaCX",
+              "questionOptions": {
+                "concept": "162964AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "162812AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cryotherapy",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "3dd85e4b-c517-4e22-9a21-399951e315f6",
+                    "label": "Laser",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "162810AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Loop excision(LEEP)",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Other Treatments",
+              "type": "obs",
+              "id": "otherTreatments",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(prevCaCX) || !arrayContains(prevCaCX, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Previous history of HPV vaccination",
+              "type": "obs",
+              "id": "hpvAccinegiveN",
+              "questionOptions": {
+                "concept": "174bdd61-c6a9-4d6d-9007-7eed65bce6aa",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Date vaccination given",
+              "type": "obs",
+              "id": "VaccineDate",
+              "questionOptions": {
+                "concept": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(hpvAccinegiveN) || hpvAccinegiveN !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Number of Doses)",
+              "type": "obs",
+              "id": "vAccDoses",
+              "questionOptions": {
+                "concept": "1196AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(hpvAccinegiveN) || hpvAccinegiveN !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Have you had any abnormal mammogram?",
+              "type": "obs",
+              "id": "MammoGramAbnormal",
+              "questionOptions": {
+                "concept": "163591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Any History of STI/PID?",
+              "type": "obs",
+              "id": "HiStorySTI",
+              "questionOptions": {
+                "concept": "156660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Previous Gynaecological Surgical History",
+              "type": "obs",
+              "id": "GynAesurgHis",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "30fe6669-75f3-4a1d-89c3-753a060d559a",
+                "answers": [
+                  {
+                    "concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cesarean section(CS)"
+                  },
+                  {
+                    "concept": "1637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dilatation and curettage(D&C)"
+                  },
+                  {
+                    "concept": "160673AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hysteroscopy"
+                  },
+                  {
+                    "concept": "159837AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hysterectomy"
+                  },
+                  {
+                    "concept": "161829AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Myomectomy"
+                  },
+                  {
+                    "concept": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Tuboplasty"
+                  },
+                  {
+                    "concept": "161890AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Tubal ligation"
+                  },
+                  {
+                    "concept": "161844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oophorectomy"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Other Treatments",
+              "type": "obs",
+              "id": "otherGyNaeHist",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(GynAesurgHis) || !arrayContains(GynAesurgHis, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Type of surgery",
+              "type": "obs",
+              "id": "HySterecTomySurg",
+              "questionOptions": {
+                "concept": "164258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "159619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Open surgery"
+                  },
+                  {
+                    "concept": "164648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Laparoscopic surgery"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Obstetric History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Parity Term",
+              "type": "obs",
+              "id": "parityTerm",
+              "required": "true",
+              "questionOptions": {
+                "concept": "160080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Parity Abortion",
+              "type": "obs",
+              "id": "parityAbortion",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Gravida:",
+              "type": "obs",
+              "id": "graVida",
+              "questionOptions": {
+                "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "calculate": {
+                  "calculateExpression": "calcGravida(parityTerm,parityAbortion)"
+                }
+              }
+            },
+            {
+              "label": "Patient pregnant?",
+              "type": "obs",
+              "id": "pregnancyOption",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "EDD (Ultrasound):",
+              "type": "obs",
+              "id": "ultrasoundEdd",
+              "questionOptions": {
+                "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancyOption) || pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                  "message": "EDD date should be greater than the encounter date."
+                }
+              ]
+            },
+            {
+              "label": "Gestational age of the current pregnancy",
+              "type": "obs",
+              "id": "gestation",
+              "questionOptions": {
+                "concept": "1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancyOption) || pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Past obstetric history for past pregnancies",
+              "type": "obsGroup",
+              "id": "PastPegs",
+              "questionOptions": {
+                "concept": "",
+                "rendering": "repeating"
+              },
+              "questions": [
+                {
+                  "label": "Outcome of pregnancy",
+                  "type": "obs",
+                  "id": "oUtComeofPregnancy",
+                  "questionOptions": {
+                    "concept": "161033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Live birth"
+                      },
+                      {
+                        "concept": "159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Fresh still birth"
+                      },
+                      {
+                        "concept": "154223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Neonatal death"
+                      },
+                      {
+                        "concept": "127246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Ectopic"
+                      },
+                      {
+                        "concept": "163185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hydatidiform mole"
+                      },
+                      {
+                        "concept": "120295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Abortion"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Management of abortion:",
+                  "type": "obs",
+                  "id": "AbSmanGement",
+                  "questionOptions": {
+                    "concept": "",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "159728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Manual vacuum aspiration(MVA)"
+                      },
+                      {
+                        "concept": "1637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dilatation and curettage(D&C)"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(oUtComeofPregnancy) || oUtComeofPregnancy !== '120295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Other Treatments",
+                  "type": "obs",
+                  "id": "OtherAbOrtion",
+                  "questionOptions": {
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(AbSmanGement) || !arrayContains(AbSmanGement, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  }
+                },
+                {
+                  "label": "Gestation age at birth (weeks)",
+                  "type": "obs",
+                  "id": "gestationAtBirth",
+                  "questionOptions": {
+                    "concept": "1409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number",
+                    "min": "0"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(oUtComeofPregnancy) || oUtComeofPregnancy !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Mode of Delivery",
+                  "type": "obs",
+                  "required": true,
+                  "id": "modeOfDeliveryLive",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Elective Cesarean section"
+                      },
+                      {
+                        "concept": "159739AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Emergency cesarean section"
+                      },
+                      {
+                        "concept": "159901AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Forceps delivery"
+                      },
+                      {
+                        "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Spontaneous vertex delivery"
+                      },
+                      {
+                        "concept": "159260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vacuum extractor delivery"
+                      },
+                      {
+                        "concept": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Breech delivery"
+                      }
+                    ]
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(oUtComeofPregnancy) || oUtComeofPregnancy !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Mode of Delivery",
+                  "type": "obs",
+                  "required": true,
+                  "id": "modeOfDeliveryDead",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Cesarean section"
+                      },
+                      {
+                        "concept": "159739AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Emergency cesarean section"
+                      },
+                      {
+                        "concept": "159901AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Forceps delivery"
+                      },
+                      {
+                        "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Spontaneous vaginal delivery"
+                      },
+                      {
+                        "concept": "159260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vacuum extractor delivery"
+                      },
+                      {
+                        "concept": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Breech delivery"
+                      }
+                    ]
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(oUtComeofPregnancy) || oUtComeofPregnancy === '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Birth Weight",
+                  "type": "obs",
+                  "required": true,
+                  "id": "birthWeight",
+                  "questionOptions": {
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "10",
+                    "concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "validators": []
+                },
+                {
+                  "label": "Sex of the Baby",
+                  "type": "obs",
+                  "required": "true",
+                  "id": "sexOfTheBaby",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1587AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "1535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Female"
+                      },
+                      {
+                        "concept": "1534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Male"
+                      }
+                    ]
+                  },
+                  "validators": []
+                },
+                {
+                  "label": "Any maternal complications?",
+                  "type": "obs",
+                  "id": "PNcComplications",
+                  "questionOptions": {
+                    "concept": "120216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Select maternal complications?",
+                  "type": "obs",
+                  "id": "specificComplications",
+                  "questionOptions": {
+                    "concept": "1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "166520AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Recurrent Early Abortion"
+                      },
+                      {
+                        "concept": "116357AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Induced abortion"
+                      },
+                      {
+                        "concept": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Eclampsia"
+                      },
+                      {
+                        "concept": "124772AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Thrombosis"
+                      },
+                      {
+                        "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypertension"
+                      },
+                      {
+                        "concept": "130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Placental Abruption"
+                      },
+                      {
+                        "concept": "114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Placenta Praevia"
+                      },
+                      {
+                        "concept": "112259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Breech or transverse presentation"
+                      },
+                      {
+                        "concept": "131518AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Obstructed Labor"
+                      },
+                      {
+                        "concept": "1449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Gestational diabetes"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(PNcComplications) || PNcComplications !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Other Complications",
+                  "type": "obs",
+                  "id": "cOmpLicationSotHer",
+                  "questionOptions": {
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(specificComplications) || !arrayContains(specificComplications, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  }
+                },
+                {
+                  "label": "Any complications of the puerperal period?",
+                  "type": "obs",
+                  "id": "ComplicationspuerPeral",
+                  "questionOptions": {
+                    "concept": "1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Puerperal sepsis"
+                      },
+                      {
+                        "concept": "117069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Infections of the genital and urinary tracts"
+                      },
+                      {
+                        "concept": "127592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Retained Placenta"
+                      },
+                      {
+                        "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Seizure"
+                      },
+                      {
+                        "concept": "113195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Obstetrical uterus rupture"
+                      },
+                      {
+                        "concept": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Postpartum hemorrhage"
+                      },
+                      {
+                        "concept": "129318AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Postpartum psychosis"
+                      },
+                      {
+                        "concept": "49AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vesico-vaginal fistula"
+                      },
+                      {
+                        "concept": "119624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Deep vein thrombosis (DVT)"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(PNcComplications) || PNcComplications !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Other Complications",
+                  "type": "obs",
+                  "id": "cOmpLicationSotHerPUE",
+                  "questionOptions": {
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(ComplicationspuerPeral) || !arrayContains(ComplicationspuerPeral, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  }
+                },
+                {
+                  "label": "Clinical Notes",
+                  "type": "obs",
+                  "required": false,
+                  "id": "clinicNotesComps",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  "validators": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Other History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Do you have sexual partner?",
+              "type": "obs",
+              "id": "newPartner",
+              "questionOptions": {
+                "concept": "167144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Do you have pain during intercourse?",
+              "type": "obs",
+              "id": "PaINiNterCourse",
+              "questionOptions": {
+                "concept": "159218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Any postcoital bleeding?",
+              "type": "obs",
+              "id": "bLeedinterCourse",
+              "questionOptions": {
+                "concept": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Are there any concerns about your sexual activity?",
+              "type": "obs",
+              "id": "SexInterCourse",
+              "questionOptions": {
+                "concept": "160109AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify",
+              "type": "obs",
+              "id": "otherSexuaL",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(SexInterCourse) || SexInterCourse !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Do you smoke cigarattes/chew tobacco",
+              "type": "obs",
+              "id": "smokingStatus",
+              "required": "true",
+              "questionOptions": {
+                "concept": "163201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Do you take Alcohol",
+              "type": "obs",
+              "id": "alcoholUse",
+              "questionOptions": {
+                "concept": "159449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Do you abuse Drugs?",
+              "type": "obs",
+              "id": "DrugAbuseUse",
+              "questionOptions": {
+                "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Any Family history with hereditary illnesses",
+              "type": "obs",
+              "id": "fAMHistory",
+              "questionOptions": {
+                "concept": "81bbc312-d0f6-4950-822a-f7a47e599013",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Specify hereditary illnesses",
+              "type": "obs",
+              "id": "SpeCfAMHistory",
+              "questionOptions": {
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1be9b3bb-40dc-44bb-97c8-13824287f3cb",
+                    "label": "Genital tract cancer"
+                  },
+                  {
+                    "concept": "116026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Breast Cancer"
+                  },
+                  {
+                    "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetes"
+                  },
+                  {
+                    "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Breast Cancer"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(fAMHistory) || fAMHistory !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Other hereditary illnesses",
+              "type": "obs",
+              "id": "oTherHereditary",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(SpeCfAMHistory) || SpeCfAMHistory !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient's Examination",
+      "sections": [
+        {
+          "label": "General Examination Findings",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Physical examination findings:",
+              "required": "true",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Jaundice",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oedema",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oral thrush",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pallor",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "140125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Finger Clubbing",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "126952AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lymph Node Axillary",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cyanosis",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "126939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lymph Nodes Inguinal",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Wasting",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "142630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dehydration",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lethargic",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "id": "genExamFindings"
+            }
+          ]
+        },
+        {
+          "label": "Breast Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Breast examination done:",
+              "type": "obs",
+              "id": "breastExam",
+              "questionOptions": {
+                "concept": "163590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abnormal"
+                  }
+                ]
+              }
+            },
+            {
+              "label": " Breast Examination Findings",
+              "type": "obs",
+              "id": "breastFindings",
+              "questionOptions": {
+                "concept": "166648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "125212AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Breast swelling",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "146928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Breast tenderness",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "146934AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Redness",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "146931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mass/Lump",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "142248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nipple discharge",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "126278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nipple Soreness",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "113255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Skin retraction",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(breastExam) || breastExam !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='F'"
+              }
+            },
+            {
+              "label": "Other findings",
+              "type": "obs",
+              "id": "oTherFinDings",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(breastFindings) || !arrayContains(breastFindings, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Abdominal Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Abdomen findings",
+              "type": "obs",
+              "id": "abdOmeNfinDinGs",
+              "questionOptions": {
+                "concept": "1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "150915AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abdominal distension"
+                  },
+                  {
+                    "concept": "5103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abdominal mass"
+                  },
+                  {
+                    "concept": "5009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abdominal Swelling"
+                  },
+                  {
+                    "concept": "123455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Uterine/Adenexal masses/tenderness"
+                  },
+                  {
+                    "concept": "5105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abdominal tenderness"
+                  },
+                  {
+                    "concept": "156326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Free fluid"
+                  },
+                  {
+                    "concept": "127866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Rebound tenderness"
+                  },
+                  {
+                    "concept": "159619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Surgical scars"
+                  },
+                  {
+                    "concept": "124639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Tinea nigra"
+                  },
+                  {
+                    "concept": "125806AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Striae gravidarum"
+                  },
+                  {
+                    "concept": "126387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Striae albicans"
+                  },
+                  {
+                    "concept": "162109AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Umbilicus inverted/everted"
+                  },
+                  {
+                    "concept": "3aa47364-5a87-470b-8f10-49de703776e9",
+                    "label": "Woody hard, tense uterus"
+                  },
+                  {
+                    "concept": "153151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Relaxed uterus"
+                  },
+                  {
+                    "concept": "117177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Uterus smaller than dates"
+                  },
+                  {
+                    "concept": "141232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Uterus larger than dates"
+                  },
+                  {
+                    "concept": "166352AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Uterus softer than normal"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Site of Surgical scars",
+              "type": "obs",
+              "id": "SiteOfSrger",
+              "questionOptions": {
+                "concept": "164896AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transverse suprapubic"
+                  },
+                  {
+                    "concept": "871ebdfd-00cc-4434-ad06-838d82c4c2cc",
+                    "label": "Pfannenstiel incision"
+                  },
+                  {
+                    "concept": "129348AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Paraumbilical region"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(abdOmeNfinDinGs) || !arrayContains(abdOmeNfinDinGs, '')"
+              }
+            },
+            {
+              "label": "Amniotic Fluid findings (Pregnant women)",
+              "type": "obs",
+              "id": "abdOmeNfinDinGsPage",
+              "questionOptions": {
+                "concept": "163742AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "5008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fundal height"
+                  },
+                  {
+                    "concept": "148968AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Increased amniotic fluid volume"
+                  },
+                  {
+                    "concept": "5105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Decreased amniotic fluid volume"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancyOption) || pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Fundal Height",
+              "type": "obs",
+              "id": "fUnDHeiGht",
+              "questionOptions": {
+                "concept": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0"
+              }
+            },
+            {
+              "label": "Fetal lie",
+              "type": "obs",
+              "id": "SiteOfFetallie",
+              "questionOptions": {
+                "concept": "162089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Longitudinal"
+                  },
+                  {
+                    "concept": "124261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transverse"
+                  },
+                  {
+                    "concept": "132623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oblique"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancyOption) || pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Fetal presentation",
+              "type": "obs",
+              "id": "SiteOfFetalpresentation",
+              "questionOptions": {
+                "concept": "160090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "145939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cepahalic"
+                  },
+                  {
+                    "concept": "144519AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Breech"
+                  },
+                  {
+                    "concept": "164148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Occiput anterior position"
+                  },
+                  {
+                    "concept": "166357AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Occiput transverse position"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancyOption) || pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Other findings",
+              "type": "obs",
+              "id": "oTherFetal",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(SiteOfFetalpresentation) || SiteOfFetalpresentation !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Number of fetuses",
+              "type": "obs",
+              "id": "SiteOfFeTuses",
+              "questionOptions": {
+                "concept": "159949AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "151123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Single"
+                  },
+                  {
+                    "concept": "115491AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Multiple"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancyOption) || pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Fetal heart sound",
+              "type": "obs",
+              "id": "SiteOfFheart",
+              "questionOptions": {
+                "concept": "f9ce7180-82d2-4606-b2d9-9d4ee52686b7",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "163748AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Present"
+                  },
+                  {
+                    "concept": "163747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Absent"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancyOption) || pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Fetal Heart Rate",
+              "type": "obs",
+              "id": "pulseRate",
+              "questionOptions": {
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "160"
+              },
+              "alert": {
+                "alertWhenExpression": "myValue && (myValue >= 110 || myValue < 160)",
+                "message": "Pulse Rate is out of range (Normal range 110-160)"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(SiteOfFheart) || SiteOfFheart !== '163748AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Fetal Movements",
+              "type": "obs",
+              "id": "SiteOfFMovements",
+              "questionOptions": {
+                "concept": "160743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "163748AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Present"
+                  },
+                  {
+                    "concept": "164470AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Decreased"
+                  },
+                  {
+                    "concept": "163747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Absent"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancyOption) || pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Vaginal(Digital) Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Vaginal(Digital) Examination Findings",
+              "type": "obs",
+              "id": "vDEfindingS",
+              "questionOptions": {
+                "concept": "3e0ac5b1-4cbe-4f5a-ac7d-3e30a55dc4fa",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "686AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yeast Infection"
+                  },
+                  {
+                    "concept": "148002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Bacterial Vaginosis"
+                  },
+                  {
+                    "concept": "b39992a0-7d5b-4b72-b551-9e0970ae49fa",
+                    "label": "Sexually Transmitted Infections (STIs)"
+                  },
+                  {
+                    "concept": "119698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaginal Cysts"
+                  },
+                  {
+                    "concept": "123455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fibroids"
+                  },
+                  {
+                    "concept": "123441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Prolapse"
+                  },
+                  {
+                    "concept": "116023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cervical Cancer"
+                  },
+                  {
+                    "concept": "80fb501d-4128-4979-95f9-db4c9edc8fdc",
+                    "label": "Vaginal or Vulvar Cancer"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other (Specify)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Other findings",
+              "type": "obs",
+              "id": "vAgiNalOthers",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty() || !arrayContains(vDEfindingS, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Vulvar Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Vulvar Examination Findings",
+              "type": "obs",
+              "id": "geNtsExam",
+              "questionOptions": {
+                "concept": "166362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaginal discharge"
+                  },
+                  {
+                    "concept": "146934AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Redness"
+                  },
+                  {
+                    "concept": "124087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ulceration"
+                  },
+                  {
+                    "concept": "159619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Old scars"
+                  },
+                  {
+                    "concept": "130667AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pediculosis pubis(Crab lice)"
+                  },
+                  {
+                    "concept": "140930AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Excoriation"
+                  },
+                  {
+                    "concept": "112731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Varicosities"
+                  },
+                  {
+                    "concept": "139505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Genital Warts"
+                  },
+                  {
+                    "concept": "123382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaginal prolapse"
+                  },
+                  {
+                    "concept": "157484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hot, red, tender swelling in the posterolateral labia majora"
+                  },
+                  {
+                    "concept": "159261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaginal atrophy"
+                  },
+                  {
+                    "concept": "119698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaginal mass"
+                  },
+                  {
+                    "concept": "131809AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaginal trauma"
+                  },
+                  {
+                    "concept": "130482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaginal laceration/ulceration"
+                  },
+                  {
+                    "concept": "155900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "White thrush patches on vulva or wall of vagina"
+                  },
+                  {
+                    "concept": "113656AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Chancre"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Speculum Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Speculum Examination Findings",
+              "type": "obs",
+              "id": "sPeUlamFindinGs",
+              "questionOptions": {
+                "concept": "166806AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "116995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Red, inflamed cervix that bleeds on contact."
+                  },
+                  {
+                    "concept": "141491AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ectropion"
+                  },
+                  {
+                    "concept": "158410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cervical polyp"
+                  },
+                  {
+                    "concept": "118784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cervical growth"
+                  },
+                  {
+                    "concept": "157480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cervical contact bleeding"
+                  },
+                  {
+                    "concept": "126384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cervical tenderness"
+                  },
+                  {
+                    "concept": "121784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Adnexal tenderness on movement of the cervix"
+                  },
+                  {
+                    "concept": "123452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Uterine prolapse"
+                  },
+                  {
+                    "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oedema of the cervix"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Bimanual Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Bimanual Examination Findings",
+              "type": "obs",
+              "id": "bImaNualExam",
+              "questionOptions": {
+                "concept": "166806AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "141232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Uniformly enlarged uterus"
+                  },
+                  {
+                    "concept": "152755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unilateral or Bilateral ovarian enlargement"
+                  },
+                  {
+                    "concept": "113249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Retroverted uterus"
+                  },
+                  {
+                    "concept": "140174AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lobulated uterus"
+                  },
+                  {
+                    "concept": "123423AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Anteverted uterus"
+                  },
+                  {
+                    "concept": "140449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Marked tenderness of the lateral fornices"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient's Management",
+      "sections": [
+        {
+          "label": "Management Notes",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Doctor's Notes",
+              "type": "obs",
+              "id": "allsystemReview",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea",
+                "rows": "15"
+              }
+            },
+            {
+              "label": "Diagnosis",
+              "id": "DiagNosIS",
+              "type": "diagnosis",
+              "questionOptions": {
+                "rendering": "repeating",
+                "dataSource": "diagnoses",
+                "rank": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Plan and requested actions",
+      "sections": [
+        {
+          "label": "Plan and requested actions",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Medication orders",
+              "type": "obs",
+              "id": "medOrders",
+              "questionOptions": {
+                "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "163057AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Continue with previous medication"
+                  },
+                  {
+                    "concept": "165487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Change medication"
+                  },
+                  {
+                    "concept": "167533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Discontinue medication"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Name of Procedures Ordered",
+              "type": "obs",
+              "id": "procedureOrderd",
+              "questionOptions": {
+                "concept": "1806AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "multiCheckbox",
+                "answers": [
+                  {
+                    "concept": "166715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Incision and Drainage(I&D)"
+                  },
+                  {
+                    "concept": "527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Splinting and Casting"
+                  },
+                  {
+                    "concept": "ece03e1b-9a31-4d72-8b93-376eb3180227",
+                    "label": "Nebulization"
+                  },
+                  {
+                    "concept": "042dc29b-9ed9-48ec-819d-8cd7be0bc5b0",
+                    "label": "Nasogastric Tube Insertion"
+                  },
+                  {
+                    "concept": "113223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ear Irrigation"
+                  },
+                  {
+                    "concept": "db3058a6-6daa-44fb-93ce-920cbc6b606e",
+                    "label": "Urethral Catheterization"
+                  },
+                  {
+                    "concept": "161797AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Suprapubic Catheterization"
+                  },
+                  {
+                    "concept": "40774ee3-d3e3-423d-b001-081384feb953",
+                    "label": "Nasal Cauterization"
+                  },
+                  {
+                    "concept": "7db095f5-c54e-4305-94df-8b7382cfcb9f",
+                    "label": "Gastric Lavage"
+                  },
+                  {
+                    "concept": "484082d1-48ed-4f6b-b244-14c9cfcc979f",
+                    "label": "Removal of Foregn Body"
+                  },
+                  {
+                    "concept": "166941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Thoraxic Drainage"
+                  },
+                  {
+                    "concept": "162809AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Batholin Gland marsupialization"
+                  },
+                  {
+                    "concept": "166741AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intra-articular Injection"
+                  },
+                  {
+                    "concept": "161773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Haemorrhoids Injections"
+                  },
+                  {
+                    "concept": "164913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Joints Aspiration"
+                  },
+                  {
+                    "concept": "149977AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Release of trigger finger"
+                  },
+                  {
+                    "concept": "161623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Surgical toilet and suturing"
+                  },
+                  {
+                    "concept": "1935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Wound Dressing"
+                  },
+                  {
+                    "concept": "159728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Manual Vacuum Aspiration"
+                  },
+                  {
+                    "concept": "1637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dilatation and Curetage"
+                  },
+                  {
+                    "concept": "159842AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Episiotomy Repair"
+                  },
+                  {
+                    "concept": "161663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Skin Lesion Excision"
+                  },
+                  {
+                    "concept": "535aebd0-f381-4ae6-961c-caa0ecf64736",
+                    "label": "Biopsy"
+                  },
+                  {
+                    "concept": "161803AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Circumcision"
+                  },
+                  {
+                    "concept": "161284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Paracentesis"
+                  },
+                  {
+                    "concept": "165893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cannulation"
+                  },
+                  {
+                    "concept": "162651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Iv fluids management"
+                  },
+                  {
+                    "concept": "441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Bandaging"
+                  },
+                  {
+                    "concept": "fb5b9f5c-5e02-44ed-8c28-87e5306403ab",
+                    "label": " Enema Administration"
+                  },
+                  {
+                    "concept": "127896AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lumbar Puncture"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Other (Specify)",
+              "type": "obs",
+              "id": "specifyProceDure",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(procedureOrderd) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], procedureOrderd)"
+              }
+            },
+            {
+              "label": "Therapy ordered",
+              "type": "obs",
+              "id": "theRapyOrdered",
+              "questionOptions": {
+                "concept": "160846AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "9fbf5c54-17cd-44d0-925e-b2c12c412c32",
+                    "label": "Physiotherapy",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "2f85aed-695f-49b1-973e-002c37cbdebf",
+                    "label": "Occupational therapy",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "151108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Speech therapy",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nutritional therapy",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Other (Specify)",
+              "type": "obs",
+              "id": "specifyTherapy",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(theRapyOrdered) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], theRapyOrdered)"
+              }
+            },
+            {
+              "label": "Consultations with other specialist",
+              "type": "obs",
+              "id": "consultationText",
+              "questionOptions": {
+                "concept": "164081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Referrals",
+              "type": "obs",
+              "questionOptions": {
+                "concept": "1695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transferring to another ward"
+                  },
+                  {
+                    "concept": "164165AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referring to another facility"
+                  },
+                  {
+                    "concept": "1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Discharge"
+                  }
+                ]
+              },
+              "id": "referStO",
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Discharge status",
+              "type": "obs",
+              "required": true,
+              "id": "dischargeStatus",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "1695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "SNOMED CT",
+                    "value": "309039003"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "1695"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "162677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cured"
+                  },
+                  {
+                    "concept": "160431AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Absconded"
+                  },
+                  {
+                    "concept": "1694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Left against medical advice"
+                  },
+                  {
+                    "concept": "164165AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referred to higher level facility"
+                  },
+                  {
+                    "concept": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Deceased"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "referStO !== '1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Next review date:",
+              "required": false,
+              "id": "appointmentWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add appointments",
+                "workspaceName": "appointments-form-workspace"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                  "message": "Next Appointment should be greater than the encounter date."
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "dischargeStatus !== '162677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || referStO === '164165AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+    "encounterType": "92be533c-35f0-4505-bfbd-95724bea0208"
+  }
