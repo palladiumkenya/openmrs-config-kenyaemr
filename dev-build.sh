@@ -1,9 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Clean up previous build artifacts
 echo "Cleaning up previous build artifacts ..."
 rm -rf openmrs-config-kenyaemr
 rm -rf frontend
+
+# Prompt user for KDOD asset generation
+read -p "Is this for KDOD asset generation? (y/n): " is_kdod
 
 # Build assets
 echo "Building Kenya EMR 3.x assets ..."
@@ -30,7 +33,21 @@ cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
 cp "${CWD}/frontend-config/dev/kenyaemr.config.json" "${CWD}/frontend"
 cp "${CWD}/frontend-config/dev/openmrs.config.json" "${CWD}/frontend"
 
-# Function to handle openmrs-esm apps
+# Copy KDOD config or registration config based on user input and update index.html
+if [ "$is_kdod" = "y" ] || [ "$is_kdod" = "Y" ]; then
+    echo "Copying KDOD configuration..."
+    cp "${CWD}/frontend-config/registration/kdod.config.json" "${CWD}/frontend"
+    
+    # Update the configUrls in index.html
+    sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/kdod.config.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
+else
+    echo "Copying registration configuration..."
+    cp "${CWD}/frontend-config/registration/registration.config.json" "${CWD}/frontend"
+    
+    # Update the configUrls in index.html
+    sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/registration.config.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
+fi
+
 # Function to handle the renaming process
 rename_dist_folder() {
     local pattern=$1
@@ -59,8 +76,6 @@ rename_dist_folder() {
 
 # Handle renaming for openmrs-esm-form-entry-app-*
 rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
-#rename_dist_folder "openmrs-esm-stock-management-app-*" "dist-stock"
-
 
 # Exit with success status
 exit 0
