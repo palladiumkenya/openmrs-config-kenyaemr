@@ -1,0 +1,260 @@
+{
+  "name": "CPM Referral Form",
+  "description": "Community Pharmacy Model Referral form",
+  "version": "1",
+  "published": true,
+  "uuid": "b1e1f6fe-1894-4d06-bd8c-2b87f7cd9577",
+  "retired": false,
+  "encounter": "CPM Referral Encounter",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Encounter date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Referral Details",
+      "sections": [
+        {
+          "label": "Details of Pharmacy Referred to",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Name of Pharmacy",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "nameoFCp",
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
+            },
+            {
+              "label": "Contact Details",
+              "type": "obs",
+              "id": "treatmentSupportedNumber",
+              "questionOptions": {
+                "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
+                  "message": "Please enter the telephone number in the correct format e.g 0713888198 thats is 10 digits"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Reason for consultation",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Current ART Regimen",
+              "type": "obs",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "164855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "162559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/DDI/LPV/r"
+                  },
+                  {
+                    "concept": "162562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/LPV/R/TDF"
+                  },
+                  {
+                    "concept": "161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "EDF/3TC/EFV"
+                  },
+                  {
+                    "concept": "792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "D4T/3TC/NVP"
+                  },
+                  {
+                    "concept": "9fb85385-b4fb-468c-b7c1-22f75834b4b0",
+                    "label": "TDF/3TC/DTG"
+                  },
+                  {
+                    "concept": "162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/ABC/LPV/r"
+                  },
+                  {
+                    "concept": "4dc0119b-b2a6-4565-8d90-174b97ba31db",
+                    "label": "ABC/3TC/DTG"
+                  },
+                  {
+                    "concept": "164511AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AZT-3TC-ATV/r"
+                  },
+                  {
+                    "concept": "162563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/ABC/EFV"
+                  },
+                  {
+                    "concept": "6dec7d7d-0fda-4e8d-8295-cb6ef426878d",
+                    "label": "AZT/3TC/DTG"
+                  },
+                  {
+                    "concept": "164505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF-3TC-EFV"
+                  },
+                  {
+                    "concept": "817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/3TC/AZT"
+                  },
+                  {
+                    "concept": "1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/NVP/AZT"
+                  },
+                  {
+                    "concept": "162560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/D4T/LPV/r"
+                  },
+                  {
+                    "concept": "162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/NVP/3TC"
+                  },
+                  {
+                    "concept": "164512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF-3TC-ATV/r"
+                  },
+                  {
+                    "concept": "104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "EFV/FTC/TDF"
+                  },
+                  {
+                    "concept": "162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/LPV/TDF/r"
+                  },
+                  {
+                    "concept": "162565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/NVP/TDF"
+                  },
+                  {
+                    "concept": "162561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/AZT/LPV/r"
+                  },
+                  {
+                    "concept": "160124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AZT/3TC/EFV"
+                  },
+                  {
+                    "concept": "160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "D4T/3TC/EFV"
+                  }
+                ]
+              },
+              "id": "currentRGX",
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
+            },
+            {
+              "label": "Drug Refill Appointment",
+              "required": false,
+              "id": "appointmentWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add appointments",
+                "workspaceName": "appointments-form-workspace"
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Drug Order",
+              "required": false,
+              "id": "drugsWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add drug order",
+                "workspaceName": "add-drug-order"
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            }
+          ]
+        },
+        {
+          "label": "Referring Provider Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Cadre",
+              "type": "obs",
+              "id": "assistantCadre",
+              "questionOptions": {
+                "concept": "166014AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "CO"
+                  },
+                  {
+                    "concept": "162591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "MO"
+                  },
+                  {
+                    "concept": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nurse"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "encounterType": "c49952bf-218b-44b4-8d2a-1947cbf00fff"
+}
