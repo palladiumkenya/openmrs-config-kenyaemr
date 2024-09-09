@@ -1,0 +1,532 @@
+{
+  "name": "Community Pharmacy Screening Form",
+  "description": "ROC Screening Tool Community Pharmacy Form",
+  "version": "2.0",
+  "published": true,
+  "uuid": "f7dbe6b6-2a5a-46e6-af52-45bf2962f4aa",
+  "retired": false,
+  "encounter": "CPM Screening Encounter",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Screening date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Screening Questions",
+      "sections": [
+        {
+          "label": "Screening Questions for ROC",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Did the ROC miss their scheduled appointment for more than 7 days",
+              "type": "obs",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "ccf759b9-bdd4-4265-a71a-67a894d89dec",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "ROCAppointment",
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "TB Screening Questions",
+              "type": "obsGroup",
+              "id": "scReeNiNQuiZ",
+              "questionOptions": {
+                "concept": "160108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "group"
+              },
+              "questions": [
+                {
+                  "label": "Cough of any duration:",
+                  "type": "obs",
+                  "id": "cOughDuratiOn",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Fever:",
+                  "type": "obs",
+                  "id": "FeverIsh",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Noticeable weight loss or poor weight gain:",
+                  "type": "obs",
+                  "id": "WeigHtLossGain",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Night sweats:",
+                  "type": "obs",
+                  "id": "NighTsWeatS",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "age < 16 || ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Contact with a TB Case:",
+                  "type": "obs",
+                  "id": "ConTacTbCase",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "age > 15 || ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Resulting TB Status:",
+              "type": "obs",
+              "id": "tbResultstaTuS",
+              "questionOptions": {
+                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "readOnly": "true",
+                "calculate": {
+                  "calculateExpression": "((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) ? '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(ConTacTbCase) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || (((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(LeSSpLayFul) === '116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'? 1 : 0)) === 0)"
+              }
+            },
+            {
+              "label": "Any signs of Jaundice",
+              "type": "obs",
+              "id": "JauNDiceSigns",
+              "questionOptions": {
+                "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Persistent Headache?",
+              "type": "obs",
+              "id": "HeadAches",
+              "questionOptions": {
+                "concept": "159520AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Patient had contact with TB Infected person in the last 12 months?",
+              "type": "obs",
+              "id": "contactTB",
+              "required": "true",
+              "questionOptions": {
+                "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || tbResultstaTuS === '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || JauNDiceSigns === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || HeadAches === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || contactTB === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Please refer the Recepient of Care back to the Health Facility"
+              },
+              "hide": {
+                "hideWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Concurrent Medication History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Any Medication taken before this visit",
+              "type": "obs",
+              "id": "medHis",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Past Medication History",
+              "type": "obsGroup",
+              "id": "pastprescribedDrugs",
+              "questionOptions": {
+                "concept": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "medHis !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "questions": [
+                {
+                  "label": "Drug Name",
+                  "type": "obs",
+                  "id": "druG",
+                  "questionOptions": {
+                    "concept": "162725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Dosage",
+                  "type": "obs",
+                  "id": "dose",
+                  "questionOptions": {
+                    "concept": "1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  }
+                },
+                {
+                  "label": "Frequency",
+                  "type": "obs",
+                  "id": "frequency",
+                  "questionOptions": {
+                    "concept": "160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "160864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Once daily in the evening"
+                      },
+                      {
+                        "concept": "160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Thrice daily"
+                      },
+                      {
+                        "concept": "160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Once daily"
+                      },
+                      {
+                        "concept": "160865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Once daily in the morning"
+                      },
+                      {
+                        "concept": "160863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Once daily at bedtime"
+                      },
+                      {
+                        "concept": "160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Twice daily"
+                      },
+                      {
+                        "concept": "160870AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Four times daily"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Route of Adminstration",
+                  "type": "obs",
+                  "id": "routeOfAdmin",
+                  "questionOptions": {
+                    "concept": "163398AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "160240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Oral"
+                      },
+                      {
+                        "concept": "160242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Intravenous"
+                      },
+                      {
+                        "concept": "160243AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Intramuscular"
+                      },
+                      {
+                        "concept": "160245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Subcutaneous"
+                      },
+                      {
+                        "concept": "160241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Inhalation"
+                      },
+                      {
+                        "concept": "161253AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Intranasal"
+                      },
+                      {
+                        "concept": "162391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Transdermal"
+                      },
+                      {
+                        "concept": "162392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vaginally"
+                      },
+                      {
+                        "concept": "162393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Rectally"
+                      },
+                      {
+                        "concept": "162824AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Intraosseous"
+                      },
+                      {
+                        "concept": "162391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Transdermal"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Use of Herbal remedies?",
+              "type": "obs",
+              "id": "herbalRemedies",
+              "questionOptions": {
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Skipped any pills",
+              "type": "obs",
+              "id": "SkiPPedPills",
+              "questionOptions": {
+                "concept": "159530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Community Pharmacy Notes",
+      "sections": [
+        {
+          "label": "Progress Notes",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Pharmacist notes",
+              "type": "obs",
+              "id": "ClinICNotes",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "alert": {
+                "alertWhenExpression": "ROCAppointment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Please refer the Recepient of Care back to the Health Facility"
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "encounterType": "f0b27e6c-57cd-4dec-ad6b-43eee6e571ee"
+}
