@@ -1,0 +1,1833 @@
+{
+    "name": "Maxillofacial Clinical Consultation Form",
+    "description": "Maxillofacial Speciality Clinic Form",
+    "version": "1",
+    "published": true,
+    "uuid": "6966c105-70a7-4b45-af12-de3163058caa",
+    "retired": false,
+    "encounter": "Consultation",
+    "pages": [
+      {
+        "label": "Visit Details",
+        "sections": [
+          {
+            "label": "Encounter Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Visit date:",
+                "type": "encounterDatetime",
+                "required": "true",
+                "id": "encDate",
+                "questionOptions": {
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Provider:",
+                "type": "encounterProvider",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encProvider "
+              },
+              {
+                "label": "Location:",
+                "type": "encounterLocation",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encLocation"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Patient's History",
+        "sections": [
+          {
+            "label": "Patient Compalints",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Patient having complaint(s) today?",
+                "type": "obs",
+                "id": "complaintsToday",
+                "required": "true",
+                "questionOptions": {
+                  "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Presenting complaints",
+                "type": "obsGroup",
+                "id": "ComplaintLodgeByClient",
+                "questionOptions": {
+                  "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "repeating"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "complaintsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                },
+                "questions": [
+                  {
+                    "label": "Complaint",
+                    "type": "obs",
+                    "id": "cOmplaIntField",
+                    "questionOptions": {
+                      "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "5954AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Difficulty in swallowing"
+                        },
+                        {
+                          "concept": "142369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Difficulty in opening the mouth"
+                        },
+                        {
+                          "concept": "155940AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Difficulty in chewing"
+                        },
+                        {
+                          "concept": "127206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": " Lack of saliva "
+                        },
+                        {
+                          "concept": "132653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Numbness"
+                        },
+                        {
+                          "concept": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Pain"
+                        },
+                        {
+                          "concept": "163894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Swelling"
+                        },
+                        {
+                          "concept": "124105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Trismus"
+                        },
+                        {
+                          "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Other"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "label": "Specify other complaints",
+                    "type": "obs",
+                    "id": "OtherSpecificComplaints",
+                    "questionOptions": {
+                      "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                      "rendering": "textarea"
+                    },
+                    "validators": [],
+                    "hide": {
+                      "hideWhenExpression": "isEmpty(cOmplaIntField) || cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  },
+                  {
+                    "label": "Site",
+                    "type": "obs",
+                    "id": "complaintSite",
+                    "questionOptions": {
+                      "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "text"
+                    },
+                    "validators": [],
+                    "hide": {
+                      "hideWhenExpression": "cOmplaIntField !== '114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || cOmplaIntField !== '163894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  },
+                  {
+                    "label": "Duration (Days)",
+                    "type": "obs",
+                    "id": "complaint-duration",
+                    "questionOptions": {
+                      "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "number",
+                      "min": "0"
+                    },
+                    "validators": []
+                  },
+                  {
+                    "label": "Onset Status",
+                    "type": "obs",
+                    "id": "onsetStatus",
+                    "questionOptions": {
+                      "concept": "d7a3441d-6aeb-49be-b7d6-b2a3bb39e78d",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Gradual"
+                        },
+                        {
+                          "concept": "162707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Sudden"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "label": "Severity",
+                    "type": "obs",
+                    "id": "seViD",
+                    "questionOptions": {
+                      "concept": "160287AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "number",
+                      "min": "0.0",
+                      "max": "10.0"
+                    },
+                    "hide": {
+                      "hideWhenExpression": "cOmplaIntField !== '114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  }
+                ]
+              },
+              {
+                "label": "History of presenting illiness notes",
+                "type": "obs",
+                "id": "ClinICNotes",
+                "questionOptions": {
+                  "concept": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea",
+                  "rows": "10"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Past Medical/Surgical History",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Previous/current illnesses or diseases?",
+                "type": "obs",
+                "id": "medHis",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "1806AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Specify the Illnesses or Diseases:",
+                "required": "true",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "166778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Malignancy/Tumour"
+                    },
+                    {
+                      "concept": "144240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Congenital anomaly"
+                    },
+                    {
+                      "concept": "127645AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Total resorption of the jaws"
+                    },
+                    {
+                      "concept": "163405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "TMJ Ankylosis"
+                    },
+                    {
+                      "concept": "147912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Bell’s Palsy"
+                    },
+                    {
+                      "concept": "115432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Heart Attack"
+                    },
+                    {
+                      "concept": "115432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Myocardial Infarction"
+                    },
+                    {
+                      "concept": "121610AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Angina Pectoris"
+                    },
+                    {
+                      "concept": "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Cerebrovascular accident (C.V.A)"
+                    },
+                    {
+                      "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Hypertension"
+                    },
+                    {
+                      "concept": "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Heart Failure"
+                    },
+                    {
+                      "concept": "159339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Bleeding Disorders"
+                    },
+                    {
+                      "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Diabetes"
+                    },
+                    {
+                      "concept": "127447AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Rheumatic Fever"
+                    },
+                    {
+                      "concept": "111479AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Viral Hepatitis"
+                    },
+                    {
+                      "concept": "1169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "HIV"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(medHis) || medHis !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                },
+                "id": "curreNtmeD"
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "specifyTIllneSS",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(curreNtmeD) || !arrayContains(curreNtmeD, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              }
+            ]
+          },
+          {
+            "label": "History of accident/trauma",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "History of accident/trauma?",
+                "type": "obs",
+                "id": "TrUmAHis",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "159520AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Explain",
+                "type": "obs",
+                "id": "trAumAExp",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea",
+                  "rows": "10"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(TrUmAHis) || TrUmAHis !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Family History",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Family History",
+                "type": "obs",
+                "id": "fAmHisT",
+                "questionOptions": {
+                  "concept": "140228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "label": "Congenital Anomalies(lip clefts or palate clefts)",
+                      "concept": "120543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    },
+                    {
+                      "label": "Craniofacial syndrome",
+                      "concept": "131737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    },
+                    {
+                      "label": "Dental anormalies",
+                      "concept": "119559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    },
+                    {
+                      "label": "Mandibular Prognathism",
+                      "concept": "115928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    },
+                    {
+                      "label": "Others",
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "specifyTherapy",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(fAmHisT) || !arrayContains(fAmHisT, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Patient's Examination",
+        "sections": [
+          {
+            "label": "General Oral Examination",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Oral examination findings:",
+                "required": "true",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    },
+                    {
+                      "concept": "140824AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Facial asymmetry",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "131014AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Reduced and painful eye movements",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "140919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Proptosis",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "142283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Pupil dilatation",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "135588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Loss of taste",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "167200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Difficulty in speech",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "119029AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Reduced or absent muscle movement",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "140817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Difficulty making facial expressions",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "142684AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Inability to blink",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "147912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Facial droop",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "160013AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Drooling of saliva",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "124105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Trismus (reduced mouth opening)",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "136421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "TMJ click or crepitus on opening or closing",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "110316AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Deviation on opening the mouth",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "143438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Restricted lateral mandibular movement",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "135645AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Joint locking",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "145015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Missing jawbone",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Poorly defined jaw",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "143820AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Small lower jaw (Micrognathia)",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "143853AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Large lower jaw (Macrognathia)",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "158833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Jaw clamping, involuntary muscle movement",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "114800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Degree of jaw opening",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "135488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Lymphadenopathy",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                },
+                "id": "genExamFindings"
+              },
+              {
+                "label": "Missing Jawbone findings",
+                "type": "obs",
+                "id": "MiSSInJWbfinds",
+                "questionOptions": {
+                  "concept": "faa7fd68-5a34-4ba2-b60f-6ba7ec77b391",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "166335AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Mandible"
+                    },
+                    {
+                      "concept": "166280AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Maxilla"
+                    },
+                    {
+                      "concept": "d8a9101d-f0db-43e3-a214-b22f1e84ec16",
+                      "label": "Both"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '145015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Lymphdenopathy findings",
+                "type": "obs",
+                "id": "lYmphfinds",
+                "questionOptions": {
+                  "concept": "faa7fd68-5a34-4ba2-b60f-6ba7ec77b391",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "158971AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Submental"
+                    },
+                    {
+                      "concept": "504AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Submandibular"
+                    },
+                    {
+                      "concept": "164487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Deep Cervical"
+                    },
+                    {
+                      "concept": "126384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Tenderness"
+                    },
+                    {
+                      "concept": "160377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Mobile"
+                    },
+                    {
+                      "concept": "160376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Fixed"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '135488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Intra-Oral Examination",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Intra-Oral examination findings:",
+                "required": "true",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "checkbox",
+                  "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    },
+                    {
+                      "concept": "0054aae2-d945-47fd-8fba-8b515e780f41",
+                      "label": "Missing tissue",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "119959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Tongue fissures",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ulcers",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "130465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Periodontal tissues plaque and calculus",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "124580AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Retained deciduous teeth",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "125291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Retained roots",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "115953AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Malposed teeth",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "126747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Exposed dentin",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "160142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Exposed roots",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "120253AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dental Carious Lesions",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Discharging sinuses on the gums",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "114994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Open bite",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "139745AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Occlusion",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Loose teeth",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "122609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Teeth loss",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "160687AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Tooth tenderness",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "119758AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Crowded teeth",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "146955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Cleft",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(visitScheduled) || personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                },
+                "id": "IntragenExamFindings"
+              },
+              {
+                "label": "Specify missing tissue",
+                "type": "obs",
+                "id": "mIssTissue",
+                "questionOptions": {
+                  "concept": "b9879725-26f6-4aa4-8777-bc7f75d388c1",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "160502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Tongue"
+                    },
+                    {
+                      "concept": "156211AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Facial Muscles"
+                    },
+                    {
+                      "concept": "166206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Cheeks"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '0054aae2-d945-47fd-8fba-8b515e780f41')"
+                }
+              },
+              {
+                "label": "Specify the Ulcer site and Condition",
+                "type": "obsGroup",
+                "id": "mUlTipleUlcers",
+                "questionOptions": {
+                  "concept": "2945156d-4125-45e9-b81e-c4907970c30f",
+                  "rendering": "repeating"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                },
+                "questions": [
+                  {
+                    "label": "Specify Ulcer site",
+                    "type": "obs",
+                    "id": "UlcErspEcific",
+                    "questionOptions": {
+                      "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "text"
+                    }
+                  },
+                  {
+                    "label": "Ulcer site condition",
+                    "type": "obs",
+                    "id": "UlcerSiteCon",
+                    "questionOptions": {
+                      "concept": "1806AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Regular"
+                        },
+                        {
+                          "concept": "166784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Irregular"
+                        },
+                        {
+                          "concept": "132623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Sloping"
+                        },
+                        {
+                          "concept": "125099AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Punched Out"
+                        },
+                        {
+                          "concept": "122901AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Undermined"
+                        },
+                        {
+                          "concept": "120943AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Rolled"
+                        },
+                        {
+                          "concept": "152286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Everted"
+                        },
+                        {
+                          "concept": "fbbb5cd7-6d96-4da2-8709-490499fbe703",
+                          "label": "Serous Discharge"
+                        },
+                        {
+                          "concept": "1076AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Purulent"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "label": "Open bite findings",
+                "type": "obs",
+                "id": "OBfinds",
+                "questionOptions": {
+                  "concept": "faa7fd68-5a34-4ba2-b60f-6ba7ec77b391",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "121557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Anterior Open Bite"
+                    },
+                    {
+                      "concept": "113936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Posterior Open Bite"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '114994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Occlusion findings",
+                "type": "obs",
+                "id": "OCCfinds",
+                "questionOptions": {
+                  "concept": "faa7fd68-5a34-4ba2-b60f-6ba7ec77b391",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "139745AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Neutro occlusion"
+                    },
+                    {
+                      "concept": "141872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Disto occlusion"
+                    },
+                    {
+                      "concept": "134291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Messio occlusion"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '139745AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Number of loose Central Incisor",
+                "type": "obs",
+                "id": "CTfinds",
+                "questionOptions": {
+                  "concept": "159930AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "4",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '5226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Number of loose Lateral Incisor",
+                "type": "obs",
+                "id": "LTfinds",
+                "questionOptions": {
+                  "concept": "163172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "4",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '5226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Number of loose Canine Incisor",
+                "type": "obs",
+                "id": "CIfinds",
+                "questionOptions": {
+                  "concept": "165416AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "4",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '5226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Number of loose Premolar Incisor",
+                "type": "obs",
+                "id": "PIfinds",
+                "questionOptions": {
+                  "concept": "163171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "8",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '5226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Number of loose Molar Incisor",
+                "type": "obs",
+                "id": "MIfinds",
+                "questionOptions": {
+                  "concept": "163169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "12",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '5226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Number of loss Central Incisor",
+                "type": "obs",
+                "id": "LSCTfinds",
+                "questionOptions": {
+                  "concept": "159930AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "4",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '122609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Number of loss Lateral Incisor",
+                "type": "obs",
+                "id": "LTfindsLS",
+                "questionOptions": {
+                  "concept": "163172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "4",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '122609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Number of loss Canine Incisor",
+                "type": "obs",
+                "id": "CIfindsLS",
+                "questionOptions": {
+                  "concept": "165416AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "4",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '122609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Number of loss Premolar Incisor",
+                "type": "obs",
+                "id": "PIfindsLS",
+                "questionOptions": {
+                  "concept": "163171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "8",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '122609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Number of loss Molar Incisor",
+                "type": "obs",
+                "id": "MIfindsLS",
+                "questionOptions": {
+                  "concept": "163169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number",
+                  "max": "12",
+                  "min": "0"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '122609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Cleft findings",
+                "type": "obs",
+                "id": "CleFtfinds",
+                "questionOptions": {
+                  "concept": "faa7fd68-5a34-4ba2-b60f-6ba7ec77b391",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "145066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Lips"
+                    },
+                    {
+                      "concept": "145063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Palate"
+                    },
+                    {
+                      "concept": "d8a9101d-f0db-43e3-a214-b22f1e84ec16",
+                      "label": "Both"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(IntragenExamFindings) || !arrayContains(IntragenExamFindings, '146955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Diagnosis",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Clinical Diagnosis",
+                "id": "clinicalDiagnosisId",
+                "type": "diagnosis",
+                "questionOptions": {
+                  "rendering": "repeating",
+                  "dataSource": "diagnoses",
+                  "rank": 1
+                },
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Investigations",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Order any Investigation?",
+                "type": "obs",
+                "id": "investigationOrderd",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "0179f241-8c1d-47c1-8128-841f6508e251",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Lab Order",
+                "required": false,
+                "id": "labsWorkspaceLauncher",
+                "questionOptions": {
+                  "rendering": "workspace-launcher",
+                  "buttonLabel": "Add lab order",
+                  "workspaceName": "add-lab-order"
+                },
+                "hide": {
+                  "hideWhenExpression": "investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Radiology Order",
+                "required": false,
+                "id": "RadsWorkspaceLauncher",
+                "questionOptions": {
+                  "rendering": "workspace-launcher",
+                  "buttonLabel": "Add radiology order",
+                  "workspaceName": "add-radiology-order"
+                },
+                "hide": {
+                  "hideWhenExpression": "investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Patient's Management",
+        "sections": [
+          {
+            "label": "Final Diagnosis",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Diagnosis",
+                "id": "DiagNosIS",
+                "type": "diagnosis",
+                "questionOptions": {
+                  "rendering": "repeating",
+                  "dataSource": "diagnoses",
+                  "rank": 1
+                }
+              }
+            ]
+          },
+          {
+            "label": "Review of Maxillofacial",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Maxillofacial Disability",
+                "type": "obs",
+                "id": "MaXallsystemReview",
+                "questionOptions": {
+                  "concept": "1069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "120043AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "The Teeth"
+                    },
+                    {
+                      "concept": "119170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Jaws"
+                    },
+                    {
+                      "concept": "112454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Temporomandibular joints"
+                    },
+                    {
+                      "concept": "115297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nerves"
+                    },
+                    {
+                      "concept": "119103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Soft Tissues"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "syStemsRevieW !=='1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Maxillofacial Disability findings (Teeth)",
+                "type": "obs",
+                "id": "mAxFindingsTeeth",
+                "questionOptions": {
+                  "concept": "1120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "160249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Temporary"
+                    },
+                    {
+                      "concept": "1079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Permanent"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(MaXallsystemReview) || !arrayContains(MaXallsystemReview, '120043AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Maxillofacial Disability findings (Jaws)",
+                "type": "obs",
+                "id": "mAxFindingsJaws",
+                "questionOptions": {
+                  "concept": "1120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "160249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Temporary"
+                    },
+                    {
+                      "concept": "1079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Permanent"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(MaXallsystemReview) || !arrayContains(MaXallsystemReview, '119170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Maxillofacial Disability findings (Temporomandibular joints)",
+                "type": "obs",
+                "id": "mAxFindingsJoints",
+                "questionOptions": {
+                  "concept": "1120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "160249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Temporary"
+                    },
+                    {
+                      "concept": "1079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Permanent"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(MaXallsystemReview) || !arrayContains(MaXallsystemReview, '112454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Maxillofacial Disability findings (Nerves)",
+                "type": "obs",
+                "id": "mAxFindingsNerves",
+                "questionOptions": {
+                  "concept": "1120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "160249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Temporary"
+                    },
+                    {
+                      "concept": "1079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Permanent"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(MaXallsystemReview) || !arrayContains(MaXallsystemReview, '115297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Maxillofacial Disability findings (Soft Tissues)",
+                "type": "obs",
+                "id": "mAxFindingsTissues",
+                "questionOptions": {
+                  "concept": "1120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "160249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Temporary"
+                    },
+                    {
+                      "concept": "1079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Permanent"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(MaXallsystemReview) || !arrayContains(MaXallsystemReview, '119103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Plan and requested actions",
+        "sections": [
+          {
+            "label": "Plan and requested actions",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Recommended Assistive Product(s)",
+                "type": "obs",
+                "id": "AssTProDucts",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea",
+                  "rows": "10"
+                }
+              },
+              {
+                "label": "Other services provided",
+                "type": "obs",
+                "id": "specifyProceDure",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              },
+              {
+                "label": "Consultations with other specialist",
+                "type": "obs",
+                "id": "consultationText",
+                "questionOptions": {
+                  "concept": "163229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              },
+              {
+                "label": "Patient Outcome",
+                "type": "obs",
+                "questionOptions": {
+                  "concept": "1695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Discharged Home"
+                    },
+                    {
+                      "concept": "1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Admission"
+                    },
+                    {
+                      "concept": "1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Referral"
+                    }
+                  ]
+                },
+                "id": "pAtIentOtcome",
+                "hide": {
+                  "hideWhenExpression": ""
+                }
+              },
+              {
+                "label": "Reffered For?",
+                "type": "obs",
+                "id": "refferalsOrderd",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !=='1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Referred to?",
+                "type": "obs",
+                "id": "referralTo",
+                "questionOptions": {
+                  "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "select",
+                  "answers": [
+                    {
+                      "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other health facility"
+                    },
+                    {
+                      "concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "This health facility"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !=='1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Transfer to Facility:",
+                "type": "obs",
+                "id": "transferToFacility",
+                "questionOptions": {
+                  "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "encounterLocation"
+                },
+                "hide": {
+                  "hideWhenExpression": "referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "This Facility:",
+                "type": "obs",
+                "id": "thisfacility",
+                "questionOptions": {
+                  "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text",
+                  "calculate": {
+                    "calculateExpression": "referralTo === '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && userLocation.display"
+                  }
+                },
+                "hide": {
+                  "hideWhenExpression": "referralTo !=='163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Specify Department",
+                "type": "obs",
+                "id": "thisfacilityDepT",
+                "questionOptions": {
+                  "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "referralTo !=='163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Date of Admission",
+                "type": "obs",
+                "id": "dateOfPatientAdmission",
+                "questionOptions": {
+                  "concept": "1640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "date"
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Reason for admission",
+                "type": "obs",
+                "id": "admiPatientReason",
+                "questionOptions": {
+                  "concept": "162879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Type of Admission?",
+                "type": "obs",
+                "id": "admissionType",
+                "questionOptions": {
+                  "concept": "162477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "New"
+                    },
+                    {
+                      "concept": "159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Readmission"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Priority of Admission?",
+                "type": "obs",
+                "id": "priorityOfAdmission",
+                "questionOptions": {
+                  "concept": "1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "160473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Emergency"
+                    },
+                    {
+                      "concept": "159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Direct"
+                    },
+                    {
+                      "concept": "242d8a86-47d2-433c-b393-5d1dc43b96ec",
+                      "label": "Scheduled"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "admissionType !== '164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Priority of Admission?",
+                "type": "obs",
+                "id": "priorityOfAdmissionReadmit",
+                "questionOptions": {
+                  "concept": "1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "160473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Emergency"
+                    },
+                    {
+                      "concept": "159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Direct"
+                    },
+                    {
+                      "concept": "242d8a86-47d2-433c-b393-5d1dc43b96ec",
+                      "label": "Scheduled"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "admissionType !== '159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Admission Ward",
+                "type": "obs",
+                "id": "admissionWardMale",
+                "questionOptions": {
+                  "concept": "5fc29316-0869-4b3b-ae2f-cc37c6014eb7",
+                  "rendering": "select",
+                  "answers": [
+                    {
+                      "concept": "b665252a-06f5-401b-872b-d197e79cfc65",
+                      "label": "Male Medical"
+                    },
+                    {
+                      "concept": "c3e4d9e6-8555-4b61-a2ed-e3b8c2d407e1",
+                      "label": "Male Surgical"
+                    },
+                    {
+                      "concept": "161629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Observation Ward"
+                    },
+                    {
+                      "concept": "162680AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Recovery Ward"
+                    },
+                    {
+                      "concept": "71f67c66-3efc-4532-b4fb-b1e5db28f2b2",
+                      "label": "Psychiatric Ward"
+                    },
+                    {
+                      "concept": "8e0f5466-7646-44ff-b049-a17572fb26b0",
+                      "label": "Isolation Ward"
+                    },
+                    {
+                      "concept": "161936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Intensive Care Unit"
+                    },
+                    {
+                      "concept": "1fdfb8bd-cbe2-484e-aeda-5160b0f6ba09",
+                      "label": "Amenity Ward "
+                    },
+                    {
+                      "concept": "167396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "High Dependecy Unit"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !=='1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'M' ||!(age >12) "
+                }
+              },
+              {
+                "label": "Admission Ward",
+                "type": "obs",
+                "id": "admissionWardFemale",
+                "questionOptions": {
+                  "concept": "5fc29316-0869-4b3b-ae2f-cc37c6014eb7",
+                  "rendering": "select",
+                  "answers": [
+                    {
+                      "concept": "0d0ff617-7e40-475c-b010-2376c8a13684",
+                      "label": "Female medical"
+                    },
+                    {
+                      "concept": "24cb4537-f5c5-4e3b-8cdb-1d8369e623ce",
+                      "label": "Female Surgical"
+                    },
+                    {
+                      "concept": "90462a4e-a449-4c39-87b2-ddff230ec175",
+                      "label": "Maternity Ward"
+                    },
+                    {
+                      "concept": "164835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Labor and Delivery Unit"
+                    },
+                    {
+                      "concept": "161629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Observation Ward"
+                    },
+                    {
+                      "concept": "162680AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Recovery Ward"
+                    },
+                    {
+                      "concept": "71f67c66-3efc-4532-b4fb-b1e5db28f2b2",
+                      "label": "Psychiatric Ward"
+                    },
+                    {
+                      "concept": "8e0f5466-7646-44ff-b049-a17572fb26b0",
+                      "label": "Isolation Ward"
+                    },
+                    {
+                      "concept": "161936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Intensive Care Unit"
+                    },
+                    {
+                      "concept": "1fdfb8bd-cbe2-484e-aeda-5160b0f6ba09",
+                      "label": "Amenity Ward "
+                    },
+                    {
+                      "concept": "123e624b-f460-4877-8ea9-2ea61b7146a2",
+                      "label": "Gynaecological Ward"
+                    },
+                    {
+                      "concept": "167396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "High Dependecy Unit"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !=='1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || !(age >12) "
+                }
+              },
+              {
+                "label": "Admission Ward",
+                "type": "obs",
+                "id": "admissionWardChild",
+                "questionOptions": {
+                  "concept": "5fc29316-0869-4b3b-ae2f-cc37c6014eb7",
+                  "rendering": "select",
+                  "answers": [
+                    {
+                      "concept": "385e4ad3-be6b-4b71-bb46-12f494d7fe3e",
+                      "label": "Pediatric Ward"
+                    },
+                    {
+                      "concept": "162680AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Recovery Ward"
+                    },
+                    {
+                      "concept": "71f67c66-3efc-4532-b4fb-b1e5db28f2b2",
+                      "label": "Psychiatric Ward"
+                    },
+                    {
+                      "concept": "8e0f5466-7646-44ff-b049-a17572fb26b0",
+                      "label": "Isolation Ward"
+                    },
+                    {
+                      "concept": "161936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Intensive Care Unit"
+                    },
+                    {
+                      "concept": "1fdfb8bd-cbe2-484e-aeda-5160b0f6ba09",
+                      "label": "Amenity Ward "
+                    },
+                    {
+                      "concept": "167396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "High Dependecy Unit"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !=='1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ||  !(age >=0.0766613962 && age <=12)"
+                }
+              },
+              {
+                "label": "Admission Ward",
+                "type": "obs",
+                "id": "admissionWardneonates",
+                "questionOptions": {
+                  "concept": "5fc29316-0869-4b3b-ae2f-cc37c6014eb7",
+                  "rendering": "select",
+                  "answers": [
+                    {
+                      "concept": "162680AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Recovery Ward"
+                    },
+                    {
+                      "concept": "71f67c66-3efc-4532-b4fb-b1e5db28f2b2",
+                      "label": "Psychiatric Ward"
+                    },
+                    {
+                      "concept": "8e0f5466-7646-44ff-b049-a17572fb26b0",
+                      "label": "Isolation Ward"
+                    },
+                    {
+                      "concept": "161936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Intensive Care Unit"
+                    },
+                    {
+                      "concept": "1fdfb8bd-cbe2-484e-aeda-5160b0f6ba09",
+                      "label": "Amenity Ward "
+                    },
+                    {
+                      "concept": "a7fe93d1-2fd3-4738-acf8-d98626efe4a2",
+                      "label": "Nursery Unit/Newborn Unit"
+                    },
+                    {
+                      "concept": "167396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "High Dependecy Unit"
+                    },
+                    {
+                      "concept": "165644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Neonatal Intensive Care Unit"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !=='1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || !(age < 0.0766613962)"
+                }
+              },
+              {
+                "label": "Type of hospital stay?",
+                "type": "obs",
+                "id": "hospitalStay",
+                "questionOptions": {
+                  "concept": "1896AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Daycase"
+                    },
+                    {
+                      "concept": "161018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Overnight"
+                    },
+                    {
+                      "concept": "1275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Longer stay"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !=='1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Admitting Doctor:",
+                "type": "encounterProvider",
+                "id": "admittingDoctor ",
+                "default": "",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !=='1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Next review date:",
+                "type": "obs",
+                "id": "appointmentWorkspaceLauncher",
+                "questionOptions": {
+                  "rendering": "workspace-launcher",
+                  "buttonLabel": "Add appointments",
+                  "workspaceName": "appointments-form-workspace"
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "pAtIentOtcome !== '1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || referStO === '164165AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8"
+  }
