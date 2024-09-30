@@ -8,7 +8,7 @@
 	"encounter": "MCH Mother Consultation",
 	"pages": [
 	  {
-		"label": "Delivery",
+		"label": "Visit Details",
 		"sections": [
 		  {
 			"label": "Encounter Details",
@@ -72,13 +72,18 @@
 				}
 			  }
 			]
-		  },
+		  }
+		]
+	  },
+	  {
+		"label": "Patient History",
+		"sections": [
 		  {
-			"label": "Delivery and Baby Observations",
+			"label": "Pregnancy History",
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "Date of Last Menstrual Period(LMP)",
+				"label": "Date of Last Normal Menstrual Period(LNMP)",
 				"type": "obs",
 				"id": "lastLmpDate",
 				"questionOptions": {
@@ -97,6 +102,267 @@
 				  }
 				]
 			  },
+			  {
+				"label": "Estimated date of Delivery",
+				"type": "obs",
+				"id": "lastDeliveryDate",
+				"required": "true",
+				"questionOptions": {
+				  "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date",
+				  "calculate": {
+					"calculateExpression": "moment(lastLmpDate).isValid() ? moment(lastLmpDate).add(280, 'days').toDate() : ''"
+				  }
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "true"
+				  }
+				]
+			  },
+			  {
+				"label": "Gestation at birth (in weeks):",
+				"type": "obs",
+				"id": "gestation",
+				"questionOptions": {
+				  "concept": "1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "number",
+				  "min": "24",
+				  "max": "50"
+				}
+			  },
+			  {
+				"label": "Duration of Labor (Hours):",
+				"type": "obs",
+				"id": "durationOfLabour",
+				"questionOptions": {
+				  "concept": "159616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "number",
+				  "min": "0",
+				  "max": "99"
+				}
+			  },
+			  {
+				"label": "Mode of Delivery:",
+				"type": "obs",
+				"id": "deliveryMode",
+				"questionOptions": {
+				  "concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Spontaneous vaginal delivery(SVD)"
+					},
+					{
+					  "concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Cesarean section(CS)"
+					},
+					{
+					  "concept": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Breech delivery"
+					},
+					{
+					  "concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Assisted vaginal delivery(AVD)"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": ""
+				}
+			  },
+			  {
+				"label": "Date of Delivery:",
+				"type": "encounterDatetime",
+				"questionOptions": {
+				  "rendering": "date",
+				  "concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				"id": "deliveryDateTime",
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				],
+				"required": "true"
+			  },
+			  {
+				"label": "Time of Delivery",
+				"type": "obs",
+				"id": "TtakEn",
+				"required": "true",
+				"datePickerFormat": "timer",
+				"questionOptions": {
+				  "concept": "162140AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				]
+			  },
+			  {
+				"label": "Place of Delivery:",
+				"type": "obs",
+				"id": "placeOfDelivery",
+				"questionOptions": {
+				  "concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Home"
+					},
+					{
+					  "concept": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Facility"
+					},
+					{
+					  "concept": "1601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Born Before Arrival"
+					}
+				  ]
+				}
+			  },
+			  {
+				"label": "Delivery Conducted By:",
+				"type": "obs",
+				"id": "deliveryConductedBy",
+				"questionOptions": {
+				  "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				}
+			  },
+			  {
+				"label": "Cadre :",
+				"type": "obs",
+				"id": "deliveryFaciliTy",
+				"questionOptions": {
+				  "concept": "1573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "1574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Clinical officer/Doctor"
+					},
+					{
+					  "concept": "1578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Midwife"
+					},
+					{
+					  "concept": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Nurse"
+					},
+					{
+					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(placeOfDelivery) || placeOfDelivery !== '1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Cadre :",
+				"type": "obs",
+				"id": "deliveryHomeBBA",
+				"questionOptions": {
+				  "concept": "1573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "1574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Clinical officer/Doctor"
+					},
+					{
+					  "concept": "1578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Midwife"
+					},
+					{
+					  "concept": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Nurse"
+					},
+					{
+					  "concept": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Traditional Birth Attendant"
+					},
+					{
+					  "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Community Health Care Promoter"
+					},
+					{
+					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(placeOfDelivery) || placeOfDelivery === '1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Specify:",
+				"type": "obs",
+				"id": "OtheRcadRes",
+				"questionOptions": {
+				  "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				},
+				"hide": {
+				  "hideWhenExpression": "deliveryFaciliTy !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Specify:",
+				"type": "obs",
+				"id": "OtheRcadResHome",
+				"questionOptions": {
+				  "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				},
+				"hide": {
+				  "hideWhenExpression": "deliveryHomeBBA !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Initiated BF in less than 1 hour:",
+				"type": "obs",
+				"id": "babyInitiatedBF",
+				"questionOptions": {
+				  "concept": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  }
+			]
+		  }
+		]
+	  },
+	  {
+		"label": "Patient Examination",
+		"sections": [
+		  {
+			"label": "Mother's Examination",
+			"isExpanded": "true",
+			"questions": [
 			  {
 				"label": "VDRL/RPR Results:",
 				"type": "obs",
@@ -121,18 +387,38 @@
 				}
 			  },
 			  {
-				"label": "Estimated date of Delivery",
+				"label": "Date placenta expelled",
 				"type": "obs",
-				"id": "lastDeliveryDate",
-				"required": "true",
+				"id": "dateExpelled",
 				"questionOptions": {
-				  "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "date"
 				},
 				"validators": [
 				  {
 					"type": "date",
-					"allowFutureDates": "true"
+					"allowFutureDates": "false"
+				  }
+				]
+			  },
+			  {
+				"label": "Time placenta expelled",
+				"type": "obs",
+				"id": "timeExpelled",
+				"datePickerFormat": "timer",
+				"questionOptions": {
+				  "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "js_expression",
+					"failsWhenExpression": "!moment(myValue).isBefore(moment(TtaKen).add(1, 'day'))",
+					"message": "Should be within 24hrs after delivery"
+				  },
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
 				  }
 				]
 			  },
@@ -188,8 +474,279 @@
 					{
 					  "concept": "139505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Vaginal warts"
+					},
+					{
+					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Others"
 					}
 				  ]
+				}
+			  },
+			  {
+				"label": "Specify:",
+				"type": "obs",
+				"id": "OtheRvaGinal",
+				"questionOptions": {
+				  "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				},
+				"hide": {
+				  "hideWhenExpression": "vaginalExamination !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  }
+			]
+		  },
+		  {
+			"label": "Cervix Examination",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Position",
+				"type": "obs",
+				"id": "cervPosition",
+				"questionOptions": {
+				  "concept": "159633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "label": "Anterior",
+					  "concept": "540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Posterior",
+					  "concept": "541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Central",
+					  "concept": "145956AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				  ]
+				}
+			  },
+			  {
+				"label": "Consistency",
+				"type": "obs",
+				"id": "cervConsistent",
+				"questionOptions": {
+				  "concept": "159633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "label": "Firm",
+					  "concept": "160399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Soft",
+					  "concept": "155753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				  ]
+				}
+			  },
+			  {
+				"label": "Effacement",
+				"type": "obs",
+				"id": "EffConsistent",
+				"questionOptions": {
+				  "concept": "160968AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text",
+				  "rows": "15"
+				}
+			  },
+			  {
+				"label": "Dilation",
+				"type": "obs",
+				"id": "cervDilation",
+				"questionOptions": {
+				  "concept": "162261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "number",
+				  "max": "10",
+				  "min": "0"
+				}
+			  },
+			  {
+				"label": "Membrane/Liquor",
+				"type": "obs",
+				"id": "membraNecerVix",
+				"questionOptions": {
+				  "concept": "0054aae2-d945-47fd-8fba-8b515e780f41",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "label": "Intact",
+					  "concept": "164839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Ruptured",
+					  "concept": "127252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				  ]
+				}
+			  },
+			  {
+				"label": "Choose an option (Intact)",
+				"type": "obs",
+				"id": "iNtactOptions",
+				"questionOptions": {
+				  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "label": "Flat",
+					  "concept": "167105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Forming",
+					  "concept": "150841AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Bulging",
+					  "concept": "146848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(membraNecerVix) || !arrayContains(['164839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], membraNecerVix)"
+				}
+			  },
+			  {
+				"label": "Choose an option (Rupture)",
+				"type": "obs",
+				"id": "ruptureOptions",
+				"questionOptions": {
+				  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "label": "Odour",
+					  "concept": "141937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Color",
+					  "concept": "d8021de4-83d7-4e8d-9ab7-27b613224316"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(membraNecerVix) || !arrayContains(['127252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], membraNecerVix)"
+				}
+			  },
+			  {
+				"label": "Choose an option (Color)",
+				"type": "obs",
+				"id": "colorOptions",
+				"questionOptions": {
+				  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "label": "Clear",
+					  "concept": "159484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Blood stained",
+					  "concept": "1077AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Meconium",
+					  "concept": "134488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(ruptureOptions) || ruptureOptions !== 'd8021de4-83d7-4e8d-9ab7-27b613224316'"
+				}
+			  },
+			  {
+				"label": "Date of rupture",
+				"type": "obs",
+				"id": "dateRupTure",
+				"questionOptions": {
+				  "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  },
+				  {
+					"type": "js_expression",
+					"failsWhenExpression": "(new moment(deliveryDateTime)).isBefore((new moment(myValue)), 'day')",
+					"message": "Date of Rupture date should not be greater than the delivery date."
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(membraNecerVix) || !arrayContains(['127252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], membraNecerVix)"
+				}
+			  },
+			  {
+				"label": "Time of rupture",
+				"type": "obs",
+				"id": "timeRupTure",
+				"datePickerFormat": "timer",
+				"questionOptions": {
+				  "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  },
+				  {
+					"type": "js_expression",
+					"failsWhenExpression": "(new moment(deliveryDateTime)).isBefore((new moment(myValue)), 'day')",
+					"message": "Date of Rupture date should not be greater than the delivery date."
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(membraNecerVix) || !arrayContains(['127252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], membraNecerVix)"
+				}
+			  },
+			  {
+				"label": "Moulding/Caput",
+				"type": "obs",
+				"id": "mOuldingOptions",
+				"questionOptions": {
+				  "concept": "166527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "0"
+					},
+					{
+					  "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "+"
+					},
+					{
+					  "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "++"
+					},
+					{
+					  "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "+++"
+					}
+				  ]
+				}
+			  }
+			]
+		  },
+		  {
+			"label": "Clinical Impression",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Clinical Diagnosis",
+				"id": "clinicalDiagnosisId",
+				"type": "diagnosis",
+				"questionOptions": {
+				  "rendering": "repeating",
+				  "dataSource": "diagnoses",
+				  "rank": 1
+				},
+				"hide": {
+				  "hideWhenExpression": ""
 				}
 			  },
 			  {
@@ -202,6 +759,10 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
+					  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "None"
+					},
+					{
 					  "concept": "81369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Oxytocin"
 					},
@@ -212,10 +773,6 @@
 					{
 					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Other"
-					},
-					{
-					  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "None"
 					}
 				  ]
 				}
@@ -234,90 +791,100 @@
 				}
 			  },
 			  {
-				"label": "Gestation at birth (in weeks):",
+				"label": "Blood loss during delivery in millilitres (mls):",
 				"type": "obs",
-				"id": "gestation",
+				"id": "bloodLoss",
 				"questionOptions": {
-				  "concept": "1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "concept": "161928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "number",
 				  "min": "0",
-				  "max": "50"
-				}
-			  },
-			  {
-				"label": "Duration of Labor (Hours):",
-				"type": "obs",
-				"id": "durationOfLabour",
-				"questionOptions": {
-				  "concept": "159616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "number",
-				  "min": "0",
-				  "max": "99"
-				}
-			  },
-			  {
-				"label": "Mode of Delivery:",
-				"type": "obs",
-				"id": "deliveryMode",
-				"questionOptions": {
-				  "concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
-				  "answers": [
-					{
-					  "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Spontaneous vaginal delivery(SVD)"
-					},
-					{
-					  "concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Cesarean section(CS)"
-					},
-					{
-					  "concept": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Breech delivery"
-					},
-					{
-					  "concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Assisted vaginal delivery(AVD)"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Date of Delivery:",
-				"type": "encounterDatetime",
-				"questionOptions": {
-				  "rendering": "ui-select-extended",
-				  "concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				  "max": "500"
 				},
-				"id": "deliveryDateTime",
-				"validators": [
-				  {
-					"type": "date",
-					"allowFutureDates": "false"
-				  }
-				],
-				"required": "true"
-			  },
-			  {
-				"label": "Time of Delivery",
-				"type": "obs",
-				"required": true,
-				"id": "TtakEn",
-				"datePickerFormat": "timer",
-				"questionOptions": {
-				  "concept": "162140AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "date"
+				"alert": {
+				  "alertWhenExpression": "myValue && (myValue >=501)",
+				  "message": "This is beyond the normal range"
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(deliveryMode) || deliveryMode === '1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
 				"label": "Blood loss during delivery in millilitres (mls):",
 				"type": "obs",
-				"id": "bloodLoss",
+				"id": "bloodLossCS",
 				"questionOptions": {
-				  "concept": "aaec1d06-d034-48d3-9bb1-ac351ff31732",
+				  "concept": "161928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "number",
 				  "min": "0",
 				  "max": "1000"
+				},
+				"alert": {
+				  "alertWhenExpression": "myValue && (myValue >=1001)",
+				  "message": "This is beyond the normal range"
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(deliveryMode) || deliveryMode !== '1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Perineum Examination",
+				"type": "obs",
+				"id": "perIneUmExam",
+				"questionOptions": {
+				  "concept": "160084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "label": "Intact",
+					  "concept": "164899AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Episiotomy",
+					  "concept": "5577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Laceration",
+					  "concept": "114244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Tear 1st Degree",
+					  "concept": "140113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Tear 2nd Degree",
+					  "concept": "127016AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Tear 3rd Degree",
+					  "concept": "124858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Tear 4th Degree",
+					  "concept": "139914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				  ]
+				}
+			  },
+			  {
+				"label": "Repair",
+				"type": "obs",
+				"id": "rePairpeRinium",
+				"questionOptions": {
+				  "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(perIniUmExam) || perIniUmExam === (['164899AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','114244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'])"
 				}
 			  },
 			  {
@@ -340,51 +907,7 @@
 				}
 			  },
 			  {
-				"label": "Resuscitation Done:",
-				"type": "obs",
-				"id": "resuscitation",
-				"questionOptions": {
-				  "concept": "162131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(maternalOutcome) || maternalOutcome === '160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Maternal death audited?",
-				"type": "obs",
-				"id": "maternalDeathAudited",
-				"questionOptions": {
-				  "concept": "1602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(maternalOutcome) || maternalOutcome === '160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Delivery complications ?",
+				"label": "Delivery complications?",
 				"type": "obs",
 				"id": "deliveryComplications",
 				"questionOptions": {
@@ -407,7 +930,7 @@
 				}
 			  },
 			  {
-				"label": "Select delivery complications ?",
+				"label": "Select delivery complications?",
 				"type": "obs",
 				"id": "specificComplications",
 				"questionOptions": {
@@ -465,102 +988,6 @@
 				}
 			  },
 			  {
-				"label": "Counselled on infant feeding?",
-				"type": "obs",
-				"id": "infantFeeding",
-				"questionOptions": {
-				  "concept": "162091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					},
-					{
-					  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Not applicable"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Place of Delivery:",
-				"type": "obs",
-				"id": "placeOfDelivery",
-				"questionOptions": {
-				  "concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
-				  "answers": [
-					{
-					  "concept": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Home"
-					},
-					{
-					  "concept": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Facility"
-					},
-					{
-					  "concept": "1601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Born Before Arrival"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Delivery Conducted By:",
-				"type": "obs",
-				"id": "deliveryConductedBy",
-				"questionOptions": {
-				  "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "text"
-				}
-			  },
-			  {
-				"label": "Cadre :",
-				"type": "obs",
-				"id": "deliveryConductedByCadre",
-				"questionOptions": {
-				  "concept": "1573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
-				  "answers": [
-					{
-					  "concept": "1574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Clinical officer/Doctor"
-					},
-					{
-					  "concept": "1578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Midwife"
-					},
-					{
-					  "concept": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Nurse"
-					},
-					{
-					  "concept": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Traditional Birth Attendant"
-					},
-					{
-					  "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Community Health Care Worker"
-					},
-					{
-					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Other"
-					}
-				  ]
-				}
-			  }
-			]
-		  },
-		  {
-			"label": "Delivery Outcome & Baby details",
-			"isExpanded": "true",
-			"questions": [
-			  {
 				"label": "Delivery Outcome",
 				"type": "obs",
 				"id": "deliveryOutcome",
@@ -579,30 +1006,24 @@
 					{
 					  "concept": "159915AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Triplets"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Chlorhexidine applied on cord stump:",
-				"type": "obs",
-				"id": "chlorhexidine",
-				"required": "true",
-				"questionOptions": {
-				  "concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
 					},
 					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
+					  "concept": "113450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Quadruplets"
+					},
+					{
+					  "concept": "113440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Quintuplets"
 					}
 				  ]
 				}
-			  },
+			  }
+			]
+		  },
+		  {
+			"label": "Baby Examination",
+			"isExpanded": "true",
+			"questions": [
 			  {
 				"label": "Baby details",
 				"type": "obsGroup",
@@ -613,12 +1034,38 @@
 				},
 				"questions": [
 				  {
+					"label": "Condition of the baby:",
+					"type": "obs",
+					"id": "babyCondition",
+					"questionOptions": {
+					  "concept": "159917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "select",
+					  "answers": [
+						{
+						  "concept": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Live birth"
+						},
+						{
+						  "concept": "159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Fresh still birth"
+						},
+						{
+						  "concept": "135436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Macerated still birth"
+						}
+					  ]
+					}
+				  },
+				  {
 					"label": "Baby's name:",
 					"type": "obs",
 					"id": "name",
 					"questionOptions": {
 					  "concept": "1586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "rendering": "text"
+					},
+					"hide": {
+					  "hideWhenExpression": "isEmpty(babyCondition) || babyCondition === (['159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','135436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'])"
 					}
 				  },
 				  {
@@ -646,32 +1093,27 @@
 					"id": "birthWeight",
 					"questionOptions": {
 					  "concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "number",
-					  "min": "0",
-					  "max": "10"
+					  "rendering": "number"
 					}
 				  },
 				  {
-					"label": "Condition of the baby:",
+					"label": "Birth length (cm) :",
 					"type": "obs",
-					"id": "babyCondition",
+					"id": "birthLength",
 					"questionOptions": {
-					  "concept": "159917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "select",
-					  "answers": [
-						{
-						  "concept": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Live birth"
-						},
-						{
-						  "concept": "159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Fresh still birth"
-						},
-						{
-						  "concept": "135436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Macerated still birth"
-						}
-					  ]
+					  "concept": "1503AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "number",
+					  "min": "20",
+					  "max": "200"
+					}
+				  },
+				  {
+					"label": "Head Circumference",
+					"type": "obs",
+					"id": "heaDcIrcumference",
+					"questionOptions": {
+					  "concept": "5314AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "number"
 					}
 				  },
 				  {
@@ -728,38 +1170,12 @@
 					}
 				  },
 				  {
-					"label": "TEO given at birth ?",
+					"label": "Chlorhexidine applied on cord stump:",
 					"type": "obs",
-					"id": "babyTEOAtBirth",
-					"questionOptions": {
-					  "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "radio",
-					  "answers": [
-						{
-						  "concept": "84893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Yes"
-						},
-						{
-						  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "No"
-						},
-						{
-						  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "N/A"
-						}
-					  ]
-					},
-					"hide": {
-					  "hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-					}
-				  },
-				  {
-					"label": "Given Vitamin K :",
-					"type": "obs",
-					"id": "vitaminK",
+					"id": "chlorhexidine",
 					"required": "true",
 					"questionOptions": {
-					  "concept": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "rendering": "radio",
 					  "answers": [
 						{
@@ -771,55 +1187,6 @@
 						  "label": "No"
 						}
 					  ]
-					}
-				  },
-				  {
-					"label": "Kangaroo Mother care given:",
-					"type": "obs",
-					"id": "kangarooMotherCare",
-					"required": "true",
-					"questionOptions": {
-					  "concept": "161094AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "radio",
-					  "answers": [
-						{
-						  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Yes"
-						},
-						{
-						  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "No"
-						},
-						{
-						  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "N/A"
-						}
-					  ]
-					},
-					"hide": {
-					  "hideWhenExpression": "isEmpty(birthWeight) || birthWeight > 2.4"
-					}
-				  },
-				  {
-					"label": "Initiated BF in less than 1 hour:",
-					"type": "obs",
-					"id": "babyInitiatedBF",
-					"questionOptions": {
-					  "concept": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "radio",
-					  "answers": [
-						{
-						  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Yes"
-						},
-						{
-						  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "No"
-						}
-					  ]
-					},
-					"hide": {
-					  "hideWhenExpression": "isEmpty(babyCondition) || babyCondition !== '151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					}
 				  },
 				  {
@@ -871,36 +1238,124 @@
 				"id": "babyDetails"
 			  }
 			]
-		  }
-		]
-	  },
-	  {
-		"label": "Other Delivery Details",
-		"sections": [
+		  },
 		  {
 			"label": "HIV Testing",
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "HIV Test(s)",
+				"label": "Has consent been given? ",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "answers": [
+					{
+					  "concept": "true",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "false",
+					  "label": "No"
+					}
+				  ]
+				},
+				"id": "consentGiven",
+				"required": "true"
+			  },
+			  {
+				"label": "Client tested as?  ",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "b61c1482-1697-404c-ab96-fd698d5fd317",
+				  "answers": [
+					{
+					  "concept": "147082f4-0662-4bfa-a54c-914f1db97373",
+					  "label": "Individual"
+					},
+					{
+					  "concept": "c3eba392-6f4d-4990-809f-91000503afbc",
+					  "label": "Couple"
+					}
+				  ]
+				},
+				"id": "testedAs",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+				}
+			  },
+			  {
+				"label": "HIV Test",
 				"type": "obsGroup",
 				"questionOptions": {
 				  "rendering": "group",
 				  "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 				},
-				"id": "hivTest",
+				"id": "hivTest1",
 				"validators": [],
 				"hide": {
 				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
 				},
 				"questions": [
 				  {
-					"label": "Kit Name",
+					"label": "Kit 1 Name",
 					"type": "obs",
 					"questionOptions": {
 					  "rendering": "select",
 					  "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
 					  "answers": [
+						{
+						  "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+						  "label": "Trinscreen"
+						},
+						{
+						  "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+						  "label": "Determine"
+						}
+					  ]
+					},
+					"id": "kitName",
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'M'"
+					}
+				  },
+				  {
+					"label": "Kit 1 Name",
+					"type": "obs",
+					"questionOptions": {
+					  "rendering": "select",
+					  "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+					  "answers": [
+						{
+						  "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+						  "label": "Trinscreen"
+						},
+						{
+						  "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+						  "label": "Determine"
+						}
+					  ]
+					},
+					"id": "kitNameFe",
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age > 9)"
+					}
+				  },
+				  {
+					"label": "Kit 1 Name",
+					"type": "obs",
+					"questionOptions": {
+					  "rendering": "select",
+					  "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+					  "answers": [
+						{
+						  "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+						  "label": "Trinscreen"
+						},
 						{
 						  "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
 						  "label": "Determine"
@@ -911,10 +1366,10 @@
 						}
 					  ]
 					},
-					"id": "kitName",
+					"id": "kitNameA",
 					"validators": [],
 					"hide": {
-					  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+					  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age < 9)"
 					}
 				  },
 				  {
@@ -927,7 +1382,7 @@
 					"id": "lotNumber",
 					"validators": [],
 					"hide": {
-					  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+					  "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
 					}
 				  },
 				  {
@@ -937,6 +1392,11 @@
 					  {
 						"type": "date",
 						"allowFutureDates": "true"
+					  },
+					  {
+						"type": "js_expression",
+						"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+						"message": "Expiry date should be greater than the encounter date."
 					  }
 					],
 					"questionOptions": {
@@ -946,11 +1406,11 @@
 					},
 					"id": "expiryDate",
 					"hide": {
-					  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+					  "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
 					}
 				  },
 				  {
-					"label": "HIV Test  Results:",
+					"label": "HIV Test 1 Results:",
 					"type": "obs",
 					"questionOptions": {
 					  "rendering": "select",
@@ -973,7 +1433,7 @@
 					"id": "testResults",
 					"validators": [],
 					"hide": {
-					  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+					  "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
 					}
 				  },
 				  {
@@ -999,16 +1459,35 @@
 					  ]
 					},
 					"hide": {
-					  "hideWhenExpression": "isEmpty(kitName) || kitName !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
+					  "hideWhenExpression": "isEmpty(kitNameA) || kitNameA !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
 					}
-				  },
+				  }
+				]
+			  },
+			  {
+				"label": "HIV Test(s)",
+				"type": "obsGroup",
+				"questionOptions": {
+				  "rendering": "group",
+				  "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				"id": "hivTest2",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+				},
+				"questions": [
 				  {
-					"label": "Kit Name",
+					"label": "Kit 2 Name",
 					"type": "obs",
 					"questionOptions": {
 					  "rendering": "select",
 					  "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
 					  "answers": [
+						{
+						  "concept": "3de9db8a-32a2-4518-8887-c8f25208dade",
+						  "label": "One Step"
+						},
 						{
 						  "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
 						  "label": "First Response"
@@ -1031,7 +1510,7 @@
 					"id": "lotNumberB",
 					"validators": [],
 					"hide": {
-					  "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					  "hideWhenExpression": "isEmpty(kitNameB)"
 					}
 				  },
 				  {
@@ -1041,6 +1520,11 @@
 					  {
 						"type": "date",
 						"allowFutureDates": "true"
+					  },
+					  {
+						"type": "js_expression",
+						"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+						"message": "Expiry date should be greater than the encounter date."
 					  }
 					],
 					"questionOptions": {
@@ -1050,15 +1534,15 @@
 					},
 					"id": "expiryDateB",
 					"hide": {
-					  "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					  "hideWhenExpression": "isEmpty(kitNameB)"
 					}
 				  },
 				  {
-					"label": "HIV Test  Results:",
+					"label": "HIV Test 2 Results:",
 					"type": "obs",
 					"questionOptions": {
 					  "rendering": "select",
-					  "concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "answers": [
 						{
 						  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1077,7 +1561,203 @@
 					"id": "testResultsB",
 					"validators": [],
 					"hide": {
-					  "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					  "hideWhenExpression": "isEmpty(kitNameB)"
+					}
+				  }
+				]
+			  },
+			  {
+				"label": "HIV Test",
+				"type": "obsGroup",
+				"questionOptions": {
+				  "rendering": "group",
+				  "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				"id": "hivTestA2",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+				},
+				"questions": [
+				  {
+					"label": "Kit 1 Name",
+					"type": "obs",
+					"questionOptions": {
+					  "rendering": "select",
+					  "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+					  "answers": [
+						{
+						  "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+						  "label": "Trinscreen"
+						}
+					  ]
+					},
+					"id": "kitNameD",
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e' || kitNameA ==='2f5a80fa-6f26-4832-b8a8-f47649bb60de' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
+					}
+				  },
+				  {
+					"label": "Lot Number",
+					"type": "obs",
+					"questionOptions": {
+					  "rendering": "text",
+					  "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+					},
+					"id": "lotNumberD",
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(kitNameD)"
+					}
+				  },
+				  {
+					"label": "Expiry Date",
+					"type": "obs",
+					"validators": [
+					  {
+						"type": "date",
+						"allowFutureDates": "true"
+					  },
+					  {
+						"type": "js_expression",
+						"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+						"message": "Expiry date should be greater than the encounter date."
+					  }
+					],
+					"questionOptions": {
+					  "rendering": "date",
+					  "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "weeksList": ""
+					},
+					"id": "expiryDateD",
+					"hide": {
+					  "hideWhenExpression": "isEmpty(kitNameD)"
+					}
+				  },
+				  {
+					"label": "HIV Test 3 Results:",
+					"type": "obs",
+					"questionOptions": {
+					  "rendering": "select",
+					  "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "answers": [
+						{
+						  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Positive"
+						},
+						{
+						  "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Negative"
+						},
+						{
+						  "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Invalid"
+						}
+					  ]
+					},
+					"id": "testResultsD",
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(kitNameD)"
+					}
+				  }
+				]
+			  },
+			  {
+				"label": "HIV Test",
+				"type": "obsGroup",
+				"questionOptions": {
+				  "rendering": "group",
+				  "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				"id": "hivTest3",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+				},
+				"questions": [
+				  {
+					"label": "Kit 3 Name",
+					"type": "obs",
+					"questionOptions": {
+					  "rendering": "select",
+					  "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+					  "answers": [
+						{
+						  "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+						  "label": "First Response"
+						}
+					  ]
+					},
+					"id": "kitNameC",
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
+					}
+				  },
+				  {
+					"label": "Lot Number",
+					"type": "obs",
+					"questionOptions": {
+					  "rendering": "text",
+					  "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+					},
+					"id": "lotNumberC",
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(kitNameC)"
+					}
+				  },
+				  {
+					"label": "Expiry Date",
+					"type": "obs",
+					"validators": [
+					  {
+						"type": "date",
+						"allowFutureDates": "true"
+					  },
+					  {
+						"type": "js_expression",
+						"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+						"message": "Expiry date should be greater than the encounter date."
+					  }
+					],
+					"questionOptions": {
+					  "rendering": "date",
+					  "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "weeksList": ""
+					},
+					"id": "expiryDateC",
+					"hide": {
+					  "hideWhenExpression": "isEmpty(kitNameC)"
+					}
+				  },
+				  {
+					"label": "HIV Test 3 Results:",
+					"type": "obs",
+					"questionOptions": {
+					  "rendering": "select",
+					  "concept": "83038d41-e832-498b-928f-974ec5bb23dc",
+					  "answers": [
+						{
+						  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Positive"
+						},
+						{
+						  "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Negative"
+						},
+						{
+						  "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Invalid"
+						}
+					  ]
+					},
+					"id": "testResultsC",
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(kitNameC)"
 					}
 				  }
 				]
@@ -1106,19 +1786,191 @@
 					}
 				  ]
 				},
+				"id": "hivFinalResultOld",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameFe === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameA === '9c4011c2-2579-49cf-ab53-93d009f03e7b'"
+				}
+			  },
+			  {
+				"label": "Final Results:",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "select",
+				  "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "calculate": {
+					"calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsC) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsD) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+				  },
+				  "answers": [
+					{
+					  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Positive"
+					},
+					{
+					  "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Negative"
+					},
+					{
+					  "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Inconclusive"
+					}
+				  ]
+				},
 				"id": "hivFinalResult",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e' || kitNameA === '2f5a80fa-6f26-4832-b8a8-f47649bb60de' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitNameA === '7cf927f8-e734-474f-b71a-1459bb566aa2' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Results given to client?",
+				"type": "obs",
+				"required": "true",
+				"questionOptions": {
+				  "rendering": "select",
+				  "concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes",
+					  "conceptMappings": [
+						{
+						  "type": "PIH",
+						  "value": "1065"
+						},
+						{
+						  "type": "SNOMED CT",
+						  "value": "CT: 373066001"
+						},
+						{
+						  "type": "PIH Malawi",
+						  "value": "Malawi: 1065"
+						},
+						{
+						  "type": "CIEL",
+						  "value": "1065"
+						},
+						{
+						  "type": "AMPATH",
+						  "value": "1065"
+						}
+					  ]
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No",
+					  "conceptMappings": [
+						{
+						  "type": "PIH",
+						  "value": "1066"
+						},
+						{
+						  "type": "PIH Malawi",
+						  "value": "Malawi: 1066"
+						},
+						{
+						  "type": "AMPATH",
+						  "value": "1066"
+						},
+						{
+						  "type": "CIEL",
+						  "value": "1066"
+						},
+						{
+						  "type": "SNOMED CT",
+						  "value": "CT: 373067005"
+						}
+					  ]
+					}
+				  ]
+				},
+				"id": "resultsGiven",
 				"validators": [],
 				"hide": {
 				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
 				}
 			  },
 			  {
-				"label": "Has the client's partner been tested for HIV? Partner HIV Status:",
+				"label": "Couple is discordant:",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "calculate": {
+					"calculateExpression": "String(testedAs) === '147082f4-0662-4bfa-a54c-914f1db97373' ? '1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+				  },
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes",
+					  "conceptMappings": [
+						{
+						  "type": "PIH",
+						  "value": "1065"
+						},
+						{
+						  "type": "SNOMED CT",
+						  "value": "CT: 373066001"
+						},
+						{
+						  "type": "PIH Malawi",
+						  "value": "Malawi: 1065"
+						},
+						{
+						  "type": "CIEL",
+						  "value": "1065"
+						},
+						{
+						  "type": "AMPATH",
+						  "value": "1065"
+						}
+					  ]
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No",
+					  "conceptMappings": [
+						{
+						  "type": "PIH",
+						  "value": "1066"
+						},
+						{
+						  "type": "PIH Malawi",
+						  "value": "Malawi: 1066"
+						},
+						{
+						  "type": "AMPATH",
+						  "value": "1066"
+						},
+						{
+						  "type": "CIEL",
+						  "value": "1066"
+						},
+						{
+						  "type": "SNOMED CT",
+						  "value": "CT: 373067005"
+						}
+					  ]
+					},
+					{
+					  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "N/A"
+					}
+				  ]
+				},
+				"id": "coupleDiscordant",
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+				}
+			  },
+			  {
+				"label": "Has the client's partner been tested for HIV?",
 				"type": "obs",
 				"id": "partnerTested",
 				"questionOptions": {
 				  "concept": "161557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
+				  "rendering": "radio",
 				  "answers": [
 					{
 					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1134,7 +1986,7 @@
 			  {
 				"label": "Partner HIV Status:",
 				"type": "obs",
-				"id": "partnerHIVStatus",
+				"id": "partnerHivStatus",
 				"questionOptions": {
 				  "concept": "1436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "select",
@@ -1154,47 +2006,240 @@
 				  ]
 				},
 				"hide": {
-				  "hideWhenExpression": "isEmpty(partnerTested) || partnerTested === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(partnerTested) || partnerTested !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  }
 			]
-		  },
+		  }
+		]
+	  },
+	  {
+		"label": "Patient Management",
+		"sections": [
 		  {
-			"label": "ART & Prophylaxis",
+			"label": "Delivery Management",
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "Mother's prophylaxis given during this visit?",
+				"label": "Was Resuscitation done:",
 				"type": "obs",
-				"id": "prophylaxisUsed",
+				"id": "resuscitation",
 				"questionOptions": {
-				  "concept": "1109AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "concept": "162131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "radio",
 				  "answers": [
 					{
-					  "concept": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Cotrimoxazole"
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
 					},
 					{
-					  "concept": "74250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Dapsone"
-					},
-					{
-					  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "None"
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
 					}
 				  ]
 				},
 				"hide": {
-				  "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": ""
 				}
 			  },
 			  {
-				"label": "Mother started on HAART at maternity ?",
+				"label": "Was Stimulation done:",
 				"type": "obs",
-				"id": "startedHaartAnc",
+				"id": "StiMulationdOne",
 				"questionOptions": {
-				  "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "concept": "17b47d52-eb47-4199-91f5-27dc78c95adf",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": ""
+				}
+			  },
+			  {
+				"label": "Was Suction done:",
+				"type": "obs",
+				"id": "SuctIonDOne",
+				"questionOptions": {
+				  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": ""
+				}
+			  },
+			  {
+				"label": "Was Oxygen given:",
+				"type": "obs",
+				"id": "OxyGenDOne",
+				"questionOptions": {
+				  "concept": "113316AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": ""
+				}
+			  },
+			  {
+				"label": "Was Bag and Mask ventilation provided:",
+				"type": "obs",
+				"id": "BGprovided",
+				"questionOptions": {
+				  "concept": "165647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": ""
+				}
+			  },
+			  {
+				"label": "Was Induction done",
+				"type": "obs",
+				"id": "iNductIonprovided",
+				"questionOptions": {
+				  "concept": "113602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": ""
+				}
+			  },
+			  {
+				"label": "If yes indication for induction",
+				"type": "obs",
+				"id": "TextiNduction",
+				"questionOptions": {
+				  "concept": "",
+				  "rendering": "textarea",
+				  "rows": "10"
+				},
+				"hide": {
+				  "hideWhenExpression": "iNductIonprovided !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Was Artificial Rapture of membrane(ARM) done",
+				"type": "obs",
+				"id": "ARMprovided",
+				"questionOptions": {
+				  "concept": "163445AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": ""
+				}
+			  },
+			  {
+				"label": "Given Vitamin K :",
+				"type": "obs",
+				"id": "vitaminK",
+				"required": "true",
+				"questionOptions": {
+				  "concept": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				}
+			  },
+			  {
+				"label": "TEO given at birth ?",
+				"type": "obs",
+				"id": "babyTEOAtBirth",
+				"required": "true",
+				"questionOptions": {
+				  "concept": "1570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "84893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					},
+					{
+					  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "N/A"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": ""
+				}
+			  },
+			  {
+				"label": "Counselled on infant feeding?",
+				"type": "obs",
+				"id": "infantFeeding",
+				"questionOptions": {
+				  "concept": "162091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "radio",
 				  "answers": [
 					{
@@ -1207,90 +2252,9 @@
 					},
 					{
 					  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "N/A"
+					  "label": "Not applicable"
 					}
 				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Was mother on HAART during ANC?",
-				"type": "obs",
-				"id": "wasOnHaartAnc",
-				"questionOptions": {
-				  "concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					},
-					{
-					  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "N/A"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "AZT for the baby dispensed?",
-				"type": "obs",
-				"id": "aztDispensed",
-				"questionOptions": {
-				  "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "160123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					},
-					{
-					  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "N/A"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "NVP for the baby dispensed?",
-				"type": "obs",
-				"id": "nvpDispensed",
-				"questionOptions": {
-				  "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					},
-					{
-					  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "N/A"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  }
 			]
@@ -1300,93 +2264,85 @@
 			"isExpanded": "true",
 			"questions": [
 			  {
+				"label": "Reffered For?",
+				"type": "obs",
+				"id": "refferalsOrderd",
+				"questionOptions": {
+				  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "textarea"
+				}
+			  },
+			  {
 				"label": "Referred from?",
 				"type": "obs",
-				"id": "referredFrom",
-				"questionOptions": {
-				  "concept": "160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
-				  "answers": [
-					{
-					  "concept": "1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Another Health Facility"
-					},
-					{
-					  "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Community Unit"
-					},
-					{
-					  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "N/A"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Reason for referral",
-				"type": "obs",
-				"id": "reasonReferralfrom",
-				"questionOptions": {
-				  "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "textarea"
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(referredFrom) || referredFrom !== '1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && referredFrom !== '163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Referred to?",
-				"type": "obs",
-				"id": "referredTo",
+				"id": "referralfrom",
 				"questionOptions": {
 				  "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "select",
 				  "answers": [
 					{
-					  "concept": "1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Another Health Facility"
+					  "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other health facility"
 					},
 					{
-					  "concept": "c9404c8f-cf83-4bfe-acc0-4881599c78ba",
-					  "label": "HIV Preventive services"
-					},
-					{
-					  "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
 					  "label": "Community Unit"
-					},
-					{
-					  "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "N/A"
 					}
 				  ]
 				}
 			  },
 			  {
-				"label": "Reason for referral",
+				"label": "Referred to?",
 				"type": "obs",
-				"id": "reasonReferral",
+				"id": "referralTo",
 				"questionOptions": {
-				  "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "textarea"
+				  "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
+					  "label": "Community Unit"
+					},
+					{
+					  "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other health facility"
+					},
+					{
+					  "concept": "c9404c8f-cf83-4bfe-acc0-4881599c78ba",
+					  "label": "HIV Preventive Services"
+					}
+				  ]
+				}
+			  },
+			  {
+				"label": "Transfer to Facility:",
+				"type": "obs",
+				"id": "transferToFacility",
+				"questionOptions": {
+				  "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "encounterLocation"
 				},
 				"hide": {
-				  "hideWhenExpression": "isEmpty(referredTo) || referredTo !== '1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && referredTo !== 'c9404c8f-cf83-4bfe-acc0-4881599c78ba' && referredTo !== '163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  }
 			]
 		  },
 		  {
-			"label": "Clinical Notes",
+			"label": "Next Review and Clinical Notes",
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "Next review date:",
+				"label": "Appointments",
 				"required": false,
 				"id": "appointmentWorkspaceLauncher",
 				"questionOptions": {
 				  "rendering": "workspace-launcher",
 				  "buttonLabel": "Add appointments",
 				  "workspaceName": "appointments-form-workspace"
+				},
+				"hide": {
+				  "hideWhenExpression": "outcomePatient !=='160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
@@ -1395,7 +2351,8 @@
 				"id": "clinicalNotes",
 				"questionOptions": {
 				  "concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "textarea"
+				  "rendering": "textarea",
+				  "rows": "15"
 				}
 			  }
 			]
