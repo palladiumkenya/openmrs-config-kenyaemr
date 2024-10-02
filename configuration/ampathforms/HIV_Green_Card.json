@@ -1,7 +1,7 @@
 {
   "name": "HIV Green Card",
   "description": "HIV Green Card",
-  "version": "2.0",
+  "version": "2.1",
   "published": true,
   "uuid": "22c68f86-bbf0-49ba-b2d1-23fa7ccf0259",
   "retired": false,
@@ -4246,11 +4246,11 @@
             },
             {
               "label": "1. Do you ever forget to take your medicine?",
-              "type": "control",
+              "type": "obs",
               "id": "forget",
               "required": "true",
               "questionOptions": {
-                "concept": "",
+                "concept": "167321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -4270,11 +4270,11 @@
             },
             {
               "label": "2. Are you careless at times about taking your medicine?",
-              "type": "control",
+              "type": "obs",
               "id": "carelessAtTimes",
               "required": "true",
               "questionOptions": {
-                "concept": "",
+                "concept": "163088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -4294,11 +4294,11 @@
             },
             {
               "label": "3.Sometimes if you feel worse when you take the medicine, do you stop taking it?",
-              "type": "control",
+              "type": "obs",
               "id": "feelWorse",
               "required": "true",
               "questionOptions": {
-                "concept": "",
+                "concept": "6098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -4318,11 +4318,11 @@
             },
             {
               "label": "4.When you feel better do you sometimes stop taking your medicine?",
-              "type": "control",
+              "type": "obs",
               "id": "feelBetter",
               "required": "true",
               "questionOptions": {
-                "concept": "",
+                "concept": "6c91dbf1-030d-4946-a45d-6f747f6c867b",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -4342,10 +4342,10 @@
             },
             {
               "label": "1. Did you take your medicine yesterday?",
-              "type": "control",
+              "type": "obs",
               "id": "medYesterday",
               "questionOptions": {
-                "concept": "",
+                "concept": "162736AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -4365,10 +4365,10 @@
             },
             {
               "label": "2. When you feel like your symptoms are under control,do you sometimes stop taking your medicine?",
-              "type": "control",
+              "type": "obs",
               "id": "symptomsControl",
               "questionOptions": {
-                "concept": "",
+                "concept": "1743AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -4388,10 +4388,10 @@
             },
             {
               "label": "3.Taking medication every day is a real inconvenience for some people.Do you feel under pressure about sticking to your treatment plan?",
-              "type": "control",
+              "type": "obs",
               "id": "feelPressure",
               "questionOptions": {
-                "concept": "",
+                "concept": "1779AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -4411,10 +4411,10 @@
             },
             {
               "label": "4.How often do you have difficulty remembering to take all your medications?",
-              "type": "control",
+              "type": "obs",
               "id": "difficultRemembering",
               "questionOptions": {
-                "concept": "",
+                "concept": "166365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -4990,13 +4990,75 @@
               }
             },
             {
-              "label": "Return Visit Date:",
-              "id": "appointmentWorkspaceLauncher",
+              "type": "appointment",
+              "questionInfo": "Location of the facility where the appointment was scheduled",
+              "label": "Location",
+              "id": "appointmentLocation1",
+              "required": "true",
               "questionOptions": {
-                "rendering": "workspace-launcher",
-                "buttonLabel": "Add appointments",
-                "workspaceName": "appointments-form-workspace"
+                "rendering": "remote-select",
+                "appointmentKey": "location",
+                "dataSource": "location"
               }
+            },
+            {
+              "label": "Service",
+              "id": "service1",
+              "questionOptions": {
+                "rendering": "remote-select",
+                "appointmentKey": "service",
+                "dataSource": "services"
+              },
+              "required": "true",
+              "type": "appointment",
+              "validators": []
+            },
+            {
+              "label": "Appointment date & time",
+              "id": "appointmentDatetime1",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "placeholder": "Enter appointment date & time",
+                "rendering": "date",
+                "appointmentKey": "startDateTime",
+                "showWeeks": "true",
+                "weeksList": [
+                  2,
+                  4,
+                  6,
+                  8,
+                  12,
+                  16,
+                  24
+                ]
+              },
+              "type": "appointment",
+              "validators": [],
+              "required": "true"
+            },
+            {
+              "label": "Provider",
+              "id": "provider1",
+              "questionOptions": {
+                "rendering": "remote-select",
+                "appointmentKey": "providers",
+                "dataSource": "provider"
+              },
+              "type": "appointment",
+              "validators": [],
+              "required": "true"
+            },
+            {
+              "label": "Notes",
+              "id": "appointmentNote1",
+              "questionOptions": {
+                "placeholder": "Enter appointment notes",
+                "rendering": "textarea",
+                "appointmentKey": "comments",
+                "rows": 5
+              },
+              "type": "appointment",
+              "validators": []
             },
             {
               "label": "Does the client need a refill?",
@@ -5020,13 +5082,87 @@
               "validators": []
             },
             {
-              "label": "Refill Date:",
-              "id": "appointmentWorkspaceLauncherRefill",
+              "type": "appointment",
+              "questionInfo": "Location of the facility where the appointment was scheduled",
+              "label": "Location",
+              "id": "appointmentLocation",
+              "required": "true",
               "questionOptions": {
-                "rendering": "workspace-launcher",
-                "buttonLabel": "Refill appointment",
-                "workspaceName": "appointments-form-workspace"
+                "rendering": "remote-select",
+                "appointmentKey": "location",
+                "dataSource": "location"
               },
+              "hide": {
+                "hideWhenExpression": "isEmpty(rEfillReminder) || rEfillReminder !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Service",
+              "id": "service",
+              "questionOptions": {
+                "rendering": "remote-select",
+                "appointmentKey": "service",
+                "dataSource": "services"
+              },
+              "required": "true",
+              "type": "appointment",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(rEfillReminder) || rEfillReminder !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Refill Appointment date & time",
+              "id": "appointmentDatetime",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "placeholder": "Enter appointment date & time",
+                "rendering": "date",
+                "appointmentKey": "startDateTime",
+                "showWeeks": "true",
+                "weeksList": [
+                  2,
+                  4,
+                  6,
+                  8,
+                  12,
+                  16,
+                  24
+                ]
+              },
+              "type": "appointment",
+              "validators": [],
+              "required": "true",
+              "hide": {
+                "hideWhenExpression": "isEmpty(rEfillReminder) || rEfillReminder !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Provider",
+              "id": "provider",
+              "questionOptions": {
+                "rendering": "remote-select",
+                "appointmentKey": "providers",
+                "dataSource": "provider"
+              },
+              "type": "appointment",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(rEfillReminder) || rEfillReminder !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "required": "true"
+            },
+            {
+              "label": "Notes",
+              "id": "appointmentNote",
+              "questionOptions": {
+                "placeholder": "Enter appointment notes",
+                "rendering": "textarea",
+                "appointmentKey": "comments",
+                "rows": 5
+              },
+              "type": "appointment",
+              "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(rEfillReminder) || rEfillReminder !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
