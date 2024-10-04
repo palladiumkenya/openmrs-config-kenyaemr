@@ -1,7 +1,7 @@
 {
 	"name": "PrEP Initial Form",
 	"description": "PrEP Initial Form",
-	"version": "1",
+	"version": "2.0",
 	"published": true,
 	"uuid": "1bfb09fc-56d7-4108-bd59-b2765fd312b8",
 	"retired": false,
@@ -47,36 +47,6 @@
 			]
 		  },
 		  {
-			"label": "Partner HIV Status",
-			"isExpanded": "true",
-			"questions": [
-			  {
-				"label": "What is the partner HIV status?",
-				"type": "obs",
-				"questionOptions": {
-				  "concept": "162216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Positive"
-					},
-					{
-					  "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Negative"
-					},
-					{
-					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Unknown"
-					}
-				  ]
-				},
-				"validators": [],
-				"id": "partnerStatus"
-			  }
-			]
-		  },
-		  {
 			"label": "HIV Positive Partner Profile",
 			"type": "obsGroup",
 			"isExpanded": "true",
@@ -88,19 +58,6 @@
 			"validators": [],
 			"questions": [
 			  {
-				"label": "HIV+ partner CCC Number",
-				"type": "obs",
-				"id": "partnersCcc",
-				"questionOptions": {
-				  "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "number"
-				},
-				"validators": [],
-				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
 				"label": "CCC number/Enrollment status unknown",
 				"type": "obs",
 				"id": "cccEnrollmentStatus",
@@ -110,13 +67,23 @@
 				  "answers": [
 					{
 					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "CCC number/Enrollment status unknown",
-					  "disableWhenExpression": "myValue === '162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					  "label": "CCC number/Enrollment status unknown"
 					}
 				  ]
+				}
+			  },
+			  {
+				"label": "HIV+ partner CCC Number",
+				"type": "obs",
+				"questionInfo": "",
+				"id": "pArtnersCcc",
+				"default": "",
+				"questionOptions": {
+				  "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "string"
 				},
 				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(cccEnrollmentStatus)"
 				}
 			  },
 			  {
@@ -134,7 +101,7 @@
 				  }
 				],
 				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(cccEnrollmentStatus)"
 				}
 			  },
 			  {
@@ -146,7 +113,7 @@
 				  "rendering": "number"
 				},
 				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(cccEnrollmentStatus)"
 				}
 			  },
 			  {
@@ -158,13 +125,13 @@
 				  "rendering": "number"
 				},
 				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(cccEnrollmentStatus)"
 				}
 			  },
 			  {
 				"label": "Sex without a condom with a HIV+ partner in the past 30 days",
 				"type": "obs",
-				"id": "sexWithoutCondom",
+				"id": "sex-without-condom",
 				"questionOptions": {
 				  "concept": "6cb0434b-baa2-4862-aec8-9c468a7340ba",
 				  "rendering": "radio",
@@ -178,21 +145,15 @@
 					  "label": "No"
 					}
 				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
 				"label": "Number of living children with HIV+ partner",
 				"type": "obs",
-				"id": "numberOfChildren",
+				"id": "number-of-children",
 				"questionOptions": {
 				  "concept": "1825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "number"
-				},
-				"hide": {
-				  "hideWhenExpression": "partnerStatus !=='703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  }
 			]
@@ -235,27 +196,33 @@
 					},
 					{
 					  "concept": "145762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Genital Ulcer Disease(GUD)"
+					  "label": "Genital Ulcer Disease(GUD)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "121809AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Vaginitis and/or Vaginal Discharge(VG)"
+					  "label": "Vaginitis and/or Vaginal Discharge(VG)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "116995AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Cervicitis and/or Cervical Discharge(CD)"
+					  "label": "Cervicitis and/or Cervical Discharge(CD)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "130644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Pelvic Inflammatory Disease(PID)"
+					  "label": "Pelvic Inflammatory Disease(PID)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "148895AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Anal Discharge(AD)"
+					  "label": "Anal Discharge(AD)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					},
 					{
 					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Other(O)"
+					  "label": "Other(O)",
+					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 					}
 				  ]
 				},
@@ -320,7 +287,7 @@
 			  {
 				"label": "Treated",
 				"type": "obs",
-				"id": "STItrEAted",
+				"id": "StiTreated",
 				"questionOptions": {
 				  "concept": "d7b6a98f-025e-4732-b0b2-2fe8b00e6b4c",
 				  "rendering": "radio",
@@ -336,7 +303,7 @@
 				  ]
 				},
 				"hide": {
-				  "hideWhenExpression": "STIscrEEned !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(STIOptionsFemale) || STIOptionsFemale === ('1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || STIOptionsMale === ('1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
 				}
 			  }
 			]
@@ -376,16 +343,16 @@
 				  "rendering": "radio",
 				  "answers": [
 					{
-					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Unknown"
-					},
-					{
 					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Yes"
 					},
 					{
 					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "No"
+					},
+					{
+					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Unknown"
 					}
 				  ]
 				},
@@ -651,296 +618,6 @@
 				"hide": {
 				  "hideWhenExpression": "sex !== 'F' || menoPausE ==='134346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || FamilyPlanningStatus === '160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || PrEgnancyStatus ==='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
-			  }
-			]
-		  },
-		  {
-			"label": "Chronic Illnesses and Cormobidities",
-			"isExpanded": "true",
-			"questions": [
-			  {
-				"label": "Client has any chronic illnesse(s)? ",
-				"type": "obs",
-				"id": "ChronicIllNess",
-				"required": "true",
-				"questionOptions": {
-				  "concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Chronic Illnesses and Cormobidities",
-				"type": "obsGroup",
-				"questionOptions": {
-				  "rendering": "repeating",
-				  "concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-				},
-				"id": "testChronic",
-				"hide": {
-				  "hideWhenExpression": "ChronicIllNess !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				},
-				"questions": [
-				  {
-					"label": "Chronic Illnesses and Cormobidities",
-					"type": "obs",
-					"questionOptions": {
-					  "rendering": "select",
-					  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "conceptMappings": [
-						{
-						  "type": "SNOMED NP",
-						  "value": "NP: 439401001"
-						},
-						{
-						  "type": "AMPATH",
-						  "value": "1284"
-						},
-						{
-						  "type": "org.openmrs.module.emrapi",
-						  "value": "Coded Diagnosis"
-						},
-						{
-						  "type": "SNOMED MVP",
-						  "value": "MVP: 12841000105004"
-						},
-						{
-						  "type": "CIEL",
-						  "value": "1284"
-						}
-					  ],
-					  "answers": [
-						{
-						  "concept": "114662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Osteoporosis"
-						},
-						{
-						  "concept": "115728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Hyperlipidaemia"
-						},
-						{
-						  "concept": "149019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Alzheimer's Disease and other Dementias"
-						},
-						{
-						  "concept": "117789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Glaucoma"
-						},
-						{
-						  "concept": "117855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Epilepsy"
-						},
-						{
-						  "concept": "133687AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Multiple Sclerosis"
-						},
-						{
-						  "concept": "148432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Arthritis"
-						},
-						{
-						  "concept": "145438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Chronic Kidney Disease"
-						},
-						{
-						  "concept": "119692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Cystic Fibrosis"
-						},
-						{
-						  "concept": "118631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Endometriosis"
-						},
-						{
-						  "concept": "117703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Sickle Cell Anaemia"
-						},
-						{
-						  "concept": "159351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Cancer"
-						},
-						{
-						  "concept": "1295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Chronic Obstructive Pulmonary Disease(COPD)"
-						},
-						{
-						  "concept": "119270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Cardiovascular diseases"
-						},
-						{
-						  "concept": "115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Obesity"
-						},
-						{
-						  "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Diabetes"
-						},
-						{
-						  "concept": "139071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Heart Disease"
-						},
-						{
-						  "concept": "120576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Chronic Renal Failure"
-						},
-						{
-						  "concept": "117321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Hypothyroidism"
-						},
-						{
-						  "concept": "118976AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Thyroid disease"
-						},
-						{
-						  "concept": "120637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Chronic Hepatitis"
-						},
-						{
-						  "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Hypertension"
-						},
-						{
-						  "concept": "120291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Deafness and Hearing impairment"
-						},
-						{
-						  "concept": "153754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Asthma"
-						},
-						{
-						  "concept": "151342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Mental illness"
-						}
-					  ]
-					},
-					"id": "coughtTests"
-				  },
-				  {
-					"label": "Onset date",
-					"type": "obs",
-					"id": "OnAndDate",
-					"questionOptions": {
-					  "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "date"
-					},
-					"validators": [
-					  {
-						"type": "date",
-						"allowFutureDates": "false"
-					  }
-					]
-				  },
-				  {
-					"label": "Drug",
-					"type": "obs",
-					"id": "druG",
-					"questionOptions": {
-					  "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "text"
-					}
-				  },
-				  {
-					"label": "Dose",
-					"type": "obs",
-					"id": "dose",
-					"questionOptions": {
-					  "concept": "1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "number"
-					}
-				  },
-				  {
-					"label": "Units",
-					"type": "obs",
-					"id": "units",
-					"questionOptions": {
-					  "concept": "1444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "text"
-					}
-				  },
-				  {
-					"label": "Frequency",
-					"type": "obs",
-					"id": "frequency",
-					"questionOptions": {
-					  "concept": "160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "select",
-					  "answers": [
-						{
-						  "concept": "160864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Once daily in the evening"
-						},
-						{
-						  "concept": "160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Thrice daily"
-						},
-						{
-						  "concept": "160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Once daily"
-						},
-						{
-						  "concept": "160865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Once daily in the morning"
-						},
-						{
-						  "concept": "160863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Once daily at bedtime"
-						},
-						{
-						  "concept": "160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Twice daily"
-						},
-						{
-						  "concept": "160870AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Four times daily"
-						}
-					  ]
-					}
-				  },
-				  {
-					"label": "Duration",
-					"type": "obs",
-					"id": "duRATion",
-					"questionOptions": {
-					  "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "number"
-					}
-				  },
-				  {
-					"label": "Duration Units",
-					"type": "obs",
-					"id": "DuraTionItS",
-					"questionOptions": {
-					  "concept": "1732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "select",
-					  "answers": [
-						{
-						  "concept": "1822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Hours"
-						},
-						{
-						  "concept": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Days"
-						},
-						{
-						  "concept": "1074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Months"
-						},
-						{
-						  "concept": "1073AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Weeks"
-						}
-					  ]
-					}
-				  }
-				]
 			  }
 			]
 		  },
@@ -1336,282 +1013,6 @@
 			]
 		  },
 		  {
-			"label": "Known Allergies",
-			"isExpanded": "true",
-			"questions": [
-			  {
-				"label": "Client has any known allergie(s)?  ",
-				"type": "obs",
-				"id": "KnoWnAllerg",
-				"required": "true",
-				"questionOptions": {
-				  "concept": "160557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "true",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "false",
-					  "label": "No"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Client has any known allergie(s)",
-				"type": "obsGroup",
-				"questionOptions": {
-				  "rendering": "repeating",
-				  "concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-				},
-				"id": "ClientADvAllergies",
-				"hide": {
-				  "hideWhenExpression": "KnoWnAllerg !== 'true'"
-				},
-				"questions": [
-				  {
-					"label": "Causative agent",
-					"type": "obs",
-					"id": "AllerGyField",
-					"questionOptions": {
-					  "concept": "160643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "select",
-					  "answers": [
-						{
-						  "concept": "162539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Mold"
-						},
-						{
-						  "concept": "162542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Adhesive Tape"
-						},
-						{
-						  "concept": "162547AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Milk Protein"
-						},
-						{
-						  "concept": "72609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Caffeine"
-						},
-						{
-						  "concept": "162172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Peanuts"
-						},
-						{
-						  "concept": "162538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Latex"
-						},
-						{
-						  "concept": "162543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Beef"
-						},
-						{
-						  "concept": "162175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Shellfish"
-						},
-						{
-						  "concept": "162546AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Fish"
-						},
-						{
-						  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Other"
-						},
-						{
-						  "concept": "162537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Dust"
-						},
-						{
-						  "concept": "162176AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Soy"
-						},
-						{
-						  "concept": "162540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Pollen"
-						},
-						{
-						  "concept": "162545AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Dairy Food"
-						},
-						{
-						  "concept": "162171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Eggs"
-						},
-						{
-						  "concept": "162548AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Strawberries"
-						},
-						{
-						  "concept": "162544AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Chocolate"
-						},
-						{
-						  "concept": "162177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Wheat"
-						},
-						{
-						  "concept": "162541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Ragweed"
-						},
-						{
-						  "concept": "162536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Bee Stings"
-						}
-					  ]
-					}
-				  },
-				  {
-					"label": "Reaction",
-					"type": "obs",
-					"id": "reaCTION",
-					"questionOptions": {
-					  "concept": "159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "select",
-					  "answers": [
-						{
-						  "concept": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Itching"
-						},
-						{
-						  "concept": "121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Myalgia"
-						},
-						{
-						  "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Fever"
-						},
-						{
-						  "concept": "159347AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Musculoskeletal pain"
-						},
-						{
-						  "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Headache"
-						},
-						{
-						  "concept": "108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Bronchospasm"
-						},
-						{
-						  "concept": "148787AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Angioedema"
-						},
-						{
-						  "concept": "159098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Hepatotoxicity"
-						},
-						{
-						  "concept": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Diarrhea"
-						},
-						{
-						  "concept": "140039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Flushing"
-						},
-						{
-						  "concept": "148888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Anaphylaxis"
-						},
-						{
-						  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Other"
-						},
-						{
-						  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Unknown"
-						},
-						{
-						  "concept": "120148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Arrhythmia"
-						},
-						{
-						  "concept": "118773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Dystonia"
-						},
-						{
-						  "concept": "121677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Mental status change"
-						},
-						{
-						  "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Hypertension"
-						},
-						{
-						  "concept": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Anaemia"
-						},
-						{
-						  "concept": "139581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "GI upset"
-						},
-						{
-						  "concept": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Cough"
-						},
-						{
-						  "concept": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Rash"
-						},
-						{
-						  "concept": "111061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Hives"
-						}
-					  ]
-					}
-				  },
-				  {
-					"label": "Severity",
-					"type": "obs",
-					"id": "severITY",
-					"questionOptions": {
-					  "concept": "162760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "select",
-					  "answers": [
-						{
-						  "concept": "160755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Moderate"
-						},
-						{
-						  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Unknown"
-						},
-						{
-						  "concept": "160754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Mild"
-						},
-						{
-						  "concept": "160756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Severe"
-						},
-						{
-						  "concept": "160758AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Fatal"
-						}
-					  ]
-					}
-				  },
-				  {
-					"label": "Date of Onset",
-					"type": "obs",
-					"id": "DateOfOnset",
-					"questionOptions": {
-					  "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "date"
-					},
-					"validators": [
-					  {
-						"type": "date",
-						"allowFutureDates": "false"
-					  }
-					]
-				  }
-				]
-			  }
-			]
-		  },
-		  {
 			"label": "Laboratory Investigation",
 			"isExpanded": "true",
 			"questions": [
@@ -1818,7 +1219,7 @@
 				  },
 				  "answers": [
 					{
-					  "concept": "981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "concept": "2f3e668b-695e-4a79-9531-15872b89e5c6",
 					  "label": "Start"
 					},
 					{
@@ -1841,6 +1242,76 @@
 				},
 				"id": "treatmentPlan",
 				"required": "true"
+			  },
+			  {
+				"label": "Reason for starting PrEP",
+				"type": "obs",
+				"id": "reasonForStartingPrep",
+				"questionOptions": {
+				  "concept": "159623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Sero-Serodiscordant Couples trying to conceive"
+					},
+					{
+					  "concept": "5566AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Partner +ve(not on ART, ART last 6mnt, Poor Viral suppression)"
+					},
+					{
+					  "concept": "5568AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Sex partner(s) high risk;  HIV status is unknown, partner multiple sex partners"
+					},
+					{
+					  "concept": "5567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Client has sex with more than one partner"
+					},
+					{
+					  "concept": "8f41ddb8-1b90-4375-9c46-8a4acdeef12d",
+					  "label": "On going IPV/ GBV"
+					},
+					{
+					  "concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Engaging in transactional sex"
+					},
+					{
+					  "concept": "112992AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Recent STI last 6 months"
+					},
+					{
+					  "concept": "1691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Recurrent use of PEP"
+					},
+					{
+					  "concept": "c8ae2850-abab-4b9c-927c-129ecc2c2752",
+					  "label": "Injection drug use with shared needles"
+					},
+					{
+					  "concept": "b19493e4-1a96-4fff-bfc6-3fbca37f02ec",
+					  "label": "Inconsistent or no condom use during intercourse"
+					},
+					{
+					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other Reasons"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "treatmentPlan !== '2f3e668b-695e-4a79-9531-15872b89e5c6'"
+				}
+			  },
+			  {
+				"label": "Specify Other reasons",
+				"type": "obs",
+				"id": "otherReason",
+				"questionOptions": {
+				  "rendering": "textarea",
+				  "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				"hide": {
+				  "hideWhenExpression": "reasonForStartingPrep !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
 			  },
 			  {
 				"label": "Reason for switching",
@@ -1919,7 +1390,7 @@
 			  {
 				"label": "Type of PrEP",
 				"type": "obs",
-				"id": "prepType",
+				"id": "prepTypeFemale",
 				"questionOptions": {
 				  "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "radio",
@@ -1935,6 +1406,28 @@
 					{
 					  "concept": "b3f6eab2-93bd-4fe0-81ce-5b7ec633a55a",
 					  "label": "Dapivirine ring"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+				}
+			  },
+			  {
+				"label": "Type of PrEP",
+				"type": "obs",
+				"id": "prepTypeMale",
+				"questionOptions": {
+				  "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+					  "label": "Daily Oral PrEP"
+					},
+					{
+					  "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+					  "label": "CAB-LA"
 					},
 					{
 					  "concept": "5424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1943,7 +1436,7 @@
 				  ]
 				},
 				"hide": {
-				  "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
 				}
 			  },
 			  {
@@ -1981,7 +1474,7 @@
 				  "rendering": "text"
 				},
 				"hide": {
-				  "hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan === '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "isEmpty(prescribedPrepToday) || prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
@@ -2042,24 +1535,14 @@
 				}
 			  },
 			  {
-				"label": "Appointment Date",
-				"type": "obs",
-				"id": "tcaDate",
+				"label": "Next review date:",
+				"required": false,
+				"id": "appointmentWorkspaceLauncher",
 				"questionOptions": {
-				  "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "date"
+				  "rendering": "workspace-launcher",
+				  "buttonLabel": "Add appointments",
+				  "workspaceName": "appointments-form-workspace"
 				},
-				"validators": [
-				  {
-					"type": "date",
-					"allowFutureDates": "true"
-				  },
-				  {
-					"type": "js_expression",
-					"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-					"message": "Return to clinic date should be greater than the encounter date."
-				  }
-				],
 				"hide": {
 				  "hideWhenExpression": "isEmpty(nextAppClient) || nextAppClient !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}

@@ -27,7 +27,7 @@ jobs:
       - name: Execute Development Build Script
         run: |
           chmod +x ./dev-build.sh
-          ./dev-build.sh
+          echo "n" | ./dev-build.sh
 
       - name: Compress frontend folder
         run: tar -czvf frontend-${{ github.sha }}.tar.gz frontend/
@@ -49,18 +49,17 @@ jobs:
           target: /apps/githubworkflows/OpenMrs3.0_assets/
 
       - name: Execute remote SSH commands
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.CICD_HOST }}
           username: ${{ secrets.CICD_USERNAME }}
-          port: ${{ secrets.PORT }}
           key: ${{ secrets.CICD_SECRET }}
+          port: ${{ secrets.PORT }}
           script: |
-            set -e
             cd /apps/githubworkflows/OpenMrs3.0_assets &&
             tar -xzf frontend-${{ github.sha }}.tar.gz &&
             sudo mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old &&
-            mv frontend /var/lib/OpenMRS/ &&
+            sudo mv frontend /var/lib/OpenMRS/ &&
             sudo rm -rf /var/lib/OpenMRS/frontend_old
   release:
     runs-on: ubuntu-latest

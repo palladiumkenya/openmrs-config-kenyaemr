@@ -1,7 +1,7 @@
 {
   "name": "HTS Initial Form",
   "description": "Form for HTS testing services",
-  "version": "1",
+  "version": "2.1",
   "published": true,
   "uuid": "402dc5d7-46da-42d4-b2be-f43ea4ad87b0",
   "retired": false,
@@ -33,7 +33,7 @@
               "label": "HTS Provider",
               "type": "encounterProvider",
               "questionOptions": {
-                "rendering": "encounter-provider"
+                "rendering": "ui-select-extended"
               },
               "id": "encounterProvider"
             },
@@ -41,7 +41,7 @@
               "label": "Facility name",
               "type": "encounterLocation",
               "questionOptions": {
-                "rendering": "encounter-location"
+                "rendering": "ui-select-extended"
               },
               "id": "encounterLocation"
             }
@@ -57,7 +57,7 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Population type",
+              "label": "Population Type :",
               "type": "obs",
               "questionOptions": {
                 "rendering": "select",
@@ -69,98 +69,55 @@
                   },
                   {
                     "concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550",
-                    "label": "Key Population"
-                  },
-                  {
-                    "concept": "138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Priority Population"
+                    "label": "Key and Vulnerable Population"
                   }
                 ]
               },
-              "id": "populationType"
+              "id": "populationType",
+              "required": "true",
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
             },
             {
-              "label": "Please indicate Key population type :",
+              "label": "Population Type :",
               "type": "obs",
+              "id": "populationTypechild",
+              "required": "true",
               "questionOptions": {
-                "rendering": "select",
+                "rendering": "radio",
+                "concept": "cf543666-ce76-4e91-8b8d-c0b54a436a2e",
+                "answers": [
+                  {
+                    "concept": "5d308c8c-ad49-45e1-9885-e5d09a8e5587",
+                    "label": "General Population"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age > 15"
+              }
+            },
+            {
+              "label": "Key and Vulnerable Population Type :",
+              "type": "obs",
+              "id": "kpTypeFemale",
+              "required": "true",
+              "questionOptions": {
                 "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
                 "answers": [
                   {
                     "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "People who inject drugs"
+                  },
+                  {
+                    "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People who use drugs"
                   },
                   {
                     "concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Female sex Worker"
-                  },
-                  {
-                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "People in prison and other closed settings"
-                  },
-                  {
-                    "concept": "165100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Transgender"
-                  },
-                  {
-                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Others"
-                  }
-                ]
-              },
-              "id": "femaleKeyPopTypes",
-              "hide": {
-                "hideWhenExpression": "isEmpty(populationType) || populationType != 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || sex !== 'F'"
-              }
-            },
-            {
-              "label": "Please indicate Key population type :",
-              "type": "obs",
-              "questionOptions": {
-                "rendering": "select",
-                "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "answers": [
-                  {
-                    "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "People who inject drugs"
-                  },
-                  {
-                    "concept": "160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Men who have sex with men"
-                  },
-                  {
-                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "People in prison and other closed settings"
-                  },
-                  {
-                    "concept": "165100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Transgender"
-                  },
-                  {
-                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Others"
-                  }
-                ]
-              },
-              "id": "maleKeyPopTypes",
-              "hide": {
-                "hideWhenExpression": "isEmpty(populationType) || populationType != 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || sex !== 'M'"
-              }
-            },
-            {
-              "label": "Please indicate Priority Population :",
-              "type": "obs",
-              "questionOptions": {
-                "rendering": "select",
-                "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "answers": [
-                  {
-                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Fisher folk"
-                  },
-                  {
-                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Truck driver"
                   },
                   {
                     "concept": "160549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -168,30 +125,8 @@
                   },
                   {
                     "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Prisoner"
+                    "label": "People in prison"
                   },
-                  {
-                    "concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
-                    "label": "Military and other uniformed services"
-                  },
-                  {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not Applicable"
-                  }
-                ]
-              },
-              "id": "femalePriorityPopulation",
-              "hide": {
-                "hideWhenExpression": "isEmpty(populationType) || populationType != '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F'"
-              }
-            },
-            {
-              "label": "Please indicate Priority Population :",
-              "type": "obs",
-              "questionOptions": {
-                "rendering": "select",
-                "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "answers": [
                   {
                     "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Fisher folk"
@@ -201,22 +136,116 @@
                     "label": "Truck driver"
                   },
                   {
-                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Prisoner"
-                  },
-                  {
-                    "concept": "253b40ec-54da-4e92-9ab1-2d99075b19e8",
-                    "label": "Military and other uniformed services"
-                  },
-                  {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not Applicable"
+                    "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Discordant Couple"
                   }
                 ]
               },
-              "id": "malePriorityPopulation",
               "hide": {
-                "hideWhenExpression": "isEmpty(populationType) || populationType !== '138643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'M'"
+                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || age < 15 || sex != 'F'"
+              }
+            },
+            {
+              "label": "Key and Vulnerable Population Type :",
+              "type": "obs",
+              "id": "kpTypeMale",
+              "required": "true",
+              "questionOptions": {
+                "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People who inject drugs"
+                  },
+                  {
+                    "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People who use drugs"
+                  },
+                  {
+                    "concept": "973e5b6c-ae5e-4d6a-a624-2d259763771f",
+                    "label": "Male Sex Worker"
+                  },
+                  {
+                    "concept": "160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Men who have sex with men"
+                  },
+                  {
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People in prison"
+                  },
+                  {
+                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fisher folk"
+                  },
+                  {
+                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Truck driver"
+                  },
+                  {
+                    "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Discordant Couple"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "populationType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || age < 15 || sex != 'M'"
+              }
+            },
+            {
+              "label": "People in prison",
+              "type": "obs",
+              "id": "PPleInPrionF",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "answers": [
+                  {
+                    "label": "Inmates",
+                    "concept": "2ad718de-8020-49e9-a129-a00b07752d4e"
+                  },
+                  {
+                    "label": "Staff",
+                    "concept": "1142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Community"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(kpTypeFemale) || kpTypeFemale !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !== 'F'"
+              }
+            },
+            {
+              "label": "People in prison",
+              "type": "obs",
+              "id": "PPleInPrionM",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "answers": [
+                  {
+                    "label": "Inmates",
+                    "concept": "2ad718de-8020-49e9-a129-a00b07752d4e"
+                  },
+                  {
+                    "label": "Staff",
+                    "concept": "1142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Community"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(kpTypeMale) || kpTypeMale !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !== 'M'"
               }
             },
             {
@@ -224,63 +253,19 @@
               "type": "obs",
               "questionOptions": {
                 "rendering": "radio",
-                "concept": "91a87033-8f75-4f08-9f15-0d8ae66bd9d9",
+                "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes",
-                    "conceptMappings": [
-                      {
-                        "type": "PIH",
-                        "value": "1065"
-                      },
-                      {
-                        "type": "PIH Malawi",
-                        "value": "Malawi: 1065"
-                      },
-                      {
-                        "type": "AMPATH",
-                        "value": "1065"
-                      },
-                      {
-                        "type": "CIEL",
-                        "value": "1065"
-                      },
-                      {
-                        "type": "SNOMED CT",
-                        "value": "CT: 373066001"
-                      }
-                    ]
+                    "label": "Yes"
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No",
-                    "conceptMappings": [
-                      {
-                        "type": "PIH",
-                        "value": "1066"
-                      },
-                      {
-                        "type": "SNOMED CT",
-                        "value": "CT: 373067005"
-                      },
-                      {
-                        "type": "PIH Malawi",
-                        "value": "Malawi: 1066"
-                      },
-                      {
-                        "type": "CIEL",
-                        "value": "1066"
-                      },
-                      {
-                        "type": "AMPATH",
-                        "value": "1066"
-                      }
-                    ]
+                    "label": "No"
                   }
                 ]
               },
-              "id": "clientDisability"
+              "id": "DisabilityClienT"
             },
             {
               "label": "Please indicated the type of disability :",
@@ -311,21 +296,21 @@
                   }
                 ]
               },
-              "id": "disabilityTypes",
+              "id": "disaBilityTypes",
               "hide": {
-                "hideWhenExpression": "isEmpty(clientDisability) || clientDisability !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(DisabilityClienT) || DisabilityClienT != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "Specify",
               "type": "obs",
-              "id": "specifyOtherDisability",
               "questionOptions": {
                 "rendering": "text",
                 "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
+              "id": "specifyOtherDisability",
               "hide": {
-                "hideWhenExpression": "isEmpty(disabilityTypes) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], disabilityTypes)"
+                "hideWhenExpression": "isEmpty(disaBilityTypes) || !arrayContins(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], disaBilityTypes) "
               }
             }
           ]
@@ -999,25 +984,75 @@
               }
             },
             {
-              "label": "HIV Test(s)",
+              "label": "HIV Test",
               "type": "obsGroup",
               "questionOptions": {
                 "rendering": "group",
                 "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
-              "id": "hivTest",
+              "id": "hivTest1",
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
               },
               "questions": [
                 {
-                  "label": "Kit Name",
+                  "label": "Kit 1 Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
                     "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
                     "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      },
+                      {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Determine"
+                      }
+                    ]
+                  },
+                  "id": "kitName",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'M'"
+                  }
+                },
+                {
+                  "label": "Kit 1 Name",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      },
+                      {
+                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
+                        "label": "Determine"
+                      }
+                    ]
+                  },
+                  "id": "kitNameFe",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age > 9)"
+                  }
+                },
+                {
+                  "label": "Kit 1 Name",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      },
                       {
                         "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
                         "label": "Determine"
@@ -1028,10 +1063,10 @@
                       }
                     ]
                   },
-                  "id": "kitName",
+                  "id": "kitNameA",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age < 9)"
                   }
                 },
                 {
@@ -1044,7 +1079,7 @@
                   "id": "lotNumber",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
                   }
                 },
                 {
@@ -1054,6 +1089,11 @@
                     {
                       "type": "date",
                       "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
                     }
                   ],
                   "questionOptions": {
@@ -1063,11 +1103,11 @@
                   },
                   "id": "expiryDate",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
                   }
                 },
                 {
-                  "label": "HIV Test  Results:",
+                  "label": "HIV Test 1 Results:",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
@@ -1090,23 +1130,38 @@
                   "id": "testResults",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
                   }
-                },
+                }
+              ]
+            },
+            {
+              "label": "HIV Test(s)",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest2",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
                 {
-                  "label": "Kit Name",
+                  "label": "Kit 2 Name",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
                     "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
                     "answers": [
                       {
-                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
-                        "label": "First Response"
+                        "concept": "3de9db8a-32a2-4518-8887-c8f25208dade",
+                        "label": "One Step"
                       },
                       {
-                        "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
-                        "label": "Dual Kit"
+                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+                        "label": "First Response"
                       }
                     ]
                   },
@@ -1126,7 +1181,7 @@
                   "id": "lotNumberB",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(kitNameB)"
                   }
                 },
                 {
@@ -1136,6 +1191,11 @@
                     {
                       "type": "date",
                       "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
                     }
                   ],
                   "questionOptions": {
@@ -1145,15 +1205,15 @@
                   },
                   "id": "expiryDateB",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(kitNameB)"
                   }
                 },
                 {
-                  "label": "HIV Test  Results:",
+                  "label": "HIV Test 2 Results:",
                   "type": "obs",
                   "questionOptions": {
                     "rendering": "select",
-                    "concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "answers": [
                       {
                         "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1172,7 +1232,203 @@
                   "id": "testResultsB",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(kitNameB)"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTestA2",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 1 Name",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      }
+                    ]
+                  },
+                  "id": "kitNameD",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberD",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameD)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateD",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameD)"
+                  }
+                },
+                {
+                  "label": "HIV Test 3 Results:",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsD",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameD)"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest3",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 3 Name",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+                        "label": "First Response"
+                      }
+                    ]
+                  },
+                  "id": "kitNameC",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberC",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameC)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateC",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameC)"
+                  }
+                },
+                {
+                  "label": "HIV Test 3 Results:",
+                  "type": "obs",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "83038d41-e832-498b-928f-974ec5bb23dc",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsC",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameC)"
                   }
                 }
               ]
@@ -1201,10 +1457,40 @@
                   }
                 ]
               },
+              "id": "hivFinalResultOld",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameFe === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameA === '9c4011c2-2579-49cf-ab53-93d009f03e7b'"
+              }
+            },
+            {
+              "label": "Final Results:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "calculate": {
+                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsC) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsD) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inconclusive"
+                  }
+                ]
+              },
               "id": "hivFinalResult",
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
               }
             },
             {
@@ -1284,22 +1570,7 @@
                 "calculate": {
                   "calculateExpression": "String(testedAs) === '147082f4-0662-4bfa-a54c-914f1db97373' ? '1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
                 },
-                "conceptMappings": [
-                  {
-                    "type": "CIEL",
-                    "value": "6096"
-                  },
-                  {
-                    "type": "AMPATH",
-                    "value": "6096"
-                  }
-                ],
                 "answers": [
-                  {
-                    "concept": "c3eba392-6f4d-4990-809f-91000503afbc",
-                    "label": "Couple",
-                    "disableWhenExpression": "myValue === '1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  },
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Yes",
