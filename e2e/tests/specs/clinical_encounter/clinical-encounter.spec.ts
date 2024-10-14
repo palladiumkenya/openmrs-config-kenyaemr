@@ -42,4 +42,16 @@ test('Clinical Encounter Test', async ({ page }) => {
         await page.getByRole('button', { name: 'Clinical forms' }).click();
         await expect(page.getByLabel('forms', { exact: true }).getByText('Clinical Encounter')).toBeVisible();
     });
+
+    test.step('click clinical encounter', async () => {
+        //test here
+    });
+
+    test.step('click save and close without filling anything', async () => {
+        await page.getByRole('button', { name: 'Save and close' }).click();
+        await expect(page.getByText('Visit Type? This field is required! Fix')).toBeVisible();
+        await expect(page.getByText('Patient having complaint(s) today? This field is required! Fix')).toBeVisible();
+        await expect(page.getByText('Patient has adverse drug reaction(s)? This field is required! Fix')).toBeVisible();
+        await expect(page.getByText('General examination findings: This field is required! Fix')).toBeVisible();
+    });
 });
