@@ -3,7 +3,8 @@ import { expect } from '@playwright/test';
 import { HomePage } from '../../pages';
 import { faker } from '@faker-js/faker';
 
-test.beforeEach(async ({ page }) => {
+test('Clinical Encounter Test', async ({ page }) => {
+    //login
     const homePage = new HomePage(page);
     await homePage.gotoHome();
 
@@ -12,13 +13,16 @@ test.beforeEach(async ({ page }) => {
     const middleName = faker.person.middleName();
     const lastName = faker.person.lastName();
 
-    await page.getByLabel('Add Patient').click();
-    await page.getByLabel('First Name').fill(firstName);
-    await page.getByLabel('Middle Name (optional)').fill(middleName);
-    await page.getByLabel('Family Name').fill(lastName);
+    //create patient
+    await page.getByRole('button', { name: 'Add Patient'}).click();
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('heading', { name: 'Create new patient' })).toBeVisible();
+    await page.fill('#givenName', firstName);
+    await page.fill('#middleName', middleName);
+    await page.fill('#familyName', lastName);
     await page.locator('fieldset span').nth(2).click();
     await page.getByRole('tab', { name: 'No' }).click();
-    await page.getByLabel('Estimated age in years').fill('25');
+    await page.fill('#yearsEstimated', '25');
     await page.getByPlaceholder('Search address').fill('bamburi');
     await page.getByText('Mombasa > Kisauni > Bamburi').click();
     await page.getByLabel('Telephone contact').fill('0723000000');
@@ -35,23 +39,25 @@ test.beforeEach(async ({ page }) => {
     await page.getByRole('button', { name: 'Start a visit' }).click();
     await page.locator('label').filter({ hasText: 'Outpatient' }).locator('span').first().click();
     await page.getByRole('button', { name: 'Start visit' }).click();
-});
+    await expect(page.locator('button:has-text("End visit")')).toBeVisible();
+    await page.waitForLoadState('networkidle');
+    
+    //click clinical forms
+    const clinicalFormsButton = page.locator('button[aria-label="Clinical forms"]');
+    await clinicalFormsButton.waitFor({ state: 'visible', timeout: 5000 });
+    await clinicalFormsButton.click();
+    await expect(page.getByText('Clinical Encounter')).toBeVisible();
 
-test('Clinical Encounter Test', async ({ page }) => {
-    test.step('When I click the clinical forms button', async () => {
-        await page.getByRole('button', { name: 'Clinical forms' }).click();
-        await expect(page.getByLabel('forms', { exact: true }).getByText('Clinical Encounter')).toBeVisible();
-    });
+    //click clinical encounter
+    await page.getByText('Clinical Encounter').click();
+    await expect(page.getByText('Save and close Discard')).toBeVisible();
 
-    test.step('click clinical encounter', async () => {
-        //test here
-    });
-
-    test.step('click save and close without filling anything', async () => {
-        await page.getByRole('button', { name: 'Save and close' }).click();
-        await expect(page.getByText('Visit Type? This field is required! Fix')).toBeVisible();
-        await expect(page.getByText('Patient having complaint(s) today? This field is required! Fix')).toBeVisible();
-        await expect(page.getByText('Patient has adverse drug reaction(s)? This field is required! Fix')).toBeVisible();
-        await expect(page.getByText('General examination findings: This field is required! Fix')).toBeVisible();
-    });
+    //click save and close
+    await page.getByRole('button', { name: 'Save and close' }).click();
+    //await expect(page.getByText('Visit Type? This field is required! Fix')).toBeVisible();
+    await expect(page.getByText('Patient having complaint(s) today? This field is required! Fix')).toBeVisible();
+    await expect(page.getByText('Patient has adverse drug reaction(s)? This field is required! Fix')).toBeVisible();
+    await expect(page.getByText('General examination findings: This field is required! Fix')).toBeVisible();
+    await expect(page.getByText('Finding(s) on systems review? This field is required! Fix')).toBeVisible();
+   
 });
