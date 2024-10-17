@@ -60,4 +60,36 @@ test('Clinical Encounter Test', async ({ page }) => {
     await expect(page.getByText('General examination findings: This field is required! Fix')).toBeVisible();
     await expect(page.getByText('Finding(s) on systems review? This field is required! Fix')).toBeVisible();
    
+    //I should be able to select visit types
+    await page.locator('#visitTypeid_0').click();
+    await expect(page.locator('#visitTypeid_0')).toBeChecked();
+    await page.locator('#visitTypeid_1').click();
+    await expect(page.locator('#visitTypeid_1')).toBeChecked();
+    await page.locator('#visitTypeid_2').click();
+    await expect(page.locator('#visitTypeid_2')).toBeChecked();
+    await expect(page.getByText('Visit To:')).toBeVisible();
+    await page.locator('#visitToid_0').click();
+    await expect(page.locator('#visitToid_0')).toBeChecked();
+    
+    //When I select inpatient the patient history and examination should be empty
+    await page.locator('#visitToid_1').click();
+    await expect(page.locator('#visitToid_1')).toBeChecked();
+   
+
+    //click next
+    await page.getByText('NextPatient History').click();
+    await expect(page.getByRole('heading', { name: 'Patient History' })).toBeVisible();
+
+    //presenting complaints
+    await page.locator('#complaintsTodayid_0').click();
+    await expect(page.locator('#complaintsTodayid_0')).toBeChecked();
+    await expect(page.getByRole('heading', { name: 'Presenting complaints' })).toBeVisible();
+    await page.getByRole('button', { name: 'Add', exact: true }).click();
+    await page.locator('#cOmplaIntFieldid').selectOption('151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+    await page.locator('#complaint-durationid').fill('14');
+    await page.locator('#onsetStatusid').selectOption('1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+    await page.getByRole('button', { name: 'Add', exact: true }).click();
+    page.on('dialog', dialog => dialog.accept());
+    await page.getByRole('button', { name: 'Remove' }).nth(1).click();
+    await page.getByRole('button', { name: 'Remove' }).click();
 });
