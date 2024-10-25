@@ -47,6 +47,31 @@
 			]
 		  },
 		  {
+			"label": "Partner Profile",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Partner HIV positive?:",
+				"type": "encounterDatetime",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"validators": [],
+				"id": "partnerProfile"
+			  }
+			]
+		  },
+		  {
 			"label": "HIV Positive Partner Profile",
 			"type": "obsGroup",
 			"isExpanded": "true",
@@ -70,6 +95,9 @@
 					  "label": "CCC number/Enrollment status unknown"
 					}
 				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(partnerProfile) || partnerProfile !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
@@ -131,7 +159,7 @@
 			  {
 				"label": "Sex without a condom with a HIV+ partner in the past 30 days",
 				"type": "obs",
-				"id": "sex-without-condom",
+				"id": "sexwithoutcondom",
 				"questionOptions": {
 				  "concept": "6cb0434b-baa2-4862-aec8-9c468a7340ba",
 				  "rendering": "radio",
@@ -145,15 +173,21 @@
 					  "label": "No"
 					}
 				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(partnerProfile) || partnerProfile !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
 				"label": "Number of living children with HIV+ partner",
 				"type": "obs",
-				"id": "number-of-children",
+				"id": "numberofchildren",
 				"questionOptions": {
 				  "concept": "1825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "number"
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(partnerProfile) || partnerProfile !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  }
 			]
