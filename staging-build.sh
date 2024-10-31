@@ -11,7 +11,7 @@ read -p "Is this for KDOD asset generation? (y/n): " is_kdod
 # Build assets
 echo "Building Kenya EMR 3.x assets ..."
 CWD=$(pwd)
-npx --legacy-peer-deps openmrs@5.8.1 build \
+npx --legacy-peer-deps openmrs@5.8.2-pre.2434 build \
   --build-config ./frontend-config/staging/build-config.json \
   --target ./frontend \
   --page-title "KenyaEMR" \
@@ -19,7 +19,7 @@ npx --legacy-peer-deps openmrs@5.8.1 build \
 
 # Assemble assets
 echo "Assembling assets ..."
-npx --legacy-peer-deps openmrs@5.8.1 assemble \
+npx --legacy-peer-deps openmrs@5.8.2-pre.2434 assemble \
   --manifest \
   --mode config \
   --config ./frontend-config/staging/build-config.json \
