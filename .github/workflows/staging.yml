@@ -1,0 +1,62 @@
+name: Deploying to staging enviroment
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Execute Development Build Script
+        run: |
+          chmod +x ./staging-build.sh
+          echo "n" | ./staging-build.sh
+
+      - name: Compress frontend folder
+        run: tar -czvf frontend-${{ github.sha }}.tar.gz frontend/
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-${{ github.sha }}.tar.gz
+          path: frontend-${{ github.sha }}.tar.gz
+
+      - name: Upload compressed frontend to server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.CICD2_HOST }}
+          username: ${{ secrets.CICD2_USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.CICD2_SECRET }}
+          source: frontend-${{ github.sha }}.tar.gz
+          target: /apps/githubworkflows/OpenMrs3.0_assets/qa
+
+      - name: Execute remote SSH commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.CICD2_HOST }}
+          username: ${{ secrets.CICD2_USERNAME }}
+          key: ${{ secrets.CICD2_SECRET }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /apps/githubworkflows/OpenMrs3.0_assets/qa &&
+            sudo tar -xzf frontend-${{ github.sha }}.tar.gz
+            sudo bash /apps/workflowConfigs/qa-frontend/copy-to-docker.sh
