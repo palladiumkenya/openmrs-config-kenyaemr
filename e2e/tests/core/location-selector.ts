@@ -6,7 +6,7 @@ export function addURLChangeListener(page: Page) {
       const currentURL = frame.url();
 
       if (currentURL.includes('/login/location')) {
-        const firstCheckbox = page.locator('label').filter({ hasText: 'Nyeri Provincial General' }).locator('span').first();
+        const firstCheckbox = page.locator('input[type="radio"]').first();
         await firstCheckbox.check({ force: true });
         await page.locator('button:has-text("Confirm")').click();
       }

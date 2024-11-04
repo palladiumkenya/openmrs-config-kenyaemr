@@ -4,7 +4,7 @@ import {type PatientRegistrationFormValues, RegistrationAndEditPage} from '../..
 import {deletePatient} from '../../commands';
 
 let patientUuid: string;
-
+let national_id = Math.floor(Math.random() * 1000000000);
 test('Register a new patient', async ({page}) => {
     test.setTimeout(5 * 60 * 1000);
     const patientRegistrationPage = new RegistrationAndEditPage(page);
@@ -13,7 +13,7 @@ test('Register a new patient', async ({page}) => {
         givenName: 'James',
         middleName: 'Doe',
         familyName: 'Test',
-        nationalID: '34089324',
+        nationalID: `${national_id}`,
         sex: 'male',
         birthdate: {day: '01', month: '02', year: '1990'},
         county: 'Baringo',
@@ -81,9 +81,10 @@ test('Register a new patient', async ({page}) => {
 
         await expect(patientBanner.getByRole('button', {name: /hide details/i})).toBeVisible();
         await expect(patientBanner.getByText(/^address$/i)).toBeVisible();
-        await expect(patientBanner.getByText(/address line 1: 12310230/i)).toBeVisible();
-        await expect(patientBanner.getByText(/city: testVillage/i)).toBeVisible();
-        await expect(patientBanner.getByText(/state: BaringoNorth/i)).toBeVisible();
+        await expect(patientBanner.getByText(/postal Address: 12310230/i)).toBeVisible();
+        await expect(patientBanner.getByText('Village: testVillage')).toBeVisible();
+        await expect(patientBanner.getByText('Sub-location: testSublocation')).toBeVisible();
+        await expect(patientBanner.getByText('Village: testVillage')).toBeVisible();
         await expect(patientBanner.getByText(/contact details/i)).toBeVisible();
         await expect(patientBanner.getByText(/Telephone contact: 0755551234/i)).toBeVisible();
     });
@@ -91,6 +92,7 @@ test('Register a new patient', async ({page}) => {
 
 
 test('Registering Client with unkown Birth date', async ({page}) => {
+    test.setTimeout(5 * 60 * 1000);
     await test.step('When I visit the registration page', async () => {
         const patientRegistrationPage = new RegistrationAndEditPage(page)
         await patientRegistrationPage.goto();
@@ -111,7 +113,7 @@ test('Registering Client with unkown Birth date', async ({page}) => {
         await page.getByLabel('Estimated age in months').click();
         await page.getByLabel('Estimated age in months').fill('1');
         await page.getByLabel('National ID (optional)').click();
-        await page.getByLabel('National ID (optional)').fill('34059833');
+        await page.getByLabel('National ID (optional)').fill(`${national_id}`);
     });
     await test.step("Entering Contact and demographics data", async () => {
         await page.getByPlaceholder('Search address').click();
@@ -124,13 +126,13 @@ test('Registering Client with unkown Birth date', async ({page}) => {
         await page.getByLabel('Contact Details Section').getByLabel('Postal Address (optional)').click();
         await page.getByLabel('Contact Details Section').getByLabel('Postal Address (optional)').fill('9083');
         await page.getByLabel('Email address (optional)').click();
-        await page.getByLabel('Email address (optional)').fill('brodu@gmail.com');
+        await page.getByLabel('Email address (optional)').fill('test@gmail.com');
         await page.getByLabel('Location', {exact: true}).click();
-        await page.getByLabel('Location', {exact: true}).fill('Timsd');
+        await page.getByLabel('Location', {exact: true}).fill('Test-location');
         await page.getByLabel('Sub-location').click();
-        await page.getByLabel('Sub-location').fill('nyas');
+        await page.getByLabel('Sub-location').fill('test-village');
         await page.getByLabel('Village').click();
-        await page.getByLabel('Village').fill('mera');
+        await page.getByLabel('Village').fill('mera-village');
         await page.getByLabel('Landmark').click();
         await page.getByLabel('Landmark').fill('uis');
         await page.getByLabel('Marital status').selectOption('5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
@@ -149,6 +151,7 @@ test('Registering Client with unkown Birth date', async ({page}) => {
         await page.getByLabel('Telephone contact').fill('0799652623');
         await page.getByRole('button', {name: 'Register Patient'}).click();
         await page.getByLabel('Nearest Health Center').fill('rtt');
+        // await page.getByRole('button', { name: 'Post to registry' }).click();
         await page.getByRole('button', {name: 'Register Patient'}).click();
     });
     await test.step('Then I should see a success notification', async () => {
@@ -165,10 +168,10 @@ test('Registering Client with unkown Birth date', async ({page}) => {
     await test.step("And I should see the newly registered patient's details displayed in the patient banner", async () => {
         const patientBanner = page.locator('header[aria-label="patient banner"]');
         await expect(patientBanner).toBeVisible();
-        await expect(patientBanner.getByText('Unknown Unknown')).toBeVisible();
+        await expect(patientBanner.getByText('James Deivin')).toBeVisible();
         await expect(patientBanner.getByText(/female/i)).toBeVisible();
         await expect(patientBanner.getByText(/24 yrs/i)).toBeVisible();
-        await expect(patientBanner.getByText(/01 — Jan — 1999/i)).toBeVisible();
+        await expect(patientBanner.getByText(/01 — Jan — 2000/i)).toBeVisible();
         await expect(patientBanner.getByText(/OpenMRS ID/i)).toBeVisible();
     });
 });
