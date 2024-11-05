@@ -11,7 +11,7 @@ read -p "Is this for KDOD asset generation? (y/n): " is_kdod
 # Build assets
 echo "Building Kenya EMR 3.x assets ..."
 CWD=$(pwd)
-npx --legacy-peer-deps openmrs@5.8.2-pre.2434 build \
+npx --legacy-peer-deps openmrs@5.8.2-pre.2443 build \
   --build-config ./frontend-config/staging/build-config.json \
   --target ./frontend \
   --page-title "KenyaEMR" \
@@ -19,7 +19,7 @@ npx --legacy-peer-deps openmrs@5.8.2-pre.2434 build \
 
 # Assemble assets
 echo "Assembling assets ..."
-npx --legacy-peer-deps openmrs@5.8.2-pre.2434 assemble \
+npx --legacy-peer-deps openmrs@5.8.2-pre.2443 assemble \
   --manifest \
   --mode config \
   --config ./frontend-config/staging/build-config.json \
@@ -76,6 +76,8 @@ rename_dist_folder() {
 
 # Handle renaming for openmrs-esm-form-entry-app-*
 rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
+## TODO: Remove once PR merged to community
+rename_dist_folder "openmrs-esm-patient-tests-app-*" "dist-patient-tests"
 
 # Exit with success status
 exit 0
