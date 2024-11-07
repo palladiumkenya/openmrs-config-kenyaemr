@@ -53,6 +53,70 @@
           "isExpanded": "true",
           "questions": [
             {
+              "label": "Date of Last Menstrual Period(LMP)",
+              "type": "obs",
+              "id": "lastLmpDate",
+              "questionOptions": {
+                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "!isEmpty(myValue) && moment(myValue).isBefore(moment(birthdate), 'day')",
+                  "message": "LMP date should not be before the date of birth."
+                }
+              ]
+            },
+            {
+              "label": "Estimated date of Delivery",
+              "type": "obs",
+              "id": "lastDeliveryDate",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date",
+                "calculate": {
+                  "calculateExpression": "moment(lastLmpDate).isValid() ? moment(lastLmpDate).add(280, 'days').toDate() : ''"
+                }
+              },
+              "validators": []
+            },
+            {
+              "label": "Gestation at birth (in weeks):",
+              "type": "obs",
+              "id": "gestation",
+              "questionOptions": {
+                "concept": "1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "24",
+                "max": "50",
+                "calculate": {
+                  "calculateExpression": "moment(lastLmpDate).isValid() ? moment().diff( moment(lastLmpDate), 'weeks') :''"
+                }
+              }
+            },
+            {
+              "label": "Date and Time of Admission",
+              "type": "obs",
+              "id": "dateOfAdmission",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "concept": "1640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
               "label": "Ruptured membranes",
               "type": "obs",
               "required": true,
@@ -115,6 +179,42 @@
           "label": "Labor Progress",
           "isExpanded": "true",
           "questions": [
+            {
+              "label": "Vagina Examination?",
+              "type": "obs",
+              "id": "vaginalExamination",
+              "required": "true",
+              "questionOptions": {
+                "concept": "160704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "132681AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "5577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Episiotomy"
+                  },
+                  {
+                    "concept": "159264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaginal tear"
+                  },
+                  {
+                    "concept": "118935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "FGM"
+                  },
+                  {
+                    "concept": "139505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vaginal warts"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              }
+            },
             {
               "label": "Labor Progress",
               "type": "obsGroup",
@@ -251,7 +351,7 @@
                   "questionOptions": {
                     "rendering": "number",
                     "min": "0",
-                    "max": "100",
+                    "max": "10",
                     "concept": "162261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "conceptMappings": [
                       {
@@ -311,32 +411,6 @@
                   "validators": []
                 },
                 {
-                  "label": "Hours ",
-                  "type": "obs",
-                  "required": true,
-                  "id": "hours",
-                  "questionOptions": {
-                    "rendering": "number",
-                    "min": "0",
-                    "max": "200",
-                    "concept": "163191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "conceptMappings": [
-                      {
-                        "relationship": "SAME-AS",
-                        "type": "CIEL",
-                        "value": "163191"
-                      },
-                      {
-                        "relationship": "SAME-AS",
-                        "type": "SNOMED CT",
-                        "value": "7389001"
-                      }
-                    ],
-                    "answers": []
-                  },
-                  "validators": []
-                },
-                {
                   "label": "Time",
                   "type": "obs",
                   "required": true,
@@ -378,7 +452,9 @@
                   "id": "frequency",
                   "questionOptions": {
                     "concept": "166529AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number"
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "10"
                   }
                 },
                 {
@@ -394,6 +470,116 @@
                 }
               ],
               "id": "contractionsPerMinute"
+            },
+            {
+              "label": "Urine Output",
+              "type": "obsGroup",
+              "id": "OutPutUrine",
+              "questionOptions": {
+                "concept": "162647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "questions": [
+                {
+                  "label": "Volume (in litres)",
+                  "type": "obs",
+                  "id": "voLumE",
+                  "questionOptions": {
+                    "concept": "159660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  }
+                },
+                {
+                  "label": "Urine characteristics",
+                  "type": "obs",
+                  "id": "UchAracteristics",
+                  "questionOptions": {
+                    "concept": "56AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "textarea",
+                    "rows": "3"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Medication/Drugs Administered?",
+              "type": "obs",
+              "id": "actionTaKen",
+              "questionOptions": {
+                "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Medication Given",
+              "type": "obsGroup",
+              "id": "medsRepeat",
+              "questionOptions": {
+                "concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(actionTaKen) || actionTaKen !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "questions": [
+                {
+                  "label": "Name of Medication",
+                  "type": "obs",
+                  "id": "medicatIonName",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "164231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Time Taken",
+                  "type": "obs",
+                  "id": "TtakEn",
+                  "datePickerFormat": "timer",
+                  "questionOptions": {
+                    "concept": "a9e7c05e-7381-4e2b-a968-05d5d6a884f6",
+                    "rendering": "date"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Labour Pattern",
+              "type": "obs",
+              "id": "LaBoURpat",
+              "questionOptions": {
+                "concept": "164135AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal Labour"
+                  },
+                  {
+                    "concept": "128387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Prolonged latent phase"
+                  },
+                  {
+                    "concept": "128474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Primary dysfunctional labour"
+                  },
+                  {
+                    "concept": "136521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Secondary arrest"
+                  }
+                ]
+              }
             }
           ]
         }
