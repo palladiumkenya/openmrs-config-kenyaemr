@@ -125,7 +125,10 @@
 				  "concept": "1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "number",
 				  "min": "24",
-				  "max": "50"
+				  "max": "50",
+				  "calculate": {
+                  "calculateExpression": "moment(lastLmpDate).isValid() ? moment().diff( moment(lastLmpDate), 'weeks') :''"
+                }
 				}
 			  },
 			  {
@@ -170,8 +173,9 @@
 				}
 			  },
 			  {
-				"label": "Date of Delivery:",
+				"label": "Date and time of Delivery:",
 				"type": "obs",
+				"datePickerFormat": "both",
 				"questionOptions": {
 				  "rendering": "date",
 				  "concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -184,23 +188,6 @@
 				  }
 				],
 				"required": "true"
-			  },
-			  {
-				"label": "Time of Delivery",
-				"type": "obs",
-				"id": "TtakEn",
-				"required": "true",
-				"datePickerFormat": "timer",
-				"questionOptions": {
-				  "concept": "162140AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "date"
-				},
-				"validators": [
-				  {
-					"type": "date",
-					"allowFutureDates": "false"
-				  }
-				]
 			  },
 			  {
 				"label": "Place of Delivery:",
@@ -359,74 +346,11 @@
 			"label": "Mother's Examination",
 			"isExpanded": "true",
 			"questions": [
-				{
-					"label": "Vagina Examination?",
-					"type": "obs",
-					"id": "vaginalExamination",
-					"required": "true",
-					"questionOptions": {
-					  "concept": "160704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "radio",
-					  "answers": [
-						{
-						  "concept": "132681AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Normal"
-						},
-						{
-						  "concept": "5577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Episiotomy"
-						},
-						{
-						  "concept": "159264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Vaginal tear"
-						},
-						{
-						  "concept": "118935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "FGM"
-						},
-						{
-						  "concept": "139505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Vaginal warts"
-						},
-						{
-						  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Others"
-						}
-					  ]
-					}
-				  },
-				  {
-					"label": "Specify:",
-					"type": "obs",
-					"id": "OtheRvaGinal",
-					"questionOptions": {
-					  "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "text"
-					},
-					"hide": {
-					  "hideWhenExpression": "vaginalExamination !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-					}
-				  },
 			  {
-				"label": "Date placenta expelled",
-				"type": "obs",
-				"id": "dateExpelled",
-				"questionOptions": {
-				  "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "date"
-				},
-				"validators": [
-				  {
-					"type": "date",
-					"allowFutureDates": "false"
-				  }
-				]
-			  },
-			  {
-				"label": "Time placenta expelled",
+				"label": "Date and time placenta expelled",
 				"type": "obs",
 				"id": "timeExpelled",
-				"datePickerFormat": "timer",
+				"datePickerFormat": "both",
 				"questionOptions": {
 				  "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "date"
@@ -465,6 +389,16 @@
 					  "label": "Baby born before arrival"
 					}
 				  ]
+				}
+			  },
+			  {
+				"label": "Placenta weight (g)",
+				"type": "obs",
+				"id": "plaCenTAG",
+				"questionOptions": {
+					"concept": "5565a7ad-f15e-4466-a26d-7ecc7bc7bed4",
+					"rendering": "number",
+					"min": "0"
 				}
 			  }
 			]
@@ -580,8 +514,8 @@
 				  ]
 				},
 				"hide": {
-                "hideWhenExpression": "isEmpty(perIniUmExam) || perIniUmExam === '164899AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || perIniUmExam === '114244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
+                	"hideWhenExpression": "isEmpty(perIniUmExam) || perIniUmExam === '164899AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || perIniUmExam === '114244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              	}
 			  },
 			  {
 				"label": "Repair done by:",
@@ -952,12 +886,31 @@
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "Has consent been given? ",
+				"label": "Client eligible for testing :",
 				"type": "obs",
+				"id": "eligibleTest",
 				"questionOptions": {
+				  "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "radio",
-				  "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "answers": [
+				  {
+					"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					"label": "Yes"
+				  },
+				  {
+					"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					"label": "No"
+				  }
+				  ]
+				}
+				},
+				{
+				  "label": "Has consent been given? ",
+				  "type": "obs",
+				  "questionOptions": {
+					"rendering": "radio",
+					"concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					"answers": [
 					{
 					  "concept": "true",
 					  "label": "Yes"
@@ -966,11 +919,15 @@
 					  "concept": "false",
 					  "label": "No"
 					}
-				  ]
-				},
-				"id": "consentGiven",
-				"required": "true"
-			  },
+					]
+				  },
+				  "validators": [],
+				  "hide": {
+					"hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  },
+				  "id": "consentGiven",
+				  "required": "true"
+				  },
 			  {
 				"label": "Client tested as?  ",
 				"type": "obs",
@@ -1152,24 +1109,52 @@
 					  "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "rendering": "select",
 					  "answers": [
-						{
-						  "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Negative"
-						},
-						{
-						  "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Positive"
-						},
-						{
-						  "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Poor Sample quality"
-						}
+					  {
+						"concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Negative"
+					  },
+					  {
+						"concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Positive"
+					  },
+					  {
+						"concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Poor Sample quality"
+					  }
 					  ]
 					},
 					"hide": {
 					  "hideWhenExpression": "isEmpty(kitNameA) || kitNameA !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
 					}
-				  }
+					},
+				   {
+					"label": "Was treatment given?",
+					"type": "obs",
+					"id": "syphllTX",
+					"questionOptions": {
+					  "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "radio",
+					  "answers": [
+					  {
+						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Yes"
+					  },
+					  {
+						 "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "No"
+					  }
+					  ]
+					},
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(syphilisTestResults) || syphilisTestResults !== '1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					},
+					"alert": {
+					  "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+					  "message": "Start Treatment"
+					}
+				  
+					}
 				]
 			  },
 			  {
@@ -1670,29 +1655,6 @@
 				"validators": [],
 				"hide": {
 				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
-				}
-			  },
-			  {
-				"label": "VDRL/RPR Results:",
-				"type": "obs",
-				"id": "vdrlResults",
-				"questionOptions": {
-				  "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Positive"
-					},
-					{
-					  "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Negative"
-					},
-					{
-					  "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Not Done"
-					}
-				  ]
 				}
 			  },
 			  {
