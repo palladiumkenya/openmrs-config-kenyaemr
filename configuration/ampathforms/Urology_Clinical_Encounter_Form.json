@@ -405,6 +405,19 @@
                     }
                   },
                   {
+                    "label": "Site",
+                    "type": "obs",
+                    "id": "complaintSitePain",
+                    "questionOptions": {
+                      "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "text"
+                    },
+                    "validators": [],
+                    "hide": {
+                      "hideWhenExpression": "cOmplaIntField !== '114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  },
+                  {
                     "label": "Duration (Days)",
                     "type": "obs",
                     "id": "complaint-duration",
@@ -415,7 +428,6 @@
                     },
                     "validators": []
                   },
-                 
                   {
                     "label": "Onset Status",
                     "type": "obs",
@@ -433,6 +445,50 @@
                           "label": "Sudden"
                         }
                       ]
+                    }
+                  },
+                  {
+                    "label": "Severity",
+                    "type": "obs",
+                    "id": "seViDpain",
+                    "questionOptions": {
+                      "concept": "160287AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "number",
+                      "min": "0.0",
+                      "max": "10.0"
+                    },
+                    "hide": {
+                      "hideWhenExpression": "cOmplaIntField !== '114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  },
+                  {
+                    "label": "Types of Urinary Incontinence",
+                    "type": "obs",
+                    "id": "TyPEofInconTinence",
+                    "questionOptions": {
+                        "concept": "111636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "rendering": "radio",
+                        "answers": [
+                            {
+                                "concept": "117818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "Stress Incontinence"
+                              },
+                              {
+                                "concept": "123508AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "Urge Incontinence"
+                              },
+                              {
+                                "concept": "134045AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "Total or continuous Incontinence"
+                              },
+                              {
+                                "concept": "114417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "Overflow Incontinence"
+                              }
+                        ]
+                    },
+                    "hide": {
+                        "hideWhenExpression": "cOmplaIntField !== '111636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                     }
                   }
                 ]
@@ -457,6 +513,29 @@
             "isExpanded": "true",
             "questions": [
               {
+                "label": "Is there any additional history for this revisit?",
+                "type": "obs",
+                "id": "addItiOnalHist",
+                "required": "true",
+                "questionOptions": {
+                    "concept": "163148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                        {
+                            "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Yes"
+                          },
+                          {
+                            "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "No"
+                          }
+                    ]
+                },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(visitType) || visitType !== '160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
                 "label": "Any Medication taken before this visit",
                 "type": "obs",
                 "id": "medHis",
@@ -475,7 +554,7 @@
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -624,7 +703,7 @@
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -688,7 +767,7 @@
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -697,7 +776,8 @@
                 "id": "TraUMAcc",
                 "questionOptions": {
                   "concept": "1671AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "text"
+                  "rendering": "textarea",
+                  "rows": "8"
                 },
                 "hide": {
                   "hideWhenExpression": "tRauMAccIdEnt !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
@@ -722,7 +802,7 @@
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -781,7 +861,7 @@
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -801,7 +881,10 @@
                       }
                   ]
                 },
-                "id": "TrAnsplAntDone"
+                "id": "TrAnsplAntDone",
+                "hide": {
+                    "hideWhenExpression": "addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
               },
               {
                 "label": "Do you smoke cigarattes",
@@ -825,6 +908,9 @@
                       "label": "Stopped"
                     }
                   ]
+                },
+                "hide": {
+                    "hideWhenExpression": "addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -891,6 +977,9 @@
                       "label": "Stopped"
                     }
                   ]
+                },
+                "hide": {
+                    "hideWhenExpression": "addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -910,6 +999,9 @@
                         "label": "No"
                       }
                   ]
+                },
+                "hide": {
+                    "hideWhenExpression": "addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -929,10 +1021,13 @@
                       "label": "No"
                     }
                   ]
+                },
+                "hide": {
+                    "hideWhenExpression": "addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
-                "label": "Type of ilness",
+                "label": "Type of illness",
                 "type": "obs",
                 "id": "illNeSSType",
                 "questionOptions": {
@@ -976,6 +1071,9 @@
                             "label": "Other"
                           }
                   ]
+                },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(familyHistoryChronic) || familyHistoryChronic !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -987,7 +1085,7 @@
                   "rendering": "text"
                 },
                 "hide": {
-                  "hideWhenExpression": "!arrayContains(illNeSSType, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  "hideWhenExpression": "isEmpty(illNeSSType) || !arrayContains(illNeSSType, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               }
             ]
@@ -1091,6 +1189,18 @@
                   "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 },
                 "validators": []
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "othergeNeXams",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
               },
               {
                 "label": "Grading",
@@ -1440,8 +1550,8 @@
                       "label": "Endocrine"
                     },
                     {
-                      "concept": "850a960b-e8b5-4775-ba74-aaddb2abbf51",
-                      "label": "Eye"
+                      "concept": "1122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "HEENT"
                     },
                     {
                       "concept": "166363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1601,6 +1711,42 @@
                 },
                 "hide": {
                   "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '160947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "otherAbdoFinds",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(abdOmeNfinDinGs) || !arrayContains(abdOmeNfinDinGs, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Site of tenderness",
+                "type": "obs",
+                "id": "abdSiTe",
+                "questionOptions": {
+                    "concept": "160966AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "textarea"
+                },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(abdOmeNfinDinGs) || !arrayContains(abdOmeNfinDinGs, '5105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Site of scar",
+                "type": "obs",
+                "id": "ScarSiTe",
+                "questionOptions": {
+                    "concept": "163049AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "textarea"
+                },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(abdOmeNfinDinGs) || !arrayContains(abdOmeNfinDinGs, '127539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               },
               {
@@ -1948,7 +2094,7 @@
                 "type": "obs",
                 "id": "headNeckExaminationFindings",
                 "questionOptions": {
-                  "concept": "163070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "concept": "1070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                   "rendering": "checkbox",
                   "answers": [
                     {
@@ -2012,9 +2158,23 @@
                       "label": "Others"
                     }
                   ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '1122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
-              }
-              ,
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "otherHEENT",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(headNeckExaminationFindings) || !arrayContains(headNeckExaminationFindings, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
               {
                 "label": "HEENT findings notes",
                 "type": "obs",
@@ -2024,7 +2184,7 @@
                   "rendering": "textarea"
                 },
                 "hide": {
-                  "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '850a960b-e8b5-4775-ba74-aaddb2abbf51')"
+                  "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '1122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               },
               {
@@ -2186,6 +2346,18 @@
                 }
               },
               {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "otherGeniTouR",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(GenItourinAryFins) || !arrayContains(GenItourinAryFins, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
                 "label": "Genitourinary findings notes",
                 "type": "obs",
                 "id": "GenItouriNaryFinoTeS",
@@ -2310,11 +2482,67 @@
                     {
                       "concept": "146893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                       "label": "Bronchial breathing"
-                    }
+                    },
+                    {
+                        "concept": "122691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Kussmaul's respiration"
+                      },
+                      {
+                        "concept": "143838AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Displacement of the apex"
+                      },
+                      {
+                        "concept": "134474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Mediastinal shift"
+                      },
+                      {
+                        "concept": "160942AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hyper-resonance"
+                      },
+                      {
+                        "concept": "5138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dullness"
+                      },
+                      {
+                        "concept": "145712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Stony dullness"
+                      },
+                      {
+                        "concept": "b00b4986-6d10-4eb0-a469-058ad8e5e7a1",
+                        "label": "Breath sounds"
+                      },
+                      {
+                        "concept": "5209AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Wheeze"
+                      },
+                      {
+                        "concept": "130054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Friction rub"
+                      },
+                      {
+                        "concept": "144672AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Coarse crackles"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Others"
+                      }
                   ]
                 },
                 "hide": {
                   "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') || !(age >5)"
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "otherChestAdults",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(cHeStFindinGs) || !arrayContains(cHeStFindinGs, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               },
               {
@@ -2409,6 +2637,44 @@
                 },
                 "hide": {
                   "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')|| !(age <=5)"
+                }
+              },
+              {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "otherChestKidS",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(childRespirationFindinGs) || !arrayContains(childRespirationFindinGs, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
+                "label": "Describe breathing sounds",
+                "type": "obs",
+                "id": "dEscBreath",
+                "questionOptions": {
+                    "concept": "113316AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                        {
+                            "concept": "163748AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Present"
+                          },
+                          {
+                            "concept": "163747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Absent"
+                          },
+                          {
+                            "concept": "142907AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Diminished"
+                          }
+                    ]
+                },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(childRespirationFindinGs) || !arrayContains(childRespirationFindinGs, 'b00b4986-6d10-4eb0-a469-058ad8e5e7a1') || isEmpty(cHeStFindinGs) || !arrayContains(cHeStFindinGs, 'b00b4986-6d10-4eb0-a469-058ad8e5e7a1')"
                 }
               },
               {
@@ -2542,6 +2808,18 @@
                 }
               },
               {
+                "label": "Other (Specify)",
+                "type": "obs",
+                "id": "otherSkinFinds",
+                "questionOptions": {
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(SkinFinDings) || !arrayContains(SkinFinDings, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              },
+              {
                 "label": "Skin finding notes",
                 "type": "obs",
                 "id": "SkInNotes",
@@ -2620,7 +2898,7 @@
                 "questionOptions": {
                   "rendering": "workspace-launcher",
                   "buttonLabel": "Add Radiology order",
-                  "workspaceName": "add-radiology-order"
+                  "workspaceName": "add-imaging-order"
                 },
                 "hide": {
                   "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
