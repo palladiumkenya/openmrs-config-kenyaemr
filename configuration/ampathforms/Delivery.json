@@ -115,10 +115,6 @@
 				  }
 				},
 				"validators": [
-				  {
-					"type": "date",
-					"allowFutureDates": "true"
-				  }
 				]
 			  },
 			  {
@@ -129,7 +125,10 @@
 				  "concept": "1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "number",
 				  "min": "24",
-				  "max": "50"
+				  "max": "50",
+				  "calculate": {
+                  "calculateExpression": "moment(lastLmpDate).isValid() ? moment().diff( moment(lastLmpDate), 'weeks') :''"
+                }
 				}
 			  },
 			  {
@@ -174,8 +173,9 @@
 				}
 			  },
 			  {
-				"label": "Date of Delivery:",
-				"type": "encounterDatetime",
+				"label": "Date and time of Delivery:",
+				"type": "obs",
+				"datePickerFormat": "both",
 				"questionOptions": {
 				  "rendering": "date",
 				  "concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -188,23 +188,6 @@
 				  }
 				],
 				"required": "true"
-			  },
-			  {
-				"label": "Time of Delivery",
-				"type": "obs",
-				"id": "TtakEn",
-				"required": "true",
-				"datePickerFormat": "timer",
-				"questionOptions": {
-				  "concept": "162140AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "date"
-				},
-				"validators": [
-				  {
-					"type": "date",
-					"allowFutureDates": "false"
-				  }
-				]
 			  },
 			  {
 				"label": "Place of Delivery:",
@@ -364,48 +347,10 @@
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "VDRL/RPR Results:",
-				"type": "obs",
-				"id": "vdrlResults",
-				"questionOptions": {
-				  "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Positive"
-					},
-					{
-					  "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Negative"
-					},
-					{
-					  "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Not Done"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Date placenta expelled",
-				"type": "obs",
-				"id": "dateExpelled",
-				"questionOptions": {
-				  "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "date"
-				},
-				"validators": [
-				  {
-					"type": "date",
-					"allowFutureDates": "false"
-				  }
-				]
-			  },
-			  {
-				"label": "Time placenta expelled",
+				"label": "Date and time placenta expelled",
 				"type": "obs",
 				"id": "timeExpelled",
-				"datePickerFormat": "timer",
+				"datePickerFormat": "both",
 				"questionOptions": {
 				  "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "date"
@@ -447,283 +392,13 @@
 				}
 			  },
 			  {
-				"label": "Vagina Examination?",
+				"label": "Placenta weight (g)",
 				"type": "obs",
-				"id": "vaginalExamination",
-				"required": "true",
+				"id": "plaCenTAG",
 				"questionOptions": {
-				  "concept": "160704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "132681AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Normal"
-					},
-					{
-					  "concept": "5577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Episiotomy"
-					},
-					{
-					  "concept": "159264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Vaginal tear"
-					},
-					{
-					  "concept": "118935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "FGM"
-					},
-					{
-					  "concept": "139505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Vaginal warts"
-					},
-					{
-					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Others"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Specify:",
-				"type": "obs",
-				"id": "OtheRvaGinal",
-				"questionOptions": {
-				  "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "text"
-				},
-				"hide": {
-				  "hideWhenExpression": "vaginalExamination !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  }
-			]
-		  },
-		  {
-			"label": "Cervix Examination",
-			"isExpanded": "true",
-			"questions": [
-			  {
-				"label": "Position",
-				"type": "obs",
-				"id": "cervPosition",
-				"questionOptions": {
-				  "concept": "159633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "label": "Anterior",
-					  "concept": "540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					},
-					{
-					  "label": "Posterior",
-					  "concept": "541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					},
-					{
-					  "label": "Central",
-					  "concept": "145956AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Consistency",
-				"type": "obs",
-				"id": "cervConsistent",
-				"questionOptions": {
-				  "concept": "159633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "label": "Firm",
-					  "concept": "160399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					},
-					{
-					  "label": "Soft",
-					  "concept": "155753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Effacement",
-				"type": "obs",
-				"id": "EffConsistent",
-				"questionOptions": {
-				  "concept": "160968AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "text",
-				  "rows": "15"
-				}
-			  },
-			  {
-				"label": "Dilation",
-				"type": "obs",
-				"id": "cervDilation",
-				"questionOptions": {
-				  "concept": "162261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "number",
-				  "max": "10",
-				  "min": "0"
-				}
-			  },
-			  {
-				"label": "Membrane/Liquor",
-				"type": "obs",
-				"id": "membraNecerVix",
-				"questionOptions": {
-				  "concept": "0054aae2-d945-47fd-8fba-8b515e780f41",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "label": "Intact",
-					  "concept": "164839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					},
-					{
-					  "label": "Ruptured",
-					  "concept": "127252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Choose an option (Intact)",
-				"type": "obs",
-				"id": "iNtactOptions",
-				"questionOptions": {
-				  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "label": "Flat",
-					  "concept": "167105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					},
-					{
-					  "label": "Forming",
-					  "concept": "150841AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					},
-					{
-					  "label": "Bulging",
-					  "concept": "146848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(membraNecerVix) || !arrayContains(['164839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], membraNecerVix)"
-				}
-			  },
-			  {
-				"label": "Choose an option (Rupture)",
-				"type": "obs",
-				"id": "ruptureOptions",
-				"questionOptions": {
-				  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "label": "Odour",
-					  "concept": "141937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					},
-					{
-					  "label": "Color",
-					  "concept": "d8021de4-83d7-4e8d-9ab7-27b613224316"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(membraNecerVix) || !arrayContains(['127252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], membraNecerVix)"
-				}
-			  },
-			  {
-				"label": "Choose an option (Color)",
-				"type": "obs",
-				"id": "colorOptions",
-				"questionOptions": {
-				  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "label": "Clear",
-					  "concept": "159484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					},
-					{
-					  "label": "Blood stained",
-					  "concept": "1077AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					},
-					{
-					  "label": "Meconium",
-					  "concept": "134488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(ruptureOptions) || ruptureOptions !== 'd8021de4-83d7-4e8d-9ab7-27b613224316'"
-				}
-			  },
-			  {
-				"label": "Date of rupture",
-				"type": "obs",
-				"id": "dateRupTure",
-				"questionOptions": {
-				  "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "date"
-				},
-				"validators": [
-				  {
-					"type": "date",
-					"allowFutureDates": "false"
-				  },
-				  {
-					"type": "js_expression",
-					"failsWhenExpression": "(new moment(deliveryDateTime)).isBefore((new moment(myValue)), 'day')",
-					"message": "Date of Rupture date should not be greater than the delivery date."
-				  }
-				],
-				"hide": {
-				  "hideWhenExpression": "isEmpty(membraNecerVix) || !arrayContains(['127252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], membraNecerVix)"
-				}
-			  },
-			  {
-				"label": "Time of rupture",
-				"type": "obs",
-				"id": "timeRupTure",
-				"datePickerFormat": "timer",
-				"questionOptions": {
-				  "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "date"
-				},
-				"validators": [
-				  {
-					"type": "js_expression",
-					"failsWhenExpression": "(new moment(deliveryDateTime)).isAfter((new moment(myValue)), 'day')",
-					"message": "Date of Rupture date should not be greater than the delivery date."
-				  }
-				],
-				"hide": {
-				  "hideWhenExpression": "isEmpty(membraNecerVix) || !arrayContains(['127252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], membraNecerVix)"
-				}
-			  },
-			  {
-				"label": "Moulding/Caput",
-				"type": "obs",
-				"id": "mOuldingOptions",
-				"questionOptions": {
-				  "concept": "166527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
-				  "answers": [
-					{
-					  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "0"
-					},
-					{
-					  "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "+"
-					},
-					{
-					  "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "++"
-					},
-					{
-					  "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "+++"
-					}
-				  ]
+					"concept": "5565a7ad-f15e-4466-a26d-7ecc7bc7bed4",
+					"rendering": "number",
+					"min": "0"
 				}
 			  }
 			]
@@ -743,47 +418,6 @@
 				},
 				"hide": {
 				  "hideWhenExpression": ""
-				}
-			  },
-			  {
-				"label": "Uterotonic given?",
-				"type": "obs",
-				"id": "uterotonicGiven",
-				"required": "true",
-				"questionOptions": {
-				  "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "None"
-					},
-					{
-					  "concept": "81369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Oxytocin"
-					},
-					{
-					  "concept": "104590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Carbetocin"
-					},
-					{
-					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Other"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Other Uterotonic Specify",
-				"type": "obs",
-				"id": "otherUterotonicSpecify",
-				"questionOptions": {
-				  "concept": "bae7d54d-4944-4be0-93fa-021b4a70cb0b",
-				  "rendering": "text"
-				},
-				"validators": [],
-				"hide": {
-				  "hideWhenExpression": "isEmpty(uterotonicGiven) || uterotonicGiven !== ('5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
 				}
 			  },
 			  {
@@ -880,7 +514,19 @@
 				  ]
 				},
 				"hide": {
-				  "hideWhenExpression": "isEmpty(perIniUmExam) || perIniUmExam === (['164899AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','114244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'])"
+                	"hideWhenExpression": "isEmpty(perIniUmExam) || perIniUmExam === '164899AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || perIniUmExam === '114244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              	}
+			  },
+			  {
+				"label": "Repair done by:",
+				"type": "obs",
+				"id": "repaIrBy",
+				"questionOptions": {
+					"concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					"rendering": "text"
+				},
+				"hide": {
+					"hideWhenExpression": "isEmpty(rePairpeRinium) || rePairpeRinium !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
 			  {
@@ -1240,12 +886,31 @@
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "Has consent been given? ",
+				"label": "Client eligible for testing :",
 				"type": "obs",
+				"id": "eligibleTest",
 				"questionOptions": {
+				  "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "rendering": "radio",
-				  "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				  "answers": [
+				  {
+					"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					"label": "Yes"
+				  },
+				  {
+					"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					"label": "No"
+				  }
+				  ]
+				}
+				},
+				{
+				  "label": "Has consent been given? ",
+				  "type": "obs",
+				  "questionOptions": {
+					"rendering": "radio",
+					"concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					"answers": [
 					{
 					  "concept": "true",
 					  "label": "Yes"
@@ -1254,11 +919,15 @@
 					  "concept": "false",
 					  "label": "No"
 					}
-				  ]
-				},
-				"id": "consentGiven",
-				"required": "true"
-			  },
+					]
+				  },
+				  "validators": [],
+				  "hide": {
+					"hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  },
+				  "id": "consentGiven",
+				  "required": "true"
+				  },
 			  {
 				"label": "Client tested as?  ",
 				"type": "obs",
@@ -1440,24 +1109,52 @@
 					  "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "rendering": "select",
 					  "answers": [
-						{
-						  "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Negative"
-						},
-						{
-						  "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Positive"
-						},
-						{
-						  "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Poor Sample quality"
-						}
+					  {
+						"concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Negative"
+					  },
+					  {
+						"concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Positive"
+					  },
+					  {
+						"concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Poor Sample quality"
+					  }
 					  ]
 					},
 					"hide": {
 					  "hideWhenExpression": "isEmpty(kitNameA) || kitNameA !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
 					}
-				  }
+					},
+				   {
+					"label": "Was treatment given?",
+					"type": "obs",
+					"id": "syphllTX",
+					"questionOptions": {
+					  "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "radio",
+					  "answers": [
+					  {
+						"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Yes"
+					  },
+					  {
+						 "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "No"
+					  }
+					  ]
+					},
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(syphilisTestResults) || syphilisTestResults !== '1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					},
+					"alert": {
+					  "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+					  "message": "Start Treatment"
+					}
+				  
+					}
 				]
 			  },
 			  {
@@ -1785,7 +1482,7 @@
 				"id": "hivFinalResultOld",
 				"validators": [],
 				"hide": {
-				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameFe === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameA === '9c4011c2-2579-49cf-ab53-93d009f03e7b'"
+				  "hideWhenExpression": "((String(kitName) === '7cf927f8-e734-474f-b71a-1459bb566aa2' ? 1 : 0) + (String(kitNameB) === '59ef8c87-eb66-4f9e-a459-7227c01f682e' ? 1 : 0) + (String(kitNameA) === '2f5a80fa-6f26-4832-b8a8-f47649bb60de' ? 1 : 0) + (String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(kitNameA) === '7cf927f8-e734-474f-b71a-1459bb566aa2' ? 1 : 0) + (String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) === 0"
 				}
 			  },
 			  {
@@ -1815,7 +1512,7 @@
 				"id": "hivFinalResult",
 				"validators": [],
 				"hide": {
-				  "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e' || kitNameA === '2f5a80fa-6f26-4832-b8a8-f47649bb60de' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitNameA === '7cf927f8-e734-474f-b71a-1459bb566aa2' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				  "hideWhenExpression": "((String(kitName) === '9c4011c2-2579-49cf-ab53-93d009f03e7b' ? 1 : 0) + (String(kitNameFe) === '9c4011c2-2579-49cf-ab53-93d009f03e7b' ? 1 : 0) + (String(kitNameA) === '9c4011c2-2579-49cf-ab53-93d009f03e7b')) === 0"
 				}
 			  },
 			  {
@@ -2016,6 +1713,47 @@
 			"label": "Delivery Management",
 			"isExpanded": "true",
 			"questions": [
+				{
+					"label": "Uterotonic given?",
+					"type": "obs",
+					"id": "uterotonicGiven",
+					"required": "true",
+					"questionOptions": {
+					  "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "radio",
+					  "answers": [
+						{
+						  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "None"
+						},
+						{
+						  "concept": "81369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Oxytocin"
+						},
+						{
+						  "concept": "104590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Carbetocin"
+						},
+						{
+						  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Other"
+						}
+					  ]
+					}
+				  },
+				  {
+					"label": "Other Uterotonic Specify",
+					"type": "obs",
+					"id": "otherUterotonicSpecify",
+					"questionOptions": {
+					  "concept": "bae7d54d-4944-4be0-93fa-021b4a70cb0b",
+					  "rendering": "text"
+					},
+					"validators": [],
+					"hide": {
+					  "hideWhenExpression": "isEmpty(uterotonicGiven) || uterotonicGiven !== ('5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+					}
+				  },
 			  {
 				"label": "Was Resuscitation done:",
 				"type": "obs",
@@ -2252,6 +1990,132 @@
 					}
 				  ]
 				}
+			  },
+			  {
+				"label": "Mother's ART prophylaxis given during this visit?",
+				"type": "obs",
+				"id": "prophylaxisUsed",
+				"questionOptions": {
+				  "concept": "1109AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Cotrimoxazole"
+					},
+					{
+					  "concept": "74250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Dapsone"
+					},
+					{
+					  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "None"
+					}
+				  ]
+				},
+				"hide": {
+                "hideWhenExpression": "(String(hivFinalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(hivFinalResultOld) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) === 0"
+              }
+			  },
+			  {
+				"label": "Mother started on HAART at maternity ?",
+				"type": "obs",
+				"required": "true",
+				"id": "haartMat",
+				"questionOptions": {
+				  "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					},
+					{
+						"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Not applicable"
+					  }
+				  ]
+				},
+				"hide": {
+                "hideWhenExpression": "(String(hivFinalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(hivFinalResultOld) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) === 0"
+              }
+			  },
+			  {
+				"label": "Was mother on HAART during ANC?",
+				"type": "obs",
+				"required": "true",
+				"id": "haartGivenAtANC",
+				"questionOptions": {
+				  "concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					},
+					{
+						"concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Not applicable"
+					  }
+				  ]
+				},
+				"hide": {
+                "hideWhenExpression": "(String(hivFinalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(hivFinalResultOld) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) === 0"
+              }
+			  },
+			  {
+				"label": "AZT for the baby dispensed?",
+				"type": "obs",
+				"id": "aztDispensed",
+				"required": "true",
+				"questionOptions": {
+				  "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "160123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+                "hideWhenExpression": "(String(hivFinalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(hivFinalResultOld) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) === 0"
+              }
+			  },
+			  {
+				"label": "NVP for the baby dispensed?",
+				"type": "obs",
+				"required": "true",
+				"id": "nvpDispensed",
+				"questionOptions": {
+				  "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+                "hideWhenExpression": "(String(hivFinalResult) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(hivFinalResultOld) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) === 0"
+              }
 			  }
 			]
 		  },

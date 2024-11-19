@@ -62,17 +62,7 @@
 				"min": "0",
 				"max": "99"
 			  },
-			  {
-				"label": "ANC Clinic Number(YYYY-MM-NNNN)",
-				"type": "obs",
-				"questionOptions": {
-				  "rendering": "text",
-				  "concept": "163530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-				},
-				"id": "clinicNumber",
-				"required": "true",
-				"min": "0"
-			  },
+			 
 			  {
 				"label": "Maturity in weeks:",
 				"type": "obs",
@@ -189,6 +179,11 @@
 					  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "None"
 					},
+					{
+						"concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"label": "Cesarean section",
+						"disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					  },
 					{
 					  "concept": "166429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 					  "label": "Pelvic Surgery",
@@ -728,6 +723,25 @@
 			"label": "HIV Testing",
 			"isExpanded": "true",
 			"questions": [
+				{
+					"label": "Client eligible for testing :",
+					"type": "obs",
+					"id": "eligibleTest",
+					"questionOptions": {
+					  "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "radio",
+					  "answers": [
+						{
+						  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Yes"
+						},
+						{
+						  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "No"
+						}
+					  ]
+					}
+				  },
 			  {
 				"label": "Has consent been given? ",
 				"type": "obs",
@@ -744,6 +758,10 @@
 					  "label": "No"
 					}
 				  ]
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				},
 				"id": "consentGiven",
 				"required": "true"
@@ -945,6 +963,32 @@
 					},
 					"hide": {
 					  "hideWhenExpression": "isEmpty(kitNameA) || kitNameA !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
+					}
+				  },
+				 {
+					"label": "Was treatment given?",
+					"type": "obs",
+					"id": "syphllTX",
+					"questionOptions": {
+					  "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "radio",
+					  "answers": [
+						{
+						  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Yes"
+						},
+						{
+					 	  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "No"
+						}
+					  ]
+					},
+					"hide": {
+					  "hideWhenExpression": "isEmpty(syphilisTestResults) || syphilisTestResults !== '1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+					},
+					"alert": {
+					  "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+					  "message": "Start Treatment"
 					}
 				  }
 				]
@@ -1636,6 +1680,56 @@
 				"hide": {
 				  "hideWhenExpression": "hepBscreen !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
+			  },
+			  {
+				"label": "Syphilis Screening Results:",
+				"type": "obs",
+				"id": "syphilisTestResultsB",
+				"questionOptions": {
+				  "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Negative"
+					},
+					{
+					  "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Positive"
+					},
+					{
+					  "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Poor Sample quality"
+					}
+				  ]
+				}
+			  },
+			  {
+				"label": "Was treatment given?",
+				"type": "obs",
+				"id": "treatmentsyph",
+				"questionOptions": {
+				  "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(syphilisTestResultsB) || syphilisTestResultsB !== '1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				},
+				"alert": {
+				  "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+				  "message": "Start Treatment"
+				}
+				
 			  }
 			]
 		  },

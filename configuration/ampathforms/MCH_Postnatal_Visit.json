@@ -854,12 +854,31 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Has consent been given? ",
+              "label": "Client eligible for testing :",
               "type": "obs",
+              "id": "eligibleTest",
               "questionOptions": {
+                "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
-                "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
+                {
+                  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "label": "Yes"
+                },
+                {
+                  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "label": "No"
+                }
+                ]
+              }
+              },
+              {
+                "label": "Has consent been given? ",
+                "type": "obs",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
                   {
                     "concept": "true",
                     "label": "Yes"
@@ -868,11 +887,15 @@
                     "concept": "false",
                     "label": "No"
                   }
-                ]
-              },
-              "id": "consentGiven",
-              "required": "true"
-            },
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                },
+                "id": "consentGiven",
+                "required": "true"
+                },
             {
               "label": "Client tested as?  ",
               "type": "obs",
@@ -1054,24 +1077,52 @@
                     "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "select",
                     "answers": [
-                      {
-                        "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
-                      },
-                      {
-                        "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
-                      },
-                      {
-                        "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Poor Sample quality"
-                      }
+                    {
+                      "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Negative"
+                    },
+                    {
+                      "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Positive"
+                    },
+                    {
+                      "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Poor Sample quality"
+                    }
                     ]
                   },
                   "hide": {
                     "hideWhenExpression": "isEmpty(kitNameA) || kitNameA !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de'"
                   }
-                }
+                  },
+                 {
+                  "label": "Was treatment given?",
+                  "type": "obs",
+                  "id": "syphllTX",
+                  "questionOptions": {
+                    "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                       "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                    ]
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(syphilisTestResults) || syphilisTestResults !== '1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                    "message": "Start Treatment"
+                  }
+                
+                  }
               ]
             },
             {

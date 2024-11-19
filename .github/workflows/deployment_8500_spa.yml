@@ -27,7 +27,7 @@ jobs:
       - name: Execute Development Build Script
         run: |
           chmod +x ./dev-build.sh
-          echo "n" | ./dev-build.sh
+          echo "y" | ./dev-build.sh
 
       - name: Compress frontend folder
         run: tar -czvf frontend-${{ github.sha }}.tar.gz frontend/
@@ -61,6 +61,21 @@ jobs:
             sudo mv /var/lib/OpenMRS/frontend /var/lib/OpenMRS/frontend_old &&
             sudo mv frontend /var/lib/OpenMRS/ &&
             sudo rm -rf /var/lib/OpenMRS/frontend_old
+    # Activate staging server build dispatch
+  Trigger_server_build:
+      runs-on: ubuntu-latest
+      needs: build_and_deploy
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v2
+  
+        - name: Invoke workflow without inputs. Don't wait for result
+          uses: aurelien-baudet/workflow-dispatch@v2
+          with:
+            workflow: Deployin_to_stagin_server
+            repo: palladiumkenya/openmrs-config-kenyaemr
+            token: ${{ secrets.PERSONAL_TOKENS }}
+            wait-for-completion: false
   release:
     runs-on: ubuntu-latest
     needs: build_and_deploy
