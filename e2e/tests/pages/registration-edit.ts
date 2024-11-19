@@ -87,8 +87,8 @@ export class RegistrationAndEditPage {
     // clickin the post-to registry as one confirms the submit button is also disabled
     async waitUntilTheFormIsLoaded() {
         await expect(this.createPatientButton()).toBeDisabled();
-        await this.postToRegistryButton().click();
-        await expect(this.createPatientButton()).toBeVisible();
+        // await this.postToRegistryButton().click();
+        // await expect(this.createPatientButton()).toBeVisible();
     }
 
     async fillPatientRegistrationForm(formValues: PatientRegistrationFormValues) {
@@ -115,6 +115,7 @@ export class RegistrationAndEditPage {
         await this.educationInput(formValues.education);
         await this.occupationalInput(formValues.occupation);
         await this.maritalStatus(formValues.maritalStatus)
+        await this.postToRegistryButton().click();
         await this.createPatientButton().click();
     }
 }
