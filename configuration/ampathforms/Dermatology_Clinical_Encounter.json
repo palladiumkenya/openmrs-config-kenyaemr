@@ -1,7 +1,7 @@
 {
     "name": "Dermatology Clinical Form",
     "description": "A form used to capture dermatology clinical Cases",
-    "version": "1.0",
+    "version": "2.0",
     "published": true,
     "uuid": "efa2f992-44af-487e-aaa7-c92813a34612",
     "retired": false,
@@ -59,6 +59,13 @@
                 "questionOptions": {
                   "rendering": "radio",
                   "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [
+                    {
+                      "relationship": "SAME-AS",
+                      "type": "CIEL",
+                      "value": "164181"
+                    }
+                  ],
                   "answers": [
                     {
                       "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -69,33 +76,140 @@
                       "label": "Return Visit"
                     },
                     {
-                      "concept": "160551AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Referral"
+                      "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Referrals"
                     }
                   ]
                 }
               },
               {
-                "label": "Visit To:",
+                "label": "Referral from",
                 "type": "obs",
-                "id": "visitTo",
+                "required": true,
+                "id": "referralSpecification",
                 "questionOptions": {
                   "rendering": "radio",
-                  "concept": "161643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "concept": "160338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [],
                   "answers": [
                     {
-                      "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Outpatient department(OPD)"
+                      "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "From other facilities"
                     },
                     {
-                      "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Inpatient department(IPD)"
+                      "concept": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Referred from CHU "
+                    },
+                    {
+                      "concept": "164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Internal(Department)"
                     }
                   ]
                 },
-                "validators": [],
                 "hide": {
-                  "hideWhenExpression": "visitType !== '160551AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "isEmpty(visitType) || visitType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Specify Referring Department",
+                "type": "obs",
+                "required": true,
+                "id": "departmentSpecify",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "160478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [],
+                  "answers": [
+                    {
+                      "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Outpatient Department"
+                    },
+                    {
+                      "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Inpatient Department"
+                    },
+                    {
+                      "concept": "160454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ophthalmology (Eye)Clinic"
+                    },
+                    {
+                      "concept": "160455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ear, Nose, and Throat(ENT)Clinic"
+                    },
+                    {
+                      "concept": "2a030791-14b4-4996-95ad-39c54b25f2b6",
+                      "label": "Physiotherapy clinic"
+                    },
+                    {
+                      "concept": "164164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Surgical Outpatient Clinic"
+                    },
+                    {
+                      "concept": "160457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Paediatrics clinics"
+                    },
+                    {
+                      "concept": "1d7d7c76-d807-4f33-8c7e-2531e28126ed",
+                      "label": "Maxillofacial Clinic"
+                    },
+                    {
+                      "concept": "160448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Medical Outpatient clinic"
+                    },
+                    {
+                      "concept": "66710a6d-5894-4f7d-a874-b449df77314d",
+                      "label": "Oncology Clinic"
+                    },
+                    {
+                      "concept": "30aff715-92de-4662-aa33-fa6b6179fed0",
+                      "label": "Dental clinic"
+                    },
+                    {
+                      "concept": "160475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Renal Clinic"
+                    },
+                    {
+                      "concept": "5489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Mental Health"
+                    },
+                    {
+                      "concept": "160460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dermatology Clinic"
+                    },
+                    {
+                      "concept": "164103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Diabetic Clinic"
+                    },
+                    {
+                      "concept": "c2f85aed-695f-49b1-973e-002c37cbdebf",
+                      "label": "Occupational Therapy Clinic"
+                    },
+                    {
+                      "concept": "160465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Orthopaedic Clinic"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others specify"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(referralSpecification) || referralSpecification !== '164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Specify Department",
+                "type": "obs",
+                "required": true,
+                "id": "specifyDepartment",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": []
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(departmentSpecify) || departmentSpecify !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               }
             ]
@@ -1017,7 +1131,7 @@
                   "workspaceName": "add-lab-order"
                 },
                 "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               }
             ]
