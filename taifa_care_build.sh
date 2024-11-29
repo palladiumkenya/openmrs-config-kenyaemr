@@ -12,7 +12,7 @@ read -p "Is this for KDOD asset generation? (y/n): " is_kdod
 echo "Building Taifa Care KenyaEMR 3.x assets ..."
 CWD=$(pwd)
 npx --legacy-peer-deps openmrs@next build \
-  --build-config ./frontend-config/dev/build-config.json \
+  --build-config ./frontend-config/staging/hie_build-config.json \
   --target ./frontend \
   --page-title "Taifa Care - KenyaEMR" \
   --support-offline false
