@@ -78,6 +78,5 @@ rename_dist_folder() {
 rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
 ## TODO: Remove once PR merged to community
 rename_dist_folder "openmrs-esm-patient-tests-app-*" "dist-patient-tests"
-rename_dist_folder "openmrs-esm-dispensing-app-*" "dist-dispensing"
 # Exit with success status
 exit 0
