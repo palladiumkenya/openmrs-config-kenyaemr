@@ -1,0 +1,1149 @@
+{
+    "name": "Adverse Drug Reaction Reporting Form",
+    "description": "Adverse Drug Reaction Reporting Form",
+    "version": "1",
+    "published": true,
+    "uuid": "461e1b45-b3f2-4899-b3e9-d3b110b6ed9c",
+    "retired": false,
+    "encounter": "Adverse Drug Reaction",
+    "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Encounter date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Report Details",
+      "sections": [
+        {
+          "label": "Report Title",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Name of Report",
+              "type": "obs",
+              "required": "true",
+              "questionOptions": {
+                "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "id": "RePoName"
+            },
+            {
+              "label": "The Report is on:",
+              "type": "obs",
+              "id": "tRePortOn",
+              "questionOptions": {
+                "concept": "61d86c79-ad0e-4a97-8fb7-e8ef43bac49b",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Suspected adverse drug reaction"
+                  },
+                  {
+                    "concept": "162562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Therapeutic ineffectiveness"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Report type:",
+              "type": "obs",
+              "id": "tRePortOnType",
+              "questionOptions": {
+                "concept": "163331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162979AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Initial Report"
+                  },
+                  {
+                    "concept": "162981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Follow Up Report"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Product category (Tick appropriate box)",
+              "type": "obs",
+              "id": "proDcat",
+              "questionOptions": {
+                "concept": "6d24eb6e-b42f-4706-ab2d-ae4472161f6a",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "161189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Medicinal product"
+                  },
+                  {
+                    "concept": "129746AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Blood and blood products"
+                  },
+                  {
+                    "concept": "5841AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Herbal product"
+                  },
+                  {
+                    "concept": "72303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cosmeceuticals"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Other (Specify)",
+              "type": "obs",
+              "id": "prodUctOthers",
+              "questionOptions": {
+                "concept": "3bb426dc-7f5c-43f2-952e-8d15ab16e6a4",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(proDcat) || !arrayContains(proDcat, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Patient Information",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient pregnant?",
+              "type": "obs",
+              "id": "pregnancyOption",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
+              "hide": {
+                "hideWhenExpression": "sex !=='F' || age < 15"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "isEmpty(myValue) && hasLMP ==='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && mEnoPauSe !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                  "message": "Please specify if patient is pregnant."
+                }
+              ]
+            },
+            {
+              "label": "Pregnancy Trimester",
+              "type": "obs",
+              "id": "preGtrim",
+              "questionOptions": {
+                "concept": "160665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "1st Trimester"
+                  },
+                  {
+                    "concept": "1722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "2nd Trimester"
+                  },
+                  {
+                    "concept": "1723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3rd Trimester"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(pregnancyOption) || pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Patient has adverse drug reaction(s)",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "repeating",
+                "concept": "121760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "ClientADvReactions",
+              "hide": {
+                "hideWhenExpression": ""
+              },
+              "questions": [
+                {
+                  "label": "Medicine Causing Reaction",
+                  "type": "obs",
+                  "id": "AdVerseMed",
+                  "questionOptions": {
+                    "concept": "1193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "103727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Aspirin"
+                      },
+                      {
+                        "concept": "77164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Griseofulvin"
+                      },
+                      {
+                        "concept": "78280AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Isoniazid"
+                      },
+                      {
+                        "concept": "162298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "ACE inhibitors"
+                      },
+                      {
+                        "concept": "162305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Heparins"
+                      },
+                      {
+                        "concept": "86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Zidovudine"
+                      },
+                      {
+                        "concept": "82023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Phenytoin"
+                      },
+                      {
+                        "concept": "162307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Statins"
+                      },
+                      {
+                        "concept": "72822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Carbamazepine"
+                      },
+                      {
+                        "concept": "794AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Lopinavir/ritonavir"
+                      },
+                      {
+                        "concept": "80106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Morphine"
+                      },
+                      {
+                        "concept": "73300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Chloroquine"
+                      },
+                      {
+                        "concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Nevirapine"
+                      },
+                      {
+                        "concept": "74807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Didanosine"
+                      },
+                      {
+                        "concept": "84893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Tetracycline"
+                      },
+                      {
+                        "concept": "a7c25c03-3fe6-41b5-97a1-5b2abaae84fa",
+                        "label": "TAF/3TC/DTG"
+                      },
+                      {
+                        "concept": "73667AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Codeine"
+                      },
+                      {
+                        "concept": "162302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Erythromycins"
+                      },
+                      {
+                        "concept": "767AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Rifampin"
+                      },
+                      {
+                        "concept": "83018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Quinidine"
+                      },
+                      {
+                        "concept": "70056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Abicavir"
+                      },
+                      {
+                        "concept": "82900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Pyrazinamide"
+                      },
+                      {
+                        "concept": "84309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Stavudine"
+                      },
+                      {
+                        "concept": "81959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Phenolphthaleins"
+                      },
+                      {
+                        "concept": "162299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "ARBs (angiotensin II receptor blockers)"
+                      },
+                      {
+                        "concept": "80696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Nitrofurans"
+                      },
+                      {
+                        "concept": "82559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Procainamide"
+                      },
+                      {
+                        "concept": "81723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Penicillamine"
+                      },
+                      {
+                        "concept": "162301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Cephalosporins"
+                      },
+                      {
+                        "concept": "75948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Ethambutol"
+                      },
+                      {
+                        "concept": "77675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hydralazine"
+                      },
+                      {
+                        "concept": "84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Tenofovir"
+                      },
+                      {
+                        "concept": "155060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Aminoglycosides"
+                      },
+                      {
+                        "concept": "162306AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Non-steroidal anti-inflammatory drugs"
+                      },
+                      {
+                        "concept": "75523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Efavirenz"
+                      },
+                      {
+                        "concept": "70878AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Allopurinol"
+                      },
+                      {
+                        "concept": "81724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Penicillin"
+                      },
+                      {
+                        "concept": "71647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Atazanavir"
+                      },
+                      {
+                        "concept": "162170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sulfonamides"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Specify other medicine causing reaction",
+                  "type": "obs",
+                  "id": "specifyOtherIllness",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(AdVerseMed) || AdVerseMed !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Generic Name",
+                  "type": "obs",
+                  "id": "nAmeOfGen",
+                  "questionOptions": {
+                    "concept": "844bf107-32e6-4d5d-8d40-de8978f79cb3",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "AdverseReactions !== 'true'"
+                  }
+                },
+                {
+                  "label": "Brand Name",
+                  "type": "obs",
+                  "id": "nAmeOfBrand",
+                  "questionOptions": {
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "AdverseReactions !== 'true'"
+                  }
+                },
+                {
+                  "label": "Batch/Lot No.",
+                  "type": "obs",
+                  "id": "bATchNo",
+                  "questionOptions": {
+                    "concept": "166455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "AdverseReactions !== 'true'"
+                  }
+                },
+                {
+                  "label": "Dosage",
+                  "type": "obs",
+                  "id": "doseEffect",
+                  "questionOptions": {
+                    "concept": "1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(AdVerseMed)"
+                  }
+                },
+                {
+                  "label": "Frequency",
+                  "type": "obs",
+                  "id": "frequency",
+                  "questionOptions": {
+                    "concept": "160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "160864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Once daily in the evening"
+                      },
+                      {
+                        "concept": "160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Thrice daily"
+                      },
+                      {
+                        "concept": "160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Once daily"
+                      },
+                      {
+                        "concept": "160865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Once daily in the morning"
+                      },
+                      {
+                        "concept": "160863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Once daily at bedtime"
+                      },
+                      {
+                        "concept": "160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Twice daily"
+                      },
+                      {
+                        "concept": "160870AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Four times daily"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "AdverseReactions !== 'true'"
+                  }
+                },
+                {
+                  "label": "Route of Adminstration",
+                  "type": "obs",
+                  "id": "routeOfAdmin",
+                  "questionOptions": {
+                    "concept": "163398AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "160240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Oral"
+                      },
+                      {
+                        "concept": "160242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Intravenous"
+                      },
+                      {
+                        "concept": "160243AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Intramuscular"
+                      },
+                      {
+                        "concept": "160245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Subcutaneous"
+                      },
+                      {
+                        "concept": "160241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Inhalation"
+                      },
+                      {
+                        "concept": "161253AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Intranasal"
+                      },
+                      {
+                        "concept": "162391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Transdermal"
+                      },
+                      {
+                        "concept": "162392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Vaginally"
+                      },
+                      {
+                        "concept": "162393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Rectally"
+                      },
+                      {
+                        "concept": "162824AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Intraosseous"
+                      },
+                      {
+                        "concept": "162391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Transdermal"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "AdverseReactions !== 'true'"
+                  }
+                },
+                {
+                  "label": "Reaction",
+                  "type": "obs",
+                  "id": "reactionMed",
+                  "questionOptions": {
+                    "concept": "159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Itching"
+                      },
+                      {
+                        "concept": "121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Myalgia"
+                      },
+                      {
+                        "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Fever"
+                      },
+                      {
+                        "concept": "159347AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Musculoskeletal pain"
+                      },
+                      {
+                        "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Headache"
+                      },
+                      {
+                        "concept": "108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Bronchospasm"
+                      },
+                      {
+                        "concept": "148787AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Angioedema"
+                      },
+                      {
+                        "concept": "159098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hepatotoxicity"
+                      },
+                      {
+                        "concept": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Diarrhea"
+                      },
+                      {
+                        "concept": "140039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Flushing"
+                      },
+                      {
+                        "concept": "148888AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Anaphylaxis"
+                      },
+                      {
+                        "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Unknown"
+                      },
+                      {
+                        "concept": "120148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Arrhythmia"
+                      },
+                      {
+                        "concept": "118773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dystonia"
+                      },
+                      {
+                        "concept": "121677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Mental status change"
+                      },
+                      {
+                        "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hypertension"
+                      },
+                      {
+                        "concept": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Anaemia"
+                      },
+                      {
+                        "concept": "139581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "GI upset"
+                      },
+                      {
+                        "concept": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Cough"
+                      },
+                      {
+                        "concept": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Rash"
+                      },
+                      {
+                        "concept": "111061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Hives"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Specify other reaction",
+                  "type": "obs",
+                  "id": "specifyOtherReaction",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(reactionMed) || reactionMed !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Severity",
+                  "type": "obs",
+                  "id": "seVERity",
+                  "questionOptions": {
+                    "concept": "162760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Not graded"
+                      },
+                      {
+                        "concept": "162819AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Life threatening"
+                      },
+                      {
+                        "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Moderate"
+                      },
+                      {
+                        "concept": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Severe"
+                      },
+                      {
+                        "concept": "1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Mild"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Date of Onset",
+                  "type": "obs",
+                  "id": "DateOfOnset",
+                  "questionOptions": {
+                    "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "date"
+                  },
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "false"
+                    }
+                  ]
+                },
+                {
+                  "label": "Action taken",
+                  "type": "obs",
+                  "id": "ActIonTakenPP",
+                  "questionOptions": {
+                    "concept": "1255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Drug Withdrawn"
+                      },
+                      {
+                        "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dose Increased"
+                      },
+                      {
+                        "concept": "1259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dose Reduced"
+                      },
+                      {
+                        "concept": "1258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Drug Changed"
+                      },
+                      {
+                        "concept": "981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dose Changed"
+                      },
+                      {
+                        "concept": "166188AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Dose not changed"
+                      },
+                      {
+                        "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Unknown"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Not Applicable"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(sEReaCtion) || sEReaCtion !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Treatment start date:",
+                  "type": "obs",
+                  "id": "firstTreatment",
+                  "questionOptions": {
+                    "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "date"
+                  },
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "false"
+                    }
+                  ]
+                },
+                {
+                  "label": "Treatment end date:",
+                  "type": "obs",
+                  "id": "lastTreatment",
+                  "questionOptions": {
+                    "concept": "164384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "date"
+                  },
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "false"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ADR Outcomes",
+      "sections": [
+        {
+          "label": "Dechallenge/Rechallenge",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Did the reaction resolve after the drug was stopped or when the dose was reduced?",
+              "type": "obs",
+              "id": "AdROutComes",
+              "questionOptions": {
+                "concept": "6097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Applicable"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Did the reaction reappear after the drug was reintroduced?",
+              "type": "obs",
+              "id": "AdROutComesRE",
+              "questionOptions": {
+                "concept": "159924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Applicable"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Any Investigations ordered?",
+              "type": "obs",
+              "id": "investigationOrderd",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0179f241-8c1d-47c1-8128-841f6508e251",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Lab Order",
+              "required": false,
+              "id": "labsWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add lab order",
+                "workspaceName": "add-lab-order"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(investigationOrderd) || investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Grading of the reaction/event",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Is the reaction serious?",
+              "type": "obs",
+              "id": "sEReaCtion",
+              "questionOptions": {
+                "concept": "162867AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Criteria/reason for seriousness",
+              "type": "obs",
+              "id": "cRitec",
+              "questionOptions": {
+                "concept": "ff5188f3-098b-40e9-be37-f248a41160d0",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "5485AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hospitalization/Prolonged Hospitalization"
+                  },
+                  {
+                    "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Disability"
+                  },
+                  {
+                    "concept": "119975AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Congenital anomality"
+                  },
+                  {
+                    "concept": "162693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Life threatening"
+                  },
+                  {
+                    "concept": "9c348c8c-e033-4fc0-ab2a-7e6702b68739",
+                    "label": "Death"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(sEReaCtion) || sEReaCtion !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Outcome",
+              "type": "obs",
+              "id": "ADReveNtoUtcome",
+              "questionOptions": {
+                "concept": "163105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "159791AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Recovered"
+                  },
+                  {
+                    "concept": "162873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Recovered with sequelae"
+                  },
+                  {
+                    "concept": "162677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Recovering"
+                  },
+                  {
+                    "concept": "164381AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not recovered"
+                  },
+                  {
+                    "concept": "9c348c8c-e033-4fc0-ab2a-7e6702b68739",
+                    "label": "Death"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(sEReaCtion) || sEReaCtion !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Any other comments",
+              "type": "obs",
+              "id": "ClinICNotes",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            }
+          ]
+        },
+        {
+          "label": "Reporter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Name of Initial Reporter",
+              "type": "obs",
+              "id": "assistantClinician",
+              "questionOptions": {
+                "concept": "164141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Cadre/Designation",
+              "type": "obs",
+              "id": "assistantCadre",
+              "questionOptions": {
+                "concept": "166014AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "CO"
+                  },
+                  {
+                    "concept": "162591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "MO"
+                  },
+                  {
+                    "concept": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nurse"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "obs",
+              "label": "Telephone contact",
+              "questionInfo": "",
+              "id": "phoneNumberInitial",
+              "required": "false",
+              "questionOptions": {
+                "concept": "167158AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
+                  "message": "Please enter the telephone number in the correct format e.g 0713888198 thats is 10 digits"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "age < 15"
+              }
+            },
+            {
+              "label": "Date of report",
+              "type": "obs",
+              "id": "doReport",
+              "questionOptions": {
+                "concept": "68bfa3f3-1fc7-4d9d-bb41-e897c3c430ef",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Name of Person Submitting to PPB if different from reporter",
+              "type": "obs",
+              "id": "rEporterPPB",
+              "questionOptions": {
+                "concept": "1526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Cadre/Designation",
+              "type": "obs",
+              "id": "assistantCadrePPB",
+              "questionOptions": {
+                "concept": "166014AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "CO"
+                  },
+                  {
+                    "concept": "162591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "MO"
+                  },
+                  {
+                    "concept": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nurse"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "obs",
+              "label": "Telephone contact",
+              "questionInfo": "",
+              "id": "phoneNumberPPB",
+              "required": "false",
+              "questionOptions": {
+                "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
+                  "message": "Please enter the telephone number in the correct format e.g 0713888198 thats is 10 digits"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": ""
+              }
+            },
+            {
+              "label": "Date of submission",
+              "type": "obs",
+              "id": "doReportsub",
+              "questionOptions": {
+                "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+    "encounterType": "7a185fe4-c56f-4195-b682-d3f5afa9d9c2"
+  }

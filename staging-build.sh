@@ -1,25 +1,28 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Clean up previous build artifacts
 echo "Cleaning up previous build artifacts ..."
 rm -rf openmrs-config-kenyaemr
 rm -rf frontend
 
+# Prompt user for KDOD asset generation
+read -p "Is this for KDOD asset generation? (y/n): " is_kdod
+
 # Build assets
 echo "Building Kenya EMR 3.x assets ..."
 CWD=$(pwd)
-npx --legacy-peer-deps openmrs@5.6.1-pre.2043 build \
-  --build-config ./configuration/staging-build-config.json \
+npx --legacy-peer-deps openmrs@5.8.2-pre.2443 build \
+  --build-config ./frontend-config/staging/build-config.json \
   --target ./frontend \
   --page-title "KenyaEMR" \
   --support-offline false
 
 # Assemble assets
 echo "Assembling assets ..."
-npx --legacy-peer-deps openmrs@5.6.1-pre.2043 assemble \
+npx --legacy-peer-deps openmrs@5.8.2-pre.2443 assemble \
   --manifest \
   --mode config \
-  --config ./configuration/staging-build-config.json \
+  --config ./frontend-config/staging/build-config.json \
   --target ./frontend
 
 # Copy required files
@@ -27,10 +30,24 @@ echo "Copying required files ..."
 cp "${CWD}/assets/kenyaemr-login-logo.png" "${CWD}/frontend"
 cp "${CWD}/assets/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
-cp "${CWD}/configuration/staging-config.json" "${CWD}/frontend"
-mv "${CWD}/frontend/staging-config.json" "${CWD}/frontend/config.json"
+cp "${CWD}/frontend-config/staging/kenyaemr.config.json" "${CWD}/frontend"
+cp "${CWD}/frontend-config/staging/openmrs.config.json" "${CWD}/frontend"
 
-# Function to handle openmrs-esm apps
+# Copy KDOD config or registration config based on user input and update index.html
+if [ "$is_kdod" = "y" ] || [ "$is_kdod" = "Y" ]; then
+    echo "Copying KDOD configuration..."
+    cp "${CWD}/frontend-config/registration/kdod.config.json" "${CWD}/frontend"
+    
+    # Update the configUrls in index.html
+    sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/kdod.config.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
+else
+    echo "Copying registration configuration..."
+    cp "${CWD}/frontend-config/registration/registration.config.json" "${CWD}/frontend"
+    
+    # Update the configUrls in index.html
+    sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/registration.config.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
+fi
+
 # Function to handle the renaming process
 rename_dist_folder() {
     local pattern=$1
@@ -59,7 +76,7 @@ rename_dist_folder() {
 
 # Handle renaming for openmrs-esm-form-entry-app-*
 rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
-
-
+## TODO: Remove once PR merged to community
+rename_dist_folder "openmrs-esm-patient-tests-app-*" "dist-patient-tests"
 # Exit with success status
 exit 0

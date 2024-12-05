@@ -282,38 +282,41 @@
 						{
 							"label": "Time of Placement(device) or first surgical cut(conventional surgical)[time in 24 hour clock:",
 							"type": "encounterDatetime",
+							"datePickerFormat": "timer",
 							"questionOptions": {
-								"rendering": "ui-select-extended",
-								"concept": "160715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							  "rendering": "date",
+							  "concept": "160715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
 							"id": "timeofPlacement",
 							"validators": [
-								{
-									"type": "date",
-									"allowFutureDates": "false"
-								},
-								{
-									"type": "js_expression",
-									"failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-									"message": "Tme of placement should be greater than the encounter date."
-								}
+							  {
+								"type": "date",
+								"allowFutureDates": "true"
+							  },
+							  {
+								"type": "js_expression",
+								"failsWhenExpression": "(new moment(myValue)).isAfter(new moment(encDate)), 'hour')",
+								"message": "Time of placement should be greater than the encounter date."
+							  }
 							]
-						},
-						{
+						  },
+						  {
 							"label": "Time of making the last slit(device) or time of wound closure (conventional surgical)[time in 24 hour clock:",
 							"type": "encounterDatetime",
+							"datePickerFormat": "timer",
 							"questionOptions": {
-								"rendering": "ui-select-extended",
-								"concept": "167132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							  "rendering": "date",
+							  "concept": "167132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
 							"id": "timeofSlit",
 							"validators": [
-								{
-									"type": "date",
-									"allowFutureDates": "false"
-								}
+							  {
+								"type": "js_expression",
+								"failsWhenExpression": "(new moment(timeofPlacement)).isSame(new moment(myValue)), 'hour')",
+								"message": "Time of last slit should be greater than the time of placement."
+							  }
 							]
-						}
+						  }
 					]
 				},
 				{
@@ -328,13 +331,14 @@
 								"concept": "162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
 								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
+									
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
 								]
 							},
@@ -436,13 +440,14 @@
 								"concept": "162736AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 								"rendering": "radio",
 								"answers": [
-									{
-										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"label": "No"
-									},
+									
 									{
 										"concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 										"label": "Yes"
+									},
+									{
+										"concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "No"
 									}
 								]
 							},
@@ -502,12 +507,13 @@
 							"label": "Name of Clinician",
 							"type": "obs",
 							"questionOptions": {
-								"rendering": "text",
-								"concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+							  "rendering": "remote-select",
+							  "dataSource": "provider",
+							  "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 							},
 							"id": "clinician",
 							"required": "true"
-						},
+						  },
 						{
 							"label": "Cadre",
 							"type": "obs",
@@ -542,13 +548,14 @@
 							"questions": [
 								{
 									"label": "Name of Assistant Clinician",
-									"type": "obs",
 									"id": "assistantClinician",
+									"type": "obs",
 									"questionOptions": {
-										"concept": "164141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-										"rendering": "text"
+									  "rendering": "remote-select",
+									  "dataSource": "provider",
+									  "concept": "164141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 									}
-								},
+								  },
 								{
 									"label": "Cadre",
 									"type": "obs",
@@ -573,7 +580,7 @@
 									}
 								}
 							],
-							"id": "__ExusJHp8s"
+							"id": "ExusJHp8s"
 						},
 						{
 							"label": "Theatre Register Number:",

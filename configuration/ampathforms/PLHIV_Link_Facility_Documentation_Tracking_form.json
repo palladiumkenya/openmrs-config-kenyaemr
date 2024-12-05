@@ -1,0 +1,866 @@
+{
+    "name": "PLHIV Link Facility Documentation Tracking form",
+    "description": "A form collecting data for KVP clients receiving ART status in a separate facility other than the DICE. ",
+    "version": "2.1",
+    "published": true,
+    "uuid": "052ede51-ddda-4f04-aa25-754ff40abf37",
+    "retired": false,
+    "encounter": "PLHIV Link Facility Documentation Tracking",
+    "pages": [
+      {
+        "label": "PLHIV Link Facility Details",
+        "sections": [
+          {
+            "label": "Encounter Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Date:",
+                "type": "encounterDatetime",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ],
+                "id": "encDate"
+              },
+              {
+                "label": "Provider:",
+                "type": "encounterProvider",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encProvider "
+              },
+              {
+                "label": "Location:",
+                "type": "encounterLocation",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encLocation"
+              }
+            ]
+          },
+          {
+            "label": "Facility Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "County",
+                "type": "obs",
+                "required": true,
+                "id": "county",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "e18c92d4-1c17-48e5-94a5-95d7835b67ec",
+                  "answers": []
+                },
+                "validators": []
+              },
+              {
+                "label": "Sub-County",
+                "type": "obs",
+                "required": "true",
+                "id": "subCounty",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": []
+              },
+              {
+                "label": "Ward",
+                "type": "obs",
+                "required": "true",
+                "id": "ward",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "844bf107-32e6-4d5d-8d40-de8978f79cb3",
+                  "answers": []
+                },
+                "validators": []
+              },
+              {
+                "label": "Link facility name",
+                "type": "obs",
+                "required": "true",
+                "id": "linkFacilityName",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": []
+              },
+              {
+                "label": "CCC number",
+                "type": "obs",
+                "required": "true",
+                "id": "cccNumber",
+                "questionOptions": {
+                  "rendering": "number",
+                  "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "js_expression",
+                    "failsWhenExpression": "doesNotMatchExpression('^\\\\\\d{10}$', cccNumber)",
+                    "message": "Please provide the correct format for the CCC Number ie. mflCode+number eg.1200401212"
+                  }
+                ]
+              },
+              {
+                "label": "Date Diagnosed",
+                "type": "obs",
+                "required": "true",
+                "id": "dateDiagnosed",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Date initiated ART",
+                "type": "obs",
+                "required": "true",
+                "id": "dateInitiatedArt",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  },
+                  {
+                    "type": "js_expression",
+                    "failsWhenExpression": "(new moment(dateDiagnosed)).isAfter((new moment(myValue)), 'day')",
+                    "message": "Date initiated ART should be after the date diagnosed."
+                  }
+                ]
+              },
+              {
+                "label": "Original regimen",
+                "type": "obs",
+                "required": "true",
+                "id": "originalRegimen",
+                "questionOptions": {
+                  "rendering": "select",
+                  "concept": "164855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "162559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "ABC/DDI/LPV/r"
+                    },
+                    {
+                      "concept": "162562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "ABC/LPV/R/TDF"
+                    },
+                    {
+                      "concept": "161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "EDF/3TC/EFV"
+                    },
+                    {
+                      "concept": "792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "D4T/3TC/NVP"
+                    },
+                    {
+                      "concept": "9fb85385-b4fb-468c-b7c1-22f75834b4b0",
+                      "label": "TDF/3TC/DTG"
+                    },
+                    {
+                      "concept": "162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/ABC/LPV/r"
+                    },
+                    {
+                      "concept": "4dc0119b-b2a6-4565-8d90-174b97ba31db",
+                      "label": "ABC/3TC/DTG"
+                    },
+                    {
+                      "concept": "164511AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "AZT-3TC-ATV/r"
+                    },
+                    {
+                      "concept": "162563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/ABC/EFV"
+                    },
+                    {
+                      "concept": "6dec7d7d-0fda-4e8d-8295-cb6ef426878d",
+                      "label": "AZT/3TC/DTG"
+                    },
+                    {
+                      "concept": "164505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "TDF-3TC-EFV"
+                    },
+                    {
+                      "concept": "817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "ABC/3TC/AZT"
+                    },
+                    {
+                      "concept": "1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/NVP/AZT"
+                    },
+                    {
+                      "concept": "162560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/D4T/LPV/r"
+                    },
+                    {
+                      "concept": "162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "ABC/NVP/3TC"
+                    },
+                    {
+                      "concept": "164512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "TDF-3TC-ATV/r"
+                    },
+                    {
+                      "concept": "104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "EFV/FTC/TDF"
+                    },
+                    {
+                      "concept": "162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/LPV/TDF/r"
+                    },
+                    {
+                      "concept": "162565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/NVP/TDF"
+                    },
+                    {
+                      "concept": "162561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/AZT/LPV/r"
+                    },
+                    {
+                      "concept": "160124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "AZT/3TC/EFV"
+                    },
+                    {
+                      "concept": "160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "D4T/3TC/EFV"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Current ART regimen",
+                "type": "obs",
+                "required": true,
+                "id": "currentArtRegimen",
+                "questionOptions": {
+                  "rendering": "select",
+                  "concept": "164432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "162559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "ABC/DDI/LPV/r"
+                    },
+                    {
+                      "concept": "162562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "ABC/LPV/R/TDF"
+                    },
+                    {
+                      "concept": "161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "EDF/3TC/EFV"
+                    },
+                    {
+                      "concept": "792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "D4T/3TC/NVP"
+                    },
+                    {
+                      "concept": "9fb85385-b4fb-468c-b7c1-22f75834b4b0",
+                      "label": "TDF/3TC/DTG"
+                    },
+                    {
+                      "concept": "162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/ABC/LPV/r"
+                    },
+                    {
+                      "concept": "4dc0119b-b2a6-4565-8d90-174b97ba31db",
+                      "label": "ABC/3TC/DTG"
+                    },
+                    {
+                      "concept": "164511AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "AZT-3TC-ATV/r"
+                    },
+                    {
+                      "concept": "162563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/ABC/EFV"
+                    },
+                    {
+                      "concept": "6dec7d7d-0fda-4e8d-8295-cb6ef426878d",
+                      "label": "AZT/3TC/DTG"
+                    },
+                    {
+                      "concept": "164505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "TDF-3TC-EFV"
+                    },
+                    {
+                      "concept": "817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "ABC/3TC/AZT"
+                    },
+                    {
+                      "concept": "1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/NVP/AZT"
+                    },
+                    {
+                      "concept": "162560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/D4T/LPV/r"
+                    },
+                    {
+                      "concept": "162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "ABC/NVP/3TC"
+                    },
+                    {
+                      "concept": "164512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "TDF-3TC-ATV/r"
+                    },
+                    {
+                      "concept": "104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "EFV/FTC/TDF"
+                    },
+                    {
+                      "concept": "162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/LPV/TDF/r"
+                    },
+                    {
+                      "concept": "162565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/NVP/TDF"
+                    },
+                    {
+                      "concept": "162561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3TC/AZT/LPV/r"
+                    },
+                    {
+                      "concept": "160124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "AZT/3TC/EFV"
+                    },
+                    {
+                      "concept": "160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "D4T/3TC/EFV"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Date switched",
+                "type": "obs",
+                "id": "dateSwitched",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "164516AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  },
+                  {
+                    "type": "js_expression",
+                    "failsWhenExpression": "(new moment(dateInitiatedArt)).isAfter((new moment(myValue)), 'day') || (new moment(dateInitiatedArt)).isSame((new moment(myValue)), 'day')",
+                    "message": "Date switched should be after the date initiated ART."
+                  }
+                ]
+              },
+              {
+                "label": "Reason for switch",
+                "type": "obs",
+                "required": false,
+                "id": "reasonForSwitch",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "162725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(dateSwitched)"
+                }
+              },
+              {
+                "label": "Date of last visit",
+                "type": "obs",
+                "required": false,
+                "id": "dateOfLastVisit",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Date viral load sample collected",
+                "type": "obs",
+                "required": false,
+                "id": "dateViralLoadSampleCollected",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "162078AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  },
+                  {
+                    "type": "js_expression",
+                    "failsWhenExpression": "(new moment(dateInitiatedArt)).isAfter((new moment(myValue)), 'day') || (new moment(dateInitiatedArt)).isSame((new moment(myValue)), 'day')",
+                    "message": "Date switched should be after the date initiated ART."
+                  }
+                ]
+              },
+              {
+                "label": "Date viral load results received",
+                "type": "obs",
+                "required": false,
+                "id": "dateViralLoadResultsReceived",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "163281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  },
+                  {
+                    "type": "js_expression",
+                    "failsWhenExpression": "(new moment(dateViralLoadSampleCollected)).isAfter((new moment(myValue)), 'day')",
+                    "message": "Date viral load results received should be after the date viral load sample collected."
+                  }
+                ],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(dateViralLoadSampleCollected)"
+                }
+              },
+              {
+                "label": "Viral Load results",
+                "type": "obs",
+                "id": "viralLoadResults",
+                "questionOptions": {
+                  "concept": "3d608267-a366-4409-be99-eb39aea151fd",
+                  "rendering": "radio",
+                  "answers": [
+                    {
+                      "concept": "167484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "LDL"
+                    },
+                    {
+                      "concept": "167485AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Copies"
+                    },
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(dateViralLoadResultsReceived)"
+                }
+              },
+              {
+                "label": "Viral Load results (Copies)",
+                "type": "obs",
+                "id": "viralLoadResultsCopies",
+                "questionOptions": {
+                  "concept": "856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(viralLoadResults) || viralLoadResults !== '167485AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Date of next visit",
+                "type": "obs",
+                "required": false,
+                "id": "dateOfNextVisit",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "true"
+                  },
+                  {
+                    "type": "js_expression",
+                    "failsWhenExpression": "(new moment(dateOfLastVisit)).isAfter((new moment(myValue)), 'day') || (new moment(dateOfLastVisit)).isSame((new moment(myValue)), 'day')",
+                    "message": "Date of next visit should be greater than the date of last visit."
+                  }
+                ]
+              },
+              {
+                "label": "Enrolled in PSSG?",
+                "type": "obs",
+                "required": true,
+                "id": "enrolledInPssg",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "d242f0e5-bd5a-4962-8fa9-ec4879ee0399",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Attended PSSG",
+                "type": "obs",
+                "required": false,
+                "id": "attendedPssg",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "af430c90-a512-43eb-aa91-50143c385304",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(enrolledInPssg) || enrolledInPssg !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "On PMTCT",
+                "type": "obs",
+                "required": false,
+                "id": "onPmtct",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "163532AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Date of delivery/EDD",
+                "type": "obs",
+                "required": false,
+                "id": "dateOfDelivery",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(onPmtct) || onPmtct !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "TB screening",
+                "type": "obs",
+                "required": false,
+                "id": "tbScreening",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "166663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "STI treatment",
+                "type": "obs",
+                "required": false,
+                "id": "stiTreatment",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Trauma counselling",
+                "type": "obs",
+                "required": false,
+                "id": "traumaCounselling",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "600cf489-4a92-488e-aa71-96beafe634bb",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    },
+                    {
+                      "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "NA"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Cervical cancer screening",
+                "type": "obs",
+                "required": false,
+                "id": "cervicalCancerScreening",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "7a58e4da-3544-457b-84eb-014f65a01d83",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    },
+                    {
+                      "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "NA"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "age < 17 || sex !=='F'"
+                }
+              },
+              {
+                "label": "Family planning",
+                "type": "obs",
+                "required": false,
+                "id": "familyPlanning",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    },
+                    {
+                      "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "NA"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "age < 15 || age > 49"
+                }
+              },
+              {
+                "label": "Currently on TB treatment",
+                "type": "obs",
+                "required": false,
+                "id": "currentlyOnTbTreatment",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "162309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Date initated TB treatment",
+                "type": "obs",
+                "required": false,
+                "id": "dateInitiatedTbTreatment",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "1113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ],
+                "hide": {
+                  "hideWhenExpression": "currentlyOnTbTreatment !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "TPT status",
+                "type": "obs",
+                "required": false,
+                "id": "tptStatus",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "162230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "On TPT"
+                    },
+                    {
+                      "concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Completed"
+                    },
+                    {
+                      "concept": "167156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Declined"
+                    },
+                    {
+                      "concept": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Never Initiated"
+                    }
+                  ]
+                },
+                "validators": [],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(currentlyOnTbTreatment) || currentlyOnTbTreatment === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Date initiated",
+                "type": "obs",
+                "required": false,
+                "id": "dateInitiated",
+                "questionOptions": {
+                  "rendering": "date",
+                  "concept": "162320AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": []
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ],
+                "hide": {
+                  "hideWhenExpression": "isEmpty(tptStatus) || tptStatus === '167156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || tptStatus === '1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Data collected through ",
+                "type": "obs",
+                "required": false,
+                "id": "dataCollectedThrough",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "162568AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "answers": [
+                    {
+                      "concept": "1502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Visiting Facility"
+                    },
+                    {
+                      "concept": "162189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Calling Facility"
+                    },
+                    {
+                      "concept": "978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Self-reported"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Other"
+                    }
+                  ]
+                },
+                "validators": []
+              },
+              {
+                "label": "Other Specify",
+                "type": "obs",
+                "id": "medicalSpecify",
+                "questionOptions": {
+                  "concept": "166635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "text"
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(dataCollectedThrough) || !arrayContains(dataCollectedThrough, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "processor": "EncounterFormProcessor",
+    "encounterType": "b93ae0fc-9b57-4c79-936b-596553aab8b0",
+    "referencedForms": []
+  }
