@@ -18,12 +18,12 @@ let visit: Visit;
 
 
 test.beforeEach(async ({ api }) => {
-  let patienttypes = await getPatientIdentifiers(api);
+  //let patienttypes = await getPatientIdentifiers(api);
 
-  let uuid = patienttypes?.results.find(
+  /*let uuid = patienttypes?.results.find(
     (x) => x.display === "OpenMRS ID"
-  )?.uuid;
-  patient = await generateRandomPatient(api, uuid,"F",'1977-11-01');
+  )?.uuid;*/
+  patient = await generateRandomPatient(api,"F",'1977-11-01');
   
   visit = await startVisit(api, patient.uuid);
 });

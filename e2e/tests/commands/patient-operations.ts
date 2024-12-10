@@ -1,6 +1,7 @@
 import { type APIRequestContext, expect } from '@playwright/test';
 import { error } from 'console';
 import {faker} from "@faker-js/faker";
+import { v4 as uuidv4 } from 'uuid';
 
 export interface Patient {
   uuid: string;
@@ -65,116 +66,77 @@ export const getPatientIdentifiers= async(api:APIRequestContext):Promise<Array<p
      
 }
 
-export const generateRandomPatient = async (api: APIRequestContext,uuid:string,gender:string,birthdate:string): Promise<Patient> => {
+export const generateRandomPatient = async (api: APIRequestContext, gender: string, birthdate: string) => {
+  // Generate random name
+  const firstName = faker.person.firstName();
+  const middleName = faker.person.middleName();
+  const lastName = faker.person.lastName();
 
+  // Generate uuid for patient
+  const patientUUID = uuidv4();
 
-
-  console.log('uuid', uuid);
-  const identifierRes = await api.post(`idgen/identifiersource/fb034aac-2353-4940-abe2-7bc94e7c1e71/identifier`, {
-    data: {},
+  // Generate OpenMRSID
+  const identifierRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/idgen/identifiersource/fb034aac-2353-4940-abe2-7bc94e7c1e71/identifier`, {
+      data: {},
   });
   
-  
-  const { identifier } = await identifierRes.json();
-   console.log('identifier',identifier);
-
-
   await expect(identifierRes.ok()).toBeTruthy();
-  const givenName=faker.person.firstName().toString();
-  const familyName=faker.person.lastName().toString();
+  const { identifier } = await identifierRes.json();
   
-  /*const data={
-    "identifiers": [
-        {
-            "identifier": identifier,
-            "identifierType":uuid.toString(),
-            "location": process.env.E2E_LOGIN_DEFAULT_LOCATION_UUID?.toString(),
-            "preferred": false
-        }
-    ],
-    "person": {
-        "gender": gender,
-        "birthdate": birthdate,
-        "birthdateEstimated": true,
-        "dead": false,
-        "deathDate": null,
-        "causeOfDeath": null,
-        "names": [
-            {
-                "givenName": givenName,
-                "familyName": familyName
-            }
-        ],
-        "addresses": [
-            {
-                "address1": "Bom Jesus Street",
-                "cityVillage": "Recide",
-                "country": "Brazil",
-                "postalCode": "560037"
-            }
-        ]
-    }
-}
-  
-  
-
-
-
-  const patientRes = await api.post('patient', {data}).catch(error=>{
-    console.log(error.message);
-  });
- */
-
-  const patientRes = await api.post('patient', {
-    // TODO: This is not configurable right now. It probably should be.
-    data: {
-      identifiers: [
-        {
-          identifier,
-          identifierType: uuid.toString(),
-          location: process.env.E2E_LOGIN_DEFAULT_LOCATION_UUID?.toString(),
-          preferred: true,
-        },
-      ],
-      person: {
-        addresses: [
-          {
-            address1: 'Bom Jesus Street',
-            address2: '',
-            cityVillage: 'Recife',
-            country: 'Brazil',
-            postalCode: '50030-310',
-            stateProvince: 'Pernambuco',
+  // post data
+  const patientRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/patient/`, {
+      data: {
+          "uuid": patientUUID,
+          "person": {
+              "uuid": patientUUID,
+              "names": [
+                  {
+                      "preferred": true,
+                      "givenName": firstName,
+                      "middleName": middleName,
+                      "familyName": lastName
+                  }
+              ],
+              "gender": gender,
+              "birthdate": birthdate,
+              "birthdateEstimated": true,
+              "attributes": [
+                  {
+                      "attributeType": "b2c38640-2603-4629-aebd-3b54f33f1e3a",
+                      "value": "0723933333"
+                  },
+                  {
+                      "attributeType": "27573398-4651-4ce5-89d8-abec5998165c",
+                      "value": "Bamburi Dispensary"
+                  }
+              ],
+              "addresses": [
+                  {
+                      "countyDistrict": "Mombasa",
+                      "stateProvince": "Kisauni",
+                      "address4": "Bamburi",
+                      "address6": "Bamburi",
+                      "address5": "Bamburi",
+                      "cityVillage": "Kiembeni",
+                      "address2": "Mint"
+                  }
+              ],
+              "dead": false
           },
-        ],
-        attributes: [],
-        birthdate: birthdate,
-        birthdateEstimated: true,
-        dead: false,
-        gender: gender,
-        names: [
-          {
-            familyName: familyName.toString(),
-            givenName: givenName.toString(),
-            middleName: '',
-            preferred: true,
-          },
-        ],
-      },
-    },
+          "identifiers": [
+              {
+                  "identifier": identifier,
+                  "identifierType": "dfacd928-0370-4315-99d7-6ec1c9f7ae76",
+                  "location": "4dc7ac2e-309a-4e1c-afec-ab2cb8ae8b5a",
+                  "preferred": false
+              }
+          ]
+      }
   });
-  
 
   await expect(patientRes.ok()).toBeTruthy();
   return await patientRes.json();
-  
 };
-
-export const getPatient = async (api: APIRequestContext, uuid: string): Promise<Patient> => {
-  const patientRes = await api.get(`patient/${uuid}?v=full`);
-  return await patientRes.json();
-};
-
 export const deletePatient = async (api: APIRequestContext, uuid: string) => {
   await api.delete(`patient/${uuid}`, { data: {} });
 };

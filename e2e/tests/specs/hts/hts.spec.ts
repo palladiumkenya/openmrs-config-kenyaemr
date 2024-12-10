@@ -26,12 +26,12 @@ const testData = [
 
 testData.forEach((x) => {
   test.beforeEach(async ({ api }) => {
-    let patienttypes = await getPatientIdentifiers(api);
+    /*let patienttypes = await getPatientIdentifiers(api);
 
     let uuid = patienttypes?.results.find(
       (x) => x.display === "OpenMRS ID"
-    )?.uuid;
-    patient = await generateRandomPatient(api, uuid, x.gender, x.birthdate);
+    )?.uuid;*/
+    patient = await generateRandomPatient(api, x.gender, x.birthdate);
     visit = await startVisit(api, patient.uuid);
   });
 
