@@ -12,7 +12,7 @@ read -p "Is this for KDOD asset generation? (y/n): " is_kdod
 echo "Building Taifa Care KenyaEMR 3.x assets ..."
 CWD=$(pwd)
 npx --legacy-peer-deps openmrs@next build \
-  --build-config ./frontend-config/dev/build-config.json \
+  --build-config ./frontend-config/staging/hie_build-config.json \
   --target ./frontend \
   --page-title "Taifa Care - KenyaEMR" \
   --support-offline false
@@ -22,7 +22,7 @@ echo "Assembling assets ..."
 npx --legacy-peer-deps openmrs@next assemble \
   --manifest \
   --mode config \
-  --config ./frontend-config/dev/build-config.json \
+  --config ./frontend-config/staging/hie_build-config.json \
   --target ./frontend
 
 # Copy required files
@@ -30,8 +30,8 @@ echo "Copying required files ..."
 cp "${CWD}/assets/taifa_care/kenyaemr-login-logo.png" "${CWD}/frontend"
 cp "${CWD}/assets/taifa_care/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/taifa_care/favicon.ico" "${CWD}/frontend"
-cp "${CWD}/frontend-config/dev/kenyaemr.config.json" "${CWD}/frontend"
-cp "${CWD}/frontend-config/dev/openmrs.config.json" "${CWD}/frontend"
+cp "${CWD}/frontend-config/staging/kenyaemr.config.json" "${CWD}/frontend"
+cp "${CWD}/frontend-config/staging/openmrs.config.json" "${CWD}/frontend"
 
 # Copy KDOD config or registration config based on user input and update index.html
 if [ "$is_kdod" = "y" ] || [ "$is_kdod" = "Y" ]; then

@@ -1,12 +1,12 @@
 {
-    "name": "Neurological Clinical Form",
-    "description": "Neurological Clinical Encounter Form",
-    "version": "1.0",
-    "published": true,
-    "uuid": "",
-    "retired": false,
-    "encounter": "Neurology clinic",
-    "pages": [
+  "name": "Neurology Clinical Form",
+  "description": "Neurological Clinical Encounter Form",
+  "version": "2",
+  "published": true,
+  "uuid": "f97f2bf3-c26b-4adf-aacd-e09d720a14cd",
+  "retired": false,
+  "encounter": "Neurology clinic",
+  "pages": [
       {
         "label": "Visit Details",
         "sections": [
@@ -83,26 +83,133 @@
                 }
               },
               {
-                "label": "Visit To:",
+                "label": "Referral from",
                 "type": "obs",
-                "id": "visitTo",
+                "required": true,
+                "id": "referralSpecification",
                 "questionOptions": {
                   "rendering": "radio",
-                  "concept": "161643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "concept": "160338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [],
                   "answers": [
                     {
-                      "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Outpatient department(OPD)"
+                      "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "From other facilities"
                     },
                     {
-                      "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Inpatient department(IPD)"
+                      "concept": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Referred from CHU "
+                    },
+                    {
+                      "concept": "164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Internal(Department)"
                     }
                   ]
                 },
-                "validators": [],
                 "hide": {
-                  "hideWhenExpression": "visitType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "isEmpty(visitType) || visitType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Specify Referring Department",
+                "type": "obs",
+                "required": true,
+                "id": "departmentSpecify",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "160478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": [],
+                  "answers": [
+                    {
+                      "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Outpatient Department"
+                    },
+                    {
+                      "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Inpatient Department"
+                    },
+                    {
+                      "concept": "160454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ophthalmology (Eye)Clinic"
+                    },
+                    {
+                      "concept": "160455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ear, Nose, and Throat(ENT)Clinic"
+                    },
+                    {
+                      "concept": "2a030791-14b4-4996-95ad-39c54b25f2b6",
+                      "label": "Physiotherapy clinic"
+                    },
+                    {
+                      "concept": "164164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Surgical Outpatient Clinic"
+                    },
+                    {
+                      "concept": "160457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Paediatrics clinics"
+                    },
+                    {
+                      "concept": "1d7d7c76-d807-4f33-8c7e-2531e28126ed",
+                      "label": "Maxillofacial Clinic"
+                    },
+                    {
+                      "concept": "160448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Medical Outpatient clinic"
+                    },
+                    {
+                      "concept": "66710a6d-5894-4f7d-a874-b449df77314d",
+                      "label": "Oncology Clinic"
+                    },
+                    {
+                      "concept": "30aff715-92de-4662-aa33-fa6b6179fed0",
+                      "label": "Dental clinic"
+                    },
+                    {
+                      "concept": "160475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Renal Clinic"
+                    },
+                    {
+                      "concept": "5489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Mental Health"
+                    },
+                    {
+                      "concept": "160460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dermatology Clinic"
+                    },
+                    {
+                      "concept": "164103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Diabetic Clinic"
+                    },
+                    {
+                      "concept": "c2f85aed-695f-49b1-973e-002c37cbdebf",
+                      "label": "Occupational Therapy Clinic"
+                    },
+                    {
+                      "concept": "160465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Orthopaedic Clinic"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others specify"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(referralSpecification) || referralSpecification !== '164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Specify Department",
+                "type": "obs",
+                "required": true,
+                "id": "specifyDepartment",
+                "questionOptions": {
+                  "rendering": "text",
+                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "conceptMappings": []
+                },
+                "hide": {
+                  "hideWhenExpression": "isEmpty(departmentSpecify) || departmentSpecify !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               }
             ]
@@ -554,11 +661,45 @@
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "isEmpty(addItiOnalHist) || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
-                "label": "Past Medication History",
+                "label": "Past Medication/Drug History",
+                "type": "obs",
+                "id": "MedsPast",
+                "questionOptions": {
+                  "concept": "",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "167427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Anticonvulsant therapy"
+                    },
+                    {
+                      "concept": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Oral contraceptive or other estrogen-based contraceptive preparation"
+                    },
+                    {
+                      "concept": "73951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Corticosteroids"
+                    },
+                    {
+                      "concept": "166106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Anticoagulants or antiplatelet agents"
+                    },
+                    {
+                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Others"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "medHis !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Other Medication History",
                 "type": "obsGroup",
                 "id": "pastprescribedDrugs",
                 "questionOptions": {
@@ -567,7 +708,7 @@
                 },
                 "validators": [],
                 "hide": {
-                  "hideWhenExpression": "medHis !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "isEmpty(MedsPast) || !arrayContains(MedsPast, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 },
                 "questions": [
                   {
@@ -703,7 +844,7 @@
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "isEmpty(addItiOnalHist) || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -767,7 +908,7 @@
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "isEmpty(addItiOnalHist) || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -802,7 +943,7 @@
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  "hideWhenExpression": "isEmpty(addItiOnalHist) || visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || addItiOnalHist === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                 }
               },
               {
@@ -1005,7 +1146,7 @@
                 }
               },
               {
-                "label": "Family history of Chronic ilnesses",
+                "label": "Family history with neurological diagnoses?",
                 "type": "obs",
                 "id": "familyHistoryChronic",
                 "questionOptions": {
@@ -1027,65 +1168,16 @@
                 }
               },
               {
-                "label": "Type of illness",
+                "label": "Type of neurological illness (Explain)",
                 "type": "obs",
                 "id": "illNeSSType",
                 "questionOptions": {
-                  "concept": "162964AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "checkbox",
-                  "answers": [
-                    {
-                        "concept": "146221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Prostate Cancer"
-                      },
-                    {
-                      "concept": "145438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "chronic kidney disease"
-                    },
-                    {
-                        "concept": "116608AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Ischemic Heart Disease"
-                      },
-                      {
-                        "concept": "114212AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Peripheral Vascular Disease"
-                      },
-                      {
-                        "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Diabetes"
-                      },
-                      {
-                          "concept": "117441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                          "label": "Hyperlipidaemia"
-                        },
-                        {
-                          "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                          "label": "Hypertension"
-                        },
-                        {
-                            "concept": "117703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                            "label": "Sickle cell disease"
-                          },
-                          {
-                            "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                            "label": "Other"
-                          }
-                  ]
+                  "concept": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea",
+                  "rows": "8"
                 },
                 "hide": {
                     "hideWhenExpression": "isEmpty(familyHistoryChronic) || familyHistoryChronic !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
-              },
-              {
-                "label": "Other (Specify)",
-                "type": "obs",
-                "id": "otherConditions",
-                "questionOptions": {
-                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "text"
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(illNeSSType) || !arrayContains(illNeSSType, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               }
             ]
@@ -1113,69 +1205,13 @@
                       "label": "None"
                     },
                     {
-                      "concept": "5954AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Sallow complexion",
+                      "concept": "127623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Restlessness",
                       "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                     },
                     {
-                      "concept": "118877AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Decreased level of consciousness",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "146599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Cachexia",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Cyanosis",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "142630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Dehydration",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "117457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Cushingoid appearance",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "112200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Tremor",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Jaundice",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Lethargic",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                   
-                    {
-                      "concept": "135488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Lymphadenopathy",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "148276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Asterixis",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Oedema",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Pallor",
+                      "concept": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Loss of consciousness",
                       "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                     },
                     {
@@ -1203,280 +1239,262 @@
                 }
               },
               {
-                "label": "Grading",
+                "label": "Explain loss of consciousness",
                 "type": "obs",
                 "required": "true",
                 "id": "jaundiceGrading",
                 "questionOptions": {
-                  "concept": "164448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
+                  "concept": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
                   "answers": [
-                    
                     {
-                      "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "+"
+                      "concept": "72609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Alert"
                     },
                     {
-                      "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "++"
+                      "concept": "162645AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Responds to Voice (V)"
                     },
                     {
-                      "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "+++"
+                      "concept": "162644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Responds to Pain (P)"
+                    },
+                    {
+                      "concept": "159508AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Unresponsive (U)"
                     }
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               },
               {
-                "label": "Types",
+                "label": "Eye Opening Response",
                 "type": "obs",
-                "required": "true",
-                "id": "cyanosisType",
+                "id": "eyeOpeningResponse",
                 "questionOptions": {
-                  "concept": "164448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "concept": "163309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                   "rendering": "radio",
                   "answers": [
                     {
-                      "concept": "145962AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Central cyanosis"
+                      "concept": "147221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Spontaneously open",
+                      "value": 4
                     },
                     {
-                      "concept": "167236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Peripheral cyanosis"
-                    }
-                  ]
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-                }
-              },
-              {
-                "label": "Types",
-                "type": "obs",
-                "required": "true",
-                "id": "dehydrationType",
-                "questionOptions": {
-                  "concept": "164448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
-                  "answers": [
-                    {
-                      "concept": "164840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Mucous membranes dry"
+                      "concept": "163166AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "To speech",
+                      "value": 3
                     },
                     {
-                      "concept": "a0ea1397-2bf3-4796-b005-387676f96499",
-                      "label": "Reduced Skin turgor"
+                      "concept": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "To pain",
+                      "value": 2
                     },
-                    {
-                      "concept": "165891AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Capillary refill >2 sec"
-                    }
-                  ]
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '142630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-                }
-              },
-              {
-                "label": "Site",
-                "type": "obs",
-                "required": "true",
-                "id": "oedemaLocation",
-                "questionOptions": {
-                  "concept": "166852AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
-                  "answers": [
-                    {
-                      "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Face"
-                    },
-                    {
-                      "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Foot"
-                    },
-                    {
-                      "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Generalized"
-                    },
-                    {
-                      "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Hands"
-                    },
-                    {
-                      "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Knee"
-                    },
-                    {
-                      "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Periorbital"
-                    }
-                  ]
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-                }
-              },
-              {
-                "label": "Types",
-                "type": "obs",
-                "required": "true",
-                "id": "oedemaType",
-                "questionOptions": {
-                  "concept": "164448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
-                  "answers": [
-                    {
-                      "concept": "165598AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Non-Pitting"
-                    },
-                    {
-                      "concept": "130166AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Pitting"
-                    }
-                  ]
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-                }
-              },
-              {
-                "label": "Grading",
-                "type": "obs",
-                "required": "true",
-                "id": "oedemaGrading",
-                "questionOptions": {
-                  "concept": "164494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
-                  "answers": [
                     {
                       "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "None"
-                    },
-                    {
-                      "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "+"
-                    },
-                    {
-                      "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "++"
-                    },
-                    {
-                      "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "+++"
+                      "label": "None",
+                      "value": 1
                     }
                   ]
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(oedemaType) || !arrayContains(oedemaType, '130166AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               },
               {
-                "label": "Pallor Location",
+                "label": "Verbal Response",
                 "type": "obs",
-                "required": "true",
-                "id": "pallorLocation",
+                "id": "verbalResponse",
                 "questionOptions": {
-                  "concept": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "concept": "162756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                   "rendering": "radio",
                   "answers": [
                     {
-                      "concept": "516AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Conjuctiva"
+                      "concept": "167084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Orientated",
+                      "value": 5
                     },
                     {
-                      "concept": "139729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Tongue"
+                      "concept": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Confused conversation",
+                      "value": 4
                     },
                     {
-                      "concept": "150825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Palmar Creases"
+                      "concept": "137668AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Inappropriate words",
+                      "value": 3
                     },
                     {
-                      "concept": "157876AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Nail beds"
+                      "concept": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Incomprehensible sounds",
+                      "value": 2
                     },
                     {
-                      "concept": "112938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Skin(general)"
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None",
+                      "value": 1
                     }
                   ]
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               },
               {
-                "label": "Grading",
+                "label": "Motor Response",
                 "type": "obs",
-                "required": "true",
-                "id": "pallorGrading",
+                "id": "motorResponse",
                 "questionOptions": {
-                  "concept": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
+                  "concept": "163578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
                   "answers": [
                     {
-                      "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "+"
+                      "concept": "163106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Obeys commands",
+                      "value": 6
                     },
                     {
-                      "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "++"
+                      "concept": "157527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Localizes pain",
+                      "value": 5
                     },
                     {
-                      "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "+++"
+                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Normal flexion (Withdraw)",
+                      "value": 4
+                    },
+                    {
+                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Abnormal flexion (decorticate)",
+                      "value": 3
+                    },
+                    {
+                      "concept": "f8b9d83e-b473-45bd-a126-025433fedad1",
+                      "label": "Extension (decerebrate)",
+                      "value": 2
+                    },
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None (flaccid)",
+                      "value": 1
                     }
                   ]
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               },
               {
-                "label": "Site",
+                "label": "Glasgow Coma Scale",
                 "type": "obs",
-                "required": "true",
-                "id": "siteLymph",
+                "id": "glasgowComaScale",
                 "questionOptions": {
-                  "concept": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "concept": "160347AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                   "rendering": "radio",
                   "answers": [
-                    
                     {
-                      "concept": "160361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Anterior cervical"
+                      "concept": "120159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "15 Conscious",
+                      "value": 15
                     },
                     {
-                      "concept": "159592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Axillae"
+                      "concept": "1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "13-15 (Mild head injury)",
+                      "value": "13-15"
                     },
                     {
-                      "concept": "156160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Epitrochlear lymphadenopathy"
+                      "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "9-12 (Moderate)",
+                      "value": "9-12"
                     },
                     {
-                      "concept": "137155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Inguinal Lymphadenopathy"
+                      "concept": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "<8 (Severe head injury)",
+                      "value": "<8"
                     },
                     {
-                      "concept": "132504AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Occipital Lymphadenopathy"
+                      "concept": "163187AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "3 Comatose",
+                      "value": 3
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Neurological Signs",
+                "type": "obs",
+                "id": "neurologicalSigns",
+                "questionOptions": {
+                  "concept": "163188AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "163189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Neck stiffness"
                     },
                     {
-                      "concept": "129503AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Popliteal Lymphadenopathy"
+                      "concept": "163190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Brudzinski’s sign positive"
                     },
                     {
-                      "concept": "131675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Posterior Cervical"
+                      "concept": "163191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Kernig’s sign positive"
+                    },
+                    {
+                      "concept": "163192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Lhermitte’s phenomenon"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Speech and Language Disorders",
+                "type": "obs",
+                "id": "speechLanguageDisorders",
+                "questionOptions": {
+                  "concept": "163193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "163194AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dysarthria"
+                    },
+                    {
+                      "concept": "163195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dysphonia"
+                    },
+                    {
+                      "concept": "163196AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Dysphasia"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Types of Dysphasia",
+                "type": "obs",
+                "id": "typesOfDysphasia",
+                "questionOptions": {
+                  "concept": "163197AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "163198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Global dysphasia"
+                    },
+                    {
+                      "concept": "163199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Expressive dysphasia"
+                    },
+                    {
+                      "concept": "163200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Receptive dysphasia"
+                    },
+                    {
+                      "concept": "163201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Conductive dysphasia"
+                    },
+                    {
+                      "concept": "163202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Nominal dysphasia"
                     }
                   ]
                 },
                 "hide": {
-                  "hideWhenExpression": "isEmpty(genExamFindings) || !arrayContains(genExamFindings, '135488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                  "hideWhenExpression": "isEmpty(speechLanguageDisorders) || !arrayContains(speechLanguageDisorders, '163196AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               },
               {
@@ -3060,7 +3078,6 @@
                   "hideWhenExpression": "isEmpty(counsellingOrderd) || !arrayContains(counsellingOrderd, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
                 }
               },
-            
               {
                 "label": "Patient Outcome ",
                 "type": "obs",
@@ -3523,5 +3540,5 @@
         ]
       }
     ],
-    "encounterType": ""
-  }
+  "encounterType": "14d2b0fb-7fac-49df-bcf5-a07463fa3433"
+}
