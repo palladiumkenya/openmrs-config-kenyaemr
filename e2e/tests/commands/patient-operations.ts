@@ -83,13 +83,13 @@ export const generateRandomPatient = async (api: APIRequestContext,uuid:string,g
   const givenName=faker.person.firstName().toString();
   const familyName=faker.person.lastName().toString();
   
-  const data={
+  /*const data={
     "identifiers": [
         {
             "identifier": identifier,
             "identifierType":uuid.toString(),
             "location": process.env.E2E_LOGIN_DEFAULT_LOCATION_UUID?.toString(),
-            "preferred": true
+            "preferred": false
         }
     ],
     "person": {
@@ -118,10 +118,52 @@ export const generateRandomPatient = async (api: APIRequestContext,uuid:string,g
   
   
 
+
+
   const patientRes = await api.post('patient', {data}).catch(error=>{
     console.log(error.message);
   });
+ */
 
+  const patientRes = await api.post('patient', {
+    // TODO: This is not configurable right now. It probably should be.
+    data: {
+      identifiers: [
+        {
+          identifier,
+          identifierType: uuid.toString(),
+          location: process.env.E2E_LOGIN_DEFAULT_LOCATION_UUID?.toString(),
+          preferred: true,
+        },
+      ],
+      person: {
+        addresses: [
+          {
+            address1: 'Bom Jesus Street',
+            address2: '',
+            cityVillage: 'Recife',
+            country: 'Brazil',
+            postalCode: '50030-310',
+            stateProvince: 'Pernambuco',
+          },
+        ],
+        attributes: [],
+        birthdate: birthdate,
+        birthdateEstimated: true,
+        dead: false,
+        gender: gender,
+        names: [
+          {
+            familyName: familyName.toString(),
+            givenName: givenName.toString(),
+            middleName: '',
+            preferred: true,
+          },
+        ],
+      },
+    },
+  });
+  
 
   await expect(patientRes.ok()).toBeTruthy();
   return await patientRes.json();
