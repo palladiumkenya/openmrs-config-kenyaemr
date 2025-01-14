@@ -63,7 +63,7 @@ export const generateRandomPatient = async (api: APIRequestContext, gender: stri
                 {
                     "identifier": identifier,
                     "identifierType": "dfacd928-0370-4315-99d7-6ec1c9f7ae76",
-                    "location": "4dc7ac2e-309a-4e1c-afec-ab2cb8ae8b5a",
+                    "location": `${process.env.E2E_FACILITY_UUID}`,
                     "preferred": false
                 }
             ]

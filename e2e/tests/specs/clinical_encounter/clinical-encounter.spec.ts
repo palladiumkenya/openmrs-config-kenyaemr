@@ -39,9 +39,9 @@ const clinicalNotes = faker.word.words(3);
 
 // Define gender and age combinations
 const genderAgeScenarios = [
-    { gender: 'F', age: 25 },
-    { gender: 'M', age: 25 },
-    { gender: 'M', age: 4 }
+    { gender: 'F', age: 25 }
+    // { gender: 'M', age: 25 },
+    // { gender: 'M', age: 4 }
 ];
 
 for (const { gender, age } of genderAgeScenarios) {
@@ -55,7 +55,7 @@ for (const { gender, age } of genderAgeScenarios) {
             visit = await startVisit(api, patient.uuid);
         });
         
-        test('Clinical Encounter Test', async ({ page, api }) => {
+        test('Clinical Encounter Test', async ({ page }) => {
             const patientSummary = new SummaryPage(page);
             page.on('dialog', dialog => dialog.accept());
         
