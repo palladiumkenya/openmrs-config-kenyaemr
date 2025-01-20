@@ -9,12 +9,12 @@ rm -rf frontend
 read -p "Is this for KDOD asset generation? (y/n): " is_kdod
 
 # Build assets
-echo "Building Kenya EMR 3.x assets ..."
+echo "Building Taifa Care KenyaEMR 3.x assets ..."
 CWD=$(pwd)
 npx --legacy-peer-deps openmrs@next build \
   --build-config ./frontend-config/dev/build-config.json \
   --target ./frontend \
-  --page-title "KenyaEMR" \
+  --page-title "Taifa Care - KenyaEMR" \
   --support-offline false
 
 # Assemble assets
@@ -27,9 +27,9 @@ npx --legacy-peer-deps openmrs@next assemble \
 
 # Copy required files
 echo "Copying required files ..."
-cp "${CWD}/assets/kenyaemr-login-logo.png" "${CWD}/frontend"
-cp "${CWD}/assets/kenyaemr-primary-logo.svg" "${CWD}/frontend"
-cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
+cp "${CWD}/assets/taifa_care/kenyaemr-login-logo.png" "${CWD}/frontend"
+cp "${CWD}/assets/taifa_care/kenyaemr-primary-logo.svg" "${CWD}/frontend"
+cp "${CWD}/assets/taifa_care/favicon.ico" "${CWD}/frontend"
 cp "${CWD}/frontend-config/dev/kenyaemr.config.json" "${CWD}/frontend"
 cp "${CWD}/frontend-config/dev/openmrs.config.json" "${CWD}/frontend"
 
