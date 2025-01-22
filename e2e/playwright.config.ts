@@ -1,4 +1,4 @@
-import { devices, PlaywrightTestConfig } from '@playwright/test';
+import { devices, PlaywrightTestConfig, defineConfig } from '@playwright/test';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -24,9 +24,12 @@ const config: PlaywrightTestConfig = {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
+        headless: false, // Set to false to run the browser in headed mode (visible)
       },
     },
   ],
 };
 
 export default config;
+
+
