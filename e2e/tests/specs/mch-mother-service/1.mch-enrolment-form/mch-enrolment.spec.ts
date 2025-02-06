@@ -1,52 +1,86 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { loginAndNavigateToCarePanel, openForm } from '../helpers';
 
-test('test', async ({ page }) => {
-  await page.goto('http://localhost:8080/openmrs/spa/login');
-  await page.getByLabel('Username').click();
-  await page.getByLabel('Username').fill('admin');
-  await page.getByRole('button', { name: 'Continue' }).click();
-  await page.getByLabel('Password').fill('Admin123');
-  await page.getByRole('button', { name: 'Log in' }).click();
-  await page.locator('label').filter({ hasText: 'Isinya Health Centre' }).locator('span').first().click();
-  await page.getByRole('button', { name: 'Confirm' }).click();
-  await page.getByLabel('Add Patient').click();
-  await page.getByLabel('First Name').click();
-  await page.getByLabel('First Name').fill('mch');
-  await page.getByLabel('Middle Name (optional)').click();
-  await page.getByLabel('Middle Name (optional)').fill('test');
-  await page.getByLabel('Family Name').click();
-  await page.getByLabel('Family Name').fill('oneone');
-  await page.locator('fieldset span').nth(2).click();
-  await page.getByRole('tab', { name: 'No' }).click();
-  await page.getByLabel('Estimated age in years').click();
-  await page.getByLabel('Estimated age in years').fill('34');
-  await page.getByLabel('Telephone contact').click();
-  await page.getByLabel('Telephone contact').fill('0700000000');
-  await page.getByLabel('Location', { exact: true }).click();
-  await page.getByLabel('Location', { exact: true }).fill('nairobi');
-  await page.getByLabel('Sub-location').click();
-  await page.getByLabel('Sub-location').fill('subnairobi');
-  await page.getByLabel('Village').click();
-  await page.getByLabel('Village').fill('vil nairobi');
-  await page.getByLabel('Landmark').click();
-  await page.getByLabel('Landmark').fill('lan nairobi');
-  await page.getByLabel('Marital status').selectOption('1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-  await page.getByLabel('Occupation').selectOption('1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-  await page.getByLabel('Education').selectOption('1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-  await page.getByRole('button', { name: 'Post to registry' }).click();
-  await page.getByRole('button', { name: 'Register Patient' }).click();
-  await page.getByLabel('Nearest Health Center').fill('health nairobi');
-  await page.getByRole('button', { name: 'Register Patient' }).click();
-  // // await page.getByLabel('Close snackbar').click();
-  // await page.getByLabel('Open menu').click();
-  // await page.getByRole('link', { name: 'Care panel' }).click();
-  // await page.getByRole('tab', { name: 'Program enrollment' }).click();
-  // await page.getByRole('row', { name: 'MCH - Mother Services' }).getByRole('button').click();
-  // await page.getByRole('button', { name: 'Start new visit' }).click();
-  // await page.locator('label').filter({ hasText: 'Outpatient' }).locator('span').first().click();
-  // await page.getByLabel('Select a queue location').selectOption('96a6602c-8527-4cfc-a778-2d8e73998716');
-  // await page.getByLabel('Select a service').selectOption('861d37d3-891d-4ef1-8c53-ef64e356a0d4');
-  // await page.getByRole('button', { name: 'Start visit' }).click();
-  // await page.getByRole('row', { name: 'MCH - Mother Services' }).getByRole('button').click();
-  // await page.getByRole('button', { name: 'Close this panel' }).click();
+test('Fill Patient Enrollment Form', async ({ page }) => {
+  const patientId = '32160379-629b-4a8e-8e94-019ec6f6a619';
+  const formName = 'MCH - Mother Services';
+
+  // Login and navigate to Care Panel
+  await loginAndNavigateToCarePanel(page, patientId);
+
+  // Open the correct form
+  await openForm(page, formName);
+
+  console.log('Selecting Service Type...');
+  await page.getByLabel('PNC').check();
+
+  console.log('Filling ANC Clinic Number...');
+  await page.locator('#ancNumberid').fill('2025-01-2001');
+
+  console.log('Incrementing & Decrementing Fields...');
+  await page.getByRole('button', { name: 'Increment' }).first().click();
+  await page.getByRole('button', { name: 'Increment' }).nth(1).click();
+  await page.getByRole('button', { name: 'Decrement' }).nth(3).click();
+  await page.getByRole('button', { name: 'Decrement' }).nth(4).click();
+
+  console.log('Filling Last Menstrual Period (LMP)...');
+  await page.locator('#lmpDateid').fill('03/29/2024');
+
+  console.log('Checking Estimated LMP...');
+  await page.locator('#estimatedLmpid_0').check();
+
+  console.log('Filling EDD Details...');
+  await page.locator('#lmpEddid').fill('03/01/2025');
+  await page.locator('#ultrasoundEddid').fill('04/30/2024');
+
+  console.log('Filling Gestational Age...');
+  await page.locator('#gestAgeid').fill('43');
+
+  console.log('Selecting Type of Pregnancy...');
+  await page.getByLabel('Intended', { exact: true }).check();
+
+  console.log('Filling Date of First ANC Visit...');
+  await page.locator('#firstAncDateid').fill('04/30/2024');
+
+  console.log('Selecting HIV & TB Screening Status...');
+  await page.locator('#patientHivStatusid').selectOption('164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+  await page.locator('#partnerHivStatusid').selectOption('1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+  await page.locator('#tbResultStatusid').selectOption('1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
+  console.log('Checking if ANC Profile was done before enrollment...');
+  await page.locator('#ancProfileid_1').check();
+
+  console.log('Saving the form...');
+  await page.getByRole('button', { name: 'Save and close' }).click();
+
+  // Check for validation errors (specifically "This field is required!" text)
+  const requiredFieldError = await page.locator('text="This field is required!"').count();
+
+  // Fail the test if any "This field is required!" error is found
+  if (requiredFieldError > 0) {
+    console.error(`⚠️ Form contains ${requiredFieldError} required field(s) missing!`);
+    
+    // Capture and log the fields with the "This field is required!" message
+    const errorText = await page.locator('text="This field is required!"').allTextContents();
+    console.log('Validation errors:', errorText.join('\n'));
+
+    expect(requiredFieldError).toBe(0); // Fail the test if there are validation errors
+    return; // Stop execution if validation errors are found
+  }
+
+  
+
+  // Wait for 60 seconds before ending the test
+  console.log('Waiting for 60 seconds...');
+  await page.waitForTimeout(60000); // Wait for 60 seconds (60,000 milliseconds)
+  // Wait for the submission response and check if an error occurred
+  const submissionResponse = await page.waitForResponse(response => response.status() === 200, { timeout: 60000 });
+
+  const responseBody = await submissionResponse.body();
+
+  // Check if the error message "Lock wait timeout exceeded" is in the response body
+  if (responseBody.includes('Lock wait timeout exceeded')) {
+    console.error('⚠️ Lock wait timeout error detected during form submission.');
+    throw new Error('Form submission failed due to database lock wait timeout.');
+  }
 });
