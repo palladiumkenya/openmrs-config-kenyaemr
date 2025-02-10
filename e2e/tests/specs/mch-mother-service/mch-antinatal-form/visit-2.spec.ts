@@ -1,9 +1,21 @@
-import { test } from '@playwright/test';
-import { loginAndOpenForm } from '../helpers';
+import { test, expect, Page } from '@playwright/test';
+import { loginAndNavigateToCarePanel, openForm } from '../helpers';
 
-test('Fill MCH Antenatal Visit Form', async ({ page }) => {
-  // Reuse the login and form selection function
-  await loginAndOpenForm(page, 'Rnuria Rnuria Rnuria', 'MCH Antenatal Visit');
+test('MCH Antenatal Visit 1 Form Submission', async ({ page }) => {
+    const patientId = '77280233-a8d3-4d20-95f5-b921094d347e';
+    const formName = 'MCH Antenatal Visit';
+
+    console.log('Logging in and navigating to Care Panel...');
+    await loginAndNavigateToCarePanel(page, patientId);
+    console.log('Successfully navigated to Care Panel');
+
+    console.log(`Opening form: ${formName}...`);
+    await openForm(page, formName);
+    console.log('Form opened successfully');
+
+    await performTestActions(page, 1);
+});
+async function performTestActions(page: Page, visitNumber: number): Promise<void> {
 
   // Fill the visit number and decrement ANC Visit
   console.log('Filling visit details');
@@ -69,4 +81,29 @@ test('Fill MCH Antenatal Visit Form', async ({ page }) => {
   // Save and Close the Form
   console.log('Saving and closing the form');
   await page.getByRole('button', { name: 'Save and close' }).click();
-});
+// Check for validation errors (specifically "This field is required!" text)
+  const requiredFieldError = await page.locator('text="This field is required!"').count();
+
+  // Fail the test if any "This field is required!" error is found
+  if (requiredFieldError > 0) {
+    console.error(`⚠️ Form contains ${requiredFieldError} required field(s) missing!`);
+    
+    // Capture and log the fields with the "This field is required!" message
+    const errorText = await page.locator('text="This field is required!"').allTextContents();
+    console.log('Validation errors:', errorText.join('\n'));
+
+    expect(requiredFieldError).toBe(0); // Fail the test if there are validation errors
+    return; // Stop execution if validation errors are found
+  }
+  // Wait for 60 seconds before ending the test
+  console.log('Waiting for 60 seconds...');
+  await page.waitForTimeout(60000); // Wait for 60 seconds (60,000 milliseconds)
+  // Wait for the submission response and check if an error occurred
+  const submissionResponse = await page.waitForResponse(response => response.status() === 200, { timeout: 60000 });
+  const responseBody = await submissionResponse.body();
+ // Check if the error message "Lock wait timeout exceeded" is in the response body
+  if (responseBody.includes('Lock wait timeout exceeded')) {
+    console.error('⚠️ Lock wait timeout error detected during form submission.');
+    throw new Error('Form submission failed due to database lock wait timeout.');
+  }
+};
