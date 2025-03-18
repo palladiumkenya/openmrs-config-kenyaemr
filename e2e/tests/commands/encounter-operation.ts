@@ -1,4 +1,6 @@
 import { APIRequestContext, expect } from '@playwright/test';
+import { faker } from '@faker-js/faker';
+import dayjs from 'dayjs';
 
 
 export const generateNegativePatient = async (api: APIRequestContext, patientId: string, visit: string) => { 
@@ -178,3 +180,71 @@ export const generateTriageEncounter = async (api: APIRequestContext, patientId:
     return await encounterRes.json();
 };
 
+export const generateHivEnrollmentEncounter = async (api: APIRequestContext, patientId: string, visit: string) => { 
+    // Generate random numbers and dates
+    const patientUPN = faker.string.numeric(10);
+    
+    // post data
+    const encounterRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/encounter/`, {
+        data: {
+            "encounterProviders": [
+                {
+                    "provider": `${process.env.E2E_PROVIDER_UUID}`,
+                    "encounterRole": "a0b03050-c99b-11e0-9572-0800200c9a66"
+                }
+            ],
+            "location": `${process.env.E2E_FACILITY_UUID}`,
+            "patient": patientId,
+            "visit": visit,
+            "encounterType": "de78a6be-bfc5-4634-adc3-5f1a280455cc",
+            "form": "e4b506c1-7379-42b6-a374-284469cba8da",
+            "obs": [
+                {
+                    "concept": "423c034e-14ac-4243-ae75-80d1daddce55",
+                    "value": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "160540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "160539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "160554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "2025-02-24 00:00:00"
+                }
+            ],
+            "orders": [
+            ],
+            "diagnoses": [
+            ]
+        }
+    });
+
+    // Generate UPN
+    const patientUPNRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/patient/${patientId}/identifier`, {
+        data: {
+            "identifierType": "05ee9cf4-7242-4a17-b4d4-00f707265c8a",
+            "identifier": patientUPN,
+            "location": `${process.env.E2E_FACILITY_UUID}`,
+            "preferred": false
+        },
+    });
+
+
+    // Generate program
+    const programRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/programenrollment`, {
+        data: {
+            "patient": patientId,
+            "program": "dfdc6d40-2f2f-463d-ba90-cc97350441a8",
+            "dateEnrolled": "2024-02-24T16:27:00+03:00",
+            "dateCompleted": null,
+            "location": `${process.env.E2E_FACILITY_UUID}`
+        },
+    });
+
+    // console.log("encounter response: ", encounterRes);
+    // console.log("identifier response: ",patientUPNRes);
+    // console.log("program response: ",programRes);
+
+    return await encounterRes.json();
+    
+};

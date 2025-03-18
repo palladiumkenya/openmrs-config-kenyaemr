@@ -31,7 +31,7 @@ for (const { gender, age } of genderAgeScenarios) {
         
         test('PrEP Enrollment Test', async ({ page }) => {
             const visitsPage = new VisitsPage(page);
-            await test.step('When I visit the patient summary page', async () => {
+            await test.step('When I visit the patient visits page', async () => {
                 await visitsPage.gotoVisitsPage(patient.uuid);
                 await expect(visitsPage.page).toHaveURL(`${process.env.E2E_BASE_URL}/spa/patient/${patient.uuid}/chart/Visits`);
             });
