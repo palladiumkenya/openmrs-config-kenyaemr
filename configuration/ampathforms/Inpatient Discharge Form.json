@@ -1,0 +1,262 @@
+{
+  "name": "Inpatient Discharge Form",
+  "description": "A form for collecting patient's discharge information",
+  "version": "1.0",
+  "published": true,
+  "uuid": "d93fdb30-e535-4583-83ef-1a40e9d9bb28",
+  "encounterType": "2bdada65-4c72-4a48-8730-859890e25cee",
+  "retired": false,
+  "encounter": "Inpatient Discharge",
+  "pages": [
+    {
+      "label": "Inpatient Discharge Form",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Clinical summary",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Discharge instructions/remarks",
+              "type": "obs",
+              "required": false,
+              "id": "dischargeInstructions",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "160632"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "AMPATH",
+                    "value": "1915"
+                  },
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "LOINC",
+                    "value": "48767-8"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": []
+            },
+            {
+              "label": "Discharge status",
+              "type": "obs",
+              "required": true,
+              "id": "dischargeStatus",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "1695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "SNOMED CT",
+                    "value": "309039003"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "1695"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "162677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cured"
+                  },
+                  {
+                    "concept": "160431AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Absconded"
+                  },
+                  {
+                    "concept": "1694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Left against medical advice"
+                  },
+                  {
+                    "concept": "164165AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referred to higher level facility"
+                  },
+                  {
+                    "concept": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Deceased"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Discharging doctor",
+              "type": "encounterProvider",
+              "required": false,
+              "id": "dischargingDoctor",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "PIH",
+                    "value": "1392"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "1473"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": []
+            },
+            {
+              "label": "Follow up date",
+              "type": "obs",
+              "required": false,
+              "id": "followUpDate",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "AMPATH",
+                    "value": "5096"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "SNOMED MVP",
+                    "value": "50961000105000"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "org.openmrs.module.mdrtb",
+                    "value": "RETURN VISIT DATE"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "PIH Malawi",
+                    "value": "5096"
+                  },
+                  {
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "5096"
+                  },
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "SNOMED NP",
+                    "value": "406543005"
+                  }
+                ],
+                "answers": []
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                  "message": "Follow up date should be greater than the encounter date."
+                }
+              ]
+            },
+            {
+              "label": "Follow up with (Doctor/Specialist)",
+              "type": "obs",
+              "required": false,
+              "id": "followUpWith",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "167079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "SNOMED CT",
+                    "value": "243796009"
+                  },
+                  {
+                    "relationship": "NARROWER-THAN",
+                    "type": "CIEL",
+                    "value": "167079"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "160456AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Gynaecologist/Obstetric"
+                  },
+                  {
+                    "concept": "160537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pediatrician"
+                  },
+                  {
+                    "concept": "164221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Surgeon"
+                  },
+                  {
+                    "concept": "161624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Physiotherapist"
+                  },
+                  {
+                    "concept": "163058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oncologist"
+                  },
+                  {
+                    "concept": "161650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nutritionist"
+                  }
+                ]
+              },
+              "validators": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}
