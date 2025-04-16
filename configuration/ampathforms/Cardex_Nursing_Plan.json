@@ -86,7 +86,7 @@
                 {
                   "label": "Alcohol Use?",
                   "type": "obs",
-                  "id": "tobaCCoUse",
+                  "id": "AlcoaCCoUse",
                   "questionOptions": {
                     "concept": "159449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "radio",
@@ -175,7 +175,7 @@
             {
               "label": "LMP Date",
               "type": "obs",
-              "id": "lmPdAte",
+              "id": "lmpDate",
               "questionOptions": {
                 "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "date"
@@ -202,13 +202,30 @@
               }
             },
             {
+              "label": "Parity Term",
+              "type": "obs",
+              "id": "parityTerm",
+              "required": "true",
+              "questionOptions": {
+                "concept": "160080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "50"
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' || age < 15"
+              }
+            },
+            {
               "label": "Parity Abortion",
               "type": "obs",
-              "id": "pariTyabOrtioN",
+              "id": "parityAbortion",
+              "required": "true",
               "questionOptions": {
                 "concept": "1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
-                "min": "0"
+                "min": "0",
+                "max": "50"
               },
               "hide": {
                 "hideWhenExpression": "sex !== 'F' || age < 15"
@@ -217,12 +234,12 @@
             {
               "label": "Gravida:",
               "type": "obs",
-              "id": "graVidA",
+              "id": "graVida",
               "questionOptions": {
                 "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "number",
                 "calculate": {
-                  "calculateExpression": "(+parItYtErm + +pariTyabOrtioN) +1"
+                  "calculateExpression": "calcGravida(parityTerm,parityAbortion)"
                 }
               },
               "hide": {
@@ -230,23 +247,22 @@
               }
             },
             {
-              "label": "EDD:",
+              "label": "EDD (Calculated from L.M.P):",
               "type": "obs",
-              "id": "patientEdd",
+              "id": "lmpEdd",
               "questionOptions": {
                 "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date"
+                "rendering": "date",
+                "calculate": {
+                  "calculateExpression": "moment(lmpDate).isValid() ? moment(lmpDate).add(280, 'days').toDate() : ''"
+                }
               },
               "validators": [
                 {
                   "type": "date",
                   "allowFutureDates": "true"
-                },
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day')",
-                  "message": "EDD date should be greater than the encounter date."
                 }
+               
               ],
               "hide": {
                 "hideWhenExpression": "sex !== 'F' || age < 15"
@@ -257,7 +273,7 @@
       ]
     },
     {
-      "label": "Pediatric History",
+      "label": "Patient History",
       "sections": [
         {
           "label": "Pediatric History",
@@ -485,7 +501,7 @@
                     "label": "CVS"
                   },
                   {
-                    "concept": "160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Respiratory"
                   },
                   {
@@ -712,7 +728,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "!arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                "hideWhenExpression": "!arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
@@ -762,7 +778,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "!arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')|| !(age <=5)"
+                "hideWhenExpression": "!arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')|| !(age <=5)"
               }
             },
             {
@@ -774,7 +790,7 @@
                 "rendering": "textarea"
               },
               "hide": {
-                "hideWhenExpression": "!arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                "hideWhenExpression": "!arrayContains(allsystemReview, '160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
