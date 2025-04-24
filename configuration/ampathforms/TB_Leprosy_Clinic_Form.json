@@ -11,7 +11,43 @@
             "label": "Visit Details",
             "sections": [
                 {
-                    "label": "Encounter Details",
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date:",
+							"type": "encounterDatetime",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+                {
+                    "label": "Patient Details",
                     "isExpanded": true,
                     "questions": [
                         {
@@ -42,7 +78,12 @@
                             }
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "label": "Patient History",
+            "sections": [
                 {
                     "label": "Complaints and History of complaints",
                     "isExpanded": "true",
@@ -400,6 +441,894 @@
                         }
                     ]
                 }
+            ]
+        },
+        {
+            "label": "Patient Examination",
+            "sections": [
+                {
+                    "label": "System Examination",
+                    "isExpanded": "true",
+                    "questions": [
+                      {
+                        "label": "Finding(s) on systems review?",
+                        "type": "obs",
+                        "required": "true",
+                        "id": "syStemsRevieW",
+                        "questionOptions": {
+                          "concept": "159615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "radio",
+                          "answers": [
+                            {
+                              "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "All Systems Normal"
+                            },
+                            {
+                              "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Abnormal"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "System Reviews",
+                        "type": "obs",
+                        "id": "allsystemReview",
+                        "questionOptions": {
+                          "concept": "1069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "checkbox",
+                          "answers": [
+                            {
+                                "concept": "850a960b-e8b5-4775-ba74-aaddb2abbf51",
+                                "label": "Eye"
+                            },
+                            {
+                              "concept": "160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Skin"
+                            },
+                            {
+                              "concept": "112101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Nervous and Musculoskeletal"
+                            },
+                            {
+                              "concept": "119235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Muscle Power"
+                            },
+                            {
+                              "concept": "160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Disability Grading"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "syStemsRevieW !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "CNS findings",
+                        "type": "obs",
+                        "id": "cNsFiNdinGs",
+                        "questionOptions": {
+                          "concept": "752132fb-235c-45cd-8914-854c388e358f",
+                          "rendering": "checkbox",
+                          "answers": [
+                            {
+                              "concept": "118872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Altered sensations"
+                            },
+                            {
+                              "concept": "157498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Limb weakness"
+                            },
+                            {
+                              "concept": "1836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Bulging fontenelle"
+                            },
+                            {
+                              "concept": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Stiff neck"
+                            },
+                            {
+                              "concept": "136282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Kernicterus"
+                            },
+                            {
+                              "concept": "150817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Abnormal reflexes"
+                            },
+                            {
+                              "concept": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Confusion"
+                            },
+                            {
+                              "concept": "157494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Kernigs sign"
+                            },
+                            {
+                              "concept": "153009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Brudzinski's sign"
+                            },
+                            {
+                              "concept": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Loss of consciousness"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '112101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                        }
+                      },
+                      {
+                        "label": "CNS findings notes",
+                        "type": "obs",
+                        "id": "CnSNotES",
+                        "questionOptions": {
+                          "concept": "160994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "textarea"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '112101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                        }
+                      },
+                      {
+                        "label": "Eyes findings",
+                        "type": "obs",
+                        "id": "EyeFiNdings",
+                        "questionOptions": {
+                          "concept": "163309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "checkbox",
+                          "answers": [
+                            {
+                              "concept": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Visual Disturbance"
+                            },
+                            {
+                              "concept": "131040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Eye pain"
+                            },
+                            {
+                              "concept": "140827AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Light sensitive"
+                            },
+                            {
+                              "concept": "140940AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Excessive tearing"
+                            },
+                            {
+                              "concept": "127777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Eye redness"
+                            },
+                            {
+                              "concept": "139100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Itchy eyes"
+                            },
+                            {
+                              "concept": "148175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Scotomota"
+                            },
+                            {
+                              "concept": "120860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Cataracts"
+                            },
+                            {
+                              "concept": "85620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Double vision"
+                            },
+                            {
+                              "concept": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Blurred vision"
+                            },
+                            {
+                              "concept": "130374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Perobital edema"
+                            },
+                            {
+                              "concept": "516AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Conjuctival pallor"
+                            },
+                            {
+                              "concept": "127100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Sclerae Jaundice"
+                            },
+                            {
+                              "concept": "122813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Xanthelasma"
+                            },
+                            {
+                              "concept": "140919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Exophthalmosis"
+                            },
+                            {
+                              "concept": "113516AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Ptosis of lids"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '850a960b-e8b5-4775-ba74-aaddb2abbf51')"
+                        }
+                      },
+                      {
+                        "label": "Eyes findings notes",
+                        "type": "obs",
+                        "id": "EyeFinDingNotes",
+                        "questionOptions": {
+                          "concept": "850a960b-e8b5-4775-ba74-aaddb2abbf51",
+                          "rendering": "textarea"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '850a960b-e8b5-4775-ba74-aaddb2abbf51')"
+                        }
+                      },
+                      {
+                        "label": "Musculoskeletal findings",
+                        "type": "obs",
+                        "id": "musculoskelatFindns",
+                        "questionOptions": {
+                          "concept": "1128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "checkbox",
+                          "answers": [
+                            {
+                              "concept": "150823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Abnormal Posture/Movement"
+                            },
+                            {
+                              "concept": "155871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Deformity"
+                            },
+                            {
+                              "concept": "160395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Restriction of movement"
+                            },
+                            {
+                              "concept": "163851AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Muscle Wasting"
+                            },
+                            {
+                              "concept": "116557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Diffuse pain and tenderness"
+                            },
+                            {
+                              "concept": "163894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Swelling"
+                            },
+                            {
+                              "concept": "122764AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Ulcers"
+                            },
+                            {
+                              "concept": "167237AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Increased of local temperature"
+                            },
+                            {
+                              "concept": "139047AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Heberdens nodes"
+                            },
+                            {
+                              "concept": "130166AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Pitting/Non pitting oedema"
+                            },
+                            {
+                              "concept": "152959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Tendon sheath crepitus"
+                            },
+                            {
+                              "concept": "136421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Joint crepitus"
+                            },
+                            {
+                              "concept": "139116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Joint stiffness"
+                            },
+                            {
+                              "concept": "115476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Muscle weakness"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '133613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                        }
+                      },
+                      {
+                        "label": "Musculoskeletal findings notes",
+                        "type": "obs",
+                        "id": "musculoskeletalFindingNotes",
+                        "questionOptions": {
+                          "concept": "163048AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "textarea"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '133613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                        }
+                      },
+                      {
+                        "label": "Skin findings",
+                        "type": "obs",
+                        "id": "SkinFinDings",
+                        "questionOptions": {
+                          "concept": "1120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "checkbox",
+                          "answers": [
+                            {
+                              "concept": "125201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Swelling/Growth"
+                            },
+                            {
+                              "concept": "1249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Skin eruptions/Rashes"
+                            },
+                            {
+                              "concept": "135591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Hair Loss"
+                            },
+                            {
+                              "concept": "5244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Oral sores"
+                            },
+                            {
+                              "concept": "507AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Kaposis Sarcoma"
+                            },
+                            {
+                              "concept": "136455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Itching"
+                            },
+                            {
+                              "concept": "150555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Abscess"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                        }
+                      },
+                      {
+                        "label": "Skin finding notes",
+                        "type": "obs",
+                        "id": "SkInNotes",
+                        "questionOptions": {
+                          "concept": "160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "textarea"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                        }
+                      }
+                    ]
+                },
+                {
+                    "label": "Diagnosis",
+                    "isExpanded": "true",
+                    "questions": [
+                      {
+                        "label": "Clinical Diagnosis",
+                        "id": "clinicalDiagnosisId",
+                        "type": "diagnosis",
+                        "questionOptions": {
+                          "rendering": "repeating",
+                          "dataSource": "diagnoses",
+                          "rank": 1
+                        },
+                        "hide": {
+                          "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Investigations",
+                    "isExpanded": "true",
+                    "questions": [
+                      {
+                        "label": "Order any Investigation?",
+                        "type": "obs",
+                        "id": "investigationOrderd",
+                        "questionOptions": {
+                          "rendering": "radio",
+                          "concept": "0179f241-8c1d-47c1-8128-841f6508e251",
+                          "answers": [
+                            {
+                              "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Yes"
+                            },
+                            {
+                              "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "No"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "Lab Order",
+                        "required": false,
+                        "id": "labsWorkspaceLauncher",
+                        "questionOptions": {
+                          "rendering": "workspace-launcher",
+                          "buttonLabel": "Add lab order",
+                          "workspaceName": "add-lab-order",
+                          "additionalProps": {
+                            "orderTypeUuid": "52a447d3-a64a-11e3-9aeb-50e549534c5e"
+                          }
+                        },
+                        "hide": {
+                          "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      }
+                    ]
+                  }
+            ]
+        },
+        {
+            "label": "Patient Management",
+            "sections": [
+                {
+                    "label": "Diagnosis",
+                    "isExpanded": "true",
+                    "questions": [
+                      {
+                        "label": "Final Diagnosis",
+                        "id": "finalDiagnosisId",
+                        "type": "diagnosis",
+                        "questionOptions": {
+                          "rendering": "repeating",
+                          "dataSource": "diagnoses",
+                          "rank": 2
+                        }
+                      },
+                      {
+                        "label": "Final Diagnosis Clinical notes",
+                        "type": "obs",
+                        "id": "finalDiagnosiscLinicalNotes",
+                        "questionOptions": {
+                          "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "textarea"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Treatment/Management Plan",
+                    "isExpanded": "true",
+                    "questions": [
+                      {
+                        "label": "Drug Order",
+                        "required": false,
+                        "id": "drugsWorkspaceLauncher",
+                        "questionOptions": {
+                          "rendering": "workspace-launcher",
+                          "buttonLabel": "Add drug order",
+                          "workspaceName": "add-drug-order"
+                        }
+                      },
+                      {
+                        "label": "Any therapies prescribed?",
+                        "type": "obs",
+                        "id": "therpyOrderd",
+                        "questionOptions": {
+                          "concept": "164174AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "checkbox",
+                          "answers": [
+                            {
+                              "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "None"
+                            },
+                            {
+                              "concept": "9ce6af66-5039-49c0-9638-c1095a383933",
+                              "label": "Support Groups",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "163319AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Behavioral Therapy",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "135797AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Lifestyle Modification Programs",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "c2f85aed-695f-49b1-973e-002c37cbdebf",
+                              "label": "Occupational Therapy",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "131022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Pain Management",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "5a450fa8-bcb5-42d0-a101-320464985e03",
+                              "label": "Physiotherapy",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "0a4b1637-99db-4f66-9ec3-b74275b315c1",
+                              "label": "Respiratory Therapy",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Other",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "label": "Other (Specify)",
+                        "type": "obs",
+                        "id": "otherTherapiesOrderd",
+                        "questionOptions": {
+                          "rendering": "text",
+                          "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "isEmpty(therpyOrderd) || !arrayContains(therpyOrderd, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                        }
+                      },
+                      {
+                        "label": "Any Counselling prescribed?",
+                        "type": "obs",
+                        "id": "counsellingOrderd",
+                        "questionOptions": {
+                          "concept": "906ac5d0-566a-466e-93e4-2f23b4fb319b",
+                          "rendering": "checkbox",
+                          "answers": [
+                            {
+                              "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "None"
+                            },
+                            {
+                              "concept": "156277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Family Counseling",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": " Nutritional and Diatary",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "5490AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Psychosocial therapy",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "7989d8ed-abf9-42f3-816b-c0e69406cd03",
+                              "label": "Substance Abuse Counseling",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            },
+                            {
+                              "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Other",
+                              "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "label": "Other (Specify)",
+                        "type": "obs",
+                        "id": "otherCounlOrdered",
+                        "questionOptions": {
+                          "rendering": "text",
+                          "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "isEmpty(counsellingOrderd) || !arrayContains(counsellingOrderd, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                        }
+                      },
+                      {
+                        "label": "Patient Outcome ",
+                        "type": "obs",
+                        "id": "outcomePatient",
+                        "questionOptions": {
+                          "concept": "160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "radio",
+                          "answers": [
+                            {
+                              "concept": "160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Released Home"
+                            },
+                            {
+                              "concept": "1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Admit"
+                            },
+                            {
+                              "concept": "1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Referral"
+                            },
+                            {
+                              "concept": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Deceased"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "label": "Appointments",
+                        "required": false,
+                        "id": "appointmentWorkspaceLauncher",
+                        "questionOptions": {
+                          "rendering": "workspace-launcher",
+                          "buttonLabel": "Add appointments",
+                          "workspaceName": "appointments-form-workspace"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "outcomePatient !=='160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "Reffered For?",
+                        "type": "obs",
+                        "id": "refferalsOrderd",
+                        "questionOptions": {
+                          "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "textarea"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "outcomePatient !=='1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "Referred to?",
+                        "type": "obs",
+                        "id": "referralTo",
+                        "questionOptions": {
+                          "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "select",
+                          "answers": [
+                            {
+                              "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Other health facility"
+                            },
+                            {
+                              "concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "This health facility"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "outcomePatient !=='1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "Transfer to Facility:",
+                        "type": "obs",
+                        "id": "transferToFacility",
+                        "questionOptions": {
+                          "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "encounterLocation"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "This Facility:",
+                        "type": "obs",
+                        "id": "thisfacility",
+                        "questionOptions": {
+                          "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "text",
+                          "calculate": {
+                            "calculateExpression": "referralTo === '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && userLocation.display"
+                          }
+                        },
+                        "hide": {
+                          "hideWhenExpression": "referralTo !=='163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Admission Details",
+                    "isExpanded": "true",
+                    "questions": [
+                      {
+                        "label": "Date of Admission",
+                        "type": "obs",
+                        "id": "dateOfPatientAdmission",
+                        "questionOptions": {
+                          "concept": "1640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "date"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        },
+                        "validators": [
+                          {
+                            "type": "date",
+                            "allowFutureDates": "false"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Reason for admission",
+                        "type": "obs",
+                        "id": "admiPatientReason",
+                        "questionOptions": {
+                          "concept": "162879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "text"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "Type of Admission?",
+                        "type": "obs",
+                        "id": "admissionType",
+                        "questionOptions": {
+                          "concept": "162477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "radio",
+                          "answers": [
+                            {
+                              "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "New"
+                            },
+                            {
+                              "concept": "159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Readmission"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "Priority of Admission?",
+                        "type": "obs",
+                        "id": "priorityOfAdmission",
+                        "questionOptions": {
+                          "concept": "1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "radio",
+                          "answers": [
+                            {
+                              "concept": "160473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Emergency"
+                            },
+                            {
+                              "concept": "159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Direct"
+                            },
+                            {
+                              "concept": "242d8a86-47d2-433c-b393-5d1dc43b96ec",
+                              "label": "Scheduled"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "admissionType !== '164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "Priority of Admission?",
+                        "type": "obs",
+                        "id": "priorityOfAdmissionReadmit",
+                        "questionOptions": {
+                          "concept": "1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "radio",
+                          "answers": [
+                            {
+                              "concept": "160473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Emergency"
+                            },
+                            {
+                              "concept": "159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Direct"
+                            },
+                            {
+                              "concept": "242d8a86-47d2-433c-b393-5d1dc43b96ec",
+                              "label": "Scheduled"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "admissionType !== '159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "type": "obsGroup",
+                        "id": "inpatientDispositionConstruct",
+                        "questionOptions": {
+                          "concept": "CIEL:169405",
+                          "rendering": "group"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        },
+                        "questions": [
+                          {
+                            "id": "disposition",
+                            "type": "obs",
+                            "required": true,
+                            "questionOptions": {
+                              "rendering": "radio",
+                              "required": true,
+                              "concept": "CIEL:169402",
+                              "answers": [
+                                {
+                                  "concept": "CIEL:168619"
+                                }
+                              ]
+                            },
+                            "validators": [],
+                            "hide": {
+                          "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                          },
+                          {
+                            "id": "admitToLocation",
+                            "type": "obs",
+                            "required": true,
+                            "questionOptions": {
+                              "rendering": "remote-select",
+                              "required": true,
+                              "concept": "CIEL:169403",
+                              "datasource": {
+                                "name": "location",
+                                "config": {
+                                  "tag": "Admission Location"
+                                }
+                              }
+                            },
+                            "hide": {
+                          "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Type of hospital stay?",
+                        "type": "obs",
+                        "id": "hospitalStay",
+                        "questionOptions": {
+                          "concept": "1896AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "rendering": "radio",
+                          "answers": [
+                            {
+                              "concept": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Daycase"
+                            },
+                            {
+                              "concept": "161018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Overnight"
+                            },
+                            {
+                              "concept": "1275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                              "label": "Longer stay"
+                            }
+                          ]
+                        },
+                        "hide": {
+                          "hideWhenExpression": "outcomePatient !=='1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      },
+                      {
+                        "label": "Admitting Doctor:",
+                        "type": "encounterProvider",
+                        "id": "admittingDoctor ",
+                        "default": "",
+                        "questionOptions": {
+                          "rendering": "ui-select-extended"
+                        },
+                        "hide": {
+                          "hideWhenExpression": "outcomePatient !=='1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                        }
+                      }
+                    ]
+                  }
             ]
         }
     ],
