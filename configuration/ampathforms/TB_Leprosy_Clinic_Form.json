@@ -191,104 +191,11 @@
                             "hide": {
                               "hideWhenExpression": "cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                             }
-                          },
-                          {
-                            "label": "Patient had contact with TB Infected person in the last 12 months?",
-                            "type": "obs",
-                            "id": "contactTB",
-                            "required": "true",
-                            "questionOptions": {
-                              "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                              "rendering": "radio",
-                              "answers": [
-                                {
-                                  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                  "label": "Yes"
-                                },
-                                {
-                                  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                  "label": "No"
-                                }
-                              ]
-                            },
-                            "hide": {
-                              "hideWhenExpression": "cOmplaIntField !== '143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                            }
-                          },
-                          {
-                            "label": "Number of motions per day",
-                            "type": "obs",
-                            "id": "numberMotions",
-                            "questionOptions": {
-                              "concept": "164456AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                              "rendering": "number",
-                              "min": "0"
-                            },
-                            "hide": {
-                              "hideWhenExpression": "cOmplaIntField !== '161887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                            }
-                          },
-                          {
-                            "label": "Site",
-                            "type": "obs",
-                            "id": "complaintSitePain",
-                            "questionOptions": {
-                              "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                              "rendering": "text"
-                            },
-                            "validators": [],
-                            "hide": {
-                              "hideWhenExpression": "cOmplaIntField !== '114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                            }
-                          },
-                          {
-                            "label": "Duration (Days)",
-                            "type": "obs",
-                            "id": "complaint-duration",
-                            "questionOptions": {
-                              "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                              "rendering": "number",
-                              "min": "0"
-                            },
-                            "validators": []
-                          },
-                          {
-                            "label": "Onset Status",
-                            "type": "obs",
-                            "id": "onsetStatus",
-                            "questionOptions": {
-                              "concept": "d7a3441d-6aeb-49be-b7d6-b2a3bb39e78d",
-                              "rendering": "select",
-                              "answers": [
-                                {
-                                  "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                  "label": "Gradual"
-                                },
-                                {
-                                  "concept": "162707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                  "label": "Sudden"
-                                }
-                              ]
-                            }
-                          },
-                          {
-                            "label": "Severity",
-                            "type": "obs",
-                            "id": "seViDpain",
-                            "questionOptions": {
-                              "concept": "160287AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                              "rendering": "number",
-                              "min": "0.0",
-                              "max": "10.0"
-                            },
-                            "hide": {
-                              "hideWhenExpression": "cOmplaIntField !== '114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                            }
                           }
                         ]
                       },
                       {
-                        "label": "History of presenting illiness(HPI)",
+                        "label": "History of presenting illiness(HPI) notes",
                         "type": "obs",
                         "id": "ClinICNotes",
                         "questionOptions": {
@@ -307,21 +214,43 @@
                     "isExpanded": "true",
                     "questions": [
                         {
-                            "label": "Past medical History",
-                            "type": "text",
-                            "id": "question_19",
+                            "label": "Previously treated for leprosy",
+                            "type": "obs",
+                            "id": "PreVLeps",
                             "questionOptions": {
-                                "concept": "",
-                                "rendering": "text"
+                                "rendering": "radio",
+                                "concept": "1663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "answers": [
+                                    {
+                                        "concept": "true",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "concept": "false",
+                                        "label": "No"
+                                    }
+                                ]
                             }
                         },
                         {
-                            "label": "Previously leprosy treatment",
+                            "label": "If Yes, which year",
                             "type": "obs",
-                            "id": "question_20",
+                            "id": "LeprOsyear",
+                            "questionOptions": {
+                                "rendering": "date",
+                                "concept": "164384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                            },
+                            "hide": {
+                              "hideWhenExpression": "isEmpty(PreVLeps) || PreVLeps !== 'true'"
+                            }
+                        },
+                        {
+                            "label": "Treatment Completed",
+                            "type": "obs",
+                            "id": "TreatLeprosy",
                             "questionOptions": {
                                 "rendering": "radio",
-                                "concept": "",
+                                "concept": "1775AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                                 "answers": [
                                     {
                                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -332,43 +261,18 @@
                                         "label": "No"
                                     }
                                 ]
-                            }
-                        },
-                        {
-                            "label": "If Yes Year",
-                            "type": "obs",
-                            "id": "question_21",
-                            "questionOptions": {
-                                "rendering": "datepicker",
-                                "concept": ""
-                            }
-                        },
-                        {
-                            "label": "if completed",
-                            "type": "obs",
-                            "id": "question_22",
-                            "questionOptions": {
-                                "rendering": "radio",
-                                "concept": "",
-                                "answers": [
-                                    {
-                                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                        "label": "Yes"
-                                    },
-                                    {
-                                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                        "label": "No"
-                                    }
-                                ]
+                            },
+                            "hide": {
+                              "hideWhenExpression": "isEmpty(PreVLeps) || PreVLeps !== 'true'"
                             }
                         },
                         {
                             "label": "Contact History (Any known leprosy patient within the family)",
                             "type": "obs",
-                            "id": "question_23",
+                            "id": "LepContact",
                             "questionOptions": {
                                 "rendering": "radio",
-                                "concept": "",
+                                "concept": "162633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                                 "answers": [
                                     {
                                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -384,10 +288,13 @@
                         {
                             "label": "If Yes Specify relation",
                             "type": "text",
-                            "id": "question_24",
+                            "id": "familYreL",
                             "questionOptions": {
-                                "concept": "",
+                                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                                 "rendering": "text"
+                            },
+                            "hide": {
+                              "hideWhenExpression": "isEmpty(LepContact) || LepContact !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                             }
                         },
                         {
@@ -396,7 +303,7 @@
                             "id": "question_25",
                             "questionOptions": {
                                 "rendering": "radio",
-                                "concept": "",
+                                "concept": "152460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                                 "answers": [
                                     {
                                         "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -412,9 +319,9 @@
                         {
                             "label": "Other Conditions?",
                             "type": "obs",
-                            "id": "question_26",
+                            "id": "OtheRcoNdi",
                             "questionOptions": {
-                                "rendering": "radio",
+                                "rendering": "checkbox",
                                 "concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                                 "answers": [
                                     {
@@ -423,21 +330,67 @@
                                     },
                                     {
                                         "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                        "label": "Diabetes"
+                                        "label": "Diabetes",
+                                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                                     },
                                     {
                                         "concept": "116986AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                        "label": "Hepatitis"
+                                        "label": "Hepatitis",
+                                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                                     },
                                     {
                                         "concept": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                        "label": "Tuberculosis"
+                                        "label": "Tuberculosis",
+                                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                                     },
                                     {
-                                        "concept": "149197AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                                    }
+                                        "concept": "149197AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                        "label": "HIV/AIDS",
+                                        "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                                    },
+                                    {
+                                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                      "label": "Other (Specify)",
+                                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                                  }
                                 ]
                             }
+                        },
+                        {
+                          "label": "Specify other conditions",
+                          "type": "obs",
+                          "id": "OtherSpecificConditions",
+                          "questionOptions": {
+                            "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                            "rendering": "text"
+                          },
+                          "validators": [],
+                          "hide": {
+                            "hideWhenExpression": "!arrayContains(OtheRcoNdi, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                          }
+                        },
+                        {
+                          "label": "Patient pregnant?",
+                          "type": "obs",
+                          "id": "pregnancyOption",
+                          "questionOptions": {
+                            "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "rendering": "radio",
+                            "answers": [
+                              {
+                                "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "Yes"
+                              },
+                              {
+                                "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "No"
+                              }
+                            ]
+                          },
+                          "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
+                          "hide": {
+                            "hideWhenExpression": "sex !=='F' || age < 15"
+                          }
                         }
                     ]
                 }
