@@ -1,0 +1,653 @@
+{
+  "name": "TB Leprosy Clinic Form",
+  "description": "TB Leprosy Speciality Clinic Form",
+  "version": "1",
+  "published": true,
+  "uuid": "067db546-b268-470d-8a18-c7a7786681a8",
+  "retired": false,
+  "encounter": "TB Leprosy",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encDate",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Patient Details",
+          "isExpanded": true,
+          "questions": [
+            {
+              "label": "Patient Type",
+              "type": "obs",
+              "id": "question_0",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New"
+                  },
+                  {
+                    "concept": "160033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Relapse"
+                  },
+                  {
+                    "concept": "164097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Returned after loss to follow-up"
+                  },
+                  {
+                    "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transferred in"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient History",
+      "sections": [
+        {
+          "label": "Complaints and History of complaints",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient having complaint(s) today?",
+              "type": "obs",
+              "id": "complaintsToday",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Presenting complaints",
+              "type": "obsGroup",
+              "id": "ComplaintLodgeByClient",
+              "questionOptions": {
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "complaintsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "questions": [
+                {
+                  "label": "Symptoms",
+                  "type": "obs",
+                  "id": "cOmplaIntField",
+                  "questionOptions": {
+                    "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "51d653c8-4c03-4f7e-8ed5-e21f5309f27a",
+                        "label": "Hypopigmented or reddish skin patches"
+                      },
+                      {
+                        "concept": "132652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Loss or decrease of feeling in the skin patch"
+                      },
+                      {
+                        "concept": "159252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Numbness or tingling of the hands or feet"
+                      },
+                      {
+                        "concept": "112437AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Weakness of the hands, feet or eyelids"
+                      },
+                      {
+                        "concept": "137593AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Painful or tender nerves"
+                      },
+                      {
+                        "concept": "125216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Swellings or lumps in the face or earlobes"
+                      },
+                      {
+                        "concept": "158426AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Painless wounds or burns on the hands or feet"
+                      },
+                      {
+                        "concept": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Blured vision"
+                      },
+                      {
+                        "concept": "131040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Pain in the eye"
+                      },
+                      {
+                        "concept": "130249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Photophobia"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Specify other complaints",
+                  "type": "obs",
+                  "id": "OtherSpecificComplaints",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Specify any new and persistent symptoms",
+              "type": "obs",
+              "id": "ClinICNotes",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea",
+                "rows": "10"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Follow up visit",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient adherance",
+              "type": "obs",
+              "id": "adhPat",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "f62b0135-00b1-4217-b98a-4ef3f771a08b",
+                "answers": [
+                  {
+                    "concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Good"
+                  },
+                  {
+                    "concept": "159406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fair"
+                  },
+                  {
+                    "concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Poor"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Any drug side effects?",
+              "type": "obs",
+              "id": "druGeffEcts",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "508f254c-9310-4714-a8ac-82330df70632",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "d10711ee-1ed5-40b8-a56a-df3359914453",
+                    "label": "Rash",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "115397AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nausea",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vomiting",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Anemia",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Itchy skin",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "118534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Red skin/eyes",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "126390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peeling off the skin",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abdominal pain",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Red urine",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "138235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hyperpigmentation of the skin",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Jaundice",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others (specify)",
+                    "disableWhenExpression":"myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(PreVLeps) || PreVLeps !== 'true'"
+              }
+            },
+            {
+                "label": "Specify other drug effects",
+                "type": "obs",
+                "id": "othDrugEffects",
+                "questionOptions": {
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "textarea"
+                },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(druGeffEcts) || !arrayContains(druGeffEcts, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                }            
+            },
+            {
+              "label": "Leprosy reaction noted",
+              "type": "obs",
+              "id": "lepRosyXtion",
+              "questionOptions": {
+                "concept": "8cb44766-d4c7-455a-a49f-abd2edc8c717",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "164356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Type 1(Reversal reaction)"
+                  },
+                  {
+                    "concept": "164357AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Type 2 (Erythema Nodosum Leprosum (ENL)"
+                  }
+                ]
+              }
+            },
+            {
+                "label": "Leprosy reaction severity",
+                "type": "obs",
+                "id": "lepsevere",
+                "questionOptions": {
+                    "concept": "162820AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                        {
+                            "concept": "1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Mild "
+                        },
+                        {
+                            "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Moderate"
+                        },
+                        {
+                            "concept": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Severe"
+                        }
+                    ]
+                },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(lepRosyXtion) || lepRosyXtion !== '164356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || lepRosyXtion !== '164357AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+            },
+            {
+                "label": "Disability evidence",
+                "type": "obs",
+                "id": "disAbilityEvidence",
+                "questionOptions": {
+                  "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "checkbox",
+                  "answers": [
+                    {
+                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "None"
+                    },
+                    {
+                      "concept": "1acdb271-af8f-4499-8707-29dc98c0f049",
+                      "label": "Madarosis",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "136157AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Lagophthalmus",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "127212AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Collapsed nose (saddle nose)",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "7749e169-1fd3-4a9d-97d7-1ad7144d1a52",
+                      "label": "Wrist drop",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "150113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Ape thumb",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "145072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Claw hand",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "139981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Foot drop",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "122173AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Claw toes",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Plantar ulcers",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    },
+                    {
+                      "concept": "5622",
+                      "label": "Others(specify)",
+                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+                  ]
+                }
+              },
+              {
+                "label": "Disability grading",
+                "type": "obsGroup",
+                "id": "disGrading",
+                "questionOptions": {
+                  "concept": "91a87033-8f75-4f08-9f15-0d8ae66bd9d9",
+                  "rendering": "repeating"
+                },
+                "questions": [
+                    {
+                      "label": "Body part affected",
+                      "type": "obs",
+                      "id": "boDyaffected",
+                      "questionOptions": {
+                        "concept": "160625AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "rendering": "select",
+                        "answers": [
+                          {
+                            "concept": "d2e3d499-c907-4084-b6b2-2824fac80fb3",
+                            "label": "Right Eye"
+                          },
+                          {
+                            "concept": "75839949-bb67-4e9d-8bb1-ce9ea868b802",
+                            "label": "Left Eye"
+                          },
+                          {
+                            "concept": "b7ff7a6b-6dd0-411e-a160-68ece7ddd895",
+                            "label": "Right Hand"
+                          },
+                          {
+                            "concept": "1440a839-b8a9-403c-8e68-74e046329c8f",
+                            "label": "Left Hand"
+                          },
+                          {
+                            "concept": "164385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Right Foot"
+                          },
+                          {
+                            "concept": "164387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Left Foot"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "label": "Grade status",
+                      "type": "obs",
+                      "id": "gradeStatus",
+                      "questionOptions": {
+                        "concept": "160625AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "rendering": "radio",
+                        "answers": [
+                          {
+                            "concept": "7cfd39f1-5fd9-49d3-8f28-73d968794d44",
+                            "label": "Grade 0"
+                          },
+                          {
+                            "concept": "166987AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Grade 1"
+                          },
+                          {
+                            "concept": "15e843cd-8fad-46e9-a1a9-0c1030efb12a",
+                            "label": "Grade 2"
+                          }
+                        ]
+                      },
+                      "hide": {
+                        "hideWhenExpression": "isEmpty(boDyaffected)"
+                      }
+                    }
+                  ]
+              },
+              {
+                "label": "EHF Score",
+                "type": "obs",
+                "id": "EhFsCore",
+                "questionOptions": {
+                  "concept": "167141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "number"
+                }
+              }
+          ]
+        },
+        {
+            "label": "Diagnosis",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Clinical Diagnosis",
+                "id": "clinicalDiagnosisId",
+                "type": "diagnosis",
+                "questionOptions": {
+                  "rendering": "repeating",
+                  "dataSource": "diagnoses",
+                  "rank": 1
+                },
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Diagnosis Clinical notes",
+                "type": "obs",
+                "id": "finalDiagnosiscLinicalNotes",
+                "questionOptions": {
+                  "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering": "textarea"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Investigations",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Order any Investigation?",
+                "type": "obs",
+                "id": "investigationOrderd",
+                "questionOptions": {
+                  "rendering": "radio",
+                  "concept": "0179f241-8c1d-47c1-8128-841f6508e251",
+                  "answers": [
+                    {
+                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "Yes"
+                    },
+                    {
+                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "label": "No"
+                    }
+                  ]
+                },
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              },
+              {
+                "label": "Lab Order",
+                "required": false,
+                "id": "labsWorkspaceLauncher",
+                "questionOptions": {
+                  "rendering": "workspace-launcher",
+                  "buttonLabel": "Add lab order",
+                  "workspaceName": "add-lab-order",
+                  "additionalProps": {
+                    "orderTypeUuid": "52a447d3-a64a-11e3-9aeb-50e549534c5e"
+                  }
+                },
+                "hide": {
+                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+              }
+            ]
+          },
+          {
+            "label": "Treatment Outcome",
+            "isExpanded": "true",
+            "questions": [
+                {
+                    "label": "Treatment Outcome",
+                    "type": "obs",
+                    "id": "TreToUtcome",
+                    "questionOptions": {
+                        "concept": "159786AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "rendering": "radio",
+                        "answers": [
+                            {
+                                "concept": "1663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "Treatment completed"
+                            },
+                            {
+                                "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "Default (Lost to follow-up)"
+                            },
+                            {
+                                "concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "Transferred out"
+                            },
+                            {
+                                "concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "Died"
+                            },
+                            {
+                                "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                "label": "Other"
+                            }
+                        ]
+                    }
+                },
+                {
+                  "label": "Specify other outcomes",
+                  "type": "obs",
+                  "id": "otheRoutComes",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(TreToUtcome) || TreToUtcome !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                }
+            ]
+          }
+      ]
+    }
+  ],
+  "encounterType": "df1cd677-b883-4fd1-9bd0-266da3cad94a"
+}
