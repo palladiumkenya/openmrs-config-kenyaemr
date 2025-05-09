@@ -1,0 +1,1480 @@
+{
+  "name": "TB Leprosy Clinic Form",
+  "description": "TB Leprosy Speciality Clinic Form",
+  "version": "1",
+  "published": true,
+  "uuid": "067db546-b268-470d-8a18-c7a7786681a8",
+  "retired": false,
+  "encounter": "TB Leprosy",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encDate",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Patient Details",
+          "isExpanded": true,
+          "questions": [
+            {
+              "label": "Patient Type",
+              "type": "obs",
+              "id": "question_0",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New"
+                  },
+                  {
+                    "concept": "160033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Relapse"
+                  },
+                  {
+                    "concept": "164097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Returned after loss to follow-up"
+                  },
+                  {
+                    "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transferred in"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient History",
+      "sections": [
+        {
+          "label": "Complaints and History of complaints",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient having complaint(s) today?",
+              "type": "obs",
+              "id": "complaintsToday",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Presenting complaints",
+              "type": "obsGroup",
+              "id": "ComplaintLodgeByClient",
+              "questionOptions": {
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "complaintsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "questions": [
+                {
+                  "label": "Symptoms",
+                  "type": "obs",
+                  "id": "cOmplaIntField",
+                  "questionOptions": {
+                    "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "51d653c8-4c03-4f7e-8ed5-e21f5309f27a",
+                        "label": "Hypopigmented or reddish skin patches"
+                      },
+                      {
+                        "concept": "132652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Loss or decrease of feeling in the skin patch"
+                      },
+                      {
+                        "concept": "159252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Numbness or tingling of the hands or feet"
+                      },
+                      {
+                        "concept": "112437AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Weakness of the hands, feet or eyelids"
+                      },
+                      {
+                        "concept": "137593AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Painful or tender nerves"
+                      },
+                      {
+                        "concept": "125216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Swellings or lumps in the face or earlobes"
+                      },
+                      {
+                        "concept": "158426AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Painless wounds or burns on the hands or feet"
+                      },
+                      {
+                        "concept": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Blured vision"
+                      },
+                      {
+                        "concept": "131040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Pain in the eye"
+                      },
+                      {
+                        "concept": "130249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Photophobia"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Specify other complaints",
+                  "type": "obs",
+                  "id": "OtherSpecificComplaints",
+                  "questionOptions": {
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                    "rendering": "textarea"
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "History of presenting illiness(HPI) notes",
+              "type": "obs",
+              "id": "ClinICNotes",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Past Medical History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Previously treated for leprosy",
+              "type": "obs",
+              "id": "PreVLeps",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "true",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "false",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "If Yes, which year",
+              "type": "obs",
+              "id": "LeprOsyear",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "164384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(PreVLeps) || PreVLeps !== 'true'"
+              }
+            },
+            {
+              "label": "Treatment Completed",
+              "type": "obs",
+              "id": "TreatLeprosy",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1775AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(PreVLeps) || PreVLeps !== 'true'"
+              }
+            },
+            {
+              "label": "Contact History (Any known leprosy patient within the family)",
+              "type": "obs",
+              "id": "LepContact",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "162633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "If Yes Specify relation",
+              "type": "text",
+              "id": "familYreL",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(LepContact) || LepContact !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Family History of leprosy?",
+              "type": "obs",
+              "id": "famHistO",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "152460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Other Conditions?",
+              "type": "obs",
+              "id": "OtheRcoNdi",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetes",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "116986AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hepatitis",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Tuberculosis",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "149197AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HIV/AIDS",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other (Specify)",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify other conditions",
+              "type": "obs",
+              "id": "OtherSpecificConditions",
+              "questionOptions": {
+                "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "!arrayContains(OtheRcoNdi, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Patient pregnant?",
+              "type": "obs",
+              "id": "pregnancyOption",
+              "questionOptions": {
+                "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
+              "hide": {
+                "hideWhenExpression": "sex !=='F' || age < 15"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient Examination",
+      "sections": [
+        {
+          "label": "System Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Finding(s) on systems review?",
+              "type": "obs",
+              "required": "true",
+              "id": "syStemsRevieW",
+              "questionOptions": {
+                "concept": "159615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "All Systems Normal"
+                  },
+                  {
+                    "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abnormal"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "System Reviews",
+              "type": "obs",
+              "id": "allsystemReview",
+              "questionOptions": {
+                "concept": "1069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "850a960b-e8b5-4775-ba74-aaddb2abbf51",
+                    "label": "Eye"
+                  },
+                  {
+                    "concept": "160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Skin"
+                  },
+                  {
+                    "concept": "112101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nervous and Musculoskeletal"
+                  },
+                  {
+                    "concept": "119235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Muscle Power"
+                  },
+                  {
+                    "concept": "160689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Disability Grading"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "syStemsRevieW !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "CNS findings",
+              "type": "obs",
+              "id": "cNsFiNdinGs",
+              "questionOptions": {
+                "concept": "752132fb-235c-45cd-8914-854c388e358f",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "118872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Altered sensations"
+                  },
+                  {
+                    "concept": "157498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Limb weakness"
+                  },
+                  {
+                    "concept": "1836AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Bulging fontenelle"
+                  },
+                  {
+                    "concept": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Stiff neck"
+                  },
+                  {
+                    "concept": "136282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Kernicterus"
+                  },
+                  {
+                    "concept": "150817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abnormal reflexes"
+                  },
+                  {
+                    "concept": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Confusion"
+                  },
+                  {
+                    "concept": "157494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Kernigs sign"
+                  },
+                  {
+                    "concept": "153009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Brudzinski's sign"
+                  },
+                  {
+                    "concept": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Loss of consciousness"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '112101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "CNS findings notes",
+              "type": "obs",
+              "id": "CnSNotES",
+              "questionOptions": {
+                "concept": "160994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '112101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Eyes findings",
+              "type": "obs",
+              "id": "EyeFiNdings",
+              "questionOptions": {
+                "concept": "163309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "142684AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Spontaneous blink absent"
+                  },
+                  {
+                    "concept": "135591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Loss of eyebrows"
+                  },
+                  {
+                    "concept": "130184AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Conjunctiva redness"
+                  },
+                  {
+                    "concept": "145102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Perilimbal redness of the cornea"
+                  },
+                  {
+                    "concept": "143337AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cornea ulcers or scars"
+                  },
+                  {
+                    "concept": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Blurring vision"
+                  },
+                  {
+                    "concept": "143576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Constricted pupil with poor reaction to light"
+                  },
+                  {
+                    "concept": "159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Visual impairment"
+                  },
+                  {
+                    "concept": "141695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Eye dryness"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others (specify)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '850a960b-e8b5-4775-ba74-aaddb2abbf51')"
+              }
+            },
+            {
+              "label": "Specify other eye findings",
+              "type": "obs",
+              "id": "OtherEyeFinDingNotes",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(EyeFiNdings) || !arrayContains(EyeFiNdings, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Eyes findings notes",
+              "type": "obs",
+              "id": "EyeFinDingNotes",
+              "questionOptions": {
+                "concept": "850a960b-e8b5-4775-ba74-aaddb2abbf51",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '850a960b-e8b5-4775-ba74-aaddb2abbf51')"
+              }
+            },
+            {
+              "label": "Nerve type findings",
+              "type": "obs",
+              "id": "nerveTypeFinds",
+              "questionOptions": {
+                "concept": "1128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "166283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ulnar(right/left)"
+                  },
+                  {
+                    "concept": "166331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Median(right/left)"
+                  },
+                  {
+                    "concept": "160395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Radial(right/left)"
+                  },
+                  {
+                    "concept": "166321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Common Peroneal(right/left)"
+                  },
+                  {
+                    "concept": "977d9855-a7ed-4022-a1a6-a33c4fbbb12e",
+                    "label": "Posterior Tibial(right/left)"
+                  },
+                  {
+                    "concept": "b317ed25-ca43-4890-bcbe-24fa8fd3392c",
+                    "label": "Great Auricular Nerve"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others (specify)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '133613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Nerve characteristics/status on palpation",
+              "type": "obs",
+              "id": "nerveXtaristics",
+              "questionOptions": {
+                "concept": "1128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "166331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Thickened/enlarged nontender"
+                  },
+                  {
+                    "concept": "160395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Thickened/enlarged tender"
+                  },
+                  {
+                    "concept": "166321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sensory loss"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others (specify)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '133613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Nervous and Musculoskeletal findings notes",
+              "type": "obs",
+              "id": "msnsFindingNotes",
+              "questionOptions": {
+                "concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '133613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Skin findings",
+              "type": "obs",
+              "id": "SkinFinDings",
+              "questionOptions": {
+                "concept": "1120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "112938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Skin Lesions"
+                  },
+                  {
+                    "concept": "140104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dryness Cracks"
+                  },
+                  {
+                    "concept": "51d653c8-4c03-4f7e-8ed5-e21f5309f27a",
+                    "label": "Hypopigmentation"
+                  },
+                  {
+                    "concept": "5135AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Skin patches with loss of sensation(cotton wool test)"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others (specify)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Specify other skin findings",
+              "type": "obs",
+              "id": "SkinFinDingNotes",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(SkinFinDings) || !arrayContains(SkinFinDings, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Site",
+              "type": "obs",
+              "id": "SkinSite",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(SkinFinDings) || !arrayContains(SkinFinDings, '112938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Number of skin patches",
+              "type": "obs",
+              "id": "SkinPatches",
+              "questionOptions": {
+                "concept": "4bfcb070-067f-412b-8f81-a953e226aa63",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(SkinFinDings) || !arrayContains(SkinFinDings, '112938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Number of skin nodules",
+              "type": "obs",
+              "id": "SkinNodules",
+              "questionOptions": {
+                "concept": "a5128c0a-95de-477f-9ab7-726c6700334a",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(SkinFinDings) || !arrayContains(SkinFinDings, '112938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Skin finding notes",
+              "type": "obs",
+              "id": "SkInNotes",
+              "questionOptions": {
+                "concept": "160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Muscle power findings",
+              "type": "obsGroup",
+              "id": "mUsclepoW",
+              "questionOptions": {
+                "concept": "bf901081-2f1b-4d03-8daa-878ebc3b6cd6",
+                "rendering": "repeating"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '119235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              },
+                "questions": [
+                  {
+                    "label": "Type of Muscle affected",
+                    "type": "obs",
+                    "id": "muscLesType",
+                    "questionOptions": {
+                      "concept": "160625AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "1843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Face"
+                        },
+                        {
+                          "concept": "164386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Eyes"
+                        },
+                        {
+                          "concept": "164385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Hands"
+                        },
+                        {
+                          "concept": "164387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Feet"
+                        }
+                      ]
+                    },
+                    "hide": {
+                      "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '119235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+                    }
+                  },
+                  {
+                    "label": "Muscle status",
+                    "type": "obs",
+                    "id": "muscLesTatus",
+                    "questionOptions": {
+                      "concept": "160625AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "radio",
+                      "answers": [
+                        {
+                          "concept": "159533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Strong"
+                        },
+                        {
+                          "concept": "115476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Weak"
+                        },
+                        {
+                          "concept": "114362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Paralysis"
+                        }
+                      ]
+                    },
+                    "hide": {
+                      "hideWhenExpression": "isEmpty(muscLesType)"
+                    }
+                  }
+                ]
+            },
+            {
+              "label": "Muscle power finding notes",
+              "type": "obs",
+              "id": "musclePower",
+              "questionOptions": {
+                "concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(allsystemReview) || !arrayContains(allsystemReview, '119235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Leprosy reaction",
+              "type": "obs",
+              "id": "lepRosyXtion",
+              "questionOptions": {
+                "concept": "8cb44766-d4c7-455a-a49f-abd2edc8c717",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "164356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Type 1(Reversal reaction)"
+                  },
+                  {
+                    "concept": "164357AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Type 2 (Erythema Nodosum Leprosum (ENL)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Disability evidence",
+              "type": "obs",
+              "id": "disAbilityEvidence",
+              "questionOptions": {
+                "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "1acdb271-af8f-4499-8707-29dc98c0f049",
+                    "label": "Madarosis",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "136157AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lagophthalmus",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "127212AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Collapsed nose (saddle nose)",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "7749e169-1fd3-4a9d-97d7-1ad7144d1a52",
+                    "label": "Wrist drop",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "150113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ape thumb",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "145072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Claw hand",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "139981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Foot drop",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "122173AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Claw toes",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Plantar ulcers",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5622",
+                    "label": "Others(specify)",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Disability grading",
+              "type": "obsGroup",
+              "id": "disGrading",
+              "questionOptions": {
+                "concept": "91a87033-8f75-4f08-9f15-0d8ae66bd9d9",
+                "rendering": "repeating"
+              },
+              "questions": [
+                  {
+                    "label": "Body part affected",
+                    "type": "obs",
+                    "id": "boDyaffected",
+                    "questionOptions": {
+                      "concept": "160625AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "select",
+                      "answers": [
+                        {
+                          "concept": "d2e3d499-c907-4084-b6b2-2824fac80fb3",
+                          "label": "Right Eye"
+                        },
+                        {
+                          "concept": "75839949-bb67-4e9d-8bb1-ce9ea868b802",
+                          "label": "Left Eye"
+                        },
+                        {
+                          "concept": "b7ff7a6b-6dd0-411e-a160-68ece7ddd895",
+                          "label": "Right Hand"
+                        },
+                        {
+                          "concept": "1440a839-b8a9-403c-8e68-74e046329c8f",
+                          "label": "Left Hand"
+                        },
+                        {
+                          "concept": "164385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Right Foot"
+                        },
+                        {
+                          "concept": "164387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Left Foot"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "label": "Grade status",
+                    "type": "obs",
+                    "id": "gradeStatus",
+                    "questionOptions": {
+                      "concept": "160625AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                      "rendering": "radio",
+                      "answers": [
+                        {
+                          "concept": "7cfd39f1-5fd9-49d3-8f28-73d968794d44",
+                          "label": "Grade 0"
+                        },
+                        {
+                          "concept": "166987AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                          "label": "Grade 1"
+                        },
+                        {
+                          "concept": "15e843cd-8fad-46e9-a1a9-0c1030efb12a",
+                          "label": "Grade 2"
+                        }
+                      ]
+                    },
+                    "hide": {
+                      "hideWhenExpression": "isEmpty(boDyaffected)"
+                    }
+                  }
+                ]
+            },
+            {
+              "label": "EHF Score",
+              "type": "obs",
+              "id": "EhFsCore",
+              "questionOptions": {
+                "concept": "167141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Diagnosis",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Clinical Diagnosis",
+              "id": "clinicalDiagnosisId",
+              "type": "diagnosis",
+              "questionOptions": {
+                "rendering": "repeating",
+                "dataSource": "diagnoses",
+                "rank": 1
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Investigations",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Order any Investigation?",
+              "type": "obs",
+              "id": "investigationOrderd",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0179f241-8c1d-47c1-8128-841f6508e251",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Lab Order",
+              "required": false,
+              "id": "labsWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add lab order",
+                "workspaceName": "add-lab-order",
+                "additionalProps": {
+                  "orderTypeUuid": "52a447d3-a64a-11e3-9aeb-50e549534c5e"
+                }
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient Management",
+      "sections": [
+        {
+          "label": "Diagnosis",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Final Diagnosis",
+              "id": "finalDiagnosisId",
+              "type": "diagnosis",
+              "questionOptions": {
+                "rendering": "repeating",
+                "dataSource": "diagnoses",
+                "rank": 2
+              }
+            },
+            {
+              "label": "Final Diagnosis Clinical notes",
+              "type": "obs",
+              "id": "finalDiagnosiscLinicalNotes",
+              "questionOptions": {
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Treatment/Management Plan",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Drug Order (Start MDT Regimen)",
+              "required": false,
+              "id": "drugsWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add drug order",
+                "workspaceName": "add-drug-order"
+              }
+            },
+            {
+              "label": "Classification of Leprosy",
+              "type": "obs",
+              "id": "classiFleprosy",
+              "questionOptions": {
+                "concept": "164355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "164354AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pauci-bacillary leprosy(Tuberculoid leprosy (TT))"
+                  },
+                  {
+                    "concept": "9ce6af66-5039-49c0-9638-c1095a383933",
+                    "label": "Multi-bacillary leprosy (MB) (Lepromatous leprosy (LL))"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Patient Outcome ",
+              "type": "obs",
+              "id": "outcomePatient",
+              "questionOptions": {
+                "concept": "160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Released Home"
+                  },
+                  {
+                    "concept": "1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Admit"
+                  },
+                  {
+                    "concept": "1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referral"
+                  },
+                  {
+                    "concept": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Deceased"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Appointments",
+              "required": false,
+              "id": "appointmentWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add appointments",
+                "workspaceName": "appointments-form-workspace"
+              },
+              "hide": {
+                "hideWhenExpression": "outcomePatient !=='160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Reffered For?",
+              "type": "obs",
+              "id": "refferalsOrderd",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "outcomePatient !=='1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Referred to?",
+              "type": "obs",
+              "id": "referralTo",
+              "questionOptions": {
+                "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other health facility"
+                  },
+                  {
+                    "concept": "163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "This health facility"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "outcomePatient !=='1693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Transfer to Facility:",
+              "type": "obs",
+              "id": "transferToFacility",
+              "questionOptions": {
+                "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "encounterLocation"
+              },
+              "hide": {
+                "hideWhenExpression": "referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "This Facility:",
+              "type": "obs",
+              "id": "thisfacility",
+              "questionOptions": {
+                "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text",
+                "calculate": {
+                  "calculateExpression": "referralTo === '163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && userLocation.display"
+                }
+              },
+              "hide": {
+                "hideWhenExpression": "referralTo !=='163266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Admission Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date of Admission",
+              "type": "obs",
+              "id": "dateOfPatientAdmission",
+              "questionOptions": {
+                "concept": "1640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "hide": {
+                "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Reason for admission",
+              "type": "obs",
+              "id": "admiPatientReason",
+              "questionOptions": {
+                "concept": "162879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Type of Admission?",
+              "type": "obs",
+              "id": "admissionType",
+              "questionOptions": {
+                "concept": "162477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New"
+                  },
+                  {
+                    "concept": "159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Readmission"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Priority of Admission?",
+              "type": "obs",
+              "id": "priorityOfAdmission",
+              "questionOptions": {
+                "concept": "1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Emergency"
+                  },
+                  {
+                    "concept": "159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Direct"
+                  },
+                  {
+                    "concept": "242d8a86-47d2-433c-b393-5d1dc43b96ec",
+                    "label": "Scheduled"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "admissionType !== '164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Priority of Admission?",
+              "type": "obs",
+              "id": "priorityOfAdmissionReadmit",
+              "questionOptions": {
+                "concept": "1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Emergency"
+                  },
+                  {
+                    "concept": "159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Direct"
+                  },
+                  {
+                    "concept": "242d8a86-47d2-433c-b393-5d1dc43b96ec",
+                    "label": "Scheduled"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "admissionType !== '159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "type": "obsGroup",
+              "id": "inpatientDispositionConstruct",
+              "questionOptions": {
+                "concept": "CIEL:169405",
+                "rendering": "group"
+              },
+              "hide": {
+                "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "questions": [
+                {
+                  "id": "disposition",
+                  "type": "obs",
+                  "required": true,
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "required": true,
+                    "concept": "CIEL:169402",
+                    "answers": [
+                      {
+                        "concept": "CIEL:168619"
+                      }
+                    ]
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "id": "admitToLocation",
+                  "type": "obs",
+                  "required": true,
+                  "questionOptions": {
+                    "rendering": "remote-select",
+                    "required": true,
+                    "concept": "CIEL:169403",
+                    "datasource": {
+                      "name": "location",
+                      "config": {
+                        "tag": "Admission Location"
+                      }
+                    }
+                  },
+                  "hide": {
+                    "hideWhenExpression": "outcomePatient !== '1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Type of hospital stay?",
+              "type": "obs",
+              "id": "hospitalStay",
+              "questionOptions": {
+                "concept": "1896AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Daycase"
+                  },
+                  {
+                    "concept": "161018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Overnight"
+                  },
+                  {
+                    "concept": "1275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Longer stay"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "outcomePatient !=='1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Admitting Doctor:",
+              "type": "encounterProvider",
+              "id": "admittingDoctor ",
+              "default": "",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "hide": {
+                "hideWhenExpression": "outcomePatient !=='1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "encounterType": "df1cd677-b883-4fd1-9bd0-266da3cad94a"
+}
