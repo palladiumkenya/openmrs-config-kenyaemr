@@ -1,814 +1,1381 @@
 {
-    "name": "NCD Initial Form",
-    "description": "A form to record NCD data",
-    "version": "1",
-    "published": true,
-    "uuid": "c4994dd7-f2b6-4c28-bdc7-8b1d9d2a6a97",
-    "retired": false,
-    "encounter": "NCD Initial",
-    "meta": {
-      "programs": {
-        "uuid": "ffee43c4-9ccd-4e55-8a70-93194e7fafc6",
-        "isEnrollment": true,
-        "discontinuationDateQuestionId": ""
-      }
-    },
-    "pages": [
-      {
-        "label": "Visit Details",
-        "sections": [
-          {
-            "label": "Encounter Details",
-            "isExpanded": "true",
-            "questions": [
-              {
-                "label": "Visit date:",
-                "type": "encounterDatetime",
-                "required": "true",
-                "id": "encDate",
-                "questionOptions": {
-                  "rendering": "date"
-                },
-                "validators": [
+  "name": "NCD Initial Form",
+  "description": "A form to record NCD data",
+  "version": "2.0",
+  "published": true,
+  "uuid": "c4994dd7-f2b6-4c28-bdc7-8b1d9d2a6a97",
+  "retired": false,
+  "encounter": "NCD Initial",
+  "meta": {
+    "programs": {
+      "uuid": "ffee43c4-9ccd-4e55-8a70-93194e7fafc6",
+      "isEnrollment": true,
+      "discontinuationDateQuestionId": ""
+    }
+  },
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Patient Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit Type?",
+              "type": "obs",
+              "required": "true",
+              "id": "visitType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [
                   {
-                    "type": "date",
-                    "allowFutureDates": "false"
+                    "relationship": "SAME-AS",
+                    "type": "CIEL",
+                    "value": "164181"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New visit"
+                  },
+                  {
+                    "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Return Visit"
+                  },
+                  {
+                    "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referrals"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Referral from",
+              "type": "obs",
+              "required": "true",
+              "id": "referralSpecification",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "From other facilities"
+                  },
+                  {
+                    "concept": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referred from CHU "
+                  },
+                  {
+                    "concept": "4fcf003e-71cf-47a5-a967-47d24aa61092",
+                    "label": "Community unit"
+                  },
+                  {
+                    "concept": "164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Internal(Department)"
                   }
                 ]
               },
-              {
-                "label": "Provider:",
-                "type": "encounterProvider",
-                "required": "true",
-                "questionOptions": {
-                  "rendering": "ui-select-extended"
-                },
-                "id": "encProvider "
-              },
-              {
-                "label": "Location:",
-                "type": "encounterLocation",
-                "required": "true",
-                "questionOptions": {
-                  "rendering": "ui-select-extended"
-                },
-                "id": "encLocation"
+              "hide": {
+                "hideWhenExpression": "isEmpty(visitType) || visitType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
-            ]
-          },
-          {
-            "label": "Referral Status",
-            "isExpanded": "true",
-            "questions": [
-              {
-                "label": "Is patient a referral?",
-                "type": "obs",
-                "required": "true",
-                "id": "patientReferral",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "0dcc1312-e83e-4317-97c3-4b127b599744",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    }
-                  ]
-                }
+            },
+            {
+              "label": "Specify Referring Department",
+              "type": "obs",
+              "required": "true",
+              "id": "departmentSpecify",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Outpatient Department"
+                  },
+                  {
+                    "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inpatient Department"
+                  },
+                  {
+                    "concept": "160454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ophthalmology (Eye)Clinic"
+                  },
+                  {
+                    "concept": "160455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ear, Nose, and Throat(ENT)Clinic"
+                  },
+                  {
+                    "concept": "2a030791-14b4-4996-95ad-39c54b25f2b6",
+                    "label": "Physiotherapy clinic"
+                  },
+                  {
+                    "concept": "164164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Surgical Outpatient Clinic"
+                  },
+                  {
+                    "concept": "160457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Paediatrics clinics"
+                  },
+                  {
+                    "concept": "1d7d7c76-d807-4f33-8c7e-2531e28126ed",
+                    "label": "Maxillofacial Clinic"
+                  },
+                  {
+                    "concept": "160448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Medical Outpatient clinic"
+                  },
+                  {
+                    "concept": "66710a6d-5894-4f7d-a874-b449df77314d",
+                    "label": "Oncology Clinic"
+                  },
+                  {
+                    "concept": "30aff715-92de-4662-aa33-fa6b6179fed0",
+                    "label": "Dental clinic"
+                  },
+                  {
+                    "concept": "160475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Renal Clinic"
+                  },
+                  {
+                    "concept": "5489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mental Health"
+                  },
+                  {
+                    "concept": "160460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dermatology Clinic"
+                  },
+                  {
+                    "concept": "164103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetic Clinic"
+                  },
+                  {
+                    "concept": "c2f85aed-695f-49b1-973e-002c37cbdebf",
+                    "label": "Occupational Therapy Clinic"
+                  },
+                  {
+                    "concept": "160465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Orthopaedic Clinic"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others specify"
+                  }
+                ]
               },
-              {
-                "label": "Specify referring facility",
-                "type": "obs",
-                "required": true,
-                "id": "specifyReferring",
-                "questionOptions": {
-                  "rendering": "text",
-                  "concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(patientReferral) || patientReferral != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
-              },
-              {
-                "label": "Referring point",
-                "type": "obs",
-                "required": true,
-                "id": "referringPoint",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "159371AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Inpatient"
-                    },
-                    {
-                      "concept": "160473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Casualty"
-                    },
-                    {
-                      "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "OPD"
-                    },
-                    {
-                      "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "CHW"
-                    },
-                    {
-                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Other"
-                    }
-                  ]
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(patientReferral) || patientReferral != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
-              },
-              {
-                "label": "Specify",
-                "type": "obs",
-                "required": true,
-                "id": "specify",
-                "questionOptions": {
-                  "rendering": "text",
-                  "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(referringPoint) || referringPoint != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
+              "hide": {
+                "hideWhenExpression": "isEmpty(referralSpecification) || referralSpecification !== '164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
-            ]
-          }
-        ]
-      },
-      {
-        "label": "Patient History",
-        "sections": [
-          {
-            "label": "Chief Complaints",
-            "isExpanded": "true",
-            "questions": [
-              {
-                "label": "Patient having complaint(s) today?",
-                "type": "obs",
-                "required": "true",
-                "id": "havingComplaints",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    }
-                  ]
-                },
-                "validators": []
+            },
+            {
+              "label": "Specify Department",
+              "type": "obs",
+              "required": "true",
+              "id": "specifyDepartment",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": []
               },
-              {
-                "label": "Specify complaint",
-                "type": "obs",
-                "required": true,
-                "id": "specifyComplaint",
-                "questionOptions": {
-                  "rendering": "checkbox",
-                  "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Blurring of vision"
-                    },
-                    {
-                      "concept": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Loss of consciousness"
-                    },
-                    {
-                      "concept": "156046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Recurrent dizziness"
-                    },
-                    {
-                      "concept": "116860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Foot complaints"
-                    },
-                    {
-                      "concept": "141600AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Shortness of breath on activity"
-                    },
-                    {
-                      "concept": "130987AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Palpitations (Heart racing)"
-                    },
-                    {
-                      "concept": "6005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Focal weakness"
-                    },
-                    {
-                      "concept": "112961AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Fainting"
-                    },
-                    {
-                      "concept": "135966AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Leg swelling"
-                    }
-                  ]
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(havingComplaints) || havingComplaints != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
-              },
-              {
-                "label": "Clinical Notes",
-                "type": "obs",
-                "id": "clinicNotes",
-                "questionOptions": {
-                  "rendering": "textarea",
-                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                },
-                "validators": []
-              },
-              {
-                "label": "Do you smoke?",
-                "type": "obs",
-                "required": "true",
-                "id": "Smoking",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    },
-                    {
-                      "concept": "158939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Stopped"
-                    }
-                  ]
-                },
-                "validators": []
-              },
-              {
-                "label": "If stopped, date stopped?",
-                "type": "obs",
-                "required": "true",
-                "id": "stoppedSmoking",
-                "questionOptions": {
-                  "rendering": "date",
-                  "concept": "1191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(Smoking) || Smoking != '158939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
-              },
-              {
-                "label": "Do you sometimes drink alcohol?",
-                "type": "obs",
-                "required": "true",
-                "id": "drinkAlcohol",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "159449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    },
-                    {
-                      "concept": "159452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Stopped"
-                    }
-                  ]
-                },
-                "validators": []
-              },
-              {
-                "label": "If stopped, date stopped?",
-                "type": "obs",
-                "id": "stoppedDrinking",
-                "required": "true",
-                "questionOptions": {
-                  "concept": "1191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "date"
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(drinkAlcohol) || drinkAlcohol != '159452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
-              },
-              {
-                "label": "Cessation counseling?",
-                "type": "obs",
-                "required": "true",
-                "id": "cessationCounselling",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "1455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    }
-                  ]
-                },
-                "hide": {
-                  "hideWhenExpression": "((String(drinkAlcohol) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(Smoking) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) < 1"
-                }
+              "hide": {
+                "hideWhenExpression": "isEmpty(departmentSpecify) || departmentSpecify !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
-            ]
-          },
-          {
-            "label": "Complications",
-            "isExpanded": "true",
-            "questions": [
-              {
-                "label": "Patient having complications?",
-                "type": "obs",
-                "required": true,
-                "id": "havingComplications",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    }
-                  ]
-                }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient History",
+      "sections": [
+        {
+          "label": "Chief Complaints",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient having complaint(s) today?",
+              "type": "obs",
+              "required": "true",
+              "id": "havingComplaints",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
               },
-              {
-                "label": "Which complications?",
-                "type": "obs",
-                "required": "true",
-                "id": "specifyComplications",
-                "questionOptions": {
-                  "rendering": "multiCheckbox",
-                  "concept": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Stroke"
-                    },
-                    {
-                      "concept": "159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Visual impairment"
-                    },
-                    {
-                      "concept": "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Heart failure"
-                    },
-                    {
-                      "concept": "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Foot ulcers/deformity"
-                    },
-                    {
-                      "concept": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Renal disease"
-                    },
-                    {
-                      "concept": "116123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Erectile dysfunction"
-                    },
-                    {
-                      "concept": "118983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Peripheral Neuropathy"
-                    },
-                    {
-                      "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Other"
-                    }
-                  ]
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(havingComplications) || havingComplications != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
+              "validators": []
+            },
+            {
+              "label": "Specify complaint",
+              "type": "obs",
+              "required": "true",
+              "id": "specifyComplaint",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Blurring of vision"
+                  },
+                  {
+                    "concept": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Loss of consciousness"
+                  },
+                  {
+                    "concept": "156046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Recurrent dizziness"
+                  },
+                  {
+                    "concept": "116860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Foot complaints"
+                  },
+                  {
+                    "concept": "141600AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Shortness of breath on activity"
+                  },
+                  {
+                    "concept": "130987AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Palpitations (Heart racing)"
+                  },
+                  {
+                    "concept": "6005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Focal weakness"
+                  },
+                  {
+                    "concept": "112961AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fainting"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
               },
-              {
-                "label": "Specify",
-                "type": "obs",
-                "required": true,
-                "id": "specifFyOther",
-                "questionOptions": {
-                  "rendering": "text",
-                  "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(specifyComplications) || specifyComplications != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
+              "hide": {
+                "hideWhenExpression": "isEmpty(havingComplaints) || havingComplaints != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
-            ]
-          }
-        ]
-      },
-      {
-        "label": "Patient's Examination",
-        "sections": [
-          {
-            "label": "Physical examination",
-            "isExpanded": "true",
-            "questions": [
-              {
-                "label": "General examination findings:",
-                "required": "true",
-                "id": "genExamFindings",
-                "type": "obs",
-                "questionOptions": {
-                  "rendering": "checkbox",
-                  "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "None"
-                    },
-                    {
-                      "concept": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Cyanosis",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "142630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Dehydration",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "140125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Finger Clubbing",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Jaundice",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Lethargic",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "126952AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Lymph Node Axillary",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "126939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Lymph Nodes Inguinal",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "1861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Nasal Flaring",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Oedema",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "5334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Oral thrush",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Pallor",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Convulsions",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    },
-                    {
-                      "concept": "823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Wasting",
-                      "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                    }
-                  ]
-                },
-                "hide": {
-                  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                },
-                "validators": []
+            },
+            {
+              "label": "Other (Specify)",
+              "type": "obs",
+              "id": "otherSpe",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
               },
-              {
-                "label": "Cardiovascular",
-                "type": "obs",
-                "required": "true",
-                "id": "cardioVascular",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Normal"
-                    },
-                    {
-                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Abnormal"
-                    }
-                  ]
-                },
-                "validators": []
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(specifyComplaint) || specifyComplaint != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Clinical Notes",
+              "type": "obs",
+              "id": "clinicNotes",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
-              {
-                "label": "Description",
-                "type": "obs",
-                "required": "true",
-                "id": "CadioDesc",
-                "questionOptions": {
-                  "rendering": "textarea",
-                  "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rows": "15"
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(cardioVascular) || cardioVascular !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              "validators": []
+            }
+          ]
+        },
+        {
+          "label": "Disease type",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Type of disease",
+              "type": "obs",
+              "required": "true",
+              "id": "diseaseType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "74eb8e8d-d078-4fa3-8973-2d710d8f46df",
+                "answers": [
+                  {
+                    "concept": "142486AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetes"
+                  },
+                  {
+                    "concept": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hypertension"
+                  },
+                  {
+                    "concept": "166020AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Co-morbid"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Diabetes",
+              "type": "obs",
+              "id": "dmType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "ac58e607-21b9-4c5b-aa67-fa63ff789a12",
+                    "label": "New DM patient"
+                  },
+                  {
+                    "concept": "0df832b1-d411-4252-9809-f8a7bde67cde",
+                    "label": "Known DM patient"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '142486AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Type of Diabetes",
+              "type": "obs",
+              "id": "diaType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "152909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "142474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Type 1 Diabetes Mellitus"
+                  },
+                  {
+                    "concept": "d6eec180-2cd7-401f-9670-6a6403fe1a8b",
+                    "label": "Type 2 Diabetes Mellitus"
+                  },
+                  {
+                    "concept": "117807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Gestational Diabetes Mellitus"
+                  },
+                  {
+                    "concept": "126985AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetes secondary to other causes"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '142486AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date of Diagnosis",
+              "type": "obs",
+              "id": "diagnosisDate",
+              "questionOptions": {
+                "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "allowFutureDates": "false"
                 }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '142486AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Hypertension",
+              "type": "obs",
+              "id": "htnType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "8d64fd71-8b49-4ecb-8cb8-033597fef7c1",
+                    "label": "New HTN patient"
+                  },
+                  {
+                    "concept": "e744c6e9-14c6-4cfd-92ce-19387ae87b12",
+                    "label": "Known HTN patient"
+                  }
+                ]
               },
-              {
-                "label": "Respiratory",
-                "type": "obs",
-                "required": "true",
-                "id": "resPiratory",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Normal"
-                    },
-                    {
-                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Abnormal"
-                    }
-                  ]
-                },
-                "validators": []
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Hypertension Stage",
+              "type": "obs",
+              "id": "htnStage",
+              "questionOptions": {
+                "concept": "162725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
               },
-              {
-                "label": "Description",
-                "type": "obs",
-                "required": "true",
-                "id": "resPiratoryDesc",
-                "questionOptions": {
-                  "rendering": "textarea",
-                  "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rows": "15"
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(resPiratory) || resPiratory !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date of Diagnosis",
+              "type": "obs",
+              "id": "dxYearhtn",
+              "questionOptions": {
+                "concept": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
               },
-              {
-                "label": "Abdominal pelvic",
-                "type": "obs",
-                "required": "true",
-                "id": "abdominalPelvic",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Normal"
-                    },
-                    {
-                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Abnormal"
-                    }
-                  ]
-                },
-                "validators": []
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Co-morbid(DM/HTN)",
+              "type": "obs",
+              "id": "comorbidType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "b6004d83-a6c4-441c-b95e-e633d399d2fd",
+                    "label": "New co-morbid patient"
+                  },
+                  {
+                    "concept": "366f36f1-b1b3-403e-b219-3eef404aa48a",
+                    "label": "Known Co-morbid patient"
+                  }
+                ]
               },
-              {
-                "label": "Description",
-                "type": "obs",
-                "required": false,
-                "id": "pelvicDescription",
-                "questionOptions": {
-                  "rendering": "textarea",
-                  "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rows": "15"
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(abdominalPelvic) || abdominalPelvic !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '166020AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date of Diagnosis",
+              "type": "obs",
+              "id": "dxYearco",
+              "questionOptions": {
+                 "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
               },
-              {
-                "label": "Neurological examination",
-                "type": "obs",
-                "required": "true",
-                "id": "neurologicalExam",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Normal"
-                    },
-                    {
-                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Abnormal"
-                    }
-                  ]
-                },
-                "validators": []
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '166020AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Type of Hypertension",
+              "type": "obs",
+              "id": "typeHypco",
+              "questionOptions": {
+                "concept": "162725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
               },
-              {
-                "label": "Description",
-                "type": "obs",
-                "required": false,
-                "id": "neurologicalDesc",
-                "questionOptions": {
-                  "rendering": "textarea",
-                  "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "row": "15"
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(neurologicalExam) || neurologicalExam !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '166020AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Type of Diabetes",
+              "type": "obs",
+              "id": "typeDiabtsco",
+              "questionOptions": {
+                "concept": "162725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
               },
-              {
-                "label": " Oral exam",
-                "type": "obs",
-                "required": "true",
-                "id": "examOral",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "163308AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Normal"
-                    },
-                    {
-                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Abnormal"
-                    }
-                  ]
-                },
-                "validators": []
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '166020AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "HIV status:",
+              "type": "obs",
+              "required": true,
+              "id": "hivStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HIV Negative"
+                  },
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HIV Positive"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "If HIV Positive on HAART?",
+              "type": "obs",
+              "required": true,
+              "id": "haartStats",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
               },
-              {
-                "label": "Description",
-                "type": "obs",
-                "required": false,
-                "id": "oRalDescp",
-                "questionOptions": {
-                  "rendering": "textarea",
-                  "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "row": "15"
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(examOral) || examOral !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivStatus) || hivStatus != '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "TB Screening",
+              "type": "obs",
+              "required": true,
+              "id": "tbScren",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "f2b2dc3b-faf4-4069-a0df-044b9034ac59",
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  },
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Confirmed"
+                  },
+                  {
+                    "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Screening Not Done"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Current Lifestyle",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Do you smoke?",
+              "type": "obs",
+              "id": "Smoking",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "158939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Stopped"
+                  }
+                ]
               },
-              {
-                "label": "Foot exam",
-                "type": "obs",
-                "id": "footExam",
-                "questionOptions": {
-                  "rendering": "multiCheckbox",
-                  "concept": "1127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Calluses"
-                    },
-                    {
-                      "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Ulcers"
-                    },
-                    {
-                      "concept": "165471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Deformity"
-                    }
-                  ]
-                },
-                "validators": []
+              "validators": []
+            },
+            {
+              "label": "If stopped, date stopped?",
+              "type": "obs",
+              "id": "stoppedSmoking",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "1191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
-              {
-                "label": "Diabetic foot",
-                "type": "obs",
-                "required": "true",
-                "id": "footDiabetic",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    }
-                  ]
-                },
-                "validators": []
+              "hide": {
+                "hideWhenExpression": "isEmpty(Smoking) || Smoking != '158939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Do you sometimes drink alcohol?",
+              "type": "obs",
+              "id": "drinkAlcohol",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "159449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "159452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Stopped"
+                  }
+                ]
               },
-              {
-                "label": "Foot Risk assessment",
-                "type": "obs",
-                "required": false,
-                "id": "footRiskAccess",
-                "questionOptions": {
-                  "rendering": "checkbox",
-                  "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "166844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Loss of sensation"
-                    },
-                    {
-                      "concept": "150518AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Absent pulses"
-                    },
-                    {
-                      "concept": "142677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Foot deformity"
-                    },
-                    {
-                      "concept": "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "History of ulcer"
-                    },
-                    {
-                      "concept": "164009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Prior amputation"
-                    }
-                  ]
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(footDiabetic) || footDiabetic != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
+              "validators": []
+            },
+            {
+              "label": "If stopped, date stopped?",
+              "type": "obs",
+              "id": "stoppedDrinking",
+              "questionOptions": {
+                "concept": "1191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
               },
-              {
-                "label": "Diabetic foot risk",
-                "type": "obs",
-                "required": false,
-                "id": "footDiabeticRisk",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "166879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Low Risk"
-                    },
-                    {
-                      "concept": "166674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "High Risk"
-                    }
-                  ]
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(footDiabetic) || footDiabetic != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
+              "hide": {
+                "hideWhenExpression": "isEmpty(drinkAlcohol) || drinkAlcohol != '159452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Cessation counseling?",
+              "type": "obs",
+              "id": "cessationCounselling",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
               },
-              {
-                "label": "Diagnosis",
-                "id": "DiagNosIS",
-                "type": "diagnosis",
-                "questionOptions": {
+              "hide": {
+                "hideWhenExpression": "((String(drinkAlcohol) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(Smoking) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) < 1"
+              }
+            },
+            {
+              "label": "Physical Activity (At least 30 minutes 5 days a week)",
+              "type": "obs",
+              "id": "physicalAct",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "355970d3-b6d6-4695-a99b-a222119fd5b4",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Diet:(Consumption of fruits/vegetables 3-5 servings per day)",
+              "type": "obs",
+              "id": "dietCons",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "5715ed44-696f-4ace-b7d1-7da0d5846d95",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            }
+          ]
+        },
+        {
+          "label": "Complications",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Existing complications?",
+              "required": "true",
+              "type": "obs",
+              "id": "existpecifyComplications",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Stroke"
+                  },
+                  {
+                    "concept": "159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Retinopathy"
+                  },
+                  {
+                    "concept": "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Heart failure"
+                  },
+                  {
+                    "concept": "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetic Foot"
+                  },
+                  {
+                    "concept": "142451AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetic Foot Ulcer"
+                  },
+                  {
+                    "concept": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Kidney Failure(CKD)"
+                  },
+                  {
+                    "concept": "116123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Erectile dysfunction"
+                  },
+                  {
+                    "concept": "118983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peripheral Neuropathy"
+                  },
+                  {
+                    "concept": "116506AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nephropathy"
+                  },
+                  {
+                    "concept": "116608AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ischaemic Heart Disease"
+                  },
+                  {
+                    "concept": "114212AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peripheral Vascular Disease"
+                  },
+                  {
+                    "concept": "118189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Gastropathy"
+                  },
+                  {
+                    "concept": "120860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cataracts"
+                  },
+                  {
+                    "concept": "119270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cardiovascular Disease (CVD)"
+                  },
+                  {
+                    "concept": "142587AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dental complications"
+                  },
+                  {
+                    "concept": "141623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dyslipidemia"
+                  },
+                  {
+                    "concept": "115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Obesity"
+                  },
+                  {
+                    "concept": "138406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HIV"
+                  },
+                  {
+                    "concept": "115753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(visitType) || visitType != '164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify",
+              "required": true,
+              "type": "obs",
+              "id": "specifFyOther",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(existpecifyComplications) || existpecifyComplications != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "New Onset Complications",
+              "required": "true",
+              "type": "obs",
+              "id": "newspecifyComplications",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "120240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Stroke"
+                  },
+                  {
+                    "concept": "159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Retinopathy"
+                  },
+                  {
+                    "concept": "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Heart failure"
+                  },
+                  {
+                    "concept": "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetic Foot"
+                  },
+                  {
+                    "concept": "142451AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetic Foot Ulcer"
+                  },
+                  {
+                    "concept": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Kidney Failure(CKD)"
+                  },
+                  {
+                    "concept": "116123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Erectile dysfunction"
+                  },
+                  {
+                    "concept": "118983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peripheral Neuropathy"
+                  },
+                  {
+                    "concept": "116506AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nephropathy"
+                  },
+                  {
+                    "concept": "116608AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ischaemic Heart Disease"
+                  },
+                  {
+                    "concept": "114212AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Peripheral Vascular Disease"
+                  },
+                  {
+                    "concept": "118189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Gastropathy"
+                  },
+                  {
+                    "concept": "120860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cataracts"
+                  },
+                  {
+                    "concept": "119270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cardiovascular Disease (CVD)"
+                  },
+                  {
+                    "concept": "142587AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dental complications"
+                  },
+                  {
+                    "concept": "141623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dyslipidemia"
+                  },
+                  {
+                    "concept": "115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Obesity"
+                  },
+                  {
+                    "concept": "138406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HIV"
+                  },
+                  {
+                    "concept": "115753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(visitType) || visitType != '160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify",
+              "type": "obs",
+              "required": true,
+              "id": "specifFyOtherrr",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(newspecifyComplications) || newspecifyComplications != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient's Examination",
+      "sections": [
+        {
+          "label": "Examinations",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "General examination findings:",
+              "required": "true",
+              "id": "genExamFindings",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cyanosis",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "142630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dehydration",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "140125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Finger Clubbing",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Jaundice",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lethargic",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "126952AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lymph Node Axillary",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "126939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lymph Nodes Inguinal",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "1861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nasal Flaring",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oedema",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oral thrush",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pallor",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Convulsions",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Wasting",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "validators": []
+            },
+            {
+              "label": "Cardiovascular",
+              "type": "obs",
+              "id": "cardioVascular",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abnormal"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Description",
+              "type": "obs",
+              "required": "true",
+              "id": "CadioDesc",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "15"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(cardioVascular) || cardioVascular !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Respiratory",
+              "type": "obs",
+              "id": "resPiratory",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abnormal"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Description",
+              "type": "obs",
+              "required": "true",
+              "id": "resPiratoryDesc",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "15"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(resPiratory) || resPiratory !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Abdominal pelvic",
+              "type": "obs",
+              "id": "abdominalPelvic",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abnormal"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Description",
+              "type": "obs",
+              "required": false,
+              "id": "pelvicDescription",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rows": "15"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(abdominalPelvic) || abdominalPelvic !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Neurological examination",
+              "type": "obs",
+              "id": "neurologicalExam",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abnormal"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Description",
+              "type": "obs",
+              "required": false,
+              "id": "neurologicalDesc",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "row": "15"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(neurologicalExam) || neurologicalExam !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": " Oral exam",
+              "type": "obs",
+              "id": "examOral",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "163308AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abnormal"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Description",
+              "type": "obs",
+              "required": false,
+              "id": "oRalDescp",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "row": "15"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(examOral) || examOral !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Foot Risk Assessment ",
+              "required": "true",
+              "type": "obs",
+              "id": "footDiabeticRisk",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "166879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "166674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "High Risk"
+                  },
+                  {
+                    "concept": "166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Low Risk"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "High Risk assessment",
+              "required": "true",
+              "type": "obs",
+              "id": "highfootRiskAccess",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "166844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Loss of protective sensation"
+                  },
+                  {
+                    "concept": "150518AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Absent pedal pulses"
+                  },
+                  {
+                    "concept": "142677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Foot deformity"
+                  },
+                  {
+                    "concept": "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "History of foot ulcer"
+                  },
+                  {
+                    "concept": "164009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Prior amputation"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(footDiabeticRisk) || footDiabeticRisk != '166674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Low Risk assessment",
+              "required": "true",
+              "type": "obs",
+              "id": "lowfootRiskAccess",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "166676AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164188AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intact protective sensation"
+                  },
+                  {
+                    "concept": "158955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pedal Pulses Present"
+                  },
+                  {
+                    "concept": "155871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No deformity"
+                  },
+                  {
+                    "concept": "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No prior foot ulcer"
+                  },
+                  {
+                    "concept": "164009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No amputation"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(footDiabeticRisk) || footDiabeticRisk != '166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Diabetic foot",
+              "required": "true",
+              "type": "obs",
+              "id": "footDiabetic",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Describe the type",
+              "type": "obs",
+              "id": "descDiabetc",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "20395601-257c-490c-86c2-acffb627f91f"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(footDiabetic) || footDiabetic != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+           
+            {
+              "label": "Diagnosis",
+              "id": "DiagNosIS",
+              "type": "diagnosis",
+              "questionOptions": {
                 "rendering": "repeating",
                 "dataSource": "diagnoses",
                 "rank": 1,
@@ -819,35 +1386,33 @@
                   }
                 }
               }
+            },
+            {
+              "label": "Clinical Notes",
+              "type": "obs",
+              "id": "clinicNotesComps",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
-              {
-                "label": "Clinical Notes",
-                "type": "obs",
-                "required": false,
-                "id": "clinicNotesComps",
-                "questionOptions": {
-                  "rendering": "textarea",
-                  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rows": "15"
-                },
-                "validators": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "label": "Patient's Management",
-        "sections": [
-          {
-            "label": "Treatment",
-            "isExpanded": "true",
-            "questions": [
-              {
-                "label": "Final Diagnosis",
-                "id": "DiagNosIS",
-                "type": "diagnosis",
-               "questionOptions": {
+              "validators": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient's Management",
+      "sections": [
+        {
+          "label": "Treatment/Management",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Final Diagnosis",
+              "id": "DiagNosIS",
+              "type": "diagnosis",
+              "questionOptions": {
                 "rendering": "repeating",
                 "rank": 2,
                 "datasource": {
@@ -857,151 +1422,233 @@
                   }
                 }
               }
-              },
-              {
-                "label": "Adhering to current medications?",
-                "type": "obs",
-                "id": "adherence",
-                "required": true,
-                "questionOptions": {
-                  "concept": "164075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
-                  "answers": [
-                    {
-                      "concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    },
-                    {
-                      "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "N/A"
-                    }
-                  ]
-                }
+            },
+            {
+              "label": "Treatment given",
+              "required": "true",
+              "type": "obs",
+              "id": "treatmentGiven",
+              "questionOptions": {
+                "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "2a030791-14b4-4996-95ad-39c54b25f2b6",
+                    "label": "Diet & physical activity"
+                  },
+                  {
+                    "concept": "7ff8c7c1-f0ad-45e7-8fb8-963e544f22b7",
+                    "label": "Oral glucose-lowering agents (OGLAs)"
+                  },
+                  {
+                    "concept": "34659323-0aa1-4cf0-a33a-8f848aa8adfa",
+                    "label": "Insulin and OGLAs"
+                  },
+                  {
+                    "concept": "78056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Insulin"
+                  },
+                  {
+                    "concept": "0e0ad1c7-bf30-47be-a4f6-a851adbf7094",
+                    "label": "Anti hypertensives"
+                  },
+                  {
+                    "concept": "8bb151bb-738d-408a-a706-1f035da9afaa",
+                    "label": "Herbal"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
               }
-            ]
-          },
-          {
-            "label": "Medication status",
-            "isExpanded": "true",
-            "questions": [
-              {
-                "label": "Drug Order",
-                "required": false,
-                "id": "drugsWorkspaceLauncher",
-                "questionOptions": {
-                  "rendering": "workspace-launcher",
-                  "buttonLabel": "Add drug order",
-                  "workspaceName": "add-drug-order"
-                }
+            },
+            {
+              "label": "Specify",
+              "type": "obs",
+              "required": true,
+              "id": "otherTx",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(treatmentGiven) || treatmentGiven != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
-            ]
-          },
-          {
-            "label": "Follow up plan",
-            "isExpanded": "true",
-            "questions": [
-              {
-                "label": "Next review date:",
-                "required": false,
-                "id": "appointmentWorkspaceLauncher",
-                "questionOptions": {
-                  "rendering": "workspace-launcher",
-                  "buttonLabel": "Add appointments",
-                  "workspaceName": "appointments-form-workspace"
-                }
-              },
-              {
-                "label": "Transfer care to another health facility",
-                "type": "obs",
-                "required": false,
-                "id": "transferOut",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "1285AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    }
-                  ]
-                },
-                "validators": []
-              },
-              {
-                "label": "Specify facility name",
-                "type": "obs",
-                "required": true,
-                "id": "facilityName",
-                "questionOptions": {
-                  "rendering": "text",
-                  "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(transferOut) || transferOut != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
-              },
-              {
-                "label": "Reason for referral",
-                "type": "obs",
-                "required": true,
-                "id": "",
-                "questionOptions": {
-                  "rendering": "select",
-                  "concept": "159623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
-                    {
-                      "concept": "138202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Further management of HTN"
-                    },
-                    {
-                      "concept": "160552AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Nutrition"
-                    },
-                    {
-                      "concept": "159364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Physiotherapy"
-                    },
-                    {
-                      "concept": "161623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Surgical review"
-                    },
-                    {
-                      "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "CVD review"
-                    },
-                    {
-                      "concept": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Renal review"
-                    },
-                    {
-                      "concept": "850a960b-e8b5-4775-ba74-aaddb2abbf51",
-                      "label": "Eye review"
-                    },
-                    {
-                      "concept": "164103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Further management of DM"
-                    }
-                  ]
-                },
-                "hide": {
-                  "hideWhenExpression": "isEmpty(transferOut) || transferOut != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
+            },
+            {
+              "label": "Lifestyle Advice",
+              "required": "true",
+              "type": "obs",
+              "id": "lifeAdvice",
+              "questionOptions": {
+                "concept": "bfe0cbb2-eea0-4431-a5c5-d0f49a4ed21b",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "2a030791-14b4-4996-95ad-39c54b25f2b6",
+                    "label": "Physical Activities"
+                  },
+                  {
+                    "concept": "0fbdc651-f5a2-49cc-b21f-29c827c3cd01",
+                    "label": "Support Group"
+                  },
+                  {
+                    "concept": "c23d3224-2218-4007-8f22-e1f3d5a8e58a",
+                    "label": "Nutrition"
+                  },
+                  {
+                    "concept": "36bcbd0e-fce1-4466-9c26-2815c4e72e28",
+                    "label": "Mental wellbeing"
+                  },
+                  {
+                    "concept": "121712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Alcohol"
+                  },
+                  {
+                    "concept": "156830AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Alcohol Cessation"
+                  },
+                  {
+                    "concept": "137093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Tobacco Cessation"
+                  },
+                  {
+                    "concept": "e92916d8-8d4c-4006-bc96-e3d2f27a67d3",
+                    "label": "Other substances"
+                  },
+                  {
+                    "concept": "8bb151bb-738d-408a-a706-1f035da9afaa",
+                    "label": "Herbal use or alternative therapies advise remarks"
+                  }
+                ]
               }
-            ]
-          }
-        ]
-      }
-    ],
-    "processor": "EncounterFormProcessor",
-    "encounterType": "dfcbe5d0-1afb-48a0-8f1e-5e5988b11f15",
-    "referencedForms": []
-  }
+            },
+            {
+              "label": "Nutrition Assessment",
+              "type": "obs",
+              "id": "nutAssesment",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "20395601-257c-490c-86c2-acffb627f91f"
+              }
+            },
+            {
+              "label": "Drug Order",
+              "required": false,
+              "id": "drugsWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add drug order",
+                "workspaceName": "add-drug-order"
+              }
+            },
+            {
+              "label": "Footcare Outcome",
+              "required": "true",
+              "type": "obs",
+              "id": "footOutcome",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "162130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ulcer healed"
+                  },
+                  {
+                    "concept": "9751bd32-a30a-4bd6-a88b-bef637a811ed",
+                    "label": "Surgical debridement"
+                  },
+                  {
+                    "concept": "164009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Amputation"
+                  },
+                  {
+                    "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Loss to follow up"
+                  },
+                  {
+                    "concept": "1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Admitted"
+                  },
+                  {
+                    "concept": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referred"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(footDiabetic) || footDiabetic != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Reason for referral",
+              "type": "obs",
+              "required": true,
+              "id": "",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "159623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "138202AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Further management of HTN"
+                  },
+                  {
+                    "concept": "160552AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nutrition"
+                  },
+                  {
+                    "concept": "159364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Physiotherapy"
+                  },
+                  {
+                    "concept": "161623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Surgical review"
+                  },
+                  {
+                    "concept": "163046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "CVD review"
+                  },
+                  {
+                    "concept": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Renal review"
+                  },
+                  {
+                    "concept": "850a960b-e8b5-4775-ba74-aaddb2abbf51",
+                    "label": "Eye review"
+                  },
+                  {
+                    "concept": "164103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Further management of DM"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(footOutcome) || footOutcome != '1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Next review date:",
+              "required": false,
+              "id": "appointmentWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add appointments",
+                "workspaceName": "appointments-form-workspace"
+              }
+            }
+          ]
+        }
+       
+       
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "encounterType": "dfcbe5d0-1afb-48a0-8f1e-5e5988b11f15",
+  "referencedForms": []
+}
