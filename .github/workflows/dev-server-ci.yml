@@ -62,8 +62,11 @@ jobs:
             sudo rm -rf /var/lib/OpenMRS/frontend_old
             cd /apps/github-workflows/kenyaemr-modules
             sudo mkdir kenyaEMR-modules-updater
+            sudo chown -R cicd:cicd kenyaEMR-modules-updater
+            git config --global --add safe.directory /apps/github-workflows/kenyaemr-modules/kenyaEMR-modules-updater
             cd /apps/github-workflows/kenyaemr-modules/kenyaEMR-modules-updater
             git clone https://github.com/Josh-Murunga/kenyaEMR-modules-updater.git .
+            sudo chown -R cicd:cicd /apps/github-workflows/kenyaemr-modules/kenyaEMR-modules-updater
             sudo mv /apps/dockerApps/metadata/docker-compose.yml /apps/dockerApps/metadata/docker-compose_old.yml
             sudo cp /apps/github-workflows/kenyaemr-modules/kenyaEMR-modules-updater/docker-compose.yml /apps/dockerApps/metadata/
             sudo cp /apps/github-workflows/kenyaemr-modules/kenyaEMR-modules-updater/nginx.conf /apps/dockerApps/metadata/secrets/
