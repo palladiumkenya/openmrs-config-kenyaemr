@@ -1,5 +1,4 @@
-import {expect, Page} from '@playwright/test';
-import exp from "node:constants";
+import { Page } from '@playwright/test';
 
 export class HomePage {
   constructor(readonly page: Page) {}

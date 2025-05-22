@@ -7,8 +7,7 @@ import {
   generateRandomPatient,
   getPatientIdentifiers,
   type Patient,
-  startVisit,
-  endVisit,
+  startVisit
 } from "../../commands";
 import { ChartPage, VisitsPage } from "../../pages";
 
@@ -18,13 +17,13 @@ let visit: Visit;
 
 
 test.beforeEach(async ({ api }) => {
- // let patienttypes = await getPatientIdentifiers(api);
+  // let patienttypes = await getPatientIdentifiers(api);
 
   /*let uuid = patienttypes?.results.find(
     (x) => x.display === "OpenMRS ID"
   )?.uuid;*/
-  patient = await generateRandomPatient(api,"F",'1977-11-01');
-  
+  patient = await generateRandomPatient(api, "F", '1977-11-01');
+
   visit = await startVisit(api, patient.uuid);
 });
 
@@ -42,7 +41,7 @@ test("Fill HTS Self Test Form", async ({ page }) => {
   await test.step("Then I should see the clinical forms workspace", async () => {
     const headerRow = chartPage.formsTable().locator("thead > tr");
 
-    await expect(page.getByPlaceholder(/search this list/i)).toBeVisible();
+    await expect(page.getByPlaceholder(/Search this list/i)).toBeVisible();
     await expect(headerRow).toContainText(/form name \(a-z\)/i);
     await expect(headerRow).toContainText(/last completed/i);
 
@@ -82,10 +81,10 @@ test("Fill HTS Self Test Form", async ({ page }) => {
     for (var index = 0; index < elementcount; index++) {
       const element = await elementvalue.nth(index);
       const innerText = await element.getAttribute("value");
-      
-      expect(["1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"]).toContain(innerText);
-    
-       
+
+      expect(["1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"]).toContain(innerText);
+
+
 
       if (innerText == "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") {
         await element.click();
@@ -101,8 +100,8 @@ test("Fill HTS Self Test Form", async ({ page }) => {
     for (var index = 0; index < elementcount; index++) {
       const element = await elementvalue.nth(index);
       const innerText = await element.getAttribute("value");
-        
-      expect(["703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"]).toContain(innerText);
+
+      expect(["703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"]).toContain(innerText);
 
 
       if (innerText == "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") {
@@ -117,7 +116,7 @@ test("Fill HTS Self Test Form", async ({ page }) => {
       const element = await elementvalue.nth(index);
       const innerText = await element.getAttribute("value");
 
-      expect(["1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"]).toContain(innerText);
+      expect(["1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"]).toContain(innerText);
 
       if (innerText == "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") {
         await element.click();
@@ -131,47 +130,47 @@ test("Fill HTS Self Test Form", async ({ page }) => {
     await page.getByRole("button", { name: /add/i }).nth(1).click();
   });
   await test.step("should select an option from the select dropdown and assert the value", async () => {
-  
-    await page.locator('#reasonForTestid').selectOption({value:'95e1a7ef-0ae2-468e-893e-a98ade264c2a'});
+
+    await page.locator('#reasonForTestid').selectOption({ value: '95e1a7ef-0ae2-468e-893e-a98ade264c2a' });
     const selectedValue = await page.$eval('#reasonForTestid', e => e.value);
     expect(selectedValue).toContain('95e1a7ef-0ae2-468e-893e-a98ade264c2a');
-     
-   const optionlist=page.locator('#reasonForTestid');
-  
-   const options = await page.$$eval('#reasonForTestid > option', (els) => {
-    return els.map(option => option.getAttribute("value"))
-  })
-  //console.log(options);
-    await expect(options).toEqual(expect.arrayContaining(['95e1a7ef-0ae2-468e-893e-a98ade264c2a','163568AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA']));
- 
-   
-  
+
+    const optionlist = page.locator('#reasonForTestid');
+
+    const options = await page.$$eval('#reasonForTestid > option', (els) => {
+      return els.map(option => option.getAttribute("value"))
+    })
+    //console.log(options);
+    await expect(options).toEqual(expect.arrayContaining(['95e1a7ef-0ae2-468e-893e-a98ade264c2a', '163568AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA']));
+
+
+
   });
 
   await test.step("should select an option of the testkit and assert the value", async () => {
-  
-    await page.locator('#nameOfKitid').selectOption({value:'2f5a80fa-6f26-4832-b8a8-f47649bb60de'});
+
+    await page.locator('#nameOfKitid').selectOption({ value: '2f5a80fa-6f26-4832-b8a8-f47649bb60de' });
     const selectedValue = await page.$eval('#nameOfKitid', e => e.value);
     expect(selectedValue).toContain('2f5a80fa-6f26-4832-b8a8-f47649bb60de');
-     
-   const optionlist=page.locator('#nameOfKitid');
-  
-   const options = await page.$$eval('#nameOfKitid > option', (els) => {
-    return els.map(option => option.getAttribute("value"))
-  })
-  //console.log(options);
-    await expect(options).toEqual(expect.arrayContaining(['2f5a80fa-6f26-4832-b8a8-f47649bb60de','7cf927f8-e734-474f-b71a-1459bb566aa2','160240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','1920AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA','59ef8c87-eb66-4f9e-a459-7227c01f682e','5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA']));
- 
-   
-  
+
+    const optionlist = page.locator('#nameOfKitid');
+
+    const options = await page.$$eval('#nameOfKitid > option', (els) => {
+      return els.map(option => option.getAttribute("value"))
+    })
+    //console.log(options);
+    await expect(options).toEqual(expect.arrayContaining(['2f5a80fa-6f26-4832-b8a8-f47649bb60de', '7cf927f8-e734-474f-b71a-1459bb566aa2', '160240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', '1920AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', '59ef8c87-eb66-4f9e-a459-7227c01f682e', '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA']));
+
+
+
   });
 
 
-  await test.step('fill the KIT Lot Number', async()=>{
+  await test.step('fill the KIT Lot Number', async () => {
     await page.locator('#kitLotNumberid').fill('XDF4444');
   })
 
-  await test.step('Fill the expiry date',async()=>{
+  await test.step('Fill the expiry date', async () => {
     await page.locator('#expiryDateid').fill('04/07/2026');
   })
 
@@ -188,12 +187,12 @@ test("Fill HTS Self Test Form", async ({ page }) => {
   });
 
   await test.step('And if I navigate to the visits dashboard', async () => {
-    await visitsPage.goTo(patient.uuid);
+    await visitsPage.gotoVisitsPage(patient.uuid);
   });
 
   await test.step('Then I should see the newly filled form in the encounters table', async () => {
-    await expect(page.getByRole('tab', { name: /visit summaries/i })).toBeVisible();
-    await expect(page.getByRole('tab', { name: /all encounters/i })).toBeVisible();
+    await expect(page.getByRole('tab', { name: /Visits/i })).toBeVisible();
+    await expect(page.getByRole('tab', { name: /All encounters/i })).toBeVisible();
 
     await page.getByRole('tab', { name: /^encounters$/i }).click();
 
@@ -208,7 +207,7 @@ test("Fill HTS Self Test Form", async ({ page }) => {
     await expect(page.getByText('Patient had HIV self test')).toBeVisible();
     await expect(page.getByText('Population type')).toBeVisible();
     await expect(page.getByText('HIV test performed')).toBeVisible();
-    
+
   });
 
 });
