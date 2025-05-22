@@ -24,7 +24,7 @@ const config: PlaywrightTestConfig = {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        headless: false, // Set to false to run the browser in headed mode (visible)
+        headless: true, // Set to false to run the browser in headed mode (visible)
       },
     },
   ],

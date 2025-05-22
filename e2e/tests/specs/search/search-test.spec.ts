@@ -1,8 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
+import { test } from '../../core';
 import {HomePage} from "../../pages";
-
-
-
 
 let name = "James";
 test(`Searching client with  name \`${name}`, async ({page}) => {
@@ -16,7 +14,7 @@ test(`Searching client with  name \`${name}`, async ({page}) => {
         await page.getByTestId('searchPatientIcon').click();
         await page.getByTestId('patientSearchBar').fill(`${name}`);
         await page.getByTestId('patientSearchBar').press('Enter');
-        await expect(page.getByRole('heading', { name: 'search results' })).toBeVisible();
+        await expect(page.getByText('search results')).toBeVisible();
 
     })
 
