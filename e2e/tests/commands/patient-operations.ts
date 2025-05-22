@@ -76,7 +76,7 @@ export const generateRandomPatient = async (api: APIRequestContext, gender: stri
   const patientUUID = uuidv4();
 
   // Generate OpenMRSID
-  const identifierRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/idgen/identifiersource/fb034aac-2353-4940-abe2-7bc94e7c1e71/identifier`, {
+  const identifierRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/idgen/identifiersource/${process.env.E2E_PATIENT_IDENTIFIER}/identifier`, {
       data: {},
   });
   
@@ -127,7 +127,7 @@ export const generateRandomPatient = async (api: APIRequestContext, gender: stri
               {
                   "identifier": identifier,
                   "identifierType": "dfacd928-0370-4315-99d7-6ec1c9f7ae76",
-                  "location": "4dc7ac2e-309a-4e1c-afec-ab2cb8ae8b5a",
+                  "location": `${process.env.E2E_FACILITY_UUID}`,
                   "preferred": false
               }
           ]
@@ -137,6 +137,8 @@ export const generateRandomPatient = async (api: APIRequestContext, gender: stri
   await expect(patientRes.ok()).toBeTruthy();
   return await patientRes.json();
 };
+
+
 export const deletePatient = async (api: APIRequestContext, uuid: string) => {
   await api.delete(`patient/${uuid}`, { data: {} });
 };
