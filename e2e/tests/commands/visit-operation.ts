@@ -6,7 +6,7 @@ export const startVisit = async (api: APIRequestContext, patientId: string) => {
       data: {
         startDatetime: dayjs().format('YYYY-MM-DDTHH:mm:ss.SSSZZ'),
         patient: patientId,
-        location: process.env.E2E_LOGIN_DEFAULT_LOCATION_UUID,
+        location: `${process.env.E2E_FACILITY_UUID}`,
         visitType: '3371a4d4-f66f-4454-a86d-92c7b3da990c',
         attributes: [],
       },

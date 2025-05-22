@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports, "__esModule", {value: true});var _chunk73UZBSA6cjs = require('./chunk-73UZBSA6.cjs');var m=new (0, _chunk73UZBSA6cjs.m)({locale:_chunk73UZBSA6cjs.n});exports.a = m;

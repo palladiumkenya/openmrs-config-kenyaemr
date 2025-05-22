@@ -1,0 +1,151 @@
+{
+  "name": "@faker-js/faker",
+  "version": "9.0.3",
+  "description": "Generate massive amounts of fake contextual data",
+  "keywords": [
+    "faker",
+    "faker.js",
+    "fakerjs",
+    "faker-js",
+    "fake data generator",
+    "fake data",
+    "fake-data",
+    "fake-generator",
+    "fake-data-generator",
+    "fake content generator",
+    "fake contextual data generator",
+    "fake contextual data"
+  ],
+  "homepage": "https://fakerjs.dev",
+  "bugs": {
+    "url": "https://github.com/faker-js/faker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faker-js/faker.git"
+  },
+  "funding": [
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/fakerjs"
+    }
+  ],
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./locale/*": {
+      "require": {
+        "types": "./dist/locale/*.d.cts",
+        "default": "./dist/locale/*.cjs"
+      },
+      "default": {
+        "types": "./dist/locale/*.d.ts",
+        "default": "./dist/locale/*.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typesVersions": {
+    ">=5.0": {
+      ".": [
+        "./dist/index.d.ts"
+      ],
+      "locale/*": [
+        "./dist/locale/*.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "CHANGELOG.md",
+    "dist"
+  ],
+  "devDependencies": {
+    "@actions/github": "6.0.0",
+    "@algolia/client-search": "5.5.3",
+    "@eslint/compat": "1.1.1",
+    "@eslint/js": "9.11.0",
+    "@stylistic/eslint-plugin": "2.8.0",
+    "@types/eslint__js": "8.42.3",
+    "@types/node": "20.16.5",
+    "@types/sanitize-html": "2.13.0",
+    "@types/semver": "7.5.8",
+    "@types/validator": "13.12.2",
+    "@vitest/coverage-v8": "2.1.1",
+    "@vitest/eslint-plugin": "1.1.4",
+    "@vitest/ui": "2.1.1",
+    "@vueuse/core": "11.1.0",
+    "commit-and-tag-version": "12.4.4",
+    "cypress": "13.14.2",
+    "eslint": "9.11.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-define-config": "2.1.0",
+    "eslint-plugin-jsdoc": "50.2.4",
+    "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-unicorn": "55.0.0",
+    "jiti": "1.21.6",
+    "npm-run-all2": "6.2.3",
+    "prettier": "3.3.3",
+    "prettier-plugin-organize-imports": "4.1.0",
+    "prettier-plugin-packagejson": "2.5.2",
+    "rimraf": "5.0.10",
+    "sanitize-html": "2.13.0",
+    "semver": "7.6.3",
+    "ts-morph": "23.0.0",
+    "tsup": "8.3.0",
+    "tsx": "4.19.1",
+    "typescript": "5.6.2",
+    "typescript-eslint": "8.7.0",
+    "validator": "13.12.0",
+    "vite": "5.4.7",
+    "vitepress": "1.3.4",
+    "vitest": "2.1.1",
+    "vue": "3.5.8",
+    "vue-tsc": "2.1.6"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "clean": "rimraf coverage .eslintcache dist docs/.vitepress/cache docs/.vitepress/dist node_modules",
+    "build:clean": "rimraf dist",
+    "build:code": "tsup-node",
+    "build": "run-s build:clean build:code",
+    "generate": "run-s generate:locales generate:api-docs",
+    "generate:api-docs": "tsx ./scripts/apidocs.ts",
+    "generate:locales": "tsx ./scripts/generate-locales.ts",
+    "docs:build": "run-s generate:api-docs docs:build:run",
+    "docs:build:run": "vitepress build docs",
+    "docs:build:ci": "run-s build docs:build",
+    "docs:dev": "run-s generate:api-docs docs:dev:run",
+    "docs:dev:run": "vitepress dev docs",
+    "docs:serve": "vitepress serve docs --port 5173",
+    "docs:diff": "tsx ./scripts/diff.ts",
+    "format": "prettier --cache --write .",
+    "lint": "eslint --cache --cache-strategy content --flag unstable_ts_config .",
+    "ts-check": "tsc",
+    "test": "vitest",
+    "test:update-snapshots": "vitest run -u",
+    "coverage": "vitest run --coverage",
+    "cypress": "cypress",
+    "docs:test:e2e:ci": "run-s docs:build:ci docs:test:e2e:run",
+    "docs:test:e2e:run": "run-p --race docs:serve \"cypress run\"",
+    "docs:test:e2e:open": "run-p --race docs:serve \"cypress open\"",
+    "release": "commit-and-tag-version",
+    "preflight": "pnpm install && run-s generate format lint build test:update-snapshots ts-check"
+  }
+}
