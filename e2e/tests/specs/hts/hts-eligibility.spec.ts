@@ -1501,7 +1501,7 @@ for (const { gender, age, xpatient } of testData) {
             "163510AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           ]).toContain(innerText);
           if (innerText == "1163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") {
-            element.click();
+            await page.locator('#ReasonOnEid_2').click();
           }
         }
       });
