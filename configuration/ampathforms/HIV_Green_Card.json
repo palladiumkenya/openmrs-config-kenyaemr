@@ -1319,7 +1319,13 @@
                   }
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "label": "Tuberculosis Preventive Therapy (TPT) Client Workup",
+          "isExpanded": "true",
+          "questions": [
             {
               "label": "Tuberculosis Preventive Therapy (TPT) Client Workup",
               "type": "obsGroup",
@@ -2322,6 +2328,7 @@
               "label": "Has patient ever had menses?     ",
               "type": "obs",
               "id": "hasLMP",
+              "required": "true",
               "questionOptions": {
                 "concept": "162877AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -2333,23 +2340,62 @@
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
-                  },
-                  {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "N/A"
                   }
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+                "hideWhenExpression": "isEmpty(personPresent) || personPresent !=='978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 10"
               },
               "validators": [
                 {
                   "type": "js_expression",
-                  "failsWhenExpression": "isEmpty(myValue) && sex ==='F' && age>=15",
+                  "failsWhenExpression": "isEmpty(myValue) && sex ==='F' && age>=10",
                   "message": "Please specify if patient has ever had menses.!"
                 }
               ]
+            },
+            {
+              "label": "Patient undergone total abdominal hysterectomy?",
+              "type": "obs",
+              "id": "patientAD",
+              "required": "true",
+              "questionOptions": {
+                "concept": "160721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Menopause",
+              "type": "obs",
+              "id": "mEnoPauSe",
+              "required": "true",
+              "questionOptions": {
+                "concept": "160596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !=='F' || (age < 10 || age > 49)"
+              }
             },
             {
               "label": "When was your LMP Date",
@@ -2382,15 +2428,16 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+                "hideWhenExpression": "mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 10"
               }
             },
             {
-              "label": "Menopause",
+              "label": "Are you sexually active",
               "type": "obs",
-              "id": "mEnoPauSe",
+              "id": "sexualActive",
+              "required": "true",
               "questionOptions": {
-                "concept": "160596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "160109AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -2404,7 +2451,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+                "hideWhenExpression": "mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || (age < 10 || age > 49)"
               }
             },
             {
@@ -2428,7 +2475,7 @@
               },
               "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
               "hide": {
-                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 10"
               },
               "validators": [
                 {
@@ -2470,7 +2517,7 @@
                 "rendering": "text"
               },
               "hide": {
-                "hideWhenExpression": "pregnancyOption !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+                "hideWhenExpression": "pregnancyOption !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 10"
               }
             },
             {
@@ -2479,7 +2526,10 @@
               "id": "patientEdd",
               "questionOptions": {
                 "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date"
+                "rendering": "date",
+                "calculate": {
+                  "calculateExpression": "moment(lmPdAte).isValid() ? moment(lmPdAte).add(280, 'days').toDate() : ''"
+                }
               },
               "validators": [
                 {
@@ -2493,7 +2543,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 15"
+                "hideWhenExpression": "pregnancyOption !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 10"
               }
             },
             {
@@ -2515,7 +2565,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "pregnancyOption !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 15"
+                "hideWhenExpression": "pregnancyOption !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 10"
               }
             },
             {
@@ -2528,7 +2578,7 @@
                 "min": "0"
               },
               "hide": {
-                "hideWhenExpression": "pregnancyOption !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 15"
+                "hideWhenExpression": "pregnancyOption !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 10"
               }
             },
             {
@@ -2541,7 +2591,7 @@
                 "min": "0"
               },
               "hide": {
-                "hideWhenExpression": "pregnancyOption !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 15"
+                "hideWhenExpression": "pregnancyOption !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 10"
               }
             },
             {
@@ -2556,7 +2606,7 @@
                 }
               },
               "hide": {
-                "hideWhenExpression": "pregnancyOption !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 15"
+                "hideWhenExpression": "pregnancyOption !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F' || age < 10"
               }
             },
             {
@@ -2580,7 +2630,7 @@
               },
               "historicalExpression": "_.isEmpty(HD.getObject('prevEnc').getValue('5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')) ? undefined : HD.getObject('prevEnc').getValue('5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
               "hide": {
-                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 15"
+                "hideWhenExpression": "hasLMP !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F' || age < 10"
               }
             }
           ]
@@ -2593,6 +2643,7 @@
               "label": "Family Planning Status :",
               "type": "obs",
               "id": "fPlanning",
+              "required": "true",
               "questionOptions": {
                 "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
@@ -2612,11 +2663,11 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "age < 15 || sex !=='F' || mEnoPauSe ==='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hasLMP ==='1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyOption !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "age < 15 || sex !=='F' || mEnoPauSe ==='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hasLMP ==='1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyOption !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyIntention ==='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
-              "label": "If currently using Family Planning, or wants Family Planning, specify which method(s)",
+              "label": "Family Planning, specify which method(s)",
               "required": "true",
               "type": "obs",
               "questionOptions": {
@@ -2671,9 +2722,184 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(fPlanning) || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyIntention !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || fPlanning === '160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='F'"
+                "hideWhenExpression": "sex !== 'F' || fPlanning !=='965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && fPlanning !=='1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "id": "familyPMethod"
+            },
+            {
+              "label": "Was Refill done during the visit",
+              "type": "obs",
+              "id": "refillDone",
+              "required": "true",
+              "questionOptions": {
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(familyPMethod) || sex !== 'F' || fPlanning !=='965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Was FP Offered during the visit",
+              "type": "obs",
+              "id": "fpOffrerd",
+              "required": "true",
+              "questionOptions": {
+                "concept": "167093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(familyPMethod) || sex !== 'F' || fPlanning !=='1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Counseling on Family Planning Offered?",
+              "type": "obs",
+              "id": "fpCounselling",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' || fPlanning !=='160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Accepted or Declined FP?",
+              "type": "obs",
+              "id": "acceptFamily",
+              "required": "true",
+              "questionOptions": {
+                "concept": "159923AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "ad5cd0f5-4986-4145-beb0-7c77104d7e25",
+                    "label": "Accepted"
+                  },
+                  {
+                    "concept": "167156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Declined"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(fpCounselling) || fpCounselling !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Family Planning,  specify which method(s)",
+              "required": "true",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Emergency contraceptive pills"
+                  },
+                  {
+                    "concept": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oral Contraceptives Pills"
+                  },
+                  {
+                    "concept": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Injectible"
+                  },
+                  {
+                    "concept": "1359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Implant"
+                  },
+                  {
+                    "concept": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intrauterine Device"
+                  },
+                  {
+                    "concept": "136163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lactational Amenorhea Method"
+                  },
+                  {
+                    "concept": "5278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diaphram/Cervical Cap"
+                  },
+                  {
+                    "concept": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fertility Awareness"
+                  },
+                  {
+                    "concept": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Tubal Ligation"
+                  },
+                  {
+                    "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Condoms"
+                  },
+                  {
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vasectomy(Partner)"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(fPlanning)  && mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyIntention !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || acceptFamily !== 'ad5cd0f5-4986-4145-beb0-7c77104d7e25' || age < 15 || sex !=='F'"
               },
               "id": "fpMethod"
+            },
+            {
+              "label": "Was Family Planning Offered this visit",
+              "type": "obs",
+              "id": "offrFp",
+              "required": "true",
+              "questionOptions": {
+                "concept": "644504bd-23bc-4f1e-b9a0-d44f81f4148e",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(fpMethod)"
+              }
             },
             {
               "label": "Reason for not using Family Planning Methods",
@@ -2698,7 +2924,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "fPlanning !== '160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyIntention !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='F'"
+                "hideWhenExpression": "fpCounselling !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && acceptFamily !== '167156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyIntention !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='F'"
               }
             },
             {
@@ -2710,13 +2936,14 @@
               },
               "id": "otherFeMale",
               "hide": {
-                "hideWhenExpression": "isEmpty(FnotOnFp) && FnotOnFp !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || mEnoPauSe !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || pregnancyIntention !=='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='F'"
+                "hideWhenExpression": "isEmpty(FnotOnFp) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], FnotOnFp)"
               }
             },
             {
               "label": "Family Planning Status :",
               "type": "obs",
               "id": "MalefPlanning",
+              "required": "true",
               "questionOptions": {
                 "concept": "160653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
@@ -2740,7 +2967,7 @@
               }
             },
             {
-              "label": "If currently using Family Planning, or wants Family Planning, specify which method(s)",
+              "label": "Family Planning, specify which method(s)",
               "required": "true",
               "type": "obs",
               "questionOptions": {
@@ -2759,9 +2986,148 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(MalefPlanning) || MalefPlanning === '160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='M'"
+                "hideWhenExpression": "sex !== 'M' || MalefPlanning !=='965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && MalefPlanning !=='1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+              },
+              "id": "MalefppMethod"
+            },
+            {
+              "label": "Was Refill done during the visit",
+              "type": "obs",
+              "id": "refillDonemale",
+              "required": "true",
+              "questionOptions": {
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'M' || MalefPlanning !=='965AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Was FP Offered during the visit",
+              "type": "obs",
+              "id": "fpOffrerdmal",
+              "required": "true",
+              "questionOptions": {
+                "concept": "167093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'M' || MalefPlanning !=='1360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Counseling on Family Planning Offered?",
+              "type": "obs",
+              "id": "fpCounsellingmale",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'M' || MalefPlanning !=='160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Accepted or Declined FP Counselling Offered?",
+              "type": "obs",
+              "id": "acceptFamilymale",
+              "required": "true",
+              "questionOptions": {
+                "concept": "159923AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "ad5cd0f5-4986-4145-beb0-7c77104d7e25",
+                    "label": "Accepted"
+                  },
+                  {
+                    "concept": "167156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Declined"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(fpCounsellingmale) || fpCounsellingmale !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Family Planning, specify which method(s)",
+              "required": "true",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Condoms"
+                  },
+                  {
+                    "concept": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vasectomy"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(acceptFamilymale) || acceptFamilymale !== 'ad5cd0f5-4986-4145-beb0-7c77104d7e25' || age < 15 || sex !=='M'"
               },
               "id": "MalefpMethod"
+            },
+            {
+              "label": "Was Family Planning Offered this visit",
+              "type": "obs",
+              "id": "offrFpmale",
+              "required": "true",
+              "questionOptions": {
+                "concept": "644504bd-23bc-4f1e-b9a0-d44f81f4148e",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(MalefpMethod)"
+              }
             },
             {
               "label": "Reason for not using Family Planning Methods",
@@ -2782,7 +3148,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "MalefPlanning !== '160652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='M'"
+                "hideWhenExpression": "fpCounsellingmale !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && acceptFamilymale !== '167156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15 || sex !=='M'"
               }
             },
             {
