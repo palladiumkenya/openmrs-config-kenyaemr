@@ -194,7 +194,7 @@ test("Fill HTS Self Test Form", async ({ page }) => {
     await expect(page.getByRole('tab', { name: /Visits/i })).toBeVisible();
     await expect(page.getByRole('tab', { name: /All encounters/i })).toBeVisible();
 
-    await page.getByRole('tab', { name: /^encounters$/i }).click();
+    await page.getByRole('tab', { name: /^All encounters$/i }).click();
 
     const headerRow = page.getByRole('table').locator('thead > tr');
 

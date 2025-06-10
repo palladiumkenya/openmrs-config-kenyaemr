@@ -112,8 +112,9 @@ test('Fill Patient MCH Delivery Form', async ({ page, api }) => {
   await page.locator('#ARMprovidedid_1').click();
 
   console.log('Completing Management Section');
-  await page.locator('fieldset').filter({ hasText: 'Yes No N/A' }).locator('label').first().click();
+  // await page.locator('fieldset').filter({ hasText: 'Yes No N/A' }).locator('label').first().click();
   await page.locator('#vitaminKid_0').check();
+  await page.locator('#babyTEOAtBirthid_0').check();
   await page.locator('#infantFeedingid_0').click();
   await page.locator('#clinicalNotesid').fill('Healthy living');
 
@@ -130,10 +131,10 @@ test('Fill Patient MCH Delivery Form', async ({ page, api }) => {
     // Capture and log the fields with the "This field is required!" message
     const errorText = await page.locator('text="This field is required!"').allTextContents();
     console.log('Validation errors:', errorText.join('\n'));
+    // await page.waitForTimeout(50000)
 
     expect(requiredFieldError).toBe(0); // Fail the test if there are validation errors
      // Stop execution if validation errors are found
-    
   }
   console.log('Form submitted successfully!');
 

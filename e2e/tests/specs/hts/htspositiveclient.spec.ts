@@ -782,7 +782,7 @@ test("Fill HTS Initial, Retest and Linkage Forms", async ({ page, api }) => {
       page.getByRole("tab", { name: /All encounters/i })
     ).toBeVisible();
 
-    await page.getByRole("tab", { name: /^encounters$/i }).click();
+    await page.getByRole("tab", { name: /^All encounters$/i }).click();
 
     const headerRow = page.getByRole("table").locator("thead > tr");
 
@@ -1541,7 +1541,7 @@ test("Fill HTS Initial, Retest and Linkage Forms", async ({ page, api }) => {
       page.getByRole("tab", { name: /All encounters/i })
     ).toBeVisible();
 
-    await page.getByRole("tab", { name: /^encounters$/i }).click();
+    await page.getByRole("tab", { name: /^All encounters$/i }).click();
 
     const headerRow = page.getByRole("table").locator("thead > tr");
 
@@ -1669,7 +1669,7 @@ test("Fill HTS Initial, Retest and Linkage Forms", async ({ page, api }) => {
       page.getByRole("tab", { name: /All encounters/i })
     ).toBeVisible();
 
-    await page.getByRole("tab", { name: /^encounters$/i }).click();
+    await page.getByRole("tab", { name: /^All encounters$/i }).click();
 
     const headerRow = page.getByRole("table").locator("thead > tr");
 

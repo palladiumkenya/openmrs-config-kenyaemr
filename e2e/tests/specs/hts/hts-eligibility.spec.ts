@@ -1548,7 +1548,7 @@ for (const { gender, age, xpatient } of testData) {
           page.getByRole("tab", { name: /All encounters/i })
         ).toBeVisible();
 
-        await page.getByRole("tab", { name: /^encounters$/i }).click();
+        await page.getByRole("tab", { name: /^All encounters$/i }).click();
 
         const headerRow = page.getByRole("table").locator("thead > tr");
 
