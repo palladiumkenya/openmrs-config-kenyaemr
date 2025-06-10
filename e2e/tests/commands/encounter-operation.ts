@@ -329,3 +329,364 @@ export const generateMCHEnrollmentEncounter = async (api: APIRequestContext, pat
     return await encounterRes.json();
 
 };
+
+export const generateVmmcEnrollmentEncounter = async (api: APIRequestContext, patientId: string, visit: any) => {
+    // post data
+    const encounterRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/encounter/`, {
+        data: {
+            "encounterProviders": [
+                {
+                    "provider": `${process.env.E2E_PROVIDER_UUID}`,
+                    "encounterRole": "a0b03050-c99b-11e0-9572-0800200c9a66"
+                }
+            ],
+            "location": `${process.env.E2E_FACILITY_UUID}`,
+            "patient": patientId,
+            "visit": visit.uuid,
+            "encounterType": "85019fbe-9339-49f7-8341-e9a04311bb99",
+            "form": "a74e3e4a-9e2a-41fb-8e64-4ba8a71ff984",
+            "obs": [
+                {
+                    "concept": "160482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "165650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "162728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "167094AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "167131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "Homa Bay"
+                }
+            ],
+            "orders": [
+            ],
+            "diagnoses": [
+            ]
+        }
+    });
+
+    // Generate program
+    const programRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/programenrollment`, {
+        data: {
+            "patient": patientId,
+            "program": "228538f4-cad9-476b-84c3-ab0086150bcc",
+            "dateEnrolled": "2025-05-28T15:28:10.000+0300",
+            "dateCompleted": null,
+            "location": `${process.env.E2E_FACILITY_UUID}`
+        },
+    });
+
+    // console.log("encounter response: ", encounterRes);
+    // console.log("identifier response: ",patientUPNRes);
+    // console.log("program response: ",programRes);
+
+    return await encounterRes.json();
+
+};
+
+export const generateVmmcMedicalEncounter = async (api: APIRequestContext, patientId: string, visit: string) => {
+    // post data
+    const encounterRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/encounter/`, {
+        data: {
+            "encounterProviders": [
+                {
+                    "provider": `${process.env.E2E_PROVIDER_UUID}`,
+                    "encounterRole": "a0b03050-c99b-11e0-9572-0800200c9a66"
+                }
+            ],
+            "location": `${process.env.E2E_FACILITY_UUID}`,
+            "patient": patientId,
+            "visit": visit,
+            "encounterType": "a2010bf5-2db0-4bf4-819f-8a3cffbcb21b",
+            "form": "d42aeb3d-d5d2-4338-a154-f75ddac78b59",
+            "obs": [
+                {
+                    "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "true"
+                },
+                {
+                    "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "1154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "false"
+                },
+                {
+                    "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "160557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "false"
+                },
+                {
+                    "concept": "164896AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "54AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "161536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "1855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "true"
+                },
+                {
+                    "concept": "bfe0cbb2-eea0-4431-a5c5-d0f49a4ed21b",
+                    "value": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "true"
+                },
+                {
+                    "concept": "54AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "167118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "167122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                }
+            ],
+            "orders": [
+            ],
+            "diagnoses": [
+            ]
+        }
+    });
+
+    await expect(encounterRes.ok()).toBeTruthy();
+    return await encounterRes.json();
+};
+
+export const generateVmmcProcedureEncounter = async (api: APIRequestContext, patientId: string, visit: string) => {
+    // post data
+    const encounterRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/encounter/`, {
+        data: {
+            "encounterProviders": [
+                {
+                    "provider": `${process.env.E2E_PROVIDER_UUID}`,
+                    "encounterRole": "a0b03050-c99b-11e0-9572-0800200c9a66"
+                }
+            ],
+            "location": `${process.env.E2E_FACILITY_UUID}`,
+            "patient": patientId,
+            "visit": visit,
+            "encounterType": "35c6fcc2-960b-11ec-b909-0242ac120002",
+            "form": "5ee93f48-960b-11ec-b909-0242ac120002",
+            "obs": [
+                {
+                    "concept": "167118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "167119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "167121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "164254AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "161914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "162736AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "159369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "b18c5e79-5112-4d76-94ba-09362cbca911"
+                },
+                {
+                    "concept": "166014AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "162592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "groupMembers": [
+                        {
+                            "concept": "164141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "value": "b18c5e79-5112-4d76-94ba-09362cbca911"
+                        },
+                        {
+                            "concept": "166014AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "value": "162592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                        }
+                    ],
+                    "voided": false,
+                    "concept": "164524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "167133AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "255THS"
+                }
+            ],
+            "orders": [
+            ],
+            "diagnoses": [
+            ]
+        }
+    });
+
+    await expect(encounterRes.ok()).toBeTruthy();
+    return await encounterRes.json();
+};
+
+export const generateVmmcPostOperationEncounter = async (api: APIRequestContext, patientId: string, visit: string) => {
+    const tomorrow = dayjs().add(1, 'day').format('YYYY-MM-DD 00:00:00');
+
+    // post data
+    const encounterRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/encounter/`, {
+        data: {
+            "encounterProviders": [
+                {
+                    "provider": `${process.env.E2E_PROVIDER_UUID}`,
+                    "encounterRole": "a0b03050-c99b-11e0-9572-0800200c9a66"
+                }
+            ],
+            "location": `${process.env.E2E_FACILITY_UUID}`,
+            "patient": patientId,
+            "visit": visit,
+            "encounterType": "6632e66c-9ae5-11ec-b909-0242ac120002",
+            "form": "620b3404-9ae5-11ec-b909-0242ac120002",
+            "obs": [
+                {
+                    "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": 120
+                },
+                {
+                    "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": 80
+                },
+                {
+                    "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": 72
+                },
+                {
+                    "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": 36
+                },
+                {
+                    "concept": "162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "166639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "162736AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": tomorrow
+                },
+                {
+                    "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": tomorrow
+                },
+                {
+                    "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "b18c5e79-5112-4d76-94ba-09362cbca911"
+                },
+                {
+                    "concept": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                }
+            ],
+            "orders": [
+            ],
+            "diagnoses": [
+            ]
+        }
+    });
+
+    await expect(encounterRes.ok()).toBeTruthy();
+    return await encounterRes.json();
+};
+
+export const generateVmmcFollowupEncounter = async (api: APIRequestContext, patientId: string, visit: string) => {
+    // post data
+    const encounterRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/encounter/`, {
+        data: {
+            "encounterProviders": [
+                {
+                    "provider": `${process.env.E2E_PROVIDER_UUID}`,
+                    "encounterRole": "a0b03050-c99b-11e0-9572-0800200c9a66"
+                }
+            ],
+            "location": `${process.env.E2E_FACILITY_UUID}`,
+            "patient": patientId,
+            "visit": visit,
+            "encounterType": "2504e865-638e-4a63-bf08-7e8f03a376f3",
+            "form": "08873f91-7161-4f90-931d-65b131f2b12b",
+            "obs": [
+                {
+                    "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": false
+                },
+                {
+                    "concept": "162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "groupMembers": [
+                        {
+                            "concept": "162875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "value": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                        },
+                        {
+                            "concept": "162760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "value": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                        }
+                    ],
+                    "voided": false,
+                    "concept": "162747AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "162736AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "Nurse"
+                },
+                {
+                    "concept": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "162592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                }
+            ],
+            "orders": [
+            ],
+            "diagnoses": [
+            ]
+        }
+    });
+
+    await expect(encounterRes.ok()).toBeTruthy();
+    return await encounterRes.json();
+};

@@ -71,8 +71,8 @@ async function performTestActions(page: Page, visitNumber: number): Promise<void
   await page.locator('#uterusid_0').click();
   await page.locator('#pallorid_0').click();
   await page.locator('#pallorSeverityid_0').click();
-  await page.locator('#uterusInvolutionid').selectOption('123427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-  await page.locator('#episiotomyid').selectOption('1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+  // await page.locator('#uterusInvolutionid').selectOption('123427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+  // await page.locator('#episiotomyid').selectOption('1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
   await page.locator('#lochiaid_0').click();
   await page.locator('#maternalConditionid').selectOption('160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
   await page.locator('#fistulaScreeningid').selectOption('1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
@@ -102,8 +102,8 @@ async function performTestActions(page: Page, visitNumber: number): Promise<void
   await page.locator('#counselledFamilyPlanningid_0').click();
   await page.locator('label').filter({ hasText: /^Intrauterine Device$/ }).click();
   
-  await page.locator('#referredFromid').selectOption('1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-  await page.locator('#referredToid').selectOption('1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+  await page.locator('#referredFromid').selectOption('1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+  await page.locator('#referredToid').selectOption('163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
   await page.locator('#clinicalNotes\\/id').fill('Healthy living');
   console.log('Patient Management section filled successfully');
   console.log('Saving the form...');
