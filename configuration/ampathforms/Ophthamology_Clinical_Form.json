@@ -616,10 +616,33 @@
               }
             },
             {
-              "label": "Visual Acuity Findings",
+              "label": "Eye assesed",
+              "type": "obs",
+              "id": "EyesFind",
+              "required": "true",
+              "questionOptions": {
+                "concept": "160348AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "160350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Right Eye"
+                  },
+                  {
+                    "concept": "160349AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Left Eye"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(examFindings) || !arrayContains(examFindings, '160348AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Visual Acuity Findings (Right Eye)",
               "type": "obs",
               "required": "true",
-              "id": "acuityFinding",
+              "id": "acuityFindingRight",
               "questionOptions": {
                 "concept": "164448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -650,6 +673,59 @@
                   }
                 ]
               },
+              "hide": {
+                "hideWhenExpression": "isEmpty(EyesFind) && !arrayContains(EyesFind, '160350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Visual Acuity Findings (Left Eye)",
+              "type": "obs",
+              "required": "true",
+              "id": "acuityFindingLeft",
+              "questionOptions": {
+                "concept": "164448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "163345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal vision(6/6-3/18)"
+                  },
+                  {
+                    "concept": "137723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Low vision(6/18-6/30) "
+                  },
+                  {
+                    "concept": "147215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Blind (<3/60-NPL)"
+                  },
+                  {
+                    "concept": "135566AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hand Movement(HMS)"
+                  },
+                  {
+                    "concept": "135791AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Light perception(LP)"
+                  },
+                  {
+                    "concept": "158461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No Light Perception(NLP)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(EyesFind) && !arrayContains(EyesFind, '160349AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Visual acuity notes",
+              "type": "obs",
+              "id": "visualNotes",
+              "questionOptions": {
+                "concept": "160430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea",
+                "row": "10"
+              },
+              "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(examFindings) || !arrayContains(examFindings, '160348AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
