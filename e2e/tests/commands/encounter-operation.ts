@@ -690,3 +690,105 @@ export const generateVmmcFollowupEncounter = async (api: APIRequestContext, pati
     await expect(encounterRes.ok()).toBeTruthy();
     return await encounterRes.json();
 };
+
+export const generateNCDEnrollmentEncounter = async (api: APIRequestContext, patientId: string, visit: string) => {
+    // post data
+    const encounterRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/encounter/`, {
+        data: {
+            "encounterProviders": [
+                {
+                    "provider": `${process.env.E2E_PROVIDER_UUID}`,
+                    "encounterRole": "a0b03050-c99b-11e0-9572-0800200c9a66"
+                }
+            ],
+            "location": `${process.env.E2E_FACILITY_UUID}`,
+            "patient": patientId,
+            "visit": visit,
+            "encounterType": "dfcbe5d0-1afb-48a0-8f1e-5e5988b11f15",
+            "form": "c4994dd7-f2b6-4c28-bdc7-8b1d9d2a6a97",
+            "obs": [
+                {
+                    "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "74eb8e8d-d078-4fa3-8973-2d710d8f46df",
+                    "value": "142486AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "ac58e607-21b9-4c5b-aa67-fa63ff789a12"
+                },
+                {
+                    "concept": "152909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "142474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "2025-06-26 00:00:00"
+                },
+                {
+                    "concept": "1169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "f2b2dc3b-faf4-4069-a0df-044b9034ac59",
+                    "value": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "142451AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "166879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "166676AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "164188AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "78056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "concept": "bfe0cbb2-eea0-4431-a5c5-d0f49a4ed21b",
+                    "value": "2a030791-14b4-4996-95ad-39c54b25f2b6"
+                },
+                {
+                    "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "value": "162130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                }
+            ],
+            "orders": [
+            ],
+            "diagnoses": [
+            ]
+        }
+    });
+
+    // Generate program
+    const programRes = await api.post(`${process.env.E2E_BASE_URL}/ws/rest/v1/programenrollment`, {
+        data: {
+            "patient": patientId,
+            "program": "ffee43c4-9ccd-4e55-8a70-93194e7fafc6",
+            "dateEnrolled": "2025-06-26T15:45:32.000+0300",
+            "dateCompleted": null,
+            "location": `${process.env.E2E_FACILITY_UUID}`
+        },
+    });
+
+    return await encounterRes.json();
+};
