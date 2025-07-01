@@ -5,28 +5,29 @@ import { Page } from '@playwright/test';
  * @param {Page} page - Playwright page instance.
  * @param {string} patientId - Patient ID to navigate to their profile.
  */
-export async function loginAndNavigateToCarePanel(page: Page, patientId: string) {
+export async function loginAndNavigateToCarePanel(page: Page) {
   console.log(`Navigating to login page`);
-  await page.goto('https://dmi.kenyahmis.org/openmrs/spa/login');
+  await page.goto('https://qa.kenyahmis.org/openmrs/spa/login');
 
   console.log(`Logging in with username and password`);
-  await page.getByLabel('Username').fill('admin');
+  await page.getByLabel('Username').fill('Quality');
   await page.getByRole('button', { name: 'Continue' }).click();
-  await page.getByLabel('Password').fill('Admin123');
+  await page.getByLabel('Password').fill('Quality123');
   await page.getByRole('button', { name: 'Log in' }).click();
+  await page.locator('label').filter({ hasText: 'Main Store' }).locator('span').first().click();
+  await page.getByRole('button', { name: 'Confirm' }).click();
+  // // Close notification if it appears
+  // try {
+  //   await page.getByLabel('close notification').click();
+  // } catch {}
 
-  // Close notification if it appears
-  try {
-    await page.getByLabel('close notification').click();
-  } catch {}
+  // console.log(`Navigating to patient care panel`);
+  // await page.goto(`https://dmi.kenyahmis.org/openmrs/spa/patient/${patientId}/chart/Care%20panel`);
 
-  console.log(`Navigating to patient care panel`);
-  await page.goto(`https://dmi.kenyahmis.org/openmrs/spa/patient/${patientId}/chart/Care%20panel`);
-
-   // Close notification if it appears
-   try {
-    await page.getByLabel('close notification').click();
-  } catch {}
+  //  // Close notification if it appears
+  //  try {
+  //   await page.getByLabel('close notification').click();
+  // } catch {}
 
 }
 
