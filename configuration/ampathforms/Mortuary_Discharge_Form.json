@@ -1,0 +1,206 @@
+{
+  "name": "Mortuary Discharge Form",
+  "pages": [
+    {
+      "label": "Mortuary Discharge",
+      "sections": [
+        {
+          "label": "Transfer Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            },
+            {
+              "label": "Discharge type",
+              "type": "obs",
+              "required": "true",
+              "id": "dischargeType",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "2537896a-7d27-4c71-8e93-4c265ffa5954",
+                    "label": "Body discharge"
+                  },
+                  {
+                    "concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Body transfer"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Date and Time of transfer",
+              "type": "obs",
+              "required": "true",
+              "id": "dateOfTransfer",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(dischargeType) || dischargeType !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date and Time of discharge",
+              "type": "obs",
+              "required": "true",
+              "id": "dateOfDischarge",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "1641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(dischargeType) || dischargeType !== '2537896a-7d27-4c71-8e93-4c265ffa5954'"
+              }
+            },
+            {
+              "label": "Permit Serial number",
+              "type": "obs",
+              "required": "true",
+              "id": "PermitSerialNumber",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "da524812-5600-4677-ba26-eb61eb925eef"
+              },
+              "validators": []
+            },
+            {
+              "label": "Discharge area",
+              "type": "obs",
+              "required": "true",
+              "id": "dischargeArea",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "89ebccf1-4cca-4195-aeff-3e75fdf976b4"
+              },
+              "validators": []
+            },
+            {
+              "label": "Next of Kin",
+              "type": "obs",
+              "required": "true",
+              "id": "nextOfKin",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "162729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(dischargeType) || dischargeType !== '2537896a-7d27-4c71-8e93-4c265ffa5954'"
+              }
+            },
+            {
+              "label": "Next of Kin ID number",
+              "type": "obs",
+              "required": "true",
+              "id": "nextOfKinId",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(dischargeType) || dischargeType !== '2537896a-7d27-4c71-8e93-4c265ffa5954'"
+              }
+            },
+            {
+              "label": "Receiving mortuary",
+              "type": "obs",
+              "required": "true",
+              "id": "receivingMortuary",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(dischargeType) || dischargeType !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Reason for transfer",
+              "type": "obs",
+              "required": "true",
+              "id": "reasonForTransfer",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "162720AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(dischargeType) || dischargeType !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Supporting Documentation",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Attachments",
+              "id": "suPPortDocs",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add An Attachment",
+                "workspaceName": "patient-attachments"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "encounterType": "5a89262f-573e-4bb0-9ab2-07e3fea11db2",
+  "referencedForms": [],
+  "uuid": "bd483dc1-9cd2-4f0e-a761-31a89b5f8bd0",
+  "description": " A form for collecting mortuary transfer details.",
+  "version": "1.0"
+}
