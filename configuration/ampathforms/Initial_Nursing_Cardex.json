@@ -1,0 +1,548 @@
+{
+  "name": "Initial Nursing Cardex",
+  "description": "Nursing Cardex Form Initial",
+  "version": "3",
+  "published": true,
+  "uuid": "d80917ce-6855-472e-8012-6a9339cabf2f",
+  "retired": false,
+  "encounter": "Nursing Cardex",
+  "pages": [
+    {
+      "label": "Past Medical History",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Medical histroy",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Have you been admitted before?",
+              "type": "obs",
+              "id": "admittedBefore",
+              "questionOptions": {
+                "concept": "167395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "How many times?",
+              "type": "obs",
+              "id": "howManyTimes",
+              "questionOptions": {
+                "concept": "162196AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(admittedBefore) || admittedBefore !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "When?",
+              "type": "obs",
+              "id": "when",
+              "questionOptions": {
+                "concept": "1640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(admittedBefore) || admittedBefore !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "where?",
+              "type": "obs",
+              "id": "where",
+              "questionOptions": {
+                "concept": "b9cd9e47-da43-4a46-8f3c-e30ec9209cc7",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(admittedBefore) || admittedBefore !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Reason for admission?",
+              "type": "obs",
+              "id": "reasonForAdmission",
+              "questionOptions": {
+                "concept": "162879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(admittedBefore) || admittedBefore !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Have you been operated before?",
+              "type": "obs",
+              "id": "operatedBefore",
+              "questionOptions": {
+                "concept": "1651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "When operated?",
+              "type": "obs",
+              "id": "whenOperated",
+              "questionOptions": {
+                "concept": "160715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(operatedBefore) || operatedBefore !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Why operated?",
+              "type": "obs",
+              "id": "whyOperated",
+              "questionOptions": {
+                "concept": "163393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(operatedBefore) || operatedBefore !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Transfused blood before?",
+              "type": "obs",
+              "id": "transfusedBloodBefore",
+              "questionOptions": {
+                "concept": "d8ae3fbb-1c37-46e7-8920-db85801284ef",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "When transfused?",
+              "type": "obs",
+              "id": "whenTransfused",
+              "questionOptions": {
+                "concept": "163268AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(transfusedBloodBefore) || transfusedBloodBefore !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Why transfused?",
+              "type": "obs",
+              "id": "whyTransfused",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(transfusedBloodBefore) || transfusedBloodBefore !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "HIV status known?",
+              "type": "obs",
+              "id": "hivStatusKnown",
+              "questionOptions": {
+                "concept": "1169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "On ARVs?",
+              "type": "obs",
+              "id": "onArvs",
+              "questionOptions": {
+                "concept": "1149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivStatusKnown) || hivStatusKnown !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Which ART regimen?",
+              "type": "obs",
+              "id": "artRegimen",
+              "questionOptions": {
+                "concept": "163104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(onArvs) || onArvs !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date started on ART",
+              "type": "obs",
+              "id": "dateStartedOnArt",
+              "questionOptions": {
+                "concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(onArvs) || onArvs !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Social/Economic history",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Married?",
+              "type": "obs",
+              "id": "married",
+              "questionOptions": {
+                "concept": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "(age < 12)"
+              }
+            },
+            {
+              "label": "Do you have children?",
+              "type": "obs",
+              "id": "doYouHaveChildren",
+              "questionOptions": {
+                "concept": "1560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "(age < 12)"
+              }
+            },
+            {
+              "label": "How many girls?",
+              "type": "obs",
+              "id": "howManyGirls",
+              "questionOptions": {
+                "concept": "5558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(doYouHaveChildren) || doYouHaveChildren !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "How many boys?",
+              "type": "obs",
+              "id": "howManyBoys",
+              "questionOptions": {
+                "concept": "1825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(doYouHaveChildren) || doYouHaveChildren !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Are all well and alive?",
+              "type": "obs",
+              "id": "areAllWellAndAlive",
+              "questionOptions": {
+                "concept": "159481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(doYouHaveChildren) || doYouHaveChildren !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Comments",
+              "type": "obs",
+              "id": "allWellcomments",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(areAllWellAndAlive) || areAllWellAndAlive !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "School going?",
+              "type": "obs",
+              "id": "schoolGoing",
+              "questionOptions": {
+                "concept": "160336AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "(age < 12)"
+              }
+            },
+            {
+              "label": "Parent's alive?",
+              "type": "obs",
+              "id": "parentsAlive",
+              "questionOptions": {
+                "concept": "1560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "970AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mother",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "971AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Father",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "(age < 12)"
+              }
+            },
+            {
+              "label": "Chronic illnesses in the family?",
+              "type": "obs",
+              "id": "chronicIllnessesInTheFamily",
+              "questionOptions": {
+                "concept": "164830AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Comments",
+              "type": "obs",
+              "id": "chronicIllnessesComments",
+              "questionOptions": {
+                "concept": "166104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(chronicIllnessesInTheFamily) || chronicIllnessesInTheFamily !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Substance use?",
+              "type": "obs",
+              "id": "subtanceUse",
+              "questionOptions": {
+                "concept": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "121725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Alcohol",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "05f194d6-24f2-4b9f-ae7a-3b1abc3f46fd",
+                    "label": "Tobacco",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "How many cigarretes per day?",
+              "type": "obs",
+              "id": "howManyCigarretesPerDay",
+              "questionOptions": {
+                "concept": "165595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(subtanceUse) || !arrayContains(subtanceUse, '05f194d6-24f2-4b9f-ae7a-3b1abc3f46fd')"
+              }
+            },
+            {
+              "label": "When started smoking?",
+              "type": "obs",
+              "id": "whenStartedSmoking",
+              "questionOptions": {
+                "concept": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(subtanceUse) || !arrayContains(subtanceUse, '05f194d6-24f2-4b9f-ae7a-3b1abc3f46fd')"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "encounterType": "b6569074-3b8c-43ba-bd4a-98c445405035"
+}
