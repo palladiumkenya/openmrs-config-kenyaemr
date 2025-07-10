@@ -1,0 +1,211 @@
+{
+  "name": "Body Disposal Form",
+  "processor": "EncounterFormProcessor",
+  "encounter": "Morgue",
+  "encounterType": "e57df8e0-80e2-4b22-beb5-7c460bd5595e",
+  "referencedForms": [],
+  "uuid": "9ea9a10f-6833-4811-9bef-a79094d6bc61",
+  "description": "Create a body disposal request for a mortuary",
+  "version": "1.0.0",
+  "published": true,
+  "retired": false,
+  "pages": [
+    {
+      "label": "Encounter Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Details of the Deceased",
+      "sections": [
+        {
+          "lable": "Disposal Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date of Disposal",
+              "type": "obs",
+              "id": "dateDisposal",
+              "questionOptions": {
+                "concept": "1640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "useMostRecentValue": "true",
+                "autoPopulateWithMostRecentValue": "true",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+               "label":"Serial Number",
+               "type":"obs",
+               "id":"serIalNo",
+               "questionOptions":{
+                  "concept":"1646AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering":"text"
+               },
+               "validators":[
+                  
+               ]
+            },
+            {
+               "label":"Court case number",
+               "type":"obs",
+               "id":"coUrtCase",
+               "questionOptions":{
+                  "concept":"26e0da6c-3e53-4f7d-9a3a-1c2f634450f7",
+                  "rendering":"text"
+               },
+               "validators":[
+                  
+               ]
+            }
+          ]
+        },
+        {
+          "label": "Neonatal Death",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Is deceased a neonatal death",
+              "type": "obs",
+              "id": "neOnateDeath",
+              "questionOptions": {
+                "concept": "",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+               "label":"Name of the neonatal deceased",
+               "type":"obs",
+               "id":"nameOfNeonate",
+               "questionOptions":{
+                  "concept":"1586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering":"text"
+               },
+               "validators":[
+               ],
+               "hide": {
+                "hideWhenExpression": "isEmpty(neOnateDeath) || neOnateDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+               }
+            },
+            {
+               "label":"Date of Birth",
+               "type":"obs",
+               "id":"dObofNeonate",
+               "questionOptions":{
+                  "concept":"166575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                  "rendering":"date"
+               },
+               "validators":[
+               ],
+               "hide": {
+                "hideWhenExpression": "isEmpty(neOnateDeath) || neOnateDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+               }
+            },
+            {
+               "label":"Date & Time of Death",
+               "type":"obs",
+               "id":"deathDateTime",
+               "datePickerFormat":"both",
+               "questionOptions":{
+                  "concept":"9c4c7722-ba3e-4bdf-ab97-c04170100037",
+                  "rendering":"date"
+               },
+               "validators":[
+               ],
+               "hide": {
+                "hideWhenExpression": "isEmpty(neOnateDeath) || neOnateDeath !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+               }
+            }
+          ]
+        },
+        {
+          "label": "Next of Kin Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Next of Kin's name",
+              "type": "obs",
+              "id": "neXtofKin",
+              "questionOptions": {
+                "concept": "162729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Next of Kin's ID number",
+              "type": "obs",
+              "id": "neXtofKinID",
+              "questionOptions": {
+                "concept": "160752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Next of Kin's phone number",
+              "type": "obs",
+              "id": "neXtofKinPH",
+              "questionOptions": {
+                "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
