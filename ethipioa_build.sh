@@ -9,46 +9,48 @@ rm -rf frontend
 read -p "Is this for KDOD asset generation? (y/n): " is_kdod
 
 # Build assets
-echo "Building Kenya EMR 3.x assets ..."
+echo "Building Ethiopia EMR 3.x assets ..."
 CWD=$(pwd)
-npx --legacy-peer-deps openmrs@6.3.1-pre.2951 build \
-  --build-config ./frontend-config/staging/build-config.json \
+npx --legacy-peer-deps openmrs@next build \
+  --build-config ./frontend-config/ethiopia/build-config.json \
   --target ./frontend \
-  --page-title "KenyaEMR" \
+  --page-title "Ethiopia EMR" \
   --support-offline false
 
 # Assemble assets
 echo "Assembling assets ..."
-npx --legacy-peer-deps openmrs@6.3.1-pre.2951 assemble \
+npx --legacy-peer-deps openmrs@next assemble \
   --manifest \
   --mode config \
-  --config ./frontend-config/staging/build-config.json \
+  --config ./frontend-config/ethiopia/build-config.json \
   --target ./frontend
 
-# Copy required files
-echo "Copying required files ..."
-cp "${CWD}/assets/kenyaemr-login-logo.png" "${CWD}/frontend"
-cp "${CWD}/assets/kenyaemr-primary-logo.svg" "${CWD}/frontend"
-cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
-cp "${CWD}/frontend-config/staging/kenyaemr.config.json" "${CWD}/frontend"
-cp "${CWD}/frontend-config/staging/openmrs.config.json" "${CWD}/frontend"
-cp "${CWD}/assets/background/login-background_en.png" "${CWD}/frontend"
+# Copy Ethiopia-specific required files
+echo "Copying Ethiopia-specific required files ..."
+cp "${CWD}/assets/ethiopia/login-logo-am.png" "${CWD}/frontend"
+cp "${CWD}/assets/ethiopia/ethiopia-primary-logo.svg" "${CWD}/frontend"
+cp "${CWD}/assets/ethiopia/favicon.ico" "${CWD}/frontend"
 cp "${CWD}/assets/background/login-background_am.png" "${CWD}/frontend"
-cp "${CWD}/assets/sha_logo.svg" "${CWD}/frontend"
+cp "${CWD}/assets/background/login-background_en.png" "${CWD}/frontend"
+cp "${CWD}/frontend-config/ethiopia/kenyaemr.config.json" "${CWD}/frontend"
+cp "${CWD}/frontend-config/ethiopia/openmrs.config.json" "${CWD}/frontend"
+cp "${CWD}/frontend-config/ethiopia/translations/patient-chart-am.json" "${CWD}/frontend"
 
 # Copy KDOD config or registration config based on user input and update index.html
+sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/patient-chart-am.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
 if [ "$is_kdod" = "y" ] || [ "$is_kdod" = "Y" ]; then
     echo "Copying KDOD configuration..."
-    cp "${CWD}/frontend-config/registration/kdod.config.json" "${CWD}/frontend"
+    cp "${CWD}/frontend-config/ethiopia/registration/kdod.config.json" "${CWD}/frontend"
     
     # Update the configUrls in index.html
     sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/kdod.config.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
 else
     echo "Copying registration configuration..."
-    cp "${CWD}/frontend-config/registration/registration.config.json" "${CWD}/frontend"
+    cp "${CWD}/frontend-config/ethiopia/registration/registration.config.json" "${CWD}/frontend"
     
     # Update the configUrls in index.html
     sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/registration.config.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
+    
 fi
 
 # Function to handle the renaming process
@@ -82,6 +84,6 @@ rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
 rename_dist_folder "openmrs-esm-patient-tests-app-*" "dist-patient-tests"
 rename_dist_folder "openmrs-esm-patient-orders-app-*" "dist-patient-orders"
 rename_dist_folder "openmrs-esm-patient-medications-app-*" "dist-patient-medications"
-rename_dist_folder "openmrs-esm-patient-chart-app-*" "dist-patient-chart"
+
 # Exit with success status
 exit 0
