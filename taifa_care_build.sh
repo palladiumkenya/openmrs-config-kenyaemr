@@ -32,6 +32,9 @@ cp "${CWD}/assets/taifa_care/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/taifa_care/favicon.ico" "${CWD}/frontend"
 cp "${CWD}/frontend-config/staging/kenyaemr.config.json" "${CWD}/frontend"
 cp "${CWD}/frontend-config/staging/openmrs.config.json" "${CWD}/frontend"
+cp "${CWD}/assets/background/login-background_en.png" "${CWD}/frontend"
+cp "${CWD}/assets/background/login-background_am.png" "${CWD}/frontend"
+cp "${CWD}/assets/sha_logo.svg" "${CWD}/frontend"
 
 # Copy KDOD config or registration config based on user input and update index.html
 if [ "$is_kdod" = "y" ] || [ "$is_kdod" = "Y" ]; then
