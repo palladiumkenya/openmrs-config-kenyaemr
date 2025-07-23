@@ -32,8 +32,10 @@ cp "${CWD}/assets/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
 cp "${CWD}/frontend-config/dev/kenyaemr.config.json" "${CWD}/frontend"
 cp "${CWD}/frontend-config/dev/openmrs.config.json" "${CWD}/frontend"
+cp "${CWD}/frontend-config/dev/translations/patient-chart-am.json" "${CWD}/frontend"
 
 # Copy KDOD config or registration config based on user input and update index.html
+sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/patient-chart-am.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
 if [ "$is_kdod" = "y" ] || [ "$is_kdod" = "Y" ]; then
     echo "Copying KDOD configuration..."
     cp "${CWD}/frontend-config/registration/kdod.config.json" "${CWD}/frontend"
@@ -46,6 +48,7 @@ else
     
     # Update the configUrls in index.html
     sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/registration.config.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
+    
 fi
 
 # Function to handle the renaming process
