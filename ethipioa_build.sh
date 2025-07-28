@@ -32,9 +32,12 @@ cp "${CWD}/assets/ethiopia/ethiopia-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/ethiopia/favicon.ico" "${CWD}/frontend"
 cp "${CWD}/assets/background/login-background_am.png" "${CWD}/frontend"
 cp "${CWD}/assets/background/login-background_en.png" "${CWD}/frontend"
+cp "${CWD}/assets/sha_logo.svg" "${CWD}/frontend"
 cp "${CWD}/frontend-config/ethiopia/kenyaemr.config.json" "${CWD}/frontend"
 cp "${CWD}/frontend-config/ethiopia/openmrs.config.json" "${CWD}/frontend"
 cp "${CWD}/frontend-config/ethiopia/translations/patient-chart-am.json" "${CWD}/frontend"
+cp "${CWD}/assets/kenyaemr-login-logo.png" "${CWD}/frontend"
+cp "${CWD}/assets/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 
 # Copy KDOD config or registration config based on user input and update index.html
 sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/patient-chart-am.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
