@@ -27,9 +27,9 @@ npx --legacy-peer-deps openmrs@6.3.1-pre.3244 assemble \
 
 # Copy required files
 echo "Copying required files ..."
-cp "${CWD}/assets/kenyaemr-login-logo.png" "${CWD}/frontend"
-cp "${CWD}/assets/kenyaemr-primary-logo.svg" "${CWD}/frontend"
-cp "${CWD}/assets/favicon.ico" "${CWD}/frontend"
+cp "${CWD}/assets/taifa_care/kenyaemr-login-logo.png" "${CWD}/frontend"
+cp "${CWD}/assets/taifa_care/kenyaemr-primary-logo.svg" "${CWD}/frontend"
+cp "${CWD}/assets/taifa_care/favicon.ico" "${CWD}/frontend"
 cp "${CWD}/frontend-config/staging/kenyaemr.config.json" "${CWD}/frontend"
 cp "${CWD}/frontend-config/staging/openmrs.config.json" "${CWD}/frontend"
 cp "${CWD}/assets/background/login-background_en.png" "${CWD}/frontend"
