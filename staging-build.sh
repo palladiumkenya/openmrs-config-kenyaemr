@@ -79,7 +79,7 @@ rename_dist_folder() {
 
 # Handle renaming for openmrs-esm-form-entry-app-*
 rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
-rename_dist_folder "openmrs-esm-patient-chart-app-*" "dist-patient-chart"
-rename_dist_folder "openmrs-esm-service-queues-app-*" "dist-service-queues"
+# rename_dist_folder "openmrs-esm-patient-chart-app-*" "dist-patient-chart"
+# rename_dist_folder "openmrs-esm-service-queues-app-*" "dist-service-queues"
 # Exit with success status
 exit 0
