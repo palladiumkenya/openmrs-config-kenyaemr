@@ -1,15 +1,15 @@
 name: E2E Tests
 
 on: 
-  workflow_dispatch:
   workflow_run:
-    workflows: ["qa-server-ci.yml"]
+    workflows: ["Deployin_to_stagin_server"] 
     types:
       - completed
-    conclusion: success
+  workflow_dispatch:
 
 jobs:
   e2e:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} 
     runs-on: ubuntu-latest
 
     steps:
