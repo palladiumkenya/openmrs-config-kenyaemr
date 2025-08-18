@@ -115,6 +115,38 @@
               "validators": []
             },
             {
+              "label": "TB Screening",
+              "type": "obs",
+              "required": true,
+              "id": "tbScren",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "f2b2dc3b-faf4-4069-a0df-044b9034ac59",
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  },
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Confirmed"
+                  },
+                  {
+                    "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Screening Not Done"
+                  },
+                  {
+                    "concept": "89264964-919b-4f39-816e-c0554b55df51",
+                    "label": "On TB Treatment"
+                  }
+                ]
+              }
+            },
+            {
               "label": "Drink alcohol",
               "type": "obs",
               "required": true,
@@ -569,25 +601,155 @@
               "validators": []
             },
             {
-              "label": "Diabetic foot",
-              "type": "obs",
+              "label": "Foot Risk Assessment ",
               "required": "true",
-              "id": "footDiabetic",
+              "type": "obs",
+              "id": "footDiabeticRisk",
               "questionOptions": {
                 "rendering": "radio",
+                "concept": "166879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "166674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "High Risk"
+                  },
+                  {
+                    "concept": "166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Low Risk"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "High Risk assessment",
+              "required": "true",
+              "type": "obs",
+              "id": "highfootRiskAccess",
+              "questionOptions": {
+                "rendering": "checkbox",
                 "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
+                    "concept": "166844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Loss of protective sensation"
                   },
                   {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
+                    "concept": "150518AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Absent pedal pulses"
+                  },
+                  {
+                    "concept": "142677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Foot deformity"
+                  },
+                  {
+                    "concept": "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "History of foot ulcer"
+                  },
+                  {
+                    "concept": "164009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Prior amputation"
                   }
                 ]
               },
-              "validators": []
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(footDiabeticRisk) || footDiabeticRisk != '166674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Low Risk assessment",
+              "required": "true",
+              "type": "obs",
+              "id": "lowfootRiskAccess",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "166676AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164188AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intact protective sensation"
+                  },
+                  {
+                    "concept": "158955AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pedal Pulses Present"
+                  },
+                  {
+                    "concept": "155871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No deformity"
+                  },
+                  {
+                    "concept": "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No prior foot ulcer"
+                  },
+                  {
+                    "concept": "164009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No amputation"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(footDiabeticRisk) || footDiabeticRisk != '166675AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+                "label": "Diabetic foot",
+                "required": "true",
+                "type": "obs",
+                "id": "footDiabeticExisting",
+                "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                        {
+                            "concept": "1154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "New"
+                        },
+                        {
+                            "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Known"
+                        },
+                        {
+                            "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Normal"
+                        }
+                    ]
+                },
+                "validators": []
+            },
+            {
+                "label": "Diabetic foot screening",
+                "required": "true",
+                "type": "obs",
+                "id": "footDiabetic",
+                "questionOptions": {
+                    "rendering": "radio",
+                    "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                        {
+                            "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "Yes"
+                        },
+                        {
+                            "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "label": "No"
+                        }
+                    ]
+                },
+                "validators": []
+            },
+            {
+                "label": "Describe",
+                "type": "obs",
+                "id": "descDiabetc",
+                "questionOptions": {
+                    "rendering": "textarea",
+                    "concept": "20395601-257c-490c-86c2-acffb627f91f"
+                },
+                "validators": [],
+                "hide": {
+                    "hideWhenExpression": "isEmpty(footDiabetic) || footDiabetic != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
             },
             {
               "label": "Foot Risk assessment",
@@ -726,6 +888,46 @@
                   }
                 ]
               }
+            },
+            {
+              "label": "Footcare Outcome",
+              "required": "true",
+              "type": "obs",
+              "id": "footOutcome",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "162130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ulcer healed"
+                  },
+                  {
+                    "concept": "9751bd32-a30a-4bd6-a88b-bef637a811ed",
+                    "label": "Surgical debridement"
+                  },
+                  {
+                    "concept": "164009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Amputation"
+                  },
+                  {
+                    "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Loss to follow up"
+                  },
+                  {
+                    "concept": "1654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Admitted"
+                  },
+                  {
+                    "concept": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referred"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(footDiabetic) || footDiabetic != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
             }
           ]
         },
@@ -840,6 +1042,16 @@
               "hide": {
                 "hideWhenExpression": "isEmpty(transferOut) || transferOut != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
+            },
+            {
+              "label": "Remarks",
+              "type": "obs",
+              "id": "RemarksNotes",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "162749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": []
             }
           ]
         }
