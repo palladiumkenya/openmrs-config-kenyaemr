@@ -410,7 +410,33 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '142486AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '142486AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'F'"
+              }
+            },
+            {
+              "label": "Type of Diabetes",
+              "type": "obs",
+              "id": "diaTypeMale",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "152909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "142474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Type 1 Diabetes Mellitus"
+                  },
+                  {
+                    "concept": "d6eec180-2cd7-401f-9670-6a6403fe1a8b",
+                    "label": "Type 2 Diabetes Mellitus"
+                  },
+                  {
+                    "concept": "126985AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetes secondary to other causes"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(diseaseType) || diseaseType != '142486AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !== 'M'"
               }
             },
             {
@@ -605,6 +631,10 @@
                   {
                     "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "TB Screening Not Done"
+                  },
+                  {
+                    "concept": "89264964-919b-4f39-816e-c0554b55df51",
+                    "label": "On TB Treatment"
                   }
                 ]
               }
@@ -1340,6 +1370,31 @@
               "label": "Diabetic foot",
               "required": "true",
               "type": "obs",
+              "id": "footDiabeticExisting",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New"
+                  },
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Known"
+                  },
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Diabetic foot screening",
+              "required": "true",
+              "type": "obs",
               "id": "footDiabetic",
               "questionOptions": {
                 "rendering": "radio",
@@ -1358,7 +1413,7 @@
               "validators": []
             },
             {
-              "label": "Describe the type",
+              "label": "Describe",
               "type": "obs",
               "id": "descDiabetc",
               "questionOptions": {
@@ -1370,7 +1425,53 @@
                 "hideWhenExpression": "isEmpty(footDiabetic) || footDiabetic != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
-           
+            {
+              "label": "Pre-Eclampsia",
+              "required": "true",
+              "type": "obs",
+              "id": "preEclampsia",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "sex !== 'F' || age < 10"
+              }
+            },
+            {
+              "label": "Describe the type",
+              "type": "obs",
+              "id": "descEclamsia",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "20395601-257c-490c-86c2-acffb627f91f"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(preEclampsia) || preEclampsia != '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Waist Circumference",
+              "type": "obs",
+              "id": "wAistCircus",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "163080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0"
+              }
+            },
             {
               "label": "Diagnosis",
               "id": "DiagNosIS",
