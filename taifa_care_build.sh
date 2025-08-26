@@ -11,7 +11,7 @@ read -p "Is this for KDOD asset generation? (y/n): " is_kdod
 # Build assets
 echo "Building Taifa Care KenyaEMR 3.x assets ..."
 CWD=$(pwd)
-npx --legacy-peer-deps openmrs@6.3.1-pre.3244 build \
+npx --legacy-peer-deps openmrs@latest build \
   --build-config ./frontend-config/staging/hie_build-config.json \
   --target ./frontend \
   --page-title "Taifa Care - KenyaEMR" \
@@ -19,7 +19,7 @@ npx --legacy-peer-deps openmrs@6.3.1-pre.3244 build \
 
 # Assemble assets
 echo "Assembling assets ..."
-npx --legacy-peer-deps openmrs@6.3.1-pre.3244 assemble \
+npx --legacy-peer-deps openmrs@latest assemble \
   --manifest \
   --mode config \
   --config ./frontend-config/staging/hie_build-config.json \
@@ -79,8 +79,8 @@ rename_dist_folder() {
 
 # Handle renaming for openmrs-esm-form-entry-app-*
 rename_dist_folder "openmrs-esm-form-entry-app-*" "dist-form-entry"
-# rename_dist_folder "openmrs-esm-patient-chart-app-*" "dist-patient-chart"
-# rename_dist_folder "openmrs-esm-service-queues-app-*" "dist-service-queues"
-
+rename_dist_folder "openmrs-esm-patient-medications-app-*" "dist-patient-medications"
+rename_dist_folder "openmrs-esm-patient-orders-app-*" "dist-patient-orders"
+rename_dist_folder "openmrs-esm-patient-tests-app-*" "dist-patient-tests"
 # Exit with success status
 exit 0
