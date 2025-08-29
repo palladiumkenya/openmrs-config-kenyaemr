@@ -11,7 +11,7 @@ read -p "Is this for KDOD asset generation? (y/n): " is_kdod
 # Build assets
 echo "Building Taifa Care KenyaEMR 3.x assets ..."
 CWD=$(pwd)
-npx --legacy-peer-deps openmrs@latest build \
+npx --legacy-peer-deps openmrs@next build \
   --build-config ./frontend-config/dev/dha_build-config.json \
   --target ./frontend \
   --page-title "Taifa Care - KenyaEMR" \
@@ -19,31 +19,18 @@ npx --legacy-peer-deps openmrs@latest build \
 
 # Assemble assets
 echo "Assembling assets ..."
-npx --legacy-peer-deps openmrs@latest assemble \
+npx --legacy-peer-deps openmrs@next assemble \
   --manifest \
   --mode config \
   --config ./frontend-config/dev/dha_build-config.json \
   --target ./frontend
 
-# Copy required files
-# echo "Copying required files ..."
-# cp "${CWD}/assets/taifa_care/kenyaemr-login-logo.png" "${CWD}/frontend"
-# cp "${CWD}/assets/taifa_care/kenyaemr-primary-logo.svg" "${CWD}/frontend"
-# cp "${CWD}/assets/taifa_care/favicon.ico" "${CWD}/frontend"
-# cp "${CWD}/frontend-config/dev/kenyaemr.config.json" "${CWD}/frontend"
-# cp "${CWD}/frontend-config/dev/openmrs.config.json" "${CWD}/frontend"
-# cp "${CWD}/assets/background/login-background_ksm" "${CWD}/frontend"
-# cp "${CWD}/assets/dha_logo.png" "${CWD}/frontend"
-# cp "${CWD}/assets/background/badge_ksm.png" "${CWD}/frontend"
-# cp "${CWD}/assets/background/kenya_republic_logo.png" "${CWD}/frontend"
-# cp "${CWD}/assets/dha_logo.png" "${CWD}/frontend"
-
 #echo "Copying required files ..."
 cp "${CWD}/assets/taifa_care/kenyaemr-login-logo.png" "${CWD}/frontend"
 cp "${CWD}/assets/taifa_care/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/taifa_care/favicon.ico" "${CWD}/frontend"
-cp "${CWD}/frontend-config/staging/kenyaemr.config.json" "${CWD}/frontend"
-cp "${CWD}/frontend-config/staging/openmrs.config.json" "${CWD}/frontend"
+cp "${CWD}/frontend-config/dev/kenyaemr.config.json" "${CWD}/frontend"
+cp "${CWD}/frontend-config/dev/openmrs.config.json" "${CWD}/frontend"
 cp "${CWD}/assets/background/login-background_en.png" "${CWD}/frontend"
 cp "${CWD}/assets/background/login-background_am.png" "${CWD}/frontend"
 cp "${CWD}/assets/sha_logo.svg" "${CWD}/frontend"
@@ -52,6 +39,7 @@ cp "${CWD}/assets/background/badge_ksm.png" "${CWD}/frontend"
 cp "${CWD}/assets/background/kenya_republic_logo.png" "${CWD}/frontend"
 cp "${CWD}/assets/dha_logo.png" "${CWD}/frontend"
 cp "${CWD}/assets/kenyaemr_powered_by.svg" "${CWD}/frontend"
+cp "${CWD}/assets/kenyaemr-login-logo_poweredby_kenyaemr.png" "${CWD}/frontend"
 
 # Copy KDOD config or registration config based on user input and update index.html
 if [ "$is_kdod" = "y" ] || [ "$is_kdod" = "Y" ]; then
