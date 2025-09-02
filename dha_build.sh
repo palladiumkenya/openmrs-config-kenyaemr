@@ -8,6 +8,9 @@ rm -rf frontend
 # Prompt user for KDOD asset generation
 read -p "Is this for KDOD asset generation? (y/n): " is_kdod
 
+# Prompt user for DHA asset generation
+read -p "Is this for DHA asset generation? (y/n): " is_dha
+
 # Build assets
 echo "Building Taifa Care KenyaEMR 3.x assets ..."
 CWD=$(pwd)
@@ -26,7 +29,7 @@ npx --legacy-peer-deps openmrs@next assemble \
   --target ./frontend
 
 #echo "Copying required files ..."
-cp "${CWD}/assets/taifa_care/kenyaemr-login-logo.png" "${CWD}/frontend"
+cp "${CWD}/assets/taifa_care/kenyaemr-primary-logo.svg" "${CWD}/frontend"
 cp "${CWD}/assets/taifa_care/favicon.ico" "${CWD}/frontend"
 cp "${CWD}/frontend-config/dev/kenyaemr.config.json" "${CWD}/frontend"
 cp "${CWD}/frontend-config/dev/openmrs.config.json" "${CWD}/frontend"
@@ -40,20 +43,29 @@ cp "${CWD}/assets/dha_logo.png" "${CWD}/frontend"
 cp "${CWD}/assets/kenyaemr_powered_by.svg" "${CWD}/frontend"
 cp "${CWD}/assets/kenyaemr-login-logo_poweredby_kenyaemr.png" "${CWD}/frontend"
 
-# Copy KDOD config or registration config based on user input and update index.html
+# Copy KDOD, DHA, or default registration config based on user input and update index.html
 if [ "$is_kdod" = "y" ] || [ "$is_kdod" = "Y" ]; then
     echo "Copying KDOD configuration..."
     cp "${CWD}/frontend-config/registration/kdod.config.json" "${CWD}/frontend"
     
     # Update the configUrls in index.html
     sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/kdod.config.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
+
+elif [ "$is_dha" = "y" ] || [ "$is_dha" = "Y" ]; then
+    echo "Copying DHA registration configuration..."
+    cp "${CWD}/frontend-config/registration/dha.config.json" "${CWD}/frontend"
+    
+    # Update the configUrls in index.html
+    sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/dha.config.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
+
 else
-    echo "Copying registration configuration..."
+    echo "Copying default registration configuration..."
     cp "${CWD}/frontend-config/registration/registration.config.json" "${CWD}/frontend"
     
     # Update the configUrls in index.html
     sed -i.bak 's/configUrls: \[/configUrls: \["${openmrsSpaBase}\/registration.config.json", /' "${CWD}/frontend/index.html" && rm "${CWD}/frontend/index.html.bak"
 fi
+
 
 # Function to handle the renaming process
 rename_dist_folder() {
