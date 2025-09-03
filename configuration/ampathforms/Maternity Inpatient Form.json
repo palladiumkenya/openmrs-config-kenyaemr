@@ -1,0 +1,1327 @@
+{
+  "name": "Maternity Inpatient Form",
+  "description": "A form used to capture Maternity Inpatient data",
+  "version": "1.0",
+  "published": true,
+  "uuid": "99a739a6-0f7d-4efd-9284-5e8b1b3e10c8",
+  "retired": false,
+  "encounter": "MCH Mother Consultation",
+  "pages": [
+    {
+      "label": "Maternity  Inpatient Record",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Maternity details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Name of clinic Attended",
+              "type": "obs",
+              "required": false,
+              "id": "nameOfClinicAttended",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": []
+            },
+            {
+              "label": "Parity",
+              "type": "obs",
+              "id": "parityTerm",
+              "required": "true",
+              "questionOptions": {
+                "concept": "160080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "50"
+              }
+            },
+            {
+              "label": "Plus(Miscarriage)",
+              "type": "obs",
+              "id": "parityAbortion",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "50"
+              }
+            },
+            {
+              "label": "Gravida:",
+              "type": "obs",
+              "id": "graVida",
+              "questionOptions": {
+                "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "calculate": {
+                  "calculateExpression": "calcGravida(parityTerm,parityAbortion)"
+                }
+              }
+            },
+            {
+              "label": "LMP",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "lmpDate",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "isEmpty(lmpDate) && serviceType == '1622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                  "message": "If service type is ANC. Please provide LMP Date."
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "!isEmpty(myValue) && moment(myValue).isBefore(moment(birthdate), 'day')",
+                  "message": "LMP date should not be before the date of birth."
+                }
+              ]
+            },
+            {
+              "label": "EDD (Calculated from L.M.P):",
+              "type": "obs",
+              "id": "lmpEdd",
+              "questionOptions": {
+                "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date",
+                "calculate": {
+                  "calculateExpression": "moment(lmpDate).isValid() ? moment(lmpDate).add(280, 'days').toDate() : ''"
+                }
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "true"
+                }
+              ]
+            },
+            {
+              "label": "Gestation(weeks)",
+              "type": "obs",
+              "id": "maturity",
+              "questionOptions": {
+                "concept": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "useMostRecentValue": "true",
+                "autoPopulateWithMostRecentValue": "true",
+                "min": "2",
+                "max": "42"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Medical History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "History of Blood Transfusion?",
+              "type": "obs",
+              "id": "btHis",
+              "questionOptions": {
+                "concept": "d8ae3fbb-1c37-46e7-8920-db85801284ef",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Family History",
+              "type": "obs",
+              "id": "famHis",
+              "questionOptions": {
+                "concept": "166635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Obstetric History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Obstetric History",
+              "type": "obsGroup",
+              "id": "previousPregnancy",
+              "questionOptions": {
+                "concept": "160593AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "validators": [],
+              "questions": [
+                {
+                  "label": "Pregnancy Order",
+                  "type": "obs",
+                  "id": "test",
+                  "questionOptions": {
+                    "concept": "5558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  }
+                },
+                {
+                  "label": "Year of previous pregnancy",
+                  "type": "obs",
+                  "id": "dateOfPreviousPregnancy",
+                  "questionOptions": {
+                    "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  }
+                },
+                {
+                  "label": "Number of Antenatal contacts",
+                  "type": "obs",
+                  "id": "antenatalVisitNumber",
+                  "questionOptions": {
+                    "concept": "1425AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  }
+                },
+                {
+                  "label": "Place of Childbirth",
+                  "type": "obs",
+                  "id": "locationOfBirth",
+                  "questionOptions": {
+                    "concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Home"
+                      },
+                      {
+                        "concept": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Health Facility"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Gestational age at birth (weeks)",
+                  "type": "obs",
+                  "id": "gestationalAgeAtBirth",
+                  "questionOptions": {
+                    "concept": "1409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  }
+                },
+                {
+                  "label": "Duration of labor",
+                  "type": "obs",
+                  "id": "durationOfLabor",
+                  "questionOptions": {
+                    "concept": "159616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  }
+                },
+                {
+                  "label": "Method of delivery",
+                  "type": "obs",
+                  "id": "methodOfDelivery",
+                  "questionOptions": {
+                    "concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Spontaneous vaginal delivery(SVD)"
+                      },
+                      {
+                        "concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Cesarean section(CS)"
+                      },
+                      {
+                        "concept": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Breech delivery"
+                      },
+                      {
+                        "concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Assisted vaginal delivery(AVD)"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Birth weight (grams)",
+                  "type": "obs",
+                  "id": "birthWeight",
+                  "questionOptions": {
+                    "concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  }
+                },
+                {
+                  "label": "Sex",
+                  "type": "obs",
+                  "id": "childGender",
+                  "questionOptions": {
+                    "concept": "1587AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Female"
+                      },
+                      {
+                        "concept": "1534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Male"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Outcome",
+                  "type": "obs",
+                  "id": "qualitativeBirthOutcome",
+                  "questionOptions": {
+                    "concept": "159917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "159035AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Alive Birth"
+                      },
+                      {
+                        "concept": "159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Fresh Still Birth"
+                      },
+                      {
+                        "concept": "135436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Macerated Still Birth"
+                      },
+                      {
+                        "concept": "48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Miscarriage"
+                      },
+                      {
+                        "concept": "162641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Preterm"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Feeding",
+                  "type": "obs",
+                  "id": "feeDing",
+                  "questionOptions": {
+                    "concept": "1646AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Puerperium",
+                  "type": "obs",
+                  "id": "puerperiumP",
+                  "questionOptions": {
+                    "concept": "1646AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Antenatal Profile",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "ANC Profile done?",
+              "type": "obs",
+              "required": "true",
+              "id": "ancProfile",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "0179f241-8c1d-47c1-8128-841f6508e251",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Haemoglobin",
+              "id": "hB",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "min": "0",
+                "max": "44"
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Blood Group/Rhesus:",
+              "type": "obs",
+              "id": "bloodGroupRhesus",
+              "questionOptions": {
+                "concept": "300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "A NEGATIVE"
+                  },
+                  {
+                    "concept": "690AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "A POSITIVE"
+                  },
+                  {
+                    "concept": "1231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AB NEGATIVE"
+                  },
+                  {
+                    "concept": "1230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AB POSITIVE"
+                  },
+                  {
+                    "concept": "696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "B NEGATIVE"
+                  },
+                  {
+                    "concept": "694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "B POSITIVE"
+                  },
+                  {
+                    "concept": "701AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "O NEGATIVE"
+                  },
+                  {
+                    "concept": "699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "O POSITIVE"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urine Microscopy",
+              "type": "obs",
+              "id": "urineMicroscopy",
+              "questionOptions": {
+                "concept": "56AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urine Leukocyte Esterase Test",
+              "type": "obs",
+              "id": "urineLeukocyte",
+              "questionOptions": {
+                "concept": "161441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Trace"
+                  },
+                  {
+                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "One Plus(+)"
+                  },
+                  {
+                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Two Plus(++)"
+                  },
+                  {
+                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Three Plus(+++)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urinary Albumin",
+              "type": "obs",
+              "id": "urinaryAlbumin",
+              "questionOptions": {
+                "concept": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Trace - 15"
+                  },
+                  {
+                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "One Plus(+) - 30"
+                  },
+                  {
+                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Two Plus(++) - 100"
+                  },
+                  {
+                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Three Plus(+++) - 300"
+                  },
+                  {
+                    "concept": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Four Plus(++++) - 1000"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urinary Ketone",
+              "type": "obs",
+              "id": "urinaryKetone",
+              "questionOptions": {
+                "concept": "161442AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Trace - 5"
+                  },
+                  {
+                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "One Plus(+) - 15"
+                  },
+                  {
+                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Two Plus(++) - 50"
+                  },
+                  {
+                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Three Plus(+++) - 150"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Glucose Measurement (Qualitative)",
+              "type": "obs",
+              "id": "glucoseMeasurement",
+              "questionOptions": {
+                "concept": "159734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Trace"
+                  },
+                  {
+                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "One Plus(+)"
+                  },
+                  {
+                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Two Plus(++)"
+                  },
+                  {
+                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Three Plus(+++)"
+                  },
+                  {
+                    "concept": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Four Plus(++++)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urine Bile Salt Test",
+              "type": "obs",
+              "id": "urinaryBileSalt",
+              "questionOptions": {
+                "concept": "161444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Trace - 1"
+                  },
+                  {
+                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "One Plus(+) - 4"
+                  },
+                  {
+                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Two Plus(++) - 8"
+                  },
+                  {
+                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Three Plus(+++) - 12"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urine pH",
+              "type": "obs",
+              "id": "urinePh",
+              "questionOptions": {
+                "concept": "161438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "1",
+                "max": "12"
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urine Bile Pigment Test",
+              "type": "obs",
+              "id": "urineBilePigment",
+              "questionOptions": {
+                "concept": "161443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "One Plus(+)"
+                  },
+                  {
+                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Two Plus(++)"
+                  },
+                  {
+                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Three Plus(+++)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urine Specific Gravity",
+              "type": "obs",
+              "id": "urineSpecificGravity",
+              "questionOptions": {
+                "concept": "161439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "1.005",
+                "max": "1.030"
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urine Color",
+              "type": "obs",
+              "id": "urineColour",
+              "questionOptions": {
+                "concept": "162106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "162100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Brown color"
+                  },
+                  {
+                    "concept": "162099AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Colourless"
+                  },
+                  {
+                    "concept": "162098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dark yellow colour"
+                  },
+                  {
+                    "concept": "162097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Light yellow colour"
+                  },
+                  {
+                    "concept": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Red color"
+                  },
+                  {
+                    "concept": "162105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yellow-green colour"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urine Nitrite Test",
+              "type": "obs",
+              "id": "urineNitrite",
+              "questionOptions": {
+                "concept": "161440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "One Plus(+)"
+                  },
+                  {
+                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Two Plus(++)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urine Turbidity",
+              "type": "obs",
+              "id": "urineTurbidity",
+              "questionOptions": {
+                "concept": "162101AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "162103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cloudy urine"
+                  },
+                  {
+                    "concept": "162102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Urine appears clear"
+                  },
+                  {
+                    "concept": "162104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Urine appears turbid"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urine Dipstick for Blood",
+              "type": "obs",
+              "id": "urineDipstick",
+              "questionOptions": {
+                "concept": "162096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1874AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Trace"
+                  },
+                  {
+                    "concept": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "One Plus(+)"
+                  },
+                  {
+                    "concept": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Two Plus(++)"
+                  },
+                  {
+                    "concept": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Three Plus(+++)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "ancProfile !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "VDRL",
+              "type": "obs",
+              "id": "syphilisTestResults",
+              "questionOptions": {
+                "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Non-Reactive"
+                  },
+                  {
+                    "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Reactive"
+                  },
+                  {
+                    "concept": "165649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inconclusive"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "HIV Serology",
+              "type": "obs",
+              "id": "patientHivStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Reactive"
+                  },
+                  {
+                    "concept": "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Non-Reactive"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "HIV Test Date:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "160554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "patientHivTestDate",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && patientHivStatus !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date started ART:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "DateArtStart",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Current Regimen",
+              "type": "obs",
+              "id": "patientRegimen",
+              "questionOptions": {
+                "concept": "164855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "162559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/DDI/LPV/r"
+                  },
+                  {
+                    "concept": "162562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/LPV/R/TDF"
+                  },
+                  {
+                    "concept": "161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "EDF/3TC/EFV"
+                  },
+                  {
+                    "concept": "792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "D4T/3TC/NVP"
+                  },
+                  {
+                    "concept": "9fb85385-b4fb-468c-b7c1-22f75834b4b0",
+                    "label": "TDF/3TC/DTG"
+                  },
+                  {
+                    "concept": "162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/ABC/LPV/r"
+                  },
+                  {
+                    "concept": "4dc0119b-b2a6-4565-8d90-174b97ba31db",
+                    "label": "ABC/3TC/DTG"
+                  },
+                  {
+                    "concept": "164511AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AZT-3TC-ATV/r"
+                  },
+                  {
+                    "concept": "162563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/ABC/EFV"
+                  },
+                  {
+                    "concept": "6dec7d7d-0fda-4e8d-8295-cb6ef426878d",
+                    "label": "AZT/3TC/DTG"
+                  },
+                  {
+                    "concept": "164505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF-3TC-EFV"
+                  },
+                  {
+                    "concept": "817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/3TC/AZT"
+                  },
+                  {
+                    "concept": "1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/NVP/AZT"
+                  },
+                  {
+                    "concept": "162560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/D4T/LPV/r"
+                  },
+                  {
+                    "concept": "162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/NVP/3TC"
+                  },
+                  {
+                    "concept": "164512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF-3TC-ATV/r"
+                  },
+                  {
+                    "concept": "104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "EFV/FTC/TDF"
+                  },
+                  {
+                    "concept": "162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/LPV/TDF/r"
+                  },
+                  {
+                    "concept": "162565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/NVP/TDF"
+                  },
+                  {
+                    "concept": "162561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/AZT/LPV/r"
+                  },
+                  {
+                    "concept": "160124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AZT/3TC/EFV"
+                  },
+                  {
+                    "concept": "160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "D4T/3TC/EFV"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Facility receiving HIV care:",
+              "type": "obs",
+              "id": "facilityReceivingcare",
+              "questionOptions": {
+                "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Does the client have a partner?",
+              "type": "obs",
+              "id": "partNer",
+              "questionOptions": {
+                "concept": "9e7792d6-ee26-4b4a-9683-24b6714e9a91",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Partner HIV Status:",
+              "type": "obs",
+              "id": "partnerHivStatus",
+              "questionOptions": {
+                "concept": "1436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  },
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HIV Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HIV Negative"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(partNer) || partNer !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Partner HIV Test Date:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(partnerHivStatus) || partnerHivStatus === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "id": "partnerHivTestDate",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Admission Examination",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Has consent been given? ",
+              "type": "obs",
+              "id": "consentGiven",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "167171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Height of fundus",
+              "type": "obs",
+              "id": "fundal",
+              "questionOptions": {
+                "concept": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "12",
+                "max": "42"
+              }
+            },
+            {
+              "label": "Presentation:",
+              "type": "obs",
+              "id": "presentation",
+              "questionOptions": {
+                "concept": "160090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cephalic presentation"
+                  },
+                  {
+                    "concept": "139814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Breech Presentation"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Engagement",
+              "type": "obs",
+              "id": "engaMemt",
+              "questionOptions": {
+                "concept": "35881a01-011c-40bf-a70e-4906a11dd6e8",
+                "rendering": "number",
+                "min": "0",
+                "max": "42"
+              }
+            },
+            {
+              "label": "Position:",
+              "type": "obs",
+              "id": "posiTion",
+              "questionOptions": {
+                "concept": "f6c4036b-00c5-470d-9c1b-c898bf256e51",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "164148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Occipito-Anterior"
+                  },
+                  {
+                    "concept": "130348AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Occipito-Posterior"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Foetal Heartrate:",
+              "type": "obs",
+              "id": "foetalValue",
+              "questionOptions": {
+                "concept": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "max": "250",
+                "min": "40"
+              }
+            },
+            {
+              "label": "Vaginal Discharge",
+              "type": "obs",
+              "id": "vagDis",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "External Genitals",
+              "type": "obs",
+              "id": "extGen",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Spleen",
+              "type": "obs",
+              "id": "spleEn",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Abnormalities",
+              "type": "obs",
+              "id": "abnoMalities",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Report On Labour",
+              "type": "obs",
+              "id": "labReprt",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Admission Diagnosis",
+              "id": "finalDiagnosisId",
+              "type": "diagnosis",
+              "questionOptions": {
+                "rendering": "remote-select",
+                "rank": 2,
+                "datasource": {
+                  "name": "diagnoses",
+                  "config": {
+                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+                  }
+                }
+              }
+            },
+            {
+              "label": "Management Plan",
+              "type": "obs",
+              "id": "mangMt",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Ward Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "type": "obsGroup",
+              "id": "inpatientDispositionConstruct",
+              "questionOptions": {
+                "concept": "CIEL:169405",
+                "rendering": "group"
+              },
+              "questions": [
+                {
+                  "id": "disposition",
+                  "label": "Disposition",
+                  "type": "obs",
+                  "required": true,
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "required": true,
+                    "concept": "CIEL:169402",
+                    "answers": [
+                      {
+                        "concept": "CIEL:168619"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "outcomePatient !=='77eafb3f-58d3-4397-a6dc-d2c06e9062f3'"
+                  },
+                  "validators": []
+                },
+                {
+                  "id": "admitToLocation",
+                  "label": "Admit To Location",
+                  "type": "obs",
+                  "required": true,
+                  "questionOptions": {
+                    "rendering": "remote-select",
+                    "concept": "CIEL:169403",
+                    "datasource": {
+                      "name": "location",
+                      "config": {
+                        "tag": "Admission Location"
+                      }
+                    }
+                  },
+                  "hide": {
+                    "hideWhenExpression": "outcomePatient !=='77eafb3f-58d3-4397-a6dc-d2c06e9062f3'"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "encounterType": "c6d09e05-1f25-4164-8860-9f32c5a02df0",
+  "referencedForms": []
+}
