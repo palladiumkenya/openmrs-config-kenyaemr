@@ -205,14 +205,16 @@
                 "rendering": "repeating"
               },
               "validators": [],
-              "questions": [
+               "questions": [
                 {
                   "label": "Pregnancy Order",
                   "type": "obs",
                   "id": "test",
                   "questionOptions": {
                     "concept": "5558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number"
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "99"
                   }
                 },
                 {
@@ -220,9 +222,15 @@
                   "type": "obs",
                   "id": "dateOfPreviousPregnancy",
                   "questionOptions": {
-                    "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number"
-                  }
+                    "concept": "1113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "date"
+                  },
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "false"
+                    }
+                  ]
                 },
                 {
                   "label": "Number of Antenatal contacts",
@@ -230,7 +238,9 @@
                   "id": "antenatalVisitNumber",
                   "questionOptions": {
                     "concept": "1425AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number"
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "99"
                   }
                 },
                 {
@@ -258,16 +268,20 @@
                   "id": "gestationalAgeAtBirth",
                   "questionOptions": {
                     "concept": "1409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number"
+                    "rendering": "number",
+                    "min": "2",
+                    "max": "42"
                   }
                 },
                 {
-                  "label": "Duration of labor",
+                  "label": "Duration of labor(Hours)",
                   "type": "obs",
                   "id": "durationOfLabor",
                   "questionOptions": {
                     "concept": "159616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number"
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "200"
                   }
                 },
                 {
@@ -303,7 +317,9 @@
                   "id": "birthWeight",
                   "questionOptions": {
                     "concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number"
+                    "rendering": "number",
+                    "min": "200",
+                    "max": "5000"
                   }
                 },
                 {
@@ -1034,6 +1050,778 @@
               }
             },
             {
+              "label": "Client eligible for testing :",
+              "type": "obs",
+              "id": "eligibleTest",
+              "questionOptions": {
+                "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Which HIV test is been performed?",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Initial"
+                  },
+                  {
+                    "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Retest"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "id": "HIVTestQuestion",
+              "required": "true"
+            },
+            {
+              "label": "Has consent been given? ",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "true",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "false",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "id": "consentGiven",
+              "required": "true"
+            },
+            {
+              "label": "Client tested as?  ",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "b61c1482-1697-404c-ab96-fd698d5fd317",
+                "answers": [
+                  {
+                    "concept": "147082f4-0662-4bfa-a54c-914f1db97373",
+                    "label": "Individual"
+                  },
+                  {
+                    "concept": "c3eba392-6f4d-4990-809f-91000503afbc",
+                    "label": "Couple"
+                  }
+                ]
+              },
+              "id": "testedAs",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              }
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest1",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 1 Name",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      }
+                    ]
+                  },
+                  "id": "kitName",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'M'"
+                  }
+                },
+                {
+                  "label": "Kit 1 Name",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      },
+                      {
+                        "concept": "5e010f25-6074-4caa-9a26-9ae93ca03e31",
+                        "label": "Standard Q"
+                      }
+                    ]
+                  },
+                  "id": "kitNameA",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age < 9)"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumber",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "required": "true",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDate",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA)"
+                  }
+                },
+                {
+                  "label": "HIV Test 1 Results:",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResults",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA)"
+                  }
+                },
+                {
+                  "label": "Syphilis Results:",
+                  "type": "obs",
+                  "id": "syphilisTestResults",
+                  "questionOptions": {
+                    "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Non-Reactive"
+                      },
+                      {
+                        "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Reactive"
+                      },
+                      {
+                        "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Inconclusive"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameA) || kitNameA !== '5e010f25-6074-4caa-9a26-9ae93ca03e31'"
+                  }
+                },
+                {
+                  "label": "Was treatment given?",
+                  "type": "obs",
+                  "id": "syphilisTreatmentGiven",
+                  "questionOptions": {
+                    "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(syphilisTestResults) || syphilisTestResults !== '1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test(s)",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest2",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 2 Name",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "3de9db8a-32a2-4518-8887-c8f25208dade",
+                        "label": "One Step"
+                      }
+                    ]
+                  },
+                  "id": "kitNameB",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberB",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameB)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "required": "true",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateB",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameB)"
+                  }
+                },
+                {
+                  "label": "HIV Test 2 Results:",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsB",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameB)"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTestA2b",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 3 Name",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "5e010f25-6074-4caa-9a26-9ae93ca03e31",
+                        "label": "Standard Q"
+                      }
+                    ]
+                  },
+                  "id": "kitNameG",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitNameA ==='9c4011c2-2579-49cf-ab53-93d009f03e7b'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberG",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameG)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "required": "true",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateG",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameG)"
+                  }
+                },
+                {
+                  "label": "HIV Test 3 Results:",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsG",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameG)"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTestA2",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 3 Name",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      }
+                    ]
+                  },
+                  "id": "kitNameD",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitNameA ==='5e010f25-6074-4caa-9a26-9ae93ca03e31'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberD",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameD)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "required": "true",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateD",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameD)"
+                  }
+                },
+                {
+                  "label": "HIV Test 3 Results:",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsD",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameD)"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest3",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 3 Name",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+                        "label": "First Response"
+                      }
+                    ]
+                  },
+                  "id": "kitNameC",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberC",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameC)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "required": "true",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateC",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameC)"
+                  }
+                },
+                {
+                  "label": "HIV Test 3 Results:",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "83038d41-e832-498b-928f-974ec5bb23dc",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsC",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameC)"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Final Results1:",
+              "type": "obs",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "calculate": {
+                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsC) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsD) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsG) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsG) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsG) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': ''"
+                },
+                "answers": [
+                  {
+                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Positive"
+                  },
+                  {
+                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Negative"
+                  },
+                  {
+                    "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inconclusive"
+                  }
+                ]
+              },
+              "id": "hivFinalResult",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitNameA === '7cf927f8-e734-474f-b71a-1459bb566aa2' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Results given to client?",
+              "type": "obs",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "164848AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373066001"
+                      },
+                      {
+                        "type": "PIH Malawi",
+                        "value": "Malawi: 1065"
+                      },
+                      {
+                        "type": "CIEL",
+                        "value": "1065"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1065"
+                      }
+                    ]
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No",
+                    "conceptMappings": [
+                      {
+                        "type": "PIH",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "PIH Malawi",
+                        "value": "Malawi: 1066"
+                      },
+                      {
+                        "type": "AMPATH",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "CIEL",
+                        "value": "1066"
+                      },
+                      {
+                        "type": "SNOMED CT",
+                        "value": "CT: 373067005"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "id": "resultsGiven",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              }
+            },
+            {
               "label": "Does the client have a partner?",
               "type": "obs",
               "id": "partNer",
@@ -1078,15 +1866,15 @@
                 "hideWhenExpression": "isEmpty(partNer) || partNer !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
-            {
+             {
               "label": "Partner HIV Test Date:",
               "type": "obs",
               "questionOptions": {
-                "rendering": "date",
-                "concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                "concept": "160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(partnerHivStatus) || partnerHivStatus === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(partnerHivStatus) || partnerHivStatus === '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || partNer !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               },
               "id": "partnerHivTestDate",
               "validators": [
@@ -1250,6 +2038,128 @@
                     "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
                   }
                 }
+              }
+            },
+             {
+              "label": "Mother's ART prophylaxis given during this visit?",
+              "type": "obs",
+              "id": "prophylaxisUsed",
+              "questionOptions": {
+                "concept": "1109AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cotrimoxazole"
+                  },
+                  {
+                    "concept": "74250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dapsone"
+                  },
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientHivStatus) || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Was mother on HAART during ANC?",
+              "type": "obs",
+              "id": "motherHaart",
+              "questionOptions": {
+                "concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "N/A"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientHivStatus) || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Was mother started on HAART at maternity?",
+              "type": "obs",
+              "id": "haartMat",
+              "questionOptions": {
+                "concept": "b253d0cf-f56f-4670-bd5e-1c15c0ed2cea",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "N/A"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientHivStatus) || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "AZT for the baby dispensed?",
+              "type": "obs",
+              "id": "aztDispensed",
+              "questionOptions": {
+                "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientHivStatus) || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "NVP for the baby dispensed?",
+              "type": "obs",
+              "id": "nvpDispensed",
+              "questionOptions": {
+                "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientHivStatus) || patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
