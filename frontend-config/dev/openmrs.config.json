@@ -93,6 +93,40 @@
       "visitTypesUuids": ["3371a4d4-f66f-4454-a86d-92c7b3da990c"]
     }
   },
+  "@openmrs/esm-appointments-app": {
+    "concepts": {
+      "visitQueueNumberAttributeUuid": "c61ce16f-272a-41e7-9924-4c555d0932c5"
+    },
+    "includePhoneNumberInExcelSpreadsheet": true,
+    "allowAllDayAppointments": true,
+    "showServiceQueueFields": true,
+    "defaultFacilityUrl": "/ws/rest/v1/kenyaemr/default-facility",
+    "patientIdentifierType": "Unique Patient Number",
+    "showUnscheduledAppointmentsTab": false,
+    "appointmentStatuses": ["Scheduled"],
+    "appointmentTypes": ["Scheduled"],
+    "extensionSlots": {
+      "scheduled-appointments-panels-slot": {
+        "remove": ["cancelled-appointments-panel"],
+        "configure": {
+          "expected-appointments-panel": {
+            "showForPastDate": true,
+            "showForFutureDate": true
+          },
+          "completed-appointments-panel": {
+            "showForPastDate": true,
+            "showForFutureDate": false
+          }
+        }
+      }
+    },
+    "checkInButton": {
+      "enabled": false
+    },
+    "checkOutButton": {
+      "enabled": false
+    }
+  },
   "@openmrs/esm-form-entry-app": {
     "customEncounterDatetime": true
   },
@@ -237,7 +271,8 @@
         "startAVisit": "Check in",
         "endAVisit": "Check out",
         "Vitals & Biometrics dashboard": "Vitals & Anthropometric",
-        "vitalsAndBiometrics": "Vitals & Anthropometric"
+        "vitalsAndBiometrics": "Vitals & Anthropometric",
+        "visitType_title": "Department"
       }
     }
   },
@@ -363,11 +398,6 @@
             "Display conditions": {
               "privileges": ["o3: View Imaging Order Form"]
             }
-          },
-          "medical-supply-order-panel": {
-            "Display conditions": {
-              "privileges": ["o3: View Medical Supply Order Form"]
-            }
           }
         }
       }
@@ -416,14 +446,18 @@
       },
       "homepage-dashboard-slot": {
         "remove": [
-          "claims-management-dashboard-nav-group",
-          "patient-services-dashboard-nav-group",
-          "linkage-services-dashboard-nav-group",
-          "diagnostics-dashboard-nav-group",
-          "kenyaemr-home-page-link",
-          "kenyaemr-wards-dashboard-link"
+          "home-widget-db-link",
+          "laboratory-dashboard-link",
+          "service-queues-dashboard-link",
+          "referrals-link",
+          "lab-manifest-dashboard-link",
+          "ward-dashboard-link",
+          "pharmacy-dashboard-link",
+          "clinical-appointments-dashboard-link",
+          "imaging-orders-link",
+          "procedure-dashboard-link"
         ],
-        "add": ["procedure-dashboard-link", "imaging-orders-link"],
+        "add": [],
         "configure": {
           "home-widget-db-link": {
             "Display conditions": {
@@ -642,6 +676,11 @@
               "privileges": [
                 "o3: View Patient Chart Vitals & Biometrics Dashboard"
               ]
+            }
+          },
+          "patient-chart-clinical-consultation-nav-group": {
+            "Display conditions": {
+              "privileges": ["o3: View Patient Chart Clinical Consultation"]
             }
           }
         }
