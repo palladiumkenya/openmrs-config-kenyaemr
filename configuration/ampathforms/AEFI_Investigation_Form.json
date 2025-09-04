@@ -543,6 +543,9 @@
               "questionOptions": {
                 "concept": "aefi-birth-details",
                 "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "ageInDays > 365"
               }
             },
             {
@@ -590,7 +593,7 @@
               "type": "obs",
               "id": "sessionTiming",
               "questionOptions": {
-                "concept": "aefi-session-timing",
+                "concept": "0f2ccbe4-d081-4fa2-8c7a-7933831a114c",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -613,7 +616,7 @@
               "type": "obs",
               "id": "vialTiming",
               "questionOptions": {
-                "concept": "aefi-vial-timing",
+                "concept": "1d5f70bb-1d37-4f77-9628-09f392ad8a01",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -659,7 +662,7 @@
               "type": "obs",
               "id": "unsterileVaccine",
               "questionOptions": {
-                "concept": "aefi-unsterile-vaccine",
+                "concept": "e7eb7a18-b938-49df-bc5a-15a69f83c0b8",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -682,7 +685,7 @@
               "type": "obs",
               "id": "abnormalCondition",
               "questionOptions": {
-                "concept": "aefi-abnormal-condition",
+                "concept": "7c45ef89-3f0b-421c-8f92-87301440bbc1",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -705,7 +708,7 @@
               "type": "obs",
               "id": "reconstitutionError",
               "questionOptions": {
-                "concept": "aefi-reconstitution-error",
+                "concept": "f39ad42d-7614-473e-b962-31c3f7aeadc6",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -728,7 +731,7 @@
               "type": "obs",
               "id": "handlingError",
               "questionOptions": {
-                "concept": "aefi-handling-error",
+                "concept": "054eb5b7-89f8-49a8-934f-88c60c8621d3",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -751,7 +754,7 @@
               "type": "obs",
               "id": "administrationError",
               "questionOptions": {
-                "concept": "aefi-administration-error",
+                "concept": "65002724-890d-4d23-9c00-84c5f1660303",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -783,7 +786,7 @@
               "type": "obs",
               "id": "numberImmunizedSession",
               "questionOptions": {
-                "concept": "aefi-number-immunized-session",
+                "concept": "2e1bda71-5cc7-4743-b034-8aed1a180a0f",
                 "rendering": "number"
               }
             },
@@ -792,8 +795,8 @@
               "type": "obs",
               "id": "numberImmunizedOtherLocations",
               "questionOptions": {
-                "concept": "aefi-number-immunized-other",
-                "rendering": "text"
+                "concept": "a70a6472-9167-4c30-9ded-4d4a0a8921dc",
+                "rendering": "number"
               }
             },
             {
@@ -801,9 +804,35 @@
               "type": "obs",
               "id": "clusterCase",
               "questionOptions": {
-                "concept": "aefi-cluster-case",
-                "rendering": "text"
+                "concept": "f27e6e92-210e-4e8d-a889-06ffe8b03050",
+                "rendering": "radio",
+                 "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
               }
+            },
+            {
+              "label": "How many other cases have been detected in the cluster?",
+              "type": "obs",
+              "id": "casesDetectedInCluster",
+              "questionOptions": {
+                "concept": "365e155d-4bc4-484a-ae96-0cbf59924912",
+                "rendering": "number"
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(clusterCase) || clusterCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
             },
             {
               "label": "Did all cluster cases receive vaccine from same vial?",
@@ -826,23 +855,29 @@
                     "label": "Unknown"
                   }
                 ]
-              }
+              },
+                "hide": {
+                        "hideWhenExpression": "isEmpty(clusterCase) || clusterCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
             },
             {
               "label": "Number of vials used in cluster",
               "type": "obs",
               "id": "vialsUsedCluster",
               "questionOptions": {
-                "concept": "aefi-vials-used-cluster",
-                "rendering": "text"
-              }
+                "concept": "38e8ebfb-a3f1-4964-87ed-4183499400e4",
+                "rendering": "number"
+              },
+                "hide": {
+                        "hideWhenExpression": "isEmpty(sameVialCluster) || sameVialCluster !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
             },
             {
-              "label": "Are AD syringes used?",
+              "label": "Are Auto-Disable (AD) syringes used?",
               "type": "obs",
               "id": "adSyringesUsed",
               "questionOptions": {
-                "concept": "aefi-ad-syringes",
+                "concept": "86d43826-e076-412d-82fd-f5dd8b221dd7",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -865,17 +900,11 @@
               "type": "obs",
               "id": "syringeType",
               "questionOptions": {
-                "concept": "aefi-syringe-type",
+                "concept": "162169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "text"
-              }
-            },
-            {
-              "label": "Reconstitution procedures and observations",
-              "type": "obs",
-              "id": "reconstitutionObservations",
-              "questionOptions": {
-                "concept": "aefi-reconstitution-observations",
-                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(adSyringesUsed) || adSyringesUsed !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -885,11 +914,11 @@
           "isExpanded": true,
           "questions": [
             {
-              "label": "Same reconstitution syringe used for multiple vials of same vaccine?",
+              "label": "Reconstitution procedures and observations done?",
               "type": "obs",
-              "id": "sameSyringeMultipleVials",
+              "id": "reconstitutionObservations",
               "questionOptions": {
-                "concept": "aefi-syringe-multiple-vials",
+                "concept": "13575d90-b7b6-4a65-a8a1-ec35514ded42",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -899,20 +928,38 @@
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
-                  },
-                  {
-                    "concept": "na",
-                    "label": "NA"
                   }
                 ]
               }
+            },
+            {
+              "label": "Same reconstitution syringe used for multiple vials of same vaccine?",
+              "type": "obs",
+              "id": "sameSyringeMultipleVials",
+              "questionOptions": {
+                "concept": "a5b04339-f707-4075-ad9d-23b67c1a2529",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(reconstitutionObservations) || reconstitutionObservations !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
             },
             {
               "label": "Same reconstitution syringe used for reconstituting different vaccines?",
               "type": "obs",
               "id": "sameSyringeDifferentVaccines",
               "questionOptions": {
-                "concept": "aefi-syringe-different-vaccines",
+                "concept": "5a8912b2-4f24-4bf1-b17e-a92ae7961eb3",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -922,20 +969,19 @@
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
-                  },
-                  {
-                    "concept": "na",
-                    "label": "NA"
                   }
                 ]
-              }
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(reconstitutionObservations) || reconstitutionObservations !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
             },
             {
               "label": "Separate reconstitution syringe for each vaccine vial?",
               "type": "obs",
               "id": "separateSyringeEachVial",
               "questionOptions": {
-                "concept": "aefi-syringe-each-vial",
+                "concept": "75f1ecd9-0fe7-4922-82f1-9eabf1f556fc",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -945,20 +991,19 @@
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
-                  },
-                  {
-                    "concept": "na",
-                    "label": "NA"
                   }
                 ]
-              }
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(reconstitutionObservations) || reconstitutionObservations !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
             },
             {
               "label": "Separate reconstitution syringe for each vaccination?",
               "type": "obs",
               "id": "separateSyringeEachVaccination",
               "questionOptions": {
-                "concept": "aefi-syringe-each-vaccination",
+                "concept": "21dc373d-2aa4-4a1d-bf0a-0b0f36a6d3ac",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -968,20 +1013,19 @@
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
-                  },
-                  {
-                    "concept": "na",
-                    "label": "NA"
                   }
                 ]
-              }
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(reconstitutionObservations) || reconstitutionObservations !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
             },
             {
               "label": "Are the vaccines and diluents used the same as those recommended by the manufacturer?",
               "type": "obs",
               "id": "manufacturerRecommended",
               "questionOptions": {
-                "concept": "aefi-manufacturer-recommended",
+                "concept": "e1771a3e-a084-424b-b86e-644649ca227",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -991,20 +1035,19 @@
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
-                  },
-                  {
-                    "concept": "na",
-                    "label": "NA"
                   }
                 ]
-              }
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(reconstitutionObservations) || reconstitutionObservations !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
             },
             {
               "label": "Specific key findings/additional observations and comments",
               "type": "obs",
               "id": "reconstitutionComments",
               "questionOptions": {
-                "concept": "aefi-reconstitution-comments",
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "textarea"
               }
             }
