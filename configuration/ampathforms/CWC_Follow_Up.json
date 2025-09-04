@@ -1,7 +1,7 @@
 {
 	"name": "CWC Follow Up",
 	"description": "CWC Follow Up",
-	"version": "2.1",
+	"version": "3",
 	"published": true,
 	"uuid": "755b59e6-acbb-4853-abaf-be302039f902",
 	"retired": false,
@@ -50,1001 +50,508 @@
 			]
 		  },
 		  {
-			"label": "Growth, Nutrition and Development Monitoring",
-			"isExpanded": "true",
-			"questions": [
-			  {
-				"label": "Revisit this year?",
-				"type": "obs",
-				"required": "true",
-				"id": "revisitThisYear",
-				"questionOptions": {
-				  "concept": "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Follow-up",
-				"type": "obs",
-				"id": "followupfor",
-				"questionOptions": {
-				  "concept": "167079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "160552AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Nutrition services"
-					},
-					{
-					  "concept": "161624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Rehabilitation services"
-					},
-					{
-					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Other"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Specify :",
-				"type": "obs",
-				"id": "otherspecifyfollowup",
-				"questionOptions": {
-				  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "text"
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(followupfor) || !arrayContains(followupfor, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-				}
-			  },
-			  {
-				"label": "HIV Exposed Child?",
-				"type": "obs",
-				"id": "hivExposedChild",
-				"questionOptions": {
-				  "concept": "5303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					},
-					{
-					  "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Unknown"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Primary care giver?",
-				"type": "obs",
-				"id": "primaryCaregiver",
-				"questionOptions": {
-				  "concept": "160640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
-				  "answers": [
-					{
-					  "concept": "973AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Grandparent"
-					},
-					{
-					  "concept": "972AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Sibling"
-					},
-					{
-					  "concept": "970AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Mother"
-					},
-					{
-					  "concept": "971AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Father"
-					},
-					{
-					  "concept": "160639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Guardian"
-					},
-					{
-					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Other"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Specify :",
-				"type": "obs",
-				"id": "otherPrimaryCaregiver",
-				"questionOptions": {
-				  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "text"
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(primaryCaregiver) || primaryCaregiver != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Mother's Viral Load: cp/ml",
-				"type": "obs",
-				"id": "motherVL",
-				"questionOptions": {
-				  "concept": "163545AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "number",
-				  "min": "0"
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(primaryCaregiver) || primaryCaregiver !== '970AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || hivExposedChild !== '822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  }
-			]
-		  }
-		]
-	  },
-	  {
-		"label": "Patient History",
-		"sections": [
-		  {
-			"label": "History",
-			"isExpanded": "true",
-			"questions": [
-			  {
-				"label": "Patient having complaint(s) today?",
-				"type": "obs",
-				"id": "complaintsToday",
-				"required": "true",
-				"questionOptions": {
-				  "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Presenting complaints",
-				"type": "obsGroup",
-				"id": "ComplaintLodgeByClient",
-				"questionOptions": {
-				  "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "repeating"
-				},
-				"validators": [],
-				"hide": {
-				  "hideWhenExpression": "complaintsToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				},
-				"questions": [
-				  {
-					"label": "Complaint",
-					"type": "obs",
-					"id": "cOmplaIntField",
-					"questionOptions": {
-					  "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "select",
-					  "answers": [
-						{
-						  "concept": "151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Abdominal pain"
-						},
-						{
-						  "concept": "141631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Abnormal Uterine Bleeding"
-						},
-						{
-						  "concept": "121543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Anxiety"
-						},
-						{
-						  "concept": "148035AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Back pain"
-						},
-						{
-						  "concept": "840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Bloody Urine"
-						},
-						{
-						  "concept": "117671AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Blood in stool"
-						},
-						{
-						  "concept": "131021AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Breast Pain"
-						},
-						{
-						  "concept": "120749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Chest Pain"
-						},
-						{
-						  "concept": "871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Cold and Chills"
-						},
-						{
-						  "concept": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Confusion"
-						},
-						{
-						  "concept": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Cough"
-						},
-						{
-						  "concept": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Convulsions"
-						},
-						{
-						  "concept": "144576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Coma"
-						},
-						{
-						  "concept": "106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Coryza"
-						},
-						{
-						  "concept": "143129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Crying Infant"
-						},
-						{
-						  "concept": "119574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Delirium"
-						},
-						{
-						  "concept": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Depression"
-						},
-						{
-						  "concept": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Diarrhoea"
-						},
-						{
-						  "concept": "122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Difficult in breathing"
-						},
-						{
-						  "concept": "118789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Difficulty in swallowing"
-						},
-						{
-						  "concept": "142247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Discharge from Penis"
-						},
-						{
-						  "concept": "141830AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Dizziness"
-						},
-						{
-						  "concept": "141585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Ear Pain"
-						},
-						{
-						  "concept": "141128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Epigastric Pain"
-						},
-						{
-						  "concept": "131040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Eye Pain"
-						},
-						{
-						  "concept": "140941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Excessive Sweating"
-						},
-						{
-						  "concept": "114399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Facial Pain"
-						},
-						{
-						  "concept": "162626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Fatigue/weakness"
-						},
-						{
-						  "concept": "140070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Flank Pain"
-						},
-						{
-						  "concept": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Fever"
-						},
-						{
-						  "concept": "135367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": " General Body Malaise"
-						},
-						{
-						  "concept": "135462AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Genital Ulcer"
-						},
-						{
-						  "concept": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Headache"
-						},
-						{
-						  "concept": "117698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Hearing Loss"
-						},
-						{
-						  "concept": "116214AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Hypotension"
-						},
-						{
-						  "concept": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Itchiness/Pruritus"
-						},
-						{
-						  "concept": "116558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Joint Pain"
-						},
-						{
-						  "concept": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Leg Pain"
-						},
-						{
-						  "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Lethargy"
-						},
-						{
-						  "concept": "135595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Loss of Appetite"
-						},
-						{
-						  "concept": "135488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Lymphadenopathy"
-						},
-						{
-						  "concept": "121657AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Memory Loss"
-						},
-						{
-						  "concept": "111721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Mouth Ulceration"
-						},
-						{
-						  "concept": "131015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Mouth Pain"
-						},
-						{
-						  "concept": "133028AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Muscle cramps"
-						},
-						{
-						  "concept": "133632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Muscle Pain"
-						},
-						{
-						  "concept": "121AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Mylagia"
-						},
-						{
-						  "concept": "5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Nausea"
-						},
-						{
-						  "concept": "133469AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Neck Pain"
-						},
-						{
-						  "concept": "133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Night sweats"
-						},
-						{
-						  "concept": "132653AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Numbness"
-						},
-						{
-						  "concept": "162628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Unexplained bleeding"
-						},
-						{
-						  "concept": "125225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Pain when Swallowing"
-						},
-						{
-						  "concept": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Pelvic Pain"
-						},
-						{
-						  "concept": "5953AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Poor Vision"
-						},
-						{
-						  "concept": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Rash"
-						},
-						{
-						  "concept": "127777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Red Eye/ Conjuctivitis"
-						},
-						{
-						  "concept": "6017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Refusal to feed"
-						},
-						{
-						  "concept": "113224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Running/Blocked nose"
-						},
-						{
-						  "concept": "131032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Scrotal Pain"
-						},
-						{
-						  "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Seizure"
-						},
-						{
-						  "concept": "126535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Shoulder Pain"
-						},
-						{
-						  "concept": "112989AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Shock"
-						},
-						{
-						  "concept": "158843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Sore Throat"
-						},
-						{
-						  "concept": "141597AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Sleep Disturbance"
-						},
-						{
-						  "concept": "125198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Swollen Legs"
-						},
-						{
-						  "concept": "112200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Tremors"
-						},
-						{
-						  "concept": "160208AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Urinary Symptoms"
-						},
-						{
-						  "concept": "161887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Watery Diarrhoea"
-						},
-						{
-						  "concept": "157498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Weakness of Limbs"
-						},
-						{
-						  "concept": "832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Weight Loss"
-						},
-						{
-						  "concept": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Vaginal Discharge"
-						},
-						{
-						  "concept": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Vomiting"
-						},
-						{
-						  "concept": "111525AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Vertigo"
-						},
-						{
-						  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Other"
-						}
-					  ]
-					}
-				  },
-				  {
-					"label": "Specify other complaints",
-					"type": "obs",
-					"id": "OtherSpecificComplaints",
-					"questionOptions": {
-					  "concept": "20395601-257c-490c-86c2-acffb627f91f",
-					  "rendering": "textarea"
-					},
-					"validators": [],
-					"hide": {
-					  "hideWhenExpression": "cOmplaIntField !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-					}
-				  },
-				  {
-					"label": "Patient had contact with TB Infected person in the last 12 months?",
-					"type": "obs",
-					"id": "contactTB",
-					"required": "true",
-					"questionOptions": {
-					  "concept": "124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "radio",
-					  "answers": [
-						{
-						  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Yes"
-						},
-						{
-						  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "No"
-						}
-					  ]
-					},
-					"hide": {
-					  "hideWhenExpression": "cOmplaIntField !== '143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-					}
-				  },
-				  {
-					"label": "Duration (Days)",
-					"type": "obs",
-					"id": "complaint-duration",
-					"questionOptions": {
-					  "concept": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "rendering": "number",
-					  "min": "0"
-					},
-					"validators": []
-				  },
-				  {
-					"label": "Onset Status",
-					"type": "obs",
-					"id": "onsetStatus",
-					"questionOptions": {
-					  "concept": "d7a3441d-6aeb-49be-b7d6-b2a3bb39e78d",
-					  "rendering": "select",
-					  "answers": [
-						{
-						  "concept": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Gradual"
-						},
-						{
-						  "concept": "162707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						  "label": "Sudden"
-						}
-					  ]
-					}
-				  }
-				]
-			  },
-			  {
-				"label": "Any Danger Signs",
-				"type": "obs",
-				"id": "anyDangerSign",
-				"questionOptions": {
-				  "concept": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "checkbox",
-				  "answers": [
-					{
-					  "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "None"
-					},
-					{
-					  "concept": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Unable to drink or breastfeed",
-					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-					},
-					{
-					  "concept": "164482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Vomiting everything",
-					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-					},
-					{
-					  "concept": "138868AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Hemorrhagic diarrhea",
-					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-					},
-					{
-					  "concept": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Currently convulsing",
-					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-					},
-					{
-					  "concept": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Lethargy/Unconscious",
-					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-					},
-					{
-					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Other",
-					  "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Other (Specify)",
-				"type": "obs",
-				"questionOptions": {
-				  "rendering": "text",
-				  "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-				},
-				"id": "otherDangerSign",
-				"hide": {
-				  "hideWhenExpression": "isEmpty(anyDangerSign) || !arrayContains(anyDangerSign, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
-				}
-			  },
-			  {
-				"label": "Infant Feeding",
-				"type": "obs",
-				"id": "infantFeeding",
-				"required": "true",
-				"questionOptions": {
-				  "concept": "1151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Exclusive breastfeeding <6 Months(EBF)"
-					},
-					{
-					  "concept": "5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Infant Breastfeeding >6 months (BF)"
-					},
-					{
-					  "concept": "164478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Not Breastfeeding(NBF)"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Immunization status upto date?",
-				"type": "obs",
-				"id": "immunizationStatus",
-				"questionOptions": {
-				  "concept": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Development Milestones by Age",
-				"id": "developmentMilestones",
-				"type": "obs",
-				"questionOptions": {
-				  "rendering": "checkbox",
-				  "concept": "162069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "answers": [
-					{
-					  "concept": "162056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Social Smile"
-					},
-					{
-					  "concept": "162057AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Head Holding/Control"
-					},
-					{
-					  "concept": "162058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Turns towards the origin of sound"
-					},
-					{
-					  "concept": "162059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Extends hand to grasp a toy"
-					},
-					{
-					  "concept": "162061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Sitting"
-					},
-					{
-					  "concept": "162062AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Standing"
-					},
-					{
-					  "concept": "162063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Walking"
-					},
-					{
-					  "concept": "162060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Talking"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Achieving Milestones?",
-				"type": "obs",
-				"id": "achievingMilestones",
-				"required": "true",
-				"questionOptions": {
-				  "concept": "1189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "6022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Delayed(D)"
-					},
-					{
-					  "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Normal(N)"
-					},
-					{
-					  "concept": "6025AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Regressed(R)"
-					}
-				  ]
-				}
-			  }
-			]
-		  }
-		]
-	  },
-	  {
-		"label": "Patient Examination",
-		"sections": [
-		  {
-			"label": "Examination",
-			"isExpanded": "true",
-			"questions": [
-			  {
-				"label": "PUPIL",
-				"type": "obs",
-				"id": "pupilExamination",
-				"questionOptions": {
-				  "concept": "162064AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "162065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Black"
-					},
-					{
-					  "concept": "1075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "White"
-					}
-				  ]
-				},
-				"alert": {
-				  "alertWhenExpression": "myValue === '1075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-				  "message": "Refer to eye clinic"
-				}
-			  },
-			  {
-				"label": "SIGHT",
-				"type": "obs",
-				"id": "sightExamination",
-				"questionOptions": {
-				  "concept": "162067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Not Following Objects"
-					},
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Following Objects"
-					}
-				  ]
-				},
-				"alert": {
-				  "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-				  "message": "Refer to eye clinic"
-				}
-			  },
-			  {
-				"label": "SQUINT (Crossed Eyes)",
-				"type": "obs",
-				"id": "squint",
-				"questionOptions": {
-				  "concept": "162066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No Squint"
-					},
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Squint"
-					}
-				  ]
-				},
-				"alert": {
-				  "alertWhenExpression": "myValue === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-				  "message": "Refer to eye clinic"
-				}
-			  },
-			  {
-				"label": "TB Assessment Outcome",
-				"type": "obs",
-				"id": "btAssesmentOutcome",
-				"questionOptions": {
-				  "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
-				  "answers": [
-					{
-					  "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No signs"
-					},
-					{
-					  "concept": "1679AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "TPT"
-					},
-					{
-					  "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Presumed TB"
-					},
-					{
-					  "concept": "1661AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Confirmed"
-					},
-					{
-					  "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "TB Rx"
-					},
-					{
-					  "concept": "160737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Not done"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Impression",
-				"id": "clinicalDiagnosisId",
-				"type": "diagnosis",
-				 "questionOptions": {
-                "rendering": "repeating",
-                "dataSource": "diagnoses",
-                "rank": 1,
-                "datasource": {
-                  "name": "diagnoses",
-                  "config": {
-                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+          "label": "Particulars of the child",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date first seen",
+              "type": "obs",
+              "required": "true",
+              "id": "firstDateSeen",
+              "questionOptions": {
+                "concept": "162140AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Gestation at birth(weeks)",
+              "type": "obs",
+              "required": "true",
+              "id": "gestation",
+              "questionOptions": {
+                "concept": "1409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Birth Weight: (grams)",
+              "type": "obs",
+              "required": "true",
+              "id": "weight",
+              "questionOptions": {
+                "concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "200",
+                "max": "5000"
+              }
+            },
+            {
+              "label": "Birth length in cm",
+              "type": "obs",
+              "required": "true",
+              "id": "height",
+              "questionOptions": {
+                "concept": "1503AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
+                "rendering": "number"
+              }
+            }
+          ]
+        },
+		{
+          "label": "Other birth characteristics",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Birth Order in Family (1,2,3)",
+              "type": "obs",
+              "required": "true",
+              "id": "birthOrderInFamily",
+              "questionOptions": {
+                "concept": "163460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Birth type:",
+              "type": "obs",
+              "required": "true",
+              "id": "birthOutcome",
+              "questionOptions": {
+                "concept": "159949AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "159913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Single"
+                  },
+                  {
+                    "concept": "159914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Twins"
+                  },
+                  {
+                    "concept": "159915AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Triplets"
+                  },
+                  {
+                    "concept": "113450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Quadruplets"
+                  },
+                  {
+                    "concept": "113440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Quintuplets"
                   }
+                ]
+              }
+            },
+            {
+              "label": "Mode of Delivery",
+              "type": "obs",
+              "required": "true",
+              "id": "modeOfDelivery",
+              "questionOptions": {
+                "concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Spontaneous Vaginal Delivery(SVD)"
+                  },
+                  {
+                    "concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cesarian Section (CS)"
+                  },
+                  {
+                    "concept": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Breech Delivery"
+                  },
+                  {
+                    "concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Assisted Vaginal Delivery (AVD)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Any congenital abnormalities",
+              "type": "obs",
+              "required": "true",
+              "id": "congenitalAbnormalities",
+              "questionOptions": {
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "145066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cleft lip"
+                  },
+                  {
+                    "concept": "125043AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Club foot"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify :",
+              "type": "obs",
+              "id": "otherspecifyfollowup",
+              "questionOptions": {
+                "concept": "d7f01f09-1e8b-4129-bdf6-dbae6e9aa69c",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(congenitalAbnormalities) || !arrayContains(congenitalAbnormalities, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Health Record of a child",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Place of birth",
+              "type": "obs",
+              "required": "true",
+              "id": "birthPlace",
+              "questionOptions": {
+                "concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Home"
+                  },
+                  {
+                    "concept": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Facility"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Birth Notification Number",
+              "type": "obs",
+              "id": "birthNotificationNumber",
+              "questionOptions": {
+                "concept": "162051AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Date Issued",
+              "type": "obs",
+              "id": "dateIssued",
+              "questionOptions": {
+                "concept": "164129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Immunization Permanent Register Number",
+              "type": "obs",
+              "id": "permanentRegisterNumber",
+              "questionOptions": {
+                "concept": "1646AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "type": "patientIdentifier",
+              "label": "CWC No (CWC-MFL code-year-serial number) e.g CWC-15007-2025-00001",
+              "questionInfo": "",
+              "id": "CwcFormat",
+              "required": "true",
+              "default": "",
+              "questionOptions": {
+                "rendering": "text",
+                "identifierType": "1dc8b419-35f2-4316-8d68-135f0689859b"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "doesNotMatchExpression('^CWC-\\\\d{5}-\\\\d{4}-\\\\d{5,6}$', CwcFormat)",
+                  "message": "Please provide the correct format for the cwc number ie. CWC+mflCode+year-number eg.CWC-11902-2025-00062"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Civil Registration",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Birth certificate Number",
+              "type": "obs",
+              "id": "birthCertificateNumber",
+              "questionOptions": {
+                "concept": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Date of registration",
+              "type": "obs",
+              "id": "dateOfRegistration",
+              "questionOptions": {
+                "concept": "164130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Place of registration",
+              "type": "obs",
+              "id": "placeOfRegistration",
+              "questionOptions": {
+                "concept": "164140AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Father's Name:",
+              "type": "obs",
+              "id": "pApa",
+              "questionOptions": {
+                "concept": "1646AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Father's Tel No.",
+              "type": "obs",
+              "id": "fathersTelNo",
+              "questionOptions": {
+                "concept": "162729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
+                  "message": "Please enter the telephone number in the correct format e.g 0720200200 that is 10 digits"
+                }
+              ]
+            },
+            {
+              "label": "Mother's Name:",
+              "type": "obs",
+              "id": "mAma",
+              "questionOptions": {
+                "concept": "1646AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Mother's Tel No:",
+              "type": "obs",
+              "id": "mothersTelNo",
+              "questionOptions": {
+                "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
+                  "message": "Please enter the telephone number in the correct format e.g 0720200200 that is 10 digits"
+                }
+              ]
+            },
+            {
+              "label": "Guardian's Name:",
+              "type": "obs",
+              "id": "guardianSname",
+              "questionOptions": {
+                "concept": "166973AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Guardian's Tel No:",
+              "type": "obs",
+              "id": "guardiansTelNo",
+              "questionOptions": {
+                "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
+                  "message": "Please enter the telephone number in the correct format e.g 0720200200 that is 10 digits"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Broad clinical review at first contact below 6 months:",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Age at first contact:",
+              "type": "obs",
+              "required": "true",
+              "id": "ageContact",
+              "questionOptions": {
+                "concept": "1409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Weight: (grams)",
+              "type": "obs",
+              "required": "true",
+              "id": "weight",
+              "questionOptions": {
+                "concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Length/Height in cm",
+              "type": "obs",
+              "id": "height",
+              "questionOptions": {
+                "concept": "1503AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Z-Score",
+              "type": "obs",
+              "id": "zScore",
+              "readonly": true,
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "162584AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "max": "100",
+                "min": "-50",
+                "calculate": {
+                  "calculateExpression": "height && weight && fetchData(`/openmrs/ws/rest/v1/kenyaemr/zscore?sex=${sex}&age=${age}&weight=${weight}&height=${height}&type=height_for_age`,'wfl_score')"
                 }
               },
-				"hide": {
-				  "hideWhenExpression": "visitTo === '167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Order any Investigation?",
-				"type": "obs",
-				"id": "investigationOrderd",
-				"questionOptions": {
-				  "rendering": "radio",
-				  "concept": "0179f241-8c1d-47c1-8128-841f6508e251",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": ""
-				}
-			  },
-			  {
-				"label": "Lab Order",
-				"required": false,
-				"id": "labsWorkspaceLauncher",
-				"questionOptions": {
-				  "rendering": "workspace-launcher",
-				  "buttonLabel": "Add lab order",
-				  "workspaceName": "add-lab-order"
-				},
-				"hide": {
-				  "hideWhenExpression": "investigationOrderd !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  }
-			]
-		  }
-		]
-	  },
-	  {
-		"label": "Patient Management",
-		"sections": [
-		  {
-			"label": "Management",
-			"isExpanded": "true",
-			"questions": [
-			  {
-				"label": "Final Diagnosis",
-				"id": "finalDiagnosisId",
-				"type": "diagnosis",
-				 "questionOptions": {
-                "rendering": "repeating",
-                "rank": 2,
-                "datasource": {
-                  "name": "diagnoses",
-                  "config": {
-                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
-                  }
-                }
+              "hide": {
+                "hideWhenExpression": "!(age >= 0 && age <=5)"
               }
-			  },
-			  {
-				"label": "Drug Order",
-				"required": false,
-				"id": "drugsWorkspaceLauncher",
-				"questionOptions": {
-				  "rendering": "workspace-launcher",
-				  "buttonLabel": "Add drug order",
-				  "workspaceName": "add-drug-order"
-				}
-			  },
-			  {
-				"label": "Medication given if HIV Exposed",
-				"type": "obs",
-				"id": "Medication",
-				"questionOptions": {
-				  "concept": "966AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "checkbox",
-				  "answers": [
-					{
-					  "concept": "86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Zidovudine (AZT)"
-					},
-					{
-					  "concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Nevirapine (NVP)"
-					},
-					{
-					  "concept": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Sulfamethoxazole/Trimethoprim (Ctx)"
-					},
-					{
-					  "concept": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Multivitamin (M/vit)"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(hivExposedChild) || hivExposedChild !== '822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Tetracycline Eye Ointment (TEO) Given?",
-				"type": "obs",
-				"id": "tetracyclineGeven",
-				"questionOptions": {
-				  "concept": "162077AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
-				}
-			  },
-			  {
-              "label": "Long-lasting insecticidal nets (LLIN) given to the child?",
+            },
+            {
+              "label": "HIV Exposed Child?",
               "type": "obs",
-              "id": "longLastingnet",
+              "id": "hivExposedChild",
               "questionOptions": {
-                "concept": "159855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "5303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "HIV Status:",
+              "type": "obs",
+              "id": "exposedStats",
+              "questionOptions": {
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Non-Reactive"
+                  },
+                  {
+                    "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Reactive"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivExposedChild) || hivExposedChild !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date of HIV testing",
+              "type": "obs",
+              "id": "exposureDate",
+              "questionOptions": {
+                "concept": "164856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "type": "patientIdentifier",
+              "label": "HEI ID Number",
+              "questionInfo": "",
+              "id": "heiNo",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "text",
+                "identifierType": "0691f522-dd67-4eeb-92c8-af5083baf338",
+                "maxLength": "15",
+                "minLength": "12"
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Mother Alive?",
+              "type": "obs",
+              "id": "motherAlive",
+              "questionOptions": {
+                "concept": "159481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1055,14 +562,17 @@
                     "label": "No"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
-			{
-              "label": "Dewormed during this visit?",
+            {
+              "label": "History of TB Contact in Household?",
               "type": "obs",
-              "id": "dewormedThisVisit",
+              "id": "tbContact",
               "questionOptions": {
-                "concept": "159922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "152460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -1076,15 +586,1023 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "!(age >1)"
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
-              "label": "Supplemented with MNPS 6-23 Months?",
+              "label": "Is the mother Breastfeeding?",
               "type": "obs",
-              "id": "supplementedWith",
+              "id": "motherBreastfeeding",
               "questionOptions": {
-                "concept": "5484AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "159941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Source of Referral",
+              "type": "obs",
+              "id": "sourceOfReferral",
+              "questionOptions": {
+                "concept": "160540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Paediatric"
+                  },
+                  {
+                    "concept": "160456AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Maternity"
+                  },
+                  {
+                    "concept": "162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "CCC"
+                  },
+                  {
+                    "concept": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "MCH/PMTCT"
+                  },
+                  {
+                    "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "OPD"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Transfer in?",
+              "type": "obs",
+              "id": "transferStatus",
+              "questionOptions": {
+                "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Transfer in date:",
+              "type": "obs",
+              "id": "transferInDate",
+              "questionOptions": {
+                "concept": "160534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Transferred from facility:",
+              "type": "obs",
+              "id": "transferredFromFacility",
+              "questionOptions": {
+                "concept": "160535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date enrolled in HEI care:",
+              "type": "obs",
+              "id": "dateEnrolledHeiCare",
+              "questionOptions": {
+                "concept": "160555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "transferStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Type of ARV prophylaxis",
+              "type": "obs",
+              "id": "childProphylaxis",
+              "questionOptions": {
+                "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "78643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC Liquid BD"
+                  },
+                  {
+                    "concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sd NVP Only"
+                  },
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  },
+                  {
+                    "concept": "160123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AZT Liquid BD for 6 weeks"
+                  },
+                  {
+                    "concept": "1149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "162326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "NVP for 6 weeks(Mother on HAART)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hivExposedChild) || hivExposedChild !== '822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "NVP during BF?",
+              "type": "obs",
+              "id": "childNvp",
+              "questionOptions": {
+                "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Nevirapine"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Facility registered:",
+              "type": "obs",
+              "id": "facilityRegistered",
+              "questionOptions": {
+                "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Mother's CCC No.",
+              "type": "obs",
+              "id": "mothersCcc",
+              "questionOptions": {
+                "concept": "162053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Mother On ART at Enrollment of Infant",
+              "type": "obs",
+              "id": "onART",
+              "questionOptions": {
+                "concept": "162055AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "If yes, select regimen",
+              "type": "obs",
+              "id": "currentMothersRegimen",
+              "questionOptions": {
+                "concept": "1088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "165605AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF/3TC/DTG"
+                  },
+                  {
+                    "concept": "a7c25c03-3fe6-41b5-97a1-5b2abaae84fa",
+                    "label": "TAF/3TC/DTG"
+                  },
+                  {
+                    "concept": "162559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/DDI/LPV/r"
+                  },
+                  {
+                    "concept": "162562AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/LPV/R/TDF"
+                  },
+                  {
+                    "concept": "161361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "EDF/3TC/EFV"
+                  },
+                  {
+                    "concept": "792AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "D4T/3TC/NVP"
+                  },
+                  {
+                    "concept": "162200AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/ABC/LPV/r"
+                  },
+                  {
+                    "concept": "164511AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AZT-3TC-ATV/r"
+                  },
+                  {
+                    "concept": "162563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/ABC/EFV"
+                  },
+                  {
+                    "concept": "164505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF/3TC/EFV"
+                  },
+                  {
+                    "concept": "817AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/3TC/AZT"
+                  },
+                  {
+                    "concept": "1652AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/NVP/AZT"
+                  },
+                  {
+                    "concept": "162560AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/D4T/LPV/r"
+                  },
+                  {
+                    "concept": "162199AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ABC/NVP/3TC"
+                  },
+                  {
+                    "concept": "164512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF-3TC-ATV/r"
+                  },
+                  {
+                    "concept": "104565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "EFV/FTC/TDF"
+                  },
+                  {
+                    "concept": "162201AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/LPV/TDF/r"
+                  },
+                  {
+                    "concept": "162565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/NVP/TDF"
+                  },
+                  {
+                    "concept": "162561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "3TC/AZT/LPV/r"
+                  },
+                  {
+                    "concept": "160124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AZT/3TC/EFV"
+                  },
+                  {
+                    "concept": "160104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "D4T/3TC/EFV"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "onART !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Haemoglobin (HB)",
+              "type": "obs",
+              "id": "haemGlobin",
+              "questionOptions": {
+                "concept": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Physical feature",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Colouration",
+              "required": "true",
+              "id": "genFindings",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "162737AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cyanosis",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Jaundice",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "128320AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Macules",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "110205AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hypopigmentation",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Head circumference (cm):",
+              "type": "obs",
+              "id": "headCircurmfrence",
+              "questionOptions": {
+                "concept": "164140AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Ear Exam Findings",
+              "type": "obs",
+              "id": "earFinding",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Mouth Exam Findings",
+              "type": "obs",
+              "id": "mouthFinding",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Chest Exam Findings",
+              "type": "obs",
+              "id": "chestFinding",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Heart Exam Findings",
+              "type": "obs",
+              "id": "heartFinding",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Abdomen Exam Findings",
+              "type": "obs",
+              "id": "abdomenFinding",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Umbilical cord/umbilicus Exam Findings",
+              "type": "obs",
+              "id": "umbilicalFinding",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Spine Exam Findings",
+              "type": "obs",
+              "id": "soineFinding",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Arms & hands Exam Findings",
+              "type": "obs",
+              "id": "armsFinding",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Legs & feet Exam Findings",
+              "type": "obs",
+              "id": "legsFinding",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Genitalia Findings",
+              "type": "obs",
+              "id": "genitaliaFindings",
+              "questionOptions": {
+                "concept": "690f6993-6ce8-4829-9b70-c0026e06c864",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Normal"
+                  },
+                  {
+                    "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Abnormal"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Refer to Paeditrician"
+              }
+            },
+            {
+              "label": "Abnormalities observed",
+              "type": "obs",
+              "id": "abnormalFindingsMale",
+              "questionOptions": {
+                "concept": "6361809e3-65f9-428e-82e6-e0da0488d4db",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Indeterminate"
+                  },
+                  {
+                    "concept": "138010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Undescended testes/ hypospadiasis"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "sex !=='M' || genitaliaFindings !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Other Abnormalities observed",
+              "type": "obs",
+              "id": "otherAbnormalFindingsMale",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text",
+                "answers": []
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(abnormalFindingsMale) || !arrayContains(abnormalFindingsMale, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Abnormalities observed",
+              "type": "obs",
+              "id": "abnormalFindingsFemale",
+              "questionOptions": {
+                "concept": "462bfb69-b97e-425c-b387-ddd3a5c8653c",
+                "rendering": "text",
+                "answers": []
+              },
+              "hide": {
+                "hideWhenExpression": "sex !=='F' || genitaliaFindings !== '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Anus Findings",
+              "type": "obs",
+              "id": "anusFindings",
+              "questionOptions": {
+                "concept": "8742743d-a74f-41c4-8f54-6010418a755f",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Perforate (Normal)"
+                  },
+                  {
+                    "concept": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Imperforate (Abnormal)"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Refer to Paeditrician"
+              }
+            }
+          ]
+        },
+        {
+          "label": "TB Screening",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient on anti-TB Drugs?",
+              "type": "obs",
+              "id": "OnantiTBdrugs",
+              "required": "true",
+              "questionOptions": {
+                "concept": "89264964-919b-4f39-816e-c0554b55df51",
+                "rendering": "radio",
+                "required": "true",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Patient currently on TPT?",
+              "type": "obs",
+              "id": "OnTpT",
+              "questionOptions": {
+                "concept": "c49549c5-f761-408b-bc71-c0ae1fd16b73",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Patient ever on TPT?",
+              "type": "obs",
+              "questionOptions": {
+                "concept": "1adbdc14-2324-4298-90d1-5b590c3cf094",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "id": "EverOnTPT",
+              "hide": {
+                "hideWhenExpression": "isEmpty(OnTpT) || OnTpT === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Screening Questions",
+              "type": "obsGroup",
+              "id": "scReeNiNQuiZ",
+              "questionOptions": {
+                "concept": "160108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "group"
+              },
+              "questions": [
+                {
+                  "label": "Cough of any duration:",
+                  "type": "obs",
+                  "id": "cOughDuratiOn",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'|| (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                  }
+                },
+                {
+                  "label": "Fever:",
+                  "type": "obs",
+                  "id": "FeverIsh",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT) ) || isEmpty(OnTpT)"
+                  }
+                },
+                {
+                  "label": "Noticeable weight loss or poor weight gain:",
+                  "type": "obs",
+                  "id": "WeigHtLossGain",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                  }
+                },
+                {
+                  "label": "Night sweats:",
+                  "type": "obs",
+                  "id": "NighTsWeatS",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                  }
+                },
+                {
+                  "label": "Contact with a TB Case:",
+                  "type": "obs",
+                  "id": "ConTacTbCase",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'|| age > 5 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                  }
+                },
+                {
+                  "label": "Lethergy, less playful than usual:",
+                  "type": "obs",
+                  "id": "LeSSpLayFul",
+                  "questionOptions": {
+                    "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age > 5 || (OnantiTBdrugs === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && OnTpT ==='1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(EverOnTPT)) || isEmpty(OnTpT)"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Resulting TB Status:",
+              "type": "obs",
+              "id": "tbResultstaTuS",
+              "questionOptions": {
+                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "readOnly": "true",
+                "calculate": {
+                  "calculateExpression": "String(OnantiTBdrugs) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) +(String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) > 0 ? '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) === 0 ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cliNicalDiagnosisAction) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) > 0 ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  },
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Confirmed"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "(isEmpty(cOughDuratiOn) && isEmpty(FeverIsh) && isEmpty(WeigHtLossGain) && isEmpty(NighTsWeatS)) || (age < 5 && ((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) === 0)"
+              }
+            },
+            {
+              "label": "Resulting TB Status:",
+              "type": "obs",
+              "id": "tbResultstaTuSUnderfiVe",
+              "questionOptions": {
+                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "readOnly": "true",
+                "calculate": {
+                  "calculateExpression": "String(OnantiTBdrugs) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) +(String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(LeSSpLayFul) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) > 0 ? '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) === 0 ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cliNicalDiagnosisAction) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) > 0 ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  },
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Confirmed"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "(isEmpty(cOughDuratiOn) && isEmpty(FeverIsh) && isEmpty(WeigHtLossGain) && isEmpty(NighTsWeatS) && isEmpty(LeSSpLayFul)) || (age > 5 && ((String(cOughDuratiOn) === '159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(FeverIsh) === '1494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(WeigHtLossGain) === '832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(NighTsWeatS) === '133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(LeSSpLayFul) === '1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(ConTacTbCase) === '124068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) === 0)"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Feeding information from parent/guardian",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Breastfeeding",
+              "type": "obs",
+              "required": "true",
+              "id": "breastFeed",
+              "questionOptions": {
+                "concept": "161096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "159438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Well"
+                  },
+                  {
+                    "concept": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Poorly"
+                  },
+                  {
+                    "concept": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unable to breastfeed"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || myValue === '1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Refer for further management"
+              }
+            },
+            {
+              "label": "Other feeds introduced below 6 months?",
+              "type": "obs",
+              "required": "true",
+              "id": "feedsIntro",
+              "questionOptions": {
+                "concept": "1151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Counsel on EBF"
+              }
+            },
+            {
+              "label": "Age Introduced other feeding",
+              "type": "obs",
+              "id": "ageIntro",
+              "questionOptions": {
+                "rendering": "number",
+                "concept": "164438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(feedsIntro) || !arrayContains(feedsIntro, '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Complementary food from 6 months: Other foods introduced",
+              "type": "obs",
+              "required": "true",
+              "id": "feedscompleIntro",
+              "questionOptions": {
+                "concept": "166000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Counsel on complimentary feeding"
+              }
+            },
+            {
+              "label": "Other foods introduced",
+              "type": "obs",
+              "id": "otherFoodIntroduced",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(feedscompleIntro) || !arrayContains(feedscompleIntro, '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Age other foods introduced",
+              "type": "obs",
+              "id": "ageOtherFoodIntroduced",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "154384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(feedscompleIntro) || !arrayContains(feedscompleIntro, '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Retention of feeds",
+              "type": "obs",
+              "id": "retentionOfFeeds",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "71371078-2386-472e-bd88-708228aa142a",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "A baby who is exclusively breastfed may pass stool many times or may not pass any for some days. This is normal unless he/she has abdominal distension or is vomiting."
+              }
+            },
+            {
+              "label": "Indigestation",
+              "type": "obs",
+              "id": "indigestation",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Other problems as reported by parent/guardian",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Does the baby have problems sleeping?",
+              "type": "obs",
+              "id": "sleepingProb",
+              "required": "true",
+              "questionOptions": {
+                "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
                   {
@@ -1098,128 +1616,603 @@
                 ]
               }
             },
-			  {
-				"label": "Clinician's Notes",
-				"type": "obs",
-				"id": "cliniciansNotes",
-				"questionOptions": {
-				  "concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "textarea"
-				}
-			  },
-			  {
-				"label": "Referred?:",
-				"type": "obs",
-				"id": "referralQuestion",
-				"questionOptions": {
-				  "concept": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
-				}
-			  },
-			  {
-				"label": "Reason for Referral Specify:",
-				"type": "obs",
-				"id": "referralReason",
-				"questionOptions": {
-				  "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "text"
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(referralQuestion) || referralQuestion !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Referral from:",
-				"type": "obs",
-				"id": "referralFrom",
-				"questionOptions": {
-				  "concept": "160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "160543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Community Unit"
-					},
-					{
-					  "concept": "1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Other Health facility"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(referralQuestion) || referralQuestion !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Facility name referred from:",
-				"type": "obs",
-				"id": "specifyFacilityNameReferredFrom",
-				"questionOptions": {
-				  "concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "encounterLocation"
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(referralFrom) || referralFrom !== '1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Referral to:",
-				"type": "obs",
-				"id": "referralTo",
-				"questionOptions": {
-				  "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "160543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Community Unit"
-					},
-					{
-					  "concept": "1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Other Health facility"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(referralQuestion) || referralQuestion !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Facility name referred to:",
-				"type": "obs",
-				"id": "referralToSpecify",
-				"questionOptions": {
-				  "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "encounterLocation"
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(referralTo) || referralTo !== '1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Date of Next Appointment:",
-				"required": false,
-				"id": "appointmentWorkspaceLauncher",
-				"questionOptions": {
-				  "rendering": "workspace-launcher",
-				  "buttonLabel": "Add appointments",
-				  "workspaceName": "appointments-form-workspace"
-				}
-			  }
-			]
-		  }
+            {
+              "label": "Irritability?",
+              "type": "obs",
+              "id": "babyIrritable",
+              "required": "true",
+              "questionOptions": {
+                "concept": "6023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Other problem",
+              "type": "obs",
+              "id": "othersleepd",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Developmental milestones",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Developmental milestones",
+              "type": "obsGroup",
+              "id": "developmentalMilestones",
+              "questionOptions": {
+                "concept": "162070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "questions": [
+                {
+                  "label": "milestones",
+                  "type": "obs",
+                  "required": "true",
+                  "id": "milestones",
+                  "questionOptions": {
+                    "concept": "162069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "",
+                        "label": "Social smile (0-2 months)"
+                      },
+                      {
+                        "concept": "162067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Follows a colourful object dangled before their eyes (0-2 months)"
+                      },
+                      {
+                        "concept": "162058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Startles to loud sound (0-2 months)"
+                      },
+                      {
+                        "concept": "162057AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Holds the head upright (2 - 4 months)"
+                      },
+                      {
+                        "concept": "2f712251-10a2-4dad-a86d-89915655fbc7",
+                        "label": "Turns the head, rolls over, responds to sound and smiles when you speak ((2 - 4 months )"
+                      },
+                      {
+                        "concept": "91fcd4cb-8add-467e-8f96-6f91e58c164a",
+                        "label": "Looks at mother’s face (2 - 4 months)"
+                      },
+                      {
+                        "concept": "162059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Reaches for and grasps objects with hand (4 - 6 months)"
+                      },
+                      {
+                        "concept": "162060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Babbles (makes sounds) (4 - 6 months)"
+                      },
+                      {
+                        "concept": "757d8533-4484-45d2-8107-48fe0de69fb3",
+                        "label": "Enjoys noisy toys (4 - 6 months)"
+                      },
+                      {
+                        "concept": "162061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Sits without support (6 - 9 months)"
+                      },
+                      {
+                        "concept": "887b4f60-95ab-418d-8d5d-c978f5c0514a",
+                        "label": "Moves object from one hand to the other (6 - 9 months)"
+                      },
+                      {
+                        "concept": "936e8b8b-503d-488c-95b9-b4482d12d684",
+                        "label": "Repeats syllables (bababa, mamama) (6 - 9 months)"
+                      },
+                      {
+                        "concept": "037a4f1e-dcfb-4b4c-a1fb-69028a676f09",
+                        "label": "Takes steps with support (9 - 12 months)"
+                      },
+                      {
+                        "concept": "162755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Says 2-3 words (9 - 12 months)"
+                      },
+                      {
+                        "concept": "223273a3-58d6-4fca-a0da-49ea9ac9e416",
+                        "label": "Imitates simple gestures (claps hands, bye) (9 - 12 months)"
+                      },
+                      {
+                        "concept": "1351e90d-97f6-4926-a1b0-25a371ad7e3a",
+                        "label": "Listens when spoken to (9 - 12 months)"
+                      },
+                      {
+                        "concept": "e8303909-98f3-4fec-84de-009491c51fec",
+                        "label": "Walks without support (12 - 18 months)"
+                      },
+                      {
+                        "concept": "57758e62-5111-4844-8724-0f195fa7cb25",
+                        "label": "Drinks from a cup (12 - 18 months)"
+                      },
+                      {
+                        "concept": "f5950e75-a8ff-4494-b229-b59900acb970",
+                        "label": "Says 7-10 words (12 - 18 months)"
+                      },
+                      {
+                        "concept": "01625c4a-badf-4b79-b138-612c8f636fd2",
+                        "label": "Points to some body parts on request (12 - 18 months)"
+                      },
+                      {
+                        "concept": "84328650-0bd6-4c52-b190-1b56c2f9206f",
+                        "label": "Kicks a ball (18 - 24 months)"
+                      },
+                      {
+                        "concept": "b12e56d4-d3d0-4a79-8d20-fbce0d3b637d",
+                        "label": "Points at pictures on request (18 - 24 months)"
+                      },
+                      {
+                        "concept": "24dc7fca-8897-439f-ae64-05dcd74e2ad9",
+                        "label": "Speaks in short sentences (18 - 24 months)"
+                      },
+                      {
+                        "concept": "6639d7a4-b5d8-484d-9b5a-6802b7728431",
+                        "label": "Turns door knobs and lids (24 -30 months)"
+                      },
+                      {
+                        "concept": "dacb276e-1cd0-4b78-884d-7e5606ad420c",
+                        "label": "Can name some body parts (24 -30 months)"
+                      },
+                      {
+                        "concept": "4ba32eb6-7d55-4d3a-8b5c-7c6bb145af98",
+                        "label": "Knows if he or she is a boy or a girl (24 -30 months)"
+                      },
+                      {
+                        "concept": "b33f88d8-00e7-4e95-98d4-65ea5b1a38c2",
+                        "label": "Plays next to and with other children (30-36 months)"
+                      },
+                      {
+                        "concept": "56de84b3-b712-412e-a2ab-7e088d182598",
+                        "label": "Follow simple instructions (30-36 months)"
+                      },
+                      {
+                        "concept": "bed4cc56-cb93-4943-bad0-7453af5554f5",
+                        "label": "Able to take off some clothes by self (30-36 months)"
+                      },
+                      {
+                        "concept": "dd3f1753-eddf-4c57-bb91-cc68c9656d8a",
+                        "label": "Speech is understood by family and friends (30-36 months)"
+                      },
+                      {
+                        "concept": "287810b8-cb55-4696-b1c5-1dc9aeb7cef1",
+                        "label": "Says first name, when asked (36-48 months)"
+                      },
+                      {
+                        "concept": "459fa6f2-61f4-4144-8245-57a00bb1426c",
+                        "label": "Draws a circle, when shown (36-48 months)"
+                      },
+                      {
+                        "concept": "cdd29f21-cc5b-4f1d-9904-4d75fafd3d2e",
+                        "label": "Puts on some clothes by him/herself (36-48 months)"
+                      },
+                      {
+                        "concept": "4c74dcc7-ae61-42a1-9694-99336a137a7e",
+                        "label": "Names a few colors of items (4-5 years)"
+                      },
+                      {
+                        "concept": "da2a375f-588e-4635-958b-af7aeda929f5",
+                        "label": "Draws a person with 3 or more body parts (4-5 years)"
+                      },
+                      {
+                        "concept": "d02c1a8f-9ca9-42e8-ad97-ffa8f5a91210",
+                        "label": "Unbuttons some buttons (4-5 years)"
+                      },
+                      {
+                        "concept": "14bee783-6a5e-42cf-8c5d-c32fae2bdc7e",
+                        "label": "Serves food and water (4-5 years)"
+                      },
+                      {
+                        "concept": "a84c668d-a186-4e7b-8068-21523bb9fdd4",
+                        "label": "Follows rules or takes turns when playing games with other children (5 years and older)"
+                      },
+                      {
+                        "concept": "e41fe051-7593-4f7c-a0f7-b1bb8c293d00",
+                        "label": "Does simple chores at home (5 years and older)"
+                      },
+                      {
+                        "concept": "31f97e75-4a25-4fd1-9389-1f5c83ff4d59",
+                        "label": "Counts to 10 (5 years and older)"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Age achieved",
+                  "type": "obs",
+                  "id": "ageAchieved",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "162068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  }
+                },
+                {
+                  "label": "Achieved within time?",
+                  "type": "obs",
+                  "id": "achievedWithinTime",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "162056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Eye Care Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Tetracycline Eye Ointment (TEO) Given at birth?",
+              "type": "obs",
+              "id": "tetracyclineGeven",
+              "questionOptions": {
+                "concept": "162077AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Pupil assessment at?",
+              "type": "obs",
+              "id": "pupilAssessmentAt",
+              "questionOptions": {
+                "concept": "162077AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "112d5f03-8f9d-450b-bfc2-00ac13d96dd8",
+                    "label": "At birth"
+                  },
+                  {
+                    "concept": "167015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "At 6 months"
+                  },
+                  {
+                    "concept": "1e127a51-74d1-486b-8638-7c932acaf310",
+                    "label": "At 9 months"
+                  },
+                  {
+                    "concept": "ef3e5372-00b7-4ed5-b07f-d3240709afd0",
+                    "label": "At 18 months"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Pupil findings",
+              "type": "obs",
+              "id": "pupilExamination",
+              "questionOptions": {
+                "concept": "162064AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "162065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Black"
+                  },
+                  {
+                    "concept": "1075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "White"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '1075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Refer to eye clinic"
+              }
+            },
+            {
+              "label": "Sight assessment at?",
+              "type": "obs",
+              "id": "sightAssessmentAt",
+              "questionOptions": {
+                "concept": "7a9e248f-a94f-4bda-ad35-bbbabc0edb3e",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "167015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "At 6 months"
+                  },
+                  {
+                    "concept": "1e127a51-74d1-486b-8638-7c932acaf310",
+                    "label": "At 9 months"
+                  },
+                  {
+                    "concept": "ef3e5372-00b7-4ed5-b07f-d3240709afd0",
+                    "label": "At 18 months"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Sight findings",
+              "type": "obs",
+              "id": "sightExamination",
+              "questionOptions": {
+                "concept": "162067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Following Objects"
+                  },
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Following Objects"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Refer to eye clinic"
+              }
+            },
+            {
+              "label": "Squint (Crossed Eyes) assessment at?",
+              "type": "obs",
+              "id": "squintAssessment",
+              "questionOptions": {
+                "concept": "e41272a6-43ab-45a6-82e8-2974bef005a8",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "112d5f03-8f9d-450b-bfc2-00ac13d96dd8",
+                    "label": "At birth"
+                  },
+                  {
+                    "concept": "167015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "At 6 months"
+                  },
+                  {
+                    "concept": "1e127a51-74d1-486b-8638-7c932acaf310",
+                    "label": "At 9 months"
+                  },
+                  {
+                    "concept": "ef3e5372-00b7-4ed5-b07f-d3240709afd0",
+                    "label": "At 18 months"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "SQUINT(Crossed Eyes) finding",
+              "type": "obs",
+              "id": "squintFinding",
+              "questionOptions": {
+                "concept": "162066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No Squint"
+                  },
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Squint"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Refer to eye clinic"
+              }
+            },
+            {
+              "label": "Any other problem",
+              "type": "obs",
+              "id": "otherProblem",
+              "questionOptions": {
+                "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "112d5f03-8f9d-450b-bfc2-00ac13d96dd8",
+                    "label": "At birth"
+                  },
+                  {
+                    "concept": "167015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "At 6 months"
+                  },
+                  {
+                    "concept": "1e127a51-74d1-486b-8638-7c932acaf310",
+                    "label": "At 9 months"
+                  },
+                  {
+                    "concept": "ef3e5372-00b7-4ed5-b07f-d3240709afd0",
+                    "label": "At 18 months"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Any other problem identified",
+              "type": "obs",
+              "id": "anyOtherProblem",
+              "questionOptions": {
+                "concept": "1284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "alert": {
+                "alertWhenExpression": "myValue === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                "message": "Refer to eye clinic"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Special Care",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Does the child need special care?",
+              "type": "obs",
+              "id": "doesChildNeedSpecialCare",
+              "required": "true",
+              "questionOptions": {
+                "concept": "161601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Reasons For Special Care(Tick as appropriate)",
+              "type": "obs",
+              "required": "true",
+              "id": "reasonsForSpecialCare",
+              "questionOptions": {
+                "concept": "b5e0cfd3-1009-4527-8e36-83b5e902b3ea",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "116222AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Birth weight less than 2.5 kg"
+                  },
+                  {
+                    "concept": "eb3238a4-bcd7-4772-a73f-ccf414131c86",
+                    "label": "Birth less than 2 years after last birth"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Birth order Fifth or more child"
+                  },
+                  {
+                    "concept": "162073AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Born of a Teenage mother"
+                  },
+                  {
+                    "concept": "ff68c368-33d8-4a5f-829a-b16add1b9a84",
+                    "label": "Born of a mentally ill mother"
+                  },
+                  {
+                    "concept": "119492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Child with developmental delays"
+                  },
+                  {
+                    "concept": "162074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Any of the child's sibling been undernourished"
+                  },
+                  {
+                    "concept": "162075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Multiple births(Twins, triplets)"
+                  },
+                  {
+                    "concept": "161601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Children with special needs"
+                  },
+                  {
+                    "concept": "120544AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cleft lip/palate"
+                  },
+                  {
+                    "concept": "7dbb5b43-861e-4816-a88f-caa976ac2050",
+                    "label": "Orphan and vulnerable children"
+                  },
+                  {
+                    "concept": "161599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Child has disability"
+                  },
+                  {
+                    "concept": "166563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HIV exposed Infant (HEI)"
+                  },
+                  {
+                    "concept": "111067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "History/signs of child abuse/neglect"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(doesChildNeedSpecialCare) || !arrayContains(doesChildNeedSpecialCare, '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Any other reason for special care (specify)",
+              "type": "obs",
+              "id": "anyOtherSpecialCare",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "154384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(reasonsForSpecialCare) || !arrayContains(reasonsForSpecialCare, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Growth monitoring return date",
+              "required": false,
+              "id": "appointmentWorkspaceLauncher",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add appointments",
+                "workspaceName": "appointments-form-workspace"
+              }
+            }
+          ]
+        }
 		]
 	  }
+	  
 	],
 	"processor": "EncounterFormProcessor",
 	"referencedForms": [],

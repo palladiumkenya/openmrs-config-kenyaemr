@@ -1,7 +1,7 @@
 {
   "name": "MCH Postnatal Visit",
 "description": "MCH Postnatal Visit",
-"version": "2.1",
+"version": "3",
 "published": true,
 "uuid": "72aa78e0-ee4b-47c3-9073-26f3b9ecc4a7",
 "retired": false,
@@ -101,6 +101,10 @@
                   {
                     "concept": "1723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "More than 6 Weeks"
+                  },
+                  {
+                    "concept": "167015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "4 - 6 Months"
                   }
                 ]
               }
@@ -124,6 +128,10 @@
                   {
                     "concept": "167015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "More than 6 Weeks"
+                  },
+                  {
+                    "concept": "167015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "4 - 6 Months"
                   }
                 ]
               }
@@ -268,8 +276,25 @@
                   {
                     "concept": "143242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Cracked nipple"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
                   }
                 ]
+              }
+            },
+            {
+              "label": "Other Specify",
+              "type": "obs",
+              "id": "otherBreastSpecify",
+              "questionOptions": {
+                "concept": "162825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(breast) || !arrayContains(['5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], breast)"
               }
             },
             {
@@ -312,6 +337,9 @@
                     "label": "Other-Specify"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(visitTimingMother) || visitTimingMother !== '1721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -370,6 +398,60 @@
               },
               "hide": {
                 "hideWhenExpression": "isEmpty(pallor) || pallor !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Involution of Uterus:",
+              "type": "obs",
+              "id": "uterusInvolution",
+              "questionOptions": {
+                "concept": "162110AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "162114AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On exam, uterine fundus 24-28 week size"
+                  },
+                  {
+                    "concept": "162115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On exam, uterine fundus 28-32 week size"
+                  },
+                  {
+                    "concept": "162117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On exam, uterine fundus 34-36 week size"
+                  },
+                  {
+                    "concept": "123427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Uterus Involuted"
+                  },
+                  {
+                    "concept": "162112AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On exam, uterine fundus 16-20 week size"
+                  },
+                  {
+                    "concept": "162116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On exam, uterine fundus 32-34 week size"
+                  },
+                  {
+                    "concept": "162118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On exam, uterine fundus 36-38 week size"
+                  },
+                  {
+                    "concept": "162119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On exam, uterine fundus 38 weeks-term size"
+                  },
+                  {
+                    "concept": "162111AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On exam, uterine fundus 12-16 week size"
+                  },
+                  {
+                    "concept": "162113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On exam, uterine fundus 20-24 week size"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(visitTimingMother) || visitTimingMother !== '1722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || visitTimingMother !== '1723AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || visitTimingMother !== '167015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -623,6 +705,25 @@
               }
             },
             {
+              "label": "Screen for mental health",
+              "type": "obs",
+              "id": "screenForMentalHealth",
+              "questionOptions": {
+                "concept": "66940ede-beba-4569-85ef-d238b21cc0f8",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
               "label": "Other Maternal Complications",
               "type": "obs",
               "id": "otherMaternalComplications",
@@ -727,6 +828,50 @@
                   }
                 },
                 {
+                  "label": "Positioning?",
+                  "type": "obs",
+                  "id": "positioning",
+                  "questionOptions": {
+                    "concept": "155329AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "be419a19-b18e-4650-887a-572c14c9ee24",
+                        "label": "Correct"
+                      },
+                      {
+                        "concept": "5382457d-1084-4f61-be44-fa9c11119f68",
+                        "label": "Not correct"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "feedingMethodSingle !== '5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Attachment?",
+                  "type": "obs",
+                  "id": "attachment",
+                  "questionOptions": {
+                    "concept": "164473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Good"
+                      },
+                      {
+                        "concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Poor"
+                      }
+                    ]
+                  },
+                  "hide": {
+                    "hideWhenExpression": "feedingMethodSingle !== '5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
                   "label": "Umbilical Cord",
                   "type": "obs",
                   "id": "umbilicalCordSingle",
@@ -735,33 +880,65 @@
                     "rendering": "select",
                     "answers": [
                       {
-                        "concept": "162126AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Neonatal umbilical stump healed"
-                      },
-                      {
-                        "concept": "162125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Neonatal umbilical stump not healed"
-                      },
-                      {
                         "concept": "162122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Neonatal umbilical stump clean"
-                      },
-                      {
-                        "concept": "162123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Neonatal umbilical stump not clean"
+                        "label": "Clean"
                       },
                       {
                         "concept": "162120AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Neonatal umbilical stump dry"
+                        "label": "Dry"
                       },
                       {
-                        "concept": "162124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Neonatal umbilical stump moist"
+                        "concept": "123844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Bleeding"
+                      },
+                      {
+                        "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Other"
                       }
                     ]
                   },
                   "hide": {
                     "hideWhenExpression": "babyConditionSingle === '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Other Specify",
+                  "type": "obs",
+                  "id": "otherUmbilicalCordSpecify",
+                  "questionOptions": {
+                    "concept": "20063ee5-6c6e-4e93-86b1-e8d8720f6b1d",
+                    "rendering": "textarea"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "umbilicalCordSingle !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Irritable?",
+                  "type": "obs",
+                  "id": "immunizationSingle",
+                  "questionOptions": {
+                    "concept": "6023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "radio",
+                    "answers": [
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Any other problem?",
+                  "type": "obs",
+                  "id": "otherUmbilicalCordSpecify",
+                  "questionOptions": {
+                    "concept": "162163AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "textarea"
                   }
                 },
                 {
@@ -794,7 +971,7 @@
             }
           ]
         },
-        {
+       {
           "label": "HIV Testing",
           "isExpanded": "true",
           "questions": [
@@ -806,24 +983,24 @@
                 "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
                 "answers": [
-                {
-                  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "label": "Yes"
-                },
-                {
-                  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "label": "No"
-                }
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
                 ]
               }
-              },
-              {
-                "label": "Which HIV test is been performed?",
-                "type": "obs",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
+            },
+            {
+              "label": "Which HIV test is been performed?",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
                   {
                     "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Initial"
@@ -832,22 +1009,22 @@
                     "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Retest"
                   }
-                  ]
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                },
-                "id": "HIVTestQuestion",
-                "required": "true"
-                },
-              {
-                "label": "Has consent been given? ",
-                "type": "obs",
-                "questionOptions": {
-                  "rendering": "radio",
-                  "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "answers": [
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "id": "HIVTestQuestion",
+              "required": "true"
+            },
+            {
+              "label": "Has consent been given? ",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
                   {
                     "concept": "true",
                     "label": "Yes"
@@ -856,15 +1033,15 @@
                     "concept": "false",
                     "label": "No"
                   }
-                  ]
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                },
-                "id": "consentGiven",
-                "required": "true"
-                },
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              },
+              "id": "consentGiven",
+              "required": "true"
+            },
             {
               "label": "Client tested as?  ",
               "type": "obs",
@@ -912,10 +1089,6 @@
                       {
                         "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
                         "label": "Trinscreen"
-                      },
-                      {
-                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
-                        "label": "Determine"
                       }
                     ]
                   },
@@ -936,38 +1109,6 @@
                       {
                         "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
                         "label": "Trinscreen"
-                      },
-                      {
-                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
-                        "label": "Determine"
-                      }
-                    ]
-                  },
-                  "id": "kitNameFe",
-                  "validators": [],
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age > 9)"
-                  }
-                },
-                {
-                  "label": "Kit 1 Name",
-                  "type": "obs",
-                  "required": "true",
-                  "questionOptions": {
-                    "rendering": "select",
-                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
-                    "answers": [
-                      {
-                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
-                        "label": "Trinscreen"
-                      },
-                      {
-                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
-                        "label": "Determine"
-                      },
-                      {
-                        "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
-                        "label": "Dual Kit"
                       },
                       {
                         "concept": "5e010f25-6074-4caa-9a26-9ae93ca03e31",
@@ -992,7 +1133,7 @@
                   "id": "lotNumber",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA)"
                   }
                 },
                 {
@@ -1017,7 +1158,7 @@
                   },
                   "id": "expiryDate",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA)"
                   }
                 },
                 {
@@ -1045,7 +1186,7 @@
                   "id": "testResults",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA)"
                   }
                 },
                 {
@@ -1056,52 +1197,47 @@
                     "concept": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "select",
                     "answers": [
-                    {
-                      "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Negative"
-                    },
-                    {
-                      "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Positive"
-                    },
-                    {
-                      "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Poor Sample quality"
-                    }
+                      {
+                        "concept": "1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Non reactive"
+                      },
+                      {
+                        "concept": "1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Reactive"
+                      },
+                      {
+                        "concept": "1304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Inconclusive"
+                      }
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitNameA) || kitNameA !== '2f5a80fa-6f26-4832-b8a8-f47649bb60de' && '5e010f25-6074-4caa-9a26-9ae93ca03e31'"
+                    "hideWhenExpression": "isEmpty(kitNameA) || kitNameA !== '5e010f25-6074-4caa-9a26-9ae93ca03e31'"
                   }
-                  },
-                 {
+                },
+                {
                   "label": "Was treatment given?",
                   "type": "obs",
-                  "id": "syphllTX",
+                  "id": "syphilisTreatmentGiven",
                   "questionOptions": {
                     "concept": "166665AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "rendering": "radio",
                     "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                       "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    }
+                      {
+                        "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Yes"
+                      },
+                      {
+                        "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "No"
+                      }
                     ]
                   },
                   "validators": [],
                   "hide": {
                     "hideWhenExpression": "isEmpty(syphilisTestResults) || syphilisTestResults !== '1228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                  },
-                  "alert": {
-                    "alertWhenExpression": "myValue === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-                    "message": "Start Treatment"
                   }
-                
-                  }
+                }
               ]
             },
             {
@@ -1128,10 +1264,6 @@
                       {
                         "concept": "3de9db8a-32a2-4518-8887-c8f25208dade",
                         "label": "One Step"
-                      },
-                      {
-                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
-                        "label": "First Response"
                       }
                     ]
                   },
@@ -1217,6 +1349,108 @@
                 "rendering": "group",
                 "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
+              "id": "hivTestA2b",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 3 Name",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "5e010f25-6074-4caa-9a26-9ae93ca03e31",
+                        "label": "Standard Q"
+                      }
+                    ]
+                  },
+                  "id": "kitNameG",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitNameA ==='9c4011c2-2579-49cf-ab53-93d009f03e7b'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberG",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameG)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "required": "true",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateG",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameG)"
+                  }
+                },
+                {
+                  "label": "HIV Test 3 Results:",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsG",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameG)"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
               "id": "hivTestA2",
               "validators": [],
               "hide": {
@@ -1224,7 +1458,7 @@
               },
               "questions": [
                 {
-                  "label": "Kit 1 Name",
+                  "label": "Kit 3 Name",
                   "type": "obs",
                   "required": "true",
                   "questionOptions": {
@@ -1240,7 +1474,7 @@
                   "id": "kitNameD",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e' || kitNameA ==='2f5a80fa-6f26-4832-b8a8-f47649bb60de' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
+                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitNameA ==='5e010f25-6074-4caa-9a26-9ae93ca03e31'"
                   }
                 },
                 {
@@ -1415,45 +1649,14 @@
               ]
             },
             {
-              "label": "Final Results:",
+              "label": "Final Results1:",
               "type": "obs",
               "required": "true",
               "questionOptions": {
                 "rendering": "select",
                 "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "calculate": {
-                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
-                },
-                "answers": [
-                  {
-                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Positive"
-                  },
-                  {
-                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Negative"
-                  },
-                  {
-                    "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Inconclusive"
-                  }
-                ]
-              },
-              "id": "hivFinalResultOld",
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameFe === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameA === '9c4011c2-2579-49cf-ab53-93d009f03e7b'"
-              }
-            },
-            {
-              "label": "Final Results:",
-              "type": "obs",
-              "required": "true",
-              "questionOptions": {
-                "rendering": "select",
-                "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "calculate": {
-                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsC) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsD) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsC) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsD) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsG) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsG) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsG) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA': ''"
                 },
                 "answers": [
                   {
@@ -1473,7 +1676,7 @@
               "id": "hivFinalResult",
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e' || kitNameA === '2f5a80fa-6f26-4832-b8a8-f47649bb60de' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitNameA === '7cf927f8-e734-474f-b71a-1459bb566aa2' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || testResults === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitNameA === '7cf927f8-e734-474f-b71a-1459bb566aa2' && testResults === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1619,6 +1822,25 @@
               }
             },
             {
+              "label": "Does the client have a partner?",
+              "type": "obs",
+              "id": "clientHavePartner",
+              "questionOptions": {
+                "concept": "9e7792d6-ee26-4b4a-9683-24b6714e9a91",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
               "label": "Has the client's partner been tested for HIV?",
               "type": "obs",
               "id": "partnerTested",
@@ -1635,6 +1857,9 @@
                     "label": "No"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(clientHavePartner) || clientHavePartner !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1872,6 +2097,10 @@
                   {
                     "concept": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Oral Contraceptives Pills"
+                  },
+                  {
+                    "concept": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Natural method"
                   }
                 ]
               },
