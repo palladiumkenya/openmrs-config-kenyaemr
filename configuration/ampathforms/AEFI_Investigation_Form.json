@@ -1,0 +1,1089 @@
+{
+  "name": "AEFI Investigation Form",
+  "description": "Form to capture Adverse Events Following Immunization",
+  "version": "1",
+  "published": true,
+  "uuid": "aefi-uuid-001",
+  "retired": false,
+  "encounter": "AEFI Investigation",
+  "encounterType": "aefi-encounter-type-uuid",
+  "pages": [
+    {
+        "label": "Visit Details",
+        "sections": [
+          {
+            "label": "Encounter Details",
+            "isExpanded": "true",
+            "questions": [
+              {
+                "label": "Visit date:",
+                "type": "encounterDatetime",
+                "required": "true",
+                "id": "encDate",
+                "questionOptions": {
+                  "rendering": "date"
+                },
+                "validators": [
+                  {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                  }
+                ]
+              },
+              {
+                "label": "Provider:",
+                "type": "encounterProvider",
+                "required": "true",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encProvider "
+              },
+              {
+                "label": "Location:",
+                "type": "encounterLocation",
+                "required": "true",
+                "questionOptions": {
+                  "rendering": "ui-select-extended"
+                },
+                "id": "encLocation"
+              }
+            ]
+          }
+        ]
+    },
+    {
+      "label": "Vaccination Details",
+      "sections": [
+        {
+          "label": "Vaccines and Diluent Received",
+          "isExpanded": true,
+          "questions": [
+            {
+              "label": "Vaccines/Diluent Received",
+              "type": "obsGroup",
+              "id": "vaccinesDiluentGroup",
+              "questionOptions": {
+                "concept": "160325AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "repeating"
+              },
+              "questions": [
+                {
+                  "label": "Name of Vaccine/Diluent",
+                  "type": "obs",
+                  "id": "vaccineName",
+                  "required": true,
+                  "questionOptions": {
+                    "concept": "844bf107-32e6-4d5d-8d40-de8978f79cb3",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Date and Time of Vaccination",
+                  "type": "obs",
+                  "id": "vaccinationTime",
+                  "datePickerFormat": "both",
+                  "questionOptions": {
+                    "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "date"
+                  }
+                },
+                {
+                  "label": "Dose (e.g. 1st, 2nd, etc.)",
+                  "type": "obs",
+                  "id": "doseNumber",
+                  "questionOptions": {
+                    "concept": "1196AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Batch/Lot Number",
+                  "type": "obs",
+                  "id": "batchNumber",
+                  "questionOptions": {
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "id": "expiryDate",
+                  "questionOptions": {
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "date"
+                  },
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Investigation Details",
+          "isExpanded": true,
+          "questions": [
+            {
+              "label": "Type of Site",
+              "type": "obs",
+              "id": "siteType",
+              "questionOptions": {
+                "concept": "bfe2a8d6-c457-4e6b-a026-7f35b1903a1b",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "fc236e68-6573-4d48-8c21-3a060b6ed0ae",
+                    "label": "Fixed"
+                  },
+                  {
+                    "concept": "167051AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mobile"
+                  },
+                  {
+                    "concept": "159927AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Outreach"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other (specify)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Date and time of First/Key Symptom",
+              "type": "obs",
+              "id": "firstSymptomDate",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "concept": "12183153-f8d3-4513-9931-0ceaf81d3df5",
+                "rendering": "date"
+              }
+            },
+            {
+              "label": "Date of Hospitalization",
+              "type": "obs",
+              "id": "hospitalizationDate",
+              "questionOptions": {
+                "concept": "1640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Date First Reported to Health Authority",
+              "type": "obs",
+              "id": "reportedDate",
+              "questionOptions": {
+                "concept": "68bfa3f3-1fc7-4d9d-bb41-e897c3c430ef",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                    "type": "date",
+                    "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Status on Date of Investigation",
+              "type": "obs",
+              "id": "investigationStatus",
+              "questionOptions": {
+                "concept": "159640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Died"
+                  },
+                  {
+                    "concept": "91a87033-8f75-4f08-9f15-0d8ae66bd9d9",
+                    "label": "Disabled"
+                  },
+                  {
+                    "concept": "159406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Recovering"
+                  },
+                  {
+                    "concept": "165870AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Recovered completely"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Date and time of Death (if applicable)",
+              "type": "obs",
+              "id": "deathDate",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "concept": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(investigationStatus) || investigationStatus !== '160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Autopsy Done?",
+              "type": "obs",
+              "id": "autopsyDone",
+              "questionOptions": {
+                "concept": "06f943ab-f813-4832-87b4-d2345b709427",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes (date)"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "abe7f4d2-6d46-41d3-aef8-91cda434acc6",
+                    "label": "Planned on (date)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(investigationStatus) || investigationStatus !== '160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Autopsy Time",
+              "type": "obs",
+              "id": "autopsyTime",
+              "datePickerFormat": "timer",
+              "questionOptions": {
+                "concept": "160715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(autopsyDone) || autopsyDone !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Attach Autopsy Report",
+              "type": "obs",
+              "id": "autopsyReport",
+              "questionOptions": {
+                "concept": "9eb0698f-4582-4ac6-b276-bf3b625005f2",
+                "rendering": "file"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(autopsyDone) || autopsyDone !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Relevant Patient Information Prior to Immunization",
+          "isExpanded": true,
+          "questions": [
+            {
+              "label": "Past history of similar event",
+              "type": "obs",
+              "id": "pastSimilarEvent",
+              "questionOptions": {
+                "concept": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Adverse event after previous vaccination(s)",
+              "type": "obs",
+              "id": "adverseEventPrevious",
+              "questionOptions": {
+                "concept": "162871AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "History of allergy to vaccine, drug or food",
+              "type": "obs",
+              "id": "allergyHistory",
+              "questionOptions": {
+                "concept": "aefi-allergy-history",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Pre-existing illness (30 days) / congenital disorder",
+              "type": "obs",
+              "id": "preExistingIllness",
+              "questionOptions": {
+                "concept": "aefi-preexisting-illness",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "History of hospitalization in last 30 days, with cause",
+              "type": "obs",
+              "id": "hospitalizationHistory",
+              "questionOptions": {
+                "concept": "163403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Patient currently on concomitant medication? (If yes, name the drug, indication, doses & treatment dates)",
+              "type": "obs",
+              "id": "concomitantMedication",
+              "questionOptions": {
+                "concept": "162736AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+                  "label": "Drug Name",
+                  "type": "obs",
+                  "id": "nAmeOfGen",
+                  "questionOptions": {
+                    "concept": "844bf107-32e6-4d5d-8d40-de8978f79cb3",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "concomitantMedication !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Indication",
+                  "type": "obs",
+                  "id": "nAmeOfIndication",
+                  "questionOptions": {
+                    "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "concomitantMedication !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Dosage",
+                  "type": "obs",
+                  "id": "doseEffect",
+                  "questionOptions": {
+                    "concept": "1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number"
+                  },
+                  "hide": {
+                    "hideWhenExpression": "concomitantMedication !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+            {
+              "label": "Family history of any disease (relevant to AEFI) or allergy",
+              "type": "obs",
+              "id": "familyHistory",
+              "questionOptions": {
+                "concept": "aefi-family-history",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Currently pregnant?",
+              "type": "obs",
+              "id": "pregnancyStatus",
+              "questionOptions": {
+                "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Currently breastfeeding?",
+              "type": "obs",
+              "id": "breastfeedingStatus",
+              "questionOptions": {
+                "concept": "5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Birth details (for infants): Full-term / Pre-term / Post-term, Birth weight, Current weight",
+              "type": "obs",
+              "id": "birthDetails",
+              "questionOptions": {
+                "concept": "aefi-birth-details",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "ageInDays > 365"
+              }
+            },
+            {
+              "label": "Mode of Delivery:",
+              "type": "obs",
+              "id": "deliveryMode",
+              "questionOptions": {
+                "concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Cesarean section(CS)"
+                  },
+                  {
+                    "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Spontaneous vaginal delivery(SVD)"
+                  },
+                  {
+                    "concept": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Breech delivery"
+                  },
+                  {
+                    "concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Assisted vaginal delivery(AVD)"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Immunization Session Details and Practices",
+      "sections": [
+        {
+          "label": "Session Timing and Errors",
+          "isExpanded": true,
+          "questions": [
+            {
+              "label": "When was the patient vaccinated? ",
+              "type": "obs",
+              "id": "sessionTiming",
+              "questionOptions": {
+                "concept": "0f2ccbe4-d081-4fa2-8c7a-7933831a114c",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "166074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Within the first vaccinations of the session"
+                  },
+                  {
+                    "concept": "86059735-581b-46dc-b421-50563c90c45b",
+                    "label": "Within the last vaccinations of the session"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "In case of multi-dose vials, was the vaccine given (Multi-dose vial timing)",
+              "type": "obs",
+              "id": "vialTiming",
+              "questionOptions": {
+                "concept": "1d5f70bb-1d37-4f77-9628-09f392ad8a01",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Within the first few doses of the vial administered"
+                  },
+                  {
+                    "concept": "86059735-581b-46dc-b421-50563c90c45b",
+                    "label": "Within the last doses of the vial administered"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Prescribing error or non-adherence",
+              "type": "obs",
+              "id": "prescribingError",
+              "questionOptions": {
+                "concept": "1156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "5f28ca8b-026d-4322-827a-5c12015f67a9",
+                    "label": "Unable to assess"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Unsterile vaccine ingredients?",
+              "type": "obs",
+              "id": "unsterileVaccine",
+              "questionOptions": {
+                "concept": "e7eb7a18-b938-49df-bc5a-15a69f83c0b8",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "5f28ca8b-026d-4322-827a-5c12015f67a9",
+                    "label": "Unable to assess"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Abnormal vaccine physical condition?",
+              "type": "obs",
+              "id": "abnormalCondition",
+              "questionOptions": {
+                "concept": "7c45ef89-3f0b-421c-8f92-87301440bbc1",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "5f28ca8b-026d-4322-827a-5c12015f67a9",
+                    "label": "Unable to assess"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Error in vaccine reconstitution/preparation?",
+              "type": "obs",
+              "id": "reconstitutionError",
+              "questionOptions": {
+                "concept": "f39ad42d-7614-473e-b962-31c3f7aeadc6",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "5f28ca8b-026d-4322-827a-5c12015f67a9",
+                    "label": "Unable to assess"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Error in vaccine handling?",
+              "type": "obs",
+              "id": "handlingError",
+              "questionOptions": {
+                "concept": "054eb5b7-89f8-49a8-934f-88c60c8621d3",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "5f28ca8b-026d-4322-827a-5c12015f67a9",
+                    "label": "Unable to assess"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Incorrect vaccine administration?",
+              "type": "obs",
+              "id": "administrationError",
+              "questionOptions": {
+                "concept": "65002724-890d-4d23-9c00-84c5f1660303",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "5f28ca8b-026d-4322-827a-5c12015f67a9",
+                    "label": "Unable to assess"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Number immunized from concerned vial",
+              "type": "obs",
+              "id": "numberImmunizedVial",
+              "questionOptions": {
+                "concept": "1420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Number immunized in same session",
+              "type": "obs",
+              "id": "numberImmunizedSession",
+              "questionOptions": {
+                "concept": "2e1bda71-5cc7-4743-b034-8aed1a180a0f",
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Number immunized with same batch in other locations",
+              "type": "obs",
+              "id": "numberImmunizedOtherLocations",
+              "questionOptions": {
+                "concept": "a70a6472-9167-4c30-9ded-4d4a0a8921dc",
+                "rendering": "number"
+              }
+            },
+            {
+              "label": "Is this case part of a cluster?",
+              "type": "obs",
+              "id": "clusterCase",
+              "questionOptions": {
+                "concept": "f27e6e92-210e-4e8d-a889-06ffe8b03050",
+                "rendering": "radio",
+                 "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "How many other cases have been detected in the cluster?",
+              "type": "obs",
+              "id": "casesDetectedInCluster",
+              "questionOptions": {
+                "concept": "365e155d-4bc4-484a-ae96-0cbf59924912",
+                "rendering": "number"
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(clusterCase) || clusterCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+            },
+            {
+              "label": "Did all cluster cases receive vaccine from same vial?",
+              "type": "obs",
+              "id": "sameVialCluster",
+              "questionOptions": {
+                "concept": "aefi-same-vial-cluster",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              },
+                "hide": {
+                        "hideWhenExpression": "isEmpty(clusterCase) || clusterCase !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+            },
+            {
+              "label": "Number of vials used in cluster",
+              "type": "obs",
+              "id": "vialsUsedCluster",
+              "questionOptions": {
+                "concept": "38e8ebfb-a3f1-4964-87ed-4183499400e4",
+                "rendering": "number"
+              },
+                "hide": {
+                        "hideWhenExpression": "isEmpty(sameVialCluster) || sameVialCluster !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    }
+            },
+            {
+              "label": "Are Auto-Disable (AD) syringes used?",
+              "type": "obs",
+              "id": "adSyringesUsed",
+              "questionOptions": {
+                "concept": "86d43826-e076-412d-82fd-f5dd8b221dd7",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Type of syringes used (if not AD)",
+              "type": "obs",
+              "id": "syringeType",
+              "questionOptions": {
+                "concept": "162169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(adSyringesUsed) || adSyringesUsed !== '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Reconstitution Procedure Details",
+          "isExpanded": true,
+          "questions": [
+            {
+              "label": "Reconstitution procedures and observations done?",
+              "type": "obs",
+              "id": "reconstitutionObservations",
+              "questionOptions": {
+                "concept": "13575d90-b7b6-4a65-a8a1-ec35514ded42",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Same reconstitution syringe used for multiple vials of same vaccine?",
+              "type": "obs",
+              "id": "sameSyringeMultipleVials",
+              "questionOptions": {
+                "concept": "a5b04339-f707-4075-ad9d-23b67c1a2529",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(reconstitutionObservations) || reconstitutionObservations !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+            },
+            {
+              "label": "Same reconstitution syringe used for reconstituting different vaccines?",
+              "type": "obs",
+              "id": "sameSyringeDifferentVaccines",
+              "questionOptions": {
+                "concept": "5a8912b2-4f24-4bf1-b17e-a92ae7961eb3",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(reconstitutionObservations) || reconstitutionObservations !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+            },
+            {
+              "label": "Separate reconstitution syringe for each vaccine vial?",
+              "type": "obs",
+              "id": "separateSyringeEachVial",
+              "questionOptions": {
+                "concept": "75f1ecd9-0fe7-4922-82f1-9eabf1f556fc",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(reconstitutionObservations) || reconstitutionObservations !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+            },
+            {
+              "label": "Separate reconstitution syringe for each vaccination?",
+              "type": "obs",
+              "id": "separateSyringeEachVaccination",
+              "questionOptions": {
+                "concept": "21dc373d-2aa4-4a1d-bf0a-0b0f36a6d3ac",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(reconstitutionObservations) || reconstitutionObservations !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+            },
+            {
+              "label": "Are the vaccines and diluents used the same as those recommended by the manufacturer?",
+              "type": "obs",
+              "id": "manufacturerRecommended",
+              "questionOptions": {
+                "concept": "e1771a3e-a084-424b-b86e-644649ca227",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+                "hide": {
+                    "hideWhenExpression": "isEmpty(reconstitutionObservations) || reconstitutionObservations !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                }
+            },
+            {
+              "label": "Specific key findings/additional observations and comments",
+              "type": "obs",
+              "id": "reconstitutionComments",
+              "questionOptions": {
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Cold Chain and Transport",
+          "isExpanded": true,
+          "questions": [
+            {
+              "label": "Cold chain and transport practices",
+              "type": "obs",
+              "id": "coldChainPractices",
+              "questionOptions": {
+                "concept": "aefi-cold-chain-practices",
+                "rendering": "textarea"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Community Investigation",
+          "isExpanded": true,
+          "questions": [
+            {
+              "label": "Community investigation findings (interviews with parents/others)",
+              "type": "obs",
+              "id": "communityFindings",
+              "questionOptions": {
+                "concept": "aefi-community-findings",
+                "rendering": "textarea"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
