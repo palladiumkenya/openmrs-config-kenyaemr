@@ -1,5 +1,5 @@
 {
-	"name": "CWC Follow Up",
+	"name": "Child Welfare Clinic Form",
 	"description": "CWC Follow Up",
 	"version": "3",
 	"published": true,
@@ -237,8 +237,25 @@
                   {
                     "concept": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Facility"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
                   }
                 ]
+              }
+            },
+            {
+              "label": "Specify Place of birth",
+              "type": "obs",
+              "required": "true",
+              "id": "specifyBirthPlace",
+              "questionOptions": {
+                "concept": "162725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(birthPlace) || birthPlace !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -651,6 +668,18 @@
               },
               "hide": {
                 "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Other source of referral",
+              "type": "obs",
+              "id": "otherSourceReferral",
+              "questionOptions": {
+                "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "sourceOfReferral !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1588,6 +1617,9 @@
               "questionOptions": {
                 "rendering": "text",
                 "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+               "hide": {
+                "hideWhenExpression": "isEmpty(retentionOfFeeds) || retentionOfFeeds !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -1602,18 +1634,8 @@
               "id": "sleepingProb",
               "required": "true",
               "questionOptions": {
-                "concept": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  }
-                ]
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
               }
             },
             {
@@ -1839,7 +1861,9 @@
                   "required": "true",
                   "questionOptions": {
                     "concept": "162068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "rendering": "number"
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "7"
                   }
                 },
                 {
