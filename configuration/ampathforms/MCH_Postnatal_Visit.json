@@ -75,6 +75,53 @@
                 "min": "0",
                 "max": "99"
               }
+            },
+            {
+              "label": "Is this Visit a referral?",
+              "type": "obs",
+              "id": "visitReferral",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "d105235e-41ee-4234-9b32-0bef507342d7",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Referral from",
+              "type": "obs",
+              "required": true,
+              "id": "referralSpecification",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "From other facilities"
+                  },
+                  {
+                    "concept": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referred from CHU "
+                  },
+                  {
+                    "concept": "164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Internal(Department)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(visitReferral) || visitReferral !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
             }
           ]
         },
@@ -731,14 +778,17 @@
                 "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "textarea"
               }
-            }
-          ]
-        },
-        {
-          "label": "Baby(s) observations",
-          "isExpanded": "true",
-          "questions": [
+            },
             {
+              "label": "Baby(s) observations",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "repeating",
+                "concept": "162588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "babyObservations",
+              "questions": [
+                {
               "label": "Delivery Outcome",
               "type": "obs",
               "id": "deliveryOutcome",
@@ -761,15 +811,6 @@
                 ]
               }
             },
-            {
-              "label": "Baby(s) observations",
-              "type": "obsGroup",
-              "questionOptions": {
-                "rendering": "repeating",
-                "concept": "162588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-              },
-              "id": "babyObservations",
-              "questions": [
                 {
                   "label": "Baby's Condition",
                   "type": "obs",
@@ -971,6 +1012,7 @@
             }
           ]
         },
+       
        {
           "label": "HIV Testing",
           "isExpanded": "true",
@@ -1910,14 +1952,8 @@
               "hide": {
                 "hideWhenExpression": "isEmpty(partnerTested) || partnerTested !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
-            }
-          ]
-        },
-        {
-          "label": "Impression",
-          "isExpanded": "true",
-          "questions": [
-            {
+            },
+             {
               "label": "Impression",
               "id": "clinicalDiagnosisId",
               "type": "diagnosis",
@@ -1938,6 +1974,7 @@
             }
           ]
         },
+        
         {
           "label": "Investigations",
           "isExpanded": "true",
@@ -2278,65 +2315,155 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Referred from?",
+              "label": "Patient referred?",
               "type": "obs",
-              "id": "referredFrom",
+              "id": "refferredPatient",
               "questionOptions": {
-                "concept": "160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "select",
+                "concept": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
                 "answers": [
                   {
-                    "concept": "1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Another Health Facility"
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
                   },
                   {
-                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Community Unit"
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
                   }
                 ]
               }
             },
             {
-              "label": "Referral reason",
+              "label": "Refferal reason?",
               "type": "obs",
-              "id": "referralReasonFrom",
+              "id": "refferalsOrderd",
               "questionOptions": {
                 "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text"
+                "rendering": "textarea"
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(referredFrom) || referredFrom === '1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "refferredPatient !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
               "label": "Referred to?",
               "type": "obs",
-              "id": "referredTo",
+              "id": "referralTo",
               "questionOptions": {
                 "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
                 "answers": [
                   {
-                    "concept": "1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Another Health Facility"
+                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other health facility"
                   },
                   {
-                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Community Unit"
+                    "concept": "9008cf1c-8631-440b-8fde-061ff273c04c",
+                    "label": "Transfer within the facility"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "refferredPatient !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
-              "label": "Referral reason",
+              "label": "Referral to Facility:",
               "type": "obs",
-              "id": "referralReasonTo",
+              "id": "transferToFacility",
               "questionOptions": {
-                "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text"
+                "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "encounterLocation"
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(referredTo) || referredTo === '1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Department transferred to",
+              "type": "obs",
+              "id": "departmentSpecify",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Outpatient Department"
+                  },
+                  {
+                    "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inpatient Department"
+                  },
+                  {
+                    "concept": "160454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ophthalmology (Eye)Clinic"
+                  },
+                  {
+                    "concept": "160455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ear, Nose, and Throat(ENT)Clinic"
+                  },
+                  {
+                    "concept": "2a030791-14b4-4996-95ad-39c54b25f2b6",
+                    "label": "Physiotherapy clinic"
+                  },
+                  {
+                    "concept": "164164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Surgical Outpatient Clinic"
+                  },
+                  {
+                    "concept": "160457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Paediatrics clinics"
+                  },
+                  {
+                    "concept": "1d7d7c76-d807-4f33-8c7e-2531e28126ed",
+                    "label": "Maxillofacial Clinic"
+                  },
+                  {
+                    "concept": "160448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Medical Outpatient clinic"
+                  },
+                  {
+                    "concept": "66710a6d-5894-4f7d-a874-b449df77314d",
+                    "label": "Oncology Clinic"
+                  },
+                  {
+                    "concept": "30aff715-92de-4662-aa33-fa6b6179fed0",
+                    "label": "Dental clinic"
+                  },
+                  {
+                    "concept": "160475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Renal Clinic"
+                  },
+                  {
+                    "concept": "5489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mental Health"
+                  },
+                  {
+                    "concept": "160460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dermatology Clinic"
+                  },
+                  {
+                    "concept": "164103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetic Clinic"
+                  },
+                  {
+                    "concept": "c2f85aed-695f-49b1-973e-002c37cbdebf",
+                    "label": "Occupational Therapy Clinic"
+                  },
+                  {
+                    "concept": "160465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Orthopaedic Clinic"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others specify"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "referralTo !=='9008cf1c-8631-440b-8fde-061ff273c04c'"
               }
             }
           ]
