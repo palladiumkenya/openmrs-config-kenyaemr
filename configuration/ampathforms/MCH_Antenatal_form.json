@@ -488,7 +488,7 @@
                     "answers": [
                       {
                         "concept": "159035AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Alive Birth"
+                        "label": "Live Birth"
                       },
                       {
                         "concept": "159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -548,6 +548,8 @@
               "id": "sysBP",
               "questionOptions": {
                 "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                 "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
                 "rendering": "number",
                 "max": "200",
                 "min": "0"
@@ -564,6 +566,8 @@
               "id": "diasBP",
               "questionOptions": {
                 "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                 "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
                 "rendering": "number",
                 "max": "200",
                 "min": "0"
@@ -580,6 +584,8 @@
               "id": "pulseRate",
               "questionOptions": {
                 "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                 "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
                 "rendering": "number",
                 "max": "100",
                 "min": "0"
@@ -596,6 +602,8 @@
               "id": "respRate",
               "questionOptions": {
                 "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                 "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
                 "rendering": "number",
                 "max": "100",
                 "min": "0"
@@ -647,7 +655,7 @@
               }
             },
             {
-              "label": "Abdomen",
+              "label": "Abdomen Findings",
               "type": "obs",
               "id": "abdoMen",
               "questionOptions": {
@@ -1677,6 +1685,36 @@
               }
             },
             {
+              "label": "Resulting TB Status:",
+              "type": "obs",
+              "id": "tbResurtsOnTb",
+              "questionOptions": {
+                "concept": "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "readOnly": "true",
+                "calculate": {
+                  "calculateExpression": "String(OnantiTBdrugs) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cOughDuratiOn) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(FeverIsh) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) +(String(WeigHtLossGain) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(NighTsWeatS) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(LeSSpLayFul) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0) + (String(ConTacTbCase) === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) > 0 ? '142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(cOughDuratiOn) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(FeverIsh) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(WeigHtLossGain) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  && String(NighTsWeatS) === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || ((String(cliNicalDiagnosisAction) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) === 0 ? '1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ((String(cliNicalDiagnosisAction) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? 1 : 0)) > 0 ? '1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                },
+                "answers": [
+                  {
+                    "concept": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No TB Signs"
+                  },
+                  {
+                    "concept": "142177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Presumed TB"
+                  },
+                  {
+                    "concept": "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TB Confirmed"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
               "label": "Date given Isoniazid Preventive Therapy (IPT)",
               "type": "obs",
               "id": "DatEforTBrx",
@@ -1777,7 +1815,7 @@
           ]
         },
 		  {
-			"label": "Tripple Testing",
+			"label": "Triple Testing",
 			"isExpanded": "true",
 			"questions": [
             {
@@ -1789,11 +1827,11 @@
                 "answers": [
                   {
                     "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Positive"
+                    "label": "Reactive"
                   },
                   {
                     "concept": "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Negative"
+                    "label": "Non-Reactive"
                   },
                   {
                     "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2157,11 +2195,11 @@
                     "answers": [
                       {
                         "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
+                        "label": "Reactive"
                       },
                       {
                         "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
+                        "label": "Non-Reactive"
                       },
                       {
                         "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2308,11 +2346,11 @@
                     "answers": [
                       {
                         "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
+                        "label": "Reactive"
                       },
                       {
                         "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
+                        "label": "Non-Reactive"
                       },
                       {
                         "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2410,11 +2448,11 @@
                     "answers": [
                       {
                         "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
+                        "label": "Reactive"
                       },
                       {
                         "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
+                        "label": "Non-Reactive"
                       },
                       {
                         "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2512,11 +2550,11 @@
                     "answers": [
                       {
                         "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
+                        "label": "Reactive"
                       },
                       {
                         "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
+                        "label": "Non-Reactive"
                       },
                       {
                         "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2614,11 +2652,11 @@
                     "answers": [
                       {
                         "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Positive"
+                        "label": "Reactive"
                       },
                       {
                         "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "label": "Negative"
+                        "label": "Non-Reactive"
                       },
                       {
                         "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2647,11 +2685,11 @@
                 "answers": [
                   {
                     "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Positive"
+                    "label": "Reactive"
                   },
                   {
                     "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Negative"
+                    "label": "Non-Reactive"
                   },
                   {
                     "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2795,6 +2833,9 @@
                     "label": "No"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(testedAs) || testedAs === 'c3eba392-6f4d-4990-809f-91000503afbc'"
               }
             },
             {
@@ -2855,7 +2896,7 @@
 			"label": "Preventive Services",
 			"isExpanded": "true",
 			"questions": [
-            {
+           {
               "label": "Preventive Services",
               "type": "obsGroup",
               "id": "preventiveService",
@@ -2889,8 +2930,20 @@
                         "label": "Deworming (Mebendazole 500mgs)"
                       },
                       {
+                        "concept": "70439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Deworming (Albendazole 400g)"
+                      },
+                      {
                         "concept": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Iron and folic acid supplementation(IFAS)"
+                      },
+                      {
+                        "concept": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Calcium"
+                      },
+                      {
+                        "concept": "76609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Folic"
                       }
                     ]
                   }
@@ -3095,6 +3148,10 @@
                       {
                         "concept": "a3df7486-0de4-4d1b-a845-615ca7680e30",
                         "label": "8"
+                      },
+                      {
+                        "concept": "163461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Post Delivery"
                       }
                     ]
                   },
@@ -3173,29 +3230,13 @@
                         "label": "28"
                       },
                       {
-                        "concept": "40c66cd6-6ed0-4f92-9d2c-113429c461b8",
-                        "label": "28"
-                      },
-                      {
-                        "concept": "dba92b0d-d6a7-4901-81b2-fadec946c6f4",
-                        "label": "14"
-                      },
-                      {
-                        "concept": "dba92b0d-d6a7-4901-81b2-fadec946c6f4",
-                        "label": "14"
-                      },
-                      {
-                        "concept": "dba92b0d-d6a7-4901-81b2-fadec946c6f4",
-                        "label": "14"
-                      },
-                      {
                         "concept": "dba92b0d-d6a7-4901-81b2-fadec946c6f4",
                         "label": "14"
                       }
                     ]
                   },
                   "hide": {
-                    "hideWhenExpression": "isEmpty(serviceGiven) || serviceGiven !== '104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(serviceGiven) || serviceGiven !== '104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && serviceGiven !== '72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && serviceGiven !== '76609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -3224,7 +3265,7 @@
                     "appointmentKey": "startDateTime"
                   },
                   "hide": {
-                    "hideWhenExpression": "serviceGiven === '160428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "serviceGiven === '160428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '70439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '76609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ]
