@@ -563,6 +563,52 @@
               }
             },
             {
+              "label": "Primary care giver?",
+              "type": "obs",
+              "id": "primaryCaregiver",
+              "questionOptions": {
+                "concept": "160640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "973AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Grandparent"
+                  },
+                  {
+                    "concept": "972AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sibling"
+                  },
+                  {
+                    "concept": "970AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mother"
+                  },
+                  {
+                    "concept": "160639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Guardian"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "exposedStats !== '1229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && exposedStats !== '1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify :",
+              "type": "obs",
+              "id": "otherspecifyfollowup",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(primaryCaregiver) || primaryCaregiver != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
               "label": "Mother Alive?",
               "type": "obs",
               "id": "motherAlive",
@@ -1220,50 +1266,7 @@
               }
               
             },
-            {
-              "label": "Patient currently on TPT?",
-              "type": "obs",
-              "id": "OnTpT",
-              "questionOptions": {
-                "concept": "c49549c5-f761-408b-bc71-c0ae1fd16b73",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "isEmpty(OnantiTBdrugs) || OnantiTBdrugs === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "Patient ever on TPT?",
-              "type": "obs",
-              "questionOptions": {
-                "concept": "1adbdc14-2324-4298-90d1-5b590c3cf094",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  }
-                ]
-              },
-              "id": "EverOnTPT",
-              "hide": {
-                "hideWhenExpression": "isEmpty(OnTpT) || OnTpT === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
+            
             {
               "label": "Screening Questions",
               "type": "obsGroup",
@@ -1503,6 +1506,29 @@
           "label": "Feeding information from parent/guardian",
           "isExpanded": "true",
           "questions": [
+            {
+              "label": "Infant Feeding",
+              "type": "obs",
+              "id": "infantFeeding",
+              "questionOptions": {
+                "concept": "1151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Exclusive breastfeeding <6 Months(EBF)"
+                  },
+                  {
+                    "concept": "5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Infant Breastfeeding >6 months (BF)"
+                  },
+                  {
+                    "concept": "164478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not Breastfeeding(NBF)"
+                  }
+                ]
+              }
+            },
             {
               "label": "Breastfeeding",
               "type": "obs",
@@ -2136,6 +2162,83 @@
                 "alertWhenExpression": "myValue === '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
                 "message": "Refer to eye clinic"
               }
+            },
+            {
+              "label": "Baby's teeth development",
+              "type": "obsGroup",
+              "id": "babysTeethDevelopment",
+              "questionOptions": {
+                "concept": "c3faa3cc-439b-402d-ae8a-d9ca23429627",
+                "rendering": "repeating"
+              },
+              "questions": [
+                {
+                  "label": "Type of Teeth",
+                  "type": "obs",
+                  "required": "true",
+                  "id": "typeOfTeeth",
+                  "questionOptions": {
+                    "concept": "212d8195-a36d-4354-80b5-b218646b99ab",
+                    "rendering": "select",
+                    "answers": [
+                      {
+                        "concept": "86202d91-be9b-4f75-8e42-7c9631d7fc6c",
+                        "label": "Lower Incisor (4-10months)"
+                      },
+                      {
+                        "concept": "a4d00459-10de-4919-b4cc-f331310905bc",
+                        "label": "Upper Incisor (6-12 months)"
+                      },
+                      {
+                        "concept": "34265d80-dd86-49ac-89ef-fd554f355a52",
+                        "label": "Lower Canine (12-23 months)"
+                      },
+                      {
+                        "concept": "ae84b3d2-6031-402f-a902-5f49053b2c05",
+                        "label": "Upper Canine (12-23)"
+                      },
+                      {
+                        "concept": "6566d571-2e01-4714-8d73-400723361778",
+                        "label": "Lower First Molar (12-18 months)"
+                      },
+                      {
+                        "concept": "aa1fc623-647f-496d-8f29-b11a7de3de70",
+                        "label": "Upper First Molar (12-18 months)"
+                      },
+                      {
+                        "concept": "3067b5d5-017b-40e0-9c77-e1742bf13a5a",
+                        "label": "Lower Second Molar (24-30 months)"
+                      },
+                      {
+                        "concept": "b76d5b09-d063-4fff-a619-bd6c2eb38794",
+                        "label": "Upper Second Molar (24-30 months)"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "Age of baby when tooth seen",
+                  "type": "obs",
+                  "id": "ageOfBabyWhenToothSeen",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "1532AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "number",
+                    "min": "0",
+                    "max": "7"
+                  }
+                },
+                {
+                  "label": "Date seen",
+                  "type": "obs",
+                  "id": "dateSeen",
+                  "required": "true",
+                  "questionOptions": {
+                    "concept": "163260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "date"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -2251,8 +2354,227 @@
               }
             },
             {
+              "label": "Any Danger Signs",
+              "type": "obs",
+              "id": "",
+              "questionOptions": {
+                "concept": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unable to drink or breastfeed"
+                  },
+                  {
+                    "concept": "1983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unable to drink fluids"
+                  },
+                  {
+                    "concept": "164482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Vomiting everything"
+                  },
+                  {
+                    "concept": "138868AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hemorrhagic diarrhea"
+                  },
+                  {
+                    "concept": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Oedema"
+                  },
+                  {
+                    "concept": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Currently convulsing"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Immunization status upto date?",
+              "type": "obs",
+              "id": "immunizationStatus",
+              "questionOptions": {
+                "concept": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Clinician's Notes",
+              "type": "obs",
+              "id": "cliniciansNotes",
+              "questionOptions": {
+                "concept": "159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              }
+            },
+            {
+              "label": "Patient referred?",
+              "type": "obs",
+              "id": "refferredPatient",
+              "questionOptions": {
+                "concept": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Refferal reason?",
+              "type": "obs",
+              "id": "refferalsOrderd",
+              "questionOptions": {
+                "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "refferredPatient !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Referred to?",
+              "type": "obs",
+              "id": "referralTo",
+              "questionOptions": {
+                "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other health facility"
+                  },
+                  {
+                    "concept": "9008cf1c-8631-440b-8fde-061ff273c04c",
+                    "label": "Transfer within the facility"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "refferredPatient !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Referral to Facility:",
+              "type": "obs",
+              "id": "transferToFacility",
+              "questionOptions": {
+                "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "encounterLocation"
+              },
+              "hide": {
+                "hideWhenExpression": "referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Department transferred to",
+              "type": "obs",
+              "id": "departmentSpecify",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Outpatient Department"
+                  },
+                  {
+                    "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inpatient Department"
+                  },
+                  {
+                    "concept": "160454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ophthalmology (Eye)Clinic"
+                  },
+                  {
+                    "concept": "160455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ear, Nose, and Throat(ENT)Clinic"
+                  },
+                  {
+                    "concept": "2a030791-14b4-4996-95ad-39c54b25f2b6",
+                    "label": "Physiotherapy clinic"
+                  },
+                  {
+                    "concept": "164164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Surgical Outpatient Clinic"
+                  },
+                  {
+                    "concept": "160457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Paediatrics clinics"
+                  },
+                  {
+                    "concept": "1d7d7c76-d807-4f33-8c7e-2531e28126ed",
+                    "label": "Maxillofacial Clinic"
+                  },
+                  {
+                    "concept": "160448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Medical Outpatient clinic"
+                  },
+                  {
+                    "concept": "66710a6d-5894-4f7d-a874-b449df77314d",
+                    "label": "Oncology Clinic"
+                  },
+                  {
+                    "concept": "30aff715-92de-4662-aa33-fa6b6179fed0",
+                    "label": "Dental clinic"
+                  },
+                  {
+                    "concept": "160475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Renal Clinic"
+                  },
+                  {
+                    "concept": "5489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mental Health"
+                  },
+                  {
+                    "concept": "160460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dermatology Clinic"
+                  },
+                  {
+                    "concept": "164103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetic Clinic"
+                  },
+                  {
+                    "concept": "c2f85aed-695f-49b1-973e-002c37cbdebf",
+                    "label": "Occupational Therapy Clinic"
+                  },
+                  {
+                    "concept": "160465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Orthopaedic Clinic"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others specify"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "referralTo !=='9008cf1c-8631-440b-8fde-061ff273c04c'"
+              }
+            },
+            {
               "label": "Growth monitoring return date",
-              "required": false,
+              "required": "false",
               "id": "appointmentWorkspaceLauncher",
               "questionOptions": {
                 "rendering": "workspace-launcher",
