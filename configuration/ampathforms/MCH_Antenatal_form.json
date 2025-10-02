@@ -915,42 +915,8 @@
                 "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "text"
               }
-            },
-            {
-              "label": "Next Visit",
-              "id": "appointmentDatetime1",
-              "datePickerFormat": "both",
-              "questionOptions": {
-                "placeholder": "Enter appointment date & time",
-                "rendering": "date",
-                "appointmentKey": "startDateTime"
-              },
-              "type": "appointment"
-            },
-            {
-              "label": "Appointment Service",
-              "id": "service1",
-              "questionOptions": {
-                "rendering": "remote-select",
-                "appointmentKey": "service",
-                "dataSource": "services"
-              },
-              "required": "true",
-              "type": "appointment",
-              "validators": []
-            },
-            {
-              "label": "Provider",
-              "id": "provider1",
-              "questionOptions": {
-                "rendering": "ui-select-extended",
-                "appointmentKey": "providers",
-                "dataSource": "provider"
-              },
-              "type": "appointment",
-              "validators": [],
-              "required": "true"
             }
+            
           ]
         },
         {
@@ -1818,35 +1784,37 @@
 			"label": "Triple Testing",
 			"isExpanded": "true",
 			"questions": [
-            {
-              "label": "HIV Status before first ANC Visit:",
+           {
+              "label": "HIV testing during this visit",
               "type": "obs",
               "questionOptions": {
                 "rendering": "radio",
                 "concept": "c7e9eb23-9e8f-4d21-9648-7009dfaaa299",
                 "answers": [
                   {
-                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Reactive"
+                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Initial"
+                  },
+                  {
+                    "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Retest"
+                  },
+                  {
+                    "concept": "6f6a5e50-6ea0-45a1-90cc-800bd858f82b",
+                    "label": "Known postive"
                   },
                   {
                     "concept": "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Non-Reactive"
+                    "label": "Revisit"
                   },
                   {
-                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Unknown"
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not done"
                   }
                 ]
               },
               "id": "patientHivStatus",
-              "validators": [
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "isEmpty(patientHivStatus) && serviceType == '1622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-                  "message": "If service type is ANC. Please provide HIV Status before first ANC."
-                }
-              ],
+              "validators": [],
               "required": "true"
             },
             {
@@ -1864,7 +1832,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "patientHivStatus !== '6f6a5e50-6ea0-45a1-90cc-800bd858f82b'"
               }
             },
             {
@@ -1881,8 +1849,8 @@
                   "allowFutureDates": "false"
                 }
               ],
-              "hide": {
-                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+               "hide": {
+                "hideWhenExpression": "patientHivStatus !== '6f6a5e50-6ea0-45a1-90cc-800bd858f82b'"
               }
             },
             {
@@ -1983,8 +1951,8 @@
                   }
                 ]
               },
-              "hide": {
-                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+               "hide": {
+                "hideWhenExpression": "patientHivStatus !== '6f6a5e50-6ea0-45a1-90cc-800bd858f82b'"
               }
             },
             {
@@ -1995,53 +1963,12 @@
                 "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "text"
               },
-              "hide": {
-                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+               "hide": {
+                "hideWhenExpression": "patientHivStatus !== '6f6a5e50-6ea0-45a1-90cc-800bd858f82b'"
               }
             },
-             {
-              "label": "Client eligible for testing :",
-              "type": "obs",
-              "id": "eligibleTest",
-              "questionOptions": {
-                "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  }
-                ]
-              }
-            },
-            {
-              "label": "Which HIV test is been performed?",
-              "type": "obs",
-              "questionOptions": {
-                "rendering": "radio",
-                "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "answers": [
-                  {
-                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Initial"
-                  },
-                  {
-                    "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Retest"
-                  }
-                ]
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              },
-              "id": "HIVTestQuestion",
-              "required": "true"
-            },
+             
+            
             {
               "label": "Has consent been given? ",
               "type": "obs",
@@ -2673,7 +2600,7 @@
               ]
             },
             {
-              "label": "Final Results1:",
+              "label": "Final Results:",
               "type": "obs",
               "required": "true",
               "questionOptions": {
@@ -2769,6 +2696,62 @@
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              }
+            },
+             {
+              "label": "Started HAART in ANC",
+              "type": "obs",
+              "id": "startedHaartInAnc",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164463AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not started ART"
+                  },
+                  {
+                    "concept": "23578b66-f49b-45e2-b876-445524638c0e",
+                    "label": "New on ART"
+                  },
+                  {
+                    "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On ART"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "patientHivStatus !== '6f6a5e50-6ea0-45a1-90cc-800bd858f82b'"
+              }
+            },
+            {
+              "label": "Started HAART in ANC",
+              "type": "obs",
+              "id": "startedHaartInAncNew",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164463AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not started ART"
+                  },
+                  {
+                    "concept": "23578b66-f49b-45e2-b876-445524638c0e",
+                    "label": "New on ART"
+                  },
+                  {
+                    "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On ART"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -3736,7 +3719,48 @@
               }
             }
           ]
-		  }
+		  },
+      {
+          "label": "Appointment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Next Visit",
+              "id": "appointmentDatetime1",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "placeholder": "Enter appointment date & time",
+                "rendering": "date",
+                "appointmentKey": "startDateTime"
+              },
+              "type": "appointment"
+            },
+            {
+              "label": "Appointment Service",
+              "id": "service1",
+              "questionOptions": {
+                "rendering": "remote-select",
+                "appointmentKey": "service",
+                "dataSource": "services"
+              },
+              "required": "true",
+              "type": "appointment",
+              "validators": []
+            },
+            {
+              "label": "Provider",
+              "id": "provider1",
+              "questionOptions": {
+                "rendering": "ui-select-extended",
+                "appointmentKey": "providers",
+                "dataSource": "provider"
+              },
+              "type": "appointment",
+              "validators": [],
+              "required": "true"
+            }
+          ]
+        }
 		 
 		]
 	  }
