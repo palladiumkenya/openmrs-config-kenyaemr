@@ -206,30 +206,29 @@
         "remove": ["patient-flag-tags"]
       },
       "patient-chart-summary-dashboard-slot": {
-        "remove": ["biometrics-overview-widget", "vitals-overview-widget"],
-        "add": ["allergies-details-widget", "immunization-overview-widget"],
+        "remove": [
+          "biometrics-overview-widget",
+          "vitals-overview-widget",
+          "allergies-details-widget",
+          "immunization-overview-widget",
+          "active-medications-widget",
+          "conditions-overview-widget"
+        ],
+        "add": [],
         "configure": {
-          "allergies-details-widget": {
-            "Display conditions": {
-              "privileges": ["o3: View Allergies Dashboard"]
-            }
-          },
-          "immunization-overview-widget": {
-            "Display conditions": {
-              "privileges": ["o3: View Patient Chart Immunization Dashboard"]
-            }
-          },
-          "active-medications-widget": {
-            "Display conditions": {
-              "privileges": ["o3: View Patient Chart Medications Dashboard"]
-            }
-          },
-          "conditions-overview-widget": {
-            "Display conditions": {
-              "privileges": ["o3: View Patient Chart Conditions Dashboard"]
-            }
-          }
-        }
+          "layoutMode": "anchored"
+        },
+        "order": [
+          "ewf-homepage-dashboard-link",
+          "charts-summary-dashboard",
+          "ewf-clinical-encounter-link",
+          "ewf-laboratory-dashboard-link",
+          "ewf-radiology-and-imaging-dashboard-link",
+          "ewf-pharmacy-dashboard-link",
+          "ewf-procedures-dashboard-link",
+          "ewf-admissions-dashboard-link",
+          "hiv-care-and-treatment-dashboard-link"
+        ]
       },
       "action-menu-patient-chart-items-slot": {
         "order": [
@@ -426,7 +425,8 @@
   },
   "@openmrs/esm-primary-navigation-app": {
     "logo": {
-      "src": "/openmrs/spa/kenyaemr-primary-logo.svg"
+      "src": "/openmrs/spa/kenyaemr-primary-logo.svg",
+      "link": "${openmrsSpaBase}/home/facility-dashboard"
     },
     "extensionSlots": {
       "app-menu-slot": {
@@ -447,143 +447,39 @@
         }
       },
       "homepage-dashboard-slot": {
-        "order":[
-          "kenyaemr-home-page-link",
-          "kenyaemr-registration-dashboard-link",
-          "patient-services-dashboard-nav-group",
-          "diagnostics-dashboard-nav-group",
-          "procedure-dashboard-link",
-          "dispensing-homepage-dashboard-link",
+        "remove": ["clinical-appointments-dashboard-link", "referrals-link","service-queues-dashboard-link"],
+        "add": [],
+        "configure": {},
+        "order": [
+          "facility-dashboard-link",
+          "registration-dashboard-link",
+          "triage-dashboard-link",
+          "consultation-dashboard-link",
+          "mch-dashboard-link",
           "ward-dashboard-link",
-          "kenyaemr-referrals-dashboard-link",
-          "kenyaemr-morgue-dashboard-link",
-          "billing-dashboard-nav-group"
-        ],
-        "remove": [
-          "home-widget-db-link",
+          "procedure-dashboard-link",
+          "radiology-dashboard-link",
           "laboratory-dashboard-link",
-          "service-queues-dashboard-link",
-          "referrals-link",
-          "lab-manifest-dashboard-link",
-          "pharmacy-dashboard-link",
-          "clinical-appointments-dashboard-link",
-          "imaging-orders-link"
-        ],
-        "add": [
-          "procedure-dashboard-link"
-        ],
-        "configure": {
-          "home-widget-db-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Home Dashboard"]
-            }
-          },
-          "kenyaemr-home-page-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Home Dashboard"]
-            }
-          },
-          "bed-admission-dashboard-link": {
-            "Display conditions": {
-              "privileges": [
-                "o3: View Bed Management In-Patient Home Page Link"
-              ]
-            }
-          },
-          "billing-dashboard-nav-group-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Bill Payment Dashboard"]
-            }
-          },
-          "case-management-dashboard-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Case Management Dashboard"]
-            }
-          },
-          "clinical-appointments-dashboard-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Appointments Dashboard"]
-            }
-          },
-          "laboratory-dashboard-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Laboratory Dashboard"]
-            }
-          },
-          "pharmacy-dashboard-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Community Pharmacy Dashboard"]
-            }
-          },
-          "procedure-dashboard-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Procedure Dashboard"]
-            }
-          },
-          "imaging-orders-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Imaging Dashboard"]
-            }
-          },
-          "referrals-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Referrals Dashboard"]
-            }
-          },
-          "kenyaemr-referrals-dashboard-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Referrals Dashboard"]
-            }
-          },
-          "service-queues-dashboard-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Service Queue Dashboard"]
-            }
-          },
-          "peer-calendar-dashboard-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Peer Calendar Dashboard"]
-            }
-          },
-          "billable-exemptions-link": {
-            "Display conditions": {
-              "privileges": ["o3: View and Configure Exemption"]
-            }
-          },
-          "diagnostics-dashboard-nav-group": {
-            "Display conditions": {
-              "privileges": ["o3: View Diagnostics Dashboard"]
-            }
-          },
-          "patient-services-dashboard-nav-group": {
-            "Display conditions": {
-              "privileges": ["o3: View Patient services Dashboard"]
-            }
-          },
-          "linkage-services-dashboard-nav-group": {
-            "Display conditions": {
-              "privileges": ["o3: View Linkage services Dashboard"]
-            }
-          },
-          "kenyaemr-morgue-dashboard-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Morgue Dashboard"]
-            }
-          },
-          "kenyaemr-wards-dashboard-link": {
-            "Display conditions": {
-              "privileges": ["o3: View Ward Dashboard"]
-            }
-          },
-          "billing-dashboard-nav-group": {
-            "Display conditions": {
-              "privileges": ["o3: View Bill Management Dashboard"]
-            }
-          }
-        }
+          "pharmacy-homepage-dashboard-link",
+          "accounting-dashboard-link",
+          "reports-homepage-dashboard-link",
+          "mortuary-dashboard-link"
+        ]
       },
       "patient-chart-dashboard-slot": {
-        "remove": ["patient-chart-clinical-consultation-nav-group"],
+        "remove": [
+          "patient-appointments-summary-dashboard",
+          "allergies-summary-dashboard",
+          "attachments-results-summary-dashboard",
+          "conditions-summary-dashboard",
+          "encounters-summary-dashboard",
+          "patient-orders-summary-dashboard",
+          "immunization-summary-dashboard",
+          "programs-summary-dashboard",
+          "medications-summary-dashboard",
+          "results-summary-dashboard",
+          "test-results-summary-dashboard"
+        ],
         "configure": {
           "allergies-summary-dashboard": {
             "Display conditions": {
@@ -699,7 +595,8 @@
   "@openmrs/esm-styleguide": {
     "Brand color #1": "#183D1A",
     "Brand color #2": "#1D491F",
-    "Brand color #3": " #2C6D2F"
+    "Brand color #3": " #2C6D2F",
+    "implementationName": "Home"
   },
   "@openmrs/esm-stock-management-app": {
     "Display conditions": {
