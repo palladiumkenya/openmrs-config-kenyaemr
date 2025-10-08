@@ -1,0 +1,163 @@
+{
+  "name": "NCD Discontinuation",
+  "description": "NCD Discontinuation",
+  "version": "1.0",
+  "published": true,
+  "uuid": "63182d28-a23f-4d14-b48e-38077bbd8ed2",
+  "retired": false,
+  "encounter": "NCD Discontinuation",
+  "meta": {
+    "programs": {
+      "uuid": "ffee43c4-9ccd-4e55-8a70-93194e7fafc6",
+      "isEnrollment": false,
+      "discontinuationDateQuestionId": "encDate"
+    }
+  },
+  "pages": [
+    {
+      "label": "NCD Discontinuation",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Reason for Discontinuation",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Reason:",
+              "type": "obs",
+              "id": "DiscontinuationReason",
+              "questionOptions": {
+                "concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "bd0dfa46-6d4e-46a1-a03f-fbeadda52947",
+                    "label": "Client request"
+                  },
+                  {
+                    "concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transfer out"
+                  },
+                  {
+                    "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lost to follow up"
+                  },
+                  {
+                    "concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Died"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify any other reason",
+              "type": "obs",
+              "id": "otherReason",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "DiscontinuationReason !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Transfer to Facility(if transferred out):",
+              "type": "obs",
+              "id": "transferFacility",
+              "questionOptions": {
+                "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "remote-select",
+                "dataSource": "location"
+              },
+              "hide": {
+                "hideWhenExpression": "DiscontinuationReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date Transferred Out",
+              "type": "obs",
+              "id": "dateTransferredOut",
+              "questionOptions": {
+                "concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "DiscontinuationReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Please provide Date of Death if Known:",
+              "type": "obs",
+              "id": "dateDeath",
+              "questionOptions": {
+                "concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "DiscontinuationReason !== '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && DiscontinuationReason !== '129321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && DiscontinuationReason !== '162076AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": [],
+  "encounterType": "c31d1a11-f0a5-4a64-817d-25e5134f2e37"
+}
