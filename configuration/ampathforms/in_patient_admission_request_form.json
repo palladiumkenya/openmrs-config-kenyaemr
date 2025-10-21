@@ -1,0 +1,67 @@
+{
+  "name": "In-Patient Admission Request",
+  "pages": [
+    {
+      "label": "Admission Request",
+      "sections": [
+        {
+          "label": "Ward Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "type": "obsGroup",
+              "id": "inpatientDispositionConstruct",
+              "questionOptions": {
+                "concept": "CIEL:169405",
+                "rendering": "group"
+              },
+              "questions": [
+                {
+                  "id": "disposition",
+                  "type": "obs",
+                  "required": true,
+                  "questionOptions": {
+                    "rendering": "radio",
+                    "required": true,
+                    "concept": "CIEL:169402",
+                    "answers": [
+                      {
+                        "concept": "CIEL:168619"
+                      }
+                    ]
+                  },
+                  "validators": []
+                },
+                {
+                  "id": "admitToLocation",
+                  "label": "Admit To Location",
+                  "type": "obs",
+                  "required": true,
+                  "questionOptions": {
+                    "rendering": "remote-select",
+                    "concept": "CIEL:169403",
+                    "datasource": {
+                      "name": "location",
+                      "config": {
+                        "tag": "Admission Location"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "encounter": "Transfer Request",
+  "referencedForms": [],
+  "uuid": "0bae7646-b079-4cbb-8130-b24274fc16f7",
+  "description": "Create an admission request to an inpatient ward",
+  "version": "1.0.0",
+  "published": true,
+  "retired": false,
+  "encounterType": "b2c4d5e6-7f8a-4e9b-8c1d-2e3f8e4a3b8f"
+}
