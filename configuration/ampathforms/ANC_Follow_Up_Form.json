@@ -670,40 +670,40 @@
           ]
         },
         {
-          "label": "Tripple Testing",
+          "label": "Triple Testing",
           "isExpanded": "true",
           "questions": [
             {
-              "label": "HIV Status before first ANC Visit:",
+              "label": "HIV testing during this visit",
               "type": "obs",
               "questionOptions": {
                 "rendering": "radio",
-                "useMostRecentValue": "true",
-                "autoPopulateWithMostRecentValue": "true",
-                "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "c7e9eb23-9e8f-4d21-9648-7009dfaaa299",
                 "answers": [
                   {
-                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Positive"
+                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Initial"
+                  },
+                  {
+                    "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Retest"
+                  },
+                  {
+                    "concept": "6f6a5e50-6ea0-45a1-90cc-800bd858f82b",
+                    "label": "Known postive"
                   },
                   {
                     "concept": "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Negative"
+                    "label": "Revisit"
                   },
                   {
-                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Unknown"
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not done"
                   }
                 ]
               },
               "id": "patientHivStatus",
-              "validators": [
-                {
-                  "type": "js_expression",
-                  "failsWhenExpression": "isEmpty(patientHivStatus) && serviceType == '1622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
-                  "message": "If service type is ANC. Please provide HIV Status before first ANC."
-                }
-              ],
+              "validators": [],
               "required": "true"
             },
             {
@@ -711,9 +711,7 @@
               "type": "obs",
               "questionOptions": {
                 "concept": "160554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "date",
-                "useMostRecentValue": "true",
-                "autoPopulateWithMostRecentValue": "true"
+                "rendering": "date"
               },
               "id": "patientHivTestDate",
               "validators": [
@@ -723,7 +721,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || patientHivStatus !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "patientHivStatus !== '6f6a5e50-6ea0-45a1-90cc-800bd858f82b'"
               }
             },
             {
@@ -731,8 +729,6 @@
               "type": "obs",
               "questionOptions": {
                 "rendering": "date",
-                "useMostRecentValue": "true",
-                "autoPopulateWithMostRecentValue": "true",
                 "concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "id": "DateArtStart",
@@ -743,7 +739,7 @@
                 }
               ],
               "hide": {
-                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "patientHivStatus !== '6f6a5e50-6ea0-45a1-90cc-800bd858f82b'"
               }
             },
             {
@@ -753,8 +749,6 @@
               "questionOptions": {
                 "concept": "164855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "select",
-                "useMostRecentValue": "true",
-                "autoPopulateWithMostRecentValue": "true",
                 "answers": [
                   {
                     "concept": "162559AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -847,7 +841,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "patientHivStatus !== '6f6a5e50-6ea0-45a1-90cc-800bd858f82b'"
               }
             },
             {
@@ -856,59 +850,11 @@
               "id": "facilityReceivingcare",
               "questionOptions": {
                 "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text",
-                "useMostRecentValue": "true",
-                "autoPopulateWithMostRecentValue": "true"
+                "rendering": "text"
               },
               "hide": {
-                "hideWhenExpression": "patientHivStatus !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "patientHivStatus !== '6f6a5e50-6ea0-45a1-90cc-800bd858f82b'"
               }
-            },
-            {
-              "label": "Client eligible for testing :",
-              "type": "obs",
-              "id": "eligibleTest",
-              "questionOptions": {
-                "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  }
-                ]
-              },
-              "hide": {
-                "hideWhenExpression": "patientHivStatus === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              }
-            },
-            {
-              "label": "Which HIV test is been performed?",
-              "type": "obs",
-              "questionOptions": {
-                "rendering": "radio",
-                "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "answers": [
-                  {
-                    "concept": "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Initial"
-                  },
-                  {
-                    "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Retest"
-                  }
-                ]
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              },
-              "id": "HIVTestQuestion",
-              "required": "true"
             },
             {
               "label": "Has consent been given? ",
@@ -929,7 +875,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(patientHivStatus) || patientHivStatus !== '164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && patientHivStatus !== '160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               },
               "id": "consentGiven",
               "required": "true"
@@ -1595,6 +1541,62 @@
                 "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
               }
             },
+             {
+              "label": "Started HAART in ANC",
+              "type": "obs",
+              "id": "startedHaartInAnc",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164463AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not started ART"
+                  },
+                  {
+                    "concept": "23578b66-f49b-45e2-b876-445524638c0e",
+                    "label": "New on ART"
+                  },
+                  {
+                    "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On ART"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "patientHivStatus !== '6f6a5e50-6ea0-45a1-90cc-800bd858f82b'"
+              }
+            },
+            {
+              "label": "Started HAART in ANC",
+              "type": "obs",
+              "id": "startedHaartInAncNew",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "163783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "164463AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not started ART"
+                  },
+                  {
+                    "concept": "23578b66-f49b-45e2-b876-445524638c0e",
+                    "label": "New on ART"
+                  },
+                  {
+                    "concept": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "On ART"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
             {
               "label": "WHO Staging?",
               "type": "obs",
@@ -1822,7 +1824,7 @@
                     "label": "No Diabetes"
                   },
                   {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Has Diabetes"
                   },
                   {
@@ -1886,8 +1888,20 @@
                         "label": "Deworming (Mebendazole 500mgs)"
                       },
                       {
+                        "concept": "70439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Deworming (Albendazole 400g)"
+                      },
+                      {
                         "concept": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                         "label": "Iron and folic acid supplementation(IFAS)"
+                      },
+                      {
+                        "concept": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Calcium"
+                      },
+                      {
+                        "concept": "76609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Folic"
                       }
                     ]
                   }
@@ -2092,6 +2106,10 @@
                       {
                         "concept": "a3df7486-0de4-4d1b-a845-615ca7680e30",
                         "label": "8"
+                      },
+                      {
+                        "concept": "163461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Post Delivery"
                       }
                     ]
                   },
@@ -2175,8 +2193,8 @@
                       }
                     ]
                   },
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(serviceGiven) || serviceGiven !== '104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                   "hide": {
+                    "hideWhenExpression": "isEmpty(serviceGiven) || serviceGiven !== '104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && serviceGiven !== '72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && serviceGiven !== '76609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -2204,8 +2222,8 @@
                     "rendering": "date",
                     "appointmentKey": "startDateTime"
                   },
-                  "hide": {
-                    "hideWhenExpression": "serviceGiven === '160428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                 "hide": {
+                    "hideWhenExpression": "serviceGiven === '160428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '70439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || serviceGiven === '76609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 }
               ]
