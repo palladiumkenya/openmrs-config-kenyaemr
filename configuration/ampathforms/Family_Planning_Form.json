@@ -48,6 +48,54 @@
           "label": "Client History",
           "isExpanded": "true",
           "questions": [
+             {
+              "label": "Is this Visit a referral?",
+              "type": "obs",
+              "required": "true",
+              "id": "visitReferral",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "d105235e-41ee-4234-9b32-0bef507342d7",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Referral from",
+              "type": "obs",
+              "required": "true",
+              "id": "referralSpecification",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "From other facilities"
+                  },
+                  {
+                    "concept": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Referred from CHU "
+                  },
+                  {
+                    "concept": "164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Internal(Department)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(visitReferral) || visitReferral !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
             {
               "label": "Client Number",
               "type": "obs",
@@ -199,8 +247,8 @@
                 "concept": "20395601-257c-490c-86c2-acffb627f91f",
                 "rendering": "textarea"
               },
-              "hide": {
-                "hideWhenExpression": "isEmpty(chronicIllness) || chronicIllness !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+               "hide": {
+                "hideWhenExpression": "isEmpty(chronicIllness) || !arrayContains(chronicIllness, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
             },
             {
@@ -228,6 +276,9 @@
               "questionOptions": {
                 "concept": "166364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F'"
               }
             },
             {
@@ -273,6 +324,9 @@
               "questionOptions": {
                 "concept": "162825AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F'"
               }
             },
             {
@@ -282,6 +336,9 @@
               "questionOptions": {
                 "concept": "160947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F'"
               }
             },
             {
@@ -291,6 +348,9 @@
               "questionOptions": {
                 "concept": "160972AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F'"
               }
             },
             {
@@ -300,6 +360,42 @@
               "questionOptions": {
                 "concept": "160972AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'F'"
+              }
+            },
+            {
+              "label": "Sexual history",
+              "type": "obs",
+              "id": "sexualHistory",
+              "questionOptions": {
+                "concept": "162162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              }
+            },
+            {
+              "label": "Genital Exam",
+              "type": "obs",
+              "id": "genitalExam",
+              "questionOptions": {
+                "concept": "160985AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'M'"
+              }
+            },
+            {
+              "label": "Rectal Exam",
+              "type": "obs",
+              "id": "rectalExam",
+              "questionOptions": {
+                "concept": "160961AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "sex !== 'M'"
               }
             }
           ]
@@ -998,7 +1094,7 @@
               "label": "Client referred for FP services",
               "type": "obs",
               "required": "true",
-              "id": "clientReferredForFpServices",
+              "id": "refferredPatient",
               "questionOptions": {
                 "rendering": "radio",
                 "concept": "166515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1019,99 +1115,142 @@
                 "hideWhenExpression": "age < 15"
               }
             },
+            
             {
-              "label": "Referred from",
+              "label": "Refferal reason?",
               "type": "obs",
-              "required": "false",
-              "id": "referredFrom",
+              "id": "refferalsOrderd",
               "questionOptions": {
-                "rendering": "select",
-                "concept": "160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "answers": [
-                  {
-                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Community"
-                  },
-                  {
-                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Another Health facility"
-                  },
-                  {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not Applicable"
-                  }
-                ]
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "clientReferredForFpServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15"
-              }
-            },
-            {
-              "label": "Referred to ",
-              "type": "obs",
-              "required": "false",
-              "id": "referredTo",
-              "questionOptions": {
-                "rendering": "select",
-                "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "conceptMappings": [
-                  {
-                    "relationship": "SAME-AS",
-                    "type": "CIEL",
-                    "value": "163145"
-                  },
-                  {
-                    "relationship": "NARROWER-THAN",
-                    "type": "SNOMED NP",
-                    "value": "440379008"
-                  }
-                ],
-                "answers": [
-                  {
-                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Community"
-                  },
-                  {
-                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Another Health facility"
-                  },
-                  {
-                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Not Applicable"
-                  }
-                ]
-              },
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "clientReferredForFpServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15"
-              }
-            },
-            {
-              "label": "Reasons for referral (specify)",
-              "type": "obs",
-              "required": "false",
-              "id": "reasonsForReferral",
-              "questionOptions": {
-                "rendering": "text",
                 "concept": "164359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "conceptMappings": [
+                "rendering": "textarea"
+              },
+              "hide": {
+                "hideWhenExpression": "refferredPatient !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Referred to?",
+              "type": "obs",
+              "id": "referralTo",
+              "questionOptions": {
+                "concept": "163145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
                   {
-                    "relationship": "SAME-AS",
-                    "type": "CIEL",
-                    "value": "164359"
+                    "concept": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other health facility"
                   },
                   {
-                    "relationship": "NARROWER-THAN",
-                    "type": "SNOMED NP",
-                    "value": "3457005"
+                    "concept": "9008cf1c-8631-440b-8fde-061ff273c04c",
+                    "label": "Transfer within the facility"
+                  },
+                  {
+                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Community"
                   }
-                ],
-                "answers": []
+                ]
               },
-              "validators": [],
               "hide": {
-                "hideWhenExpression": "clientReferredForFpServices !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || age < 15"
+                "hideWhenExpression": "refferredPatient !=='1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Referral to Facility:",
+              "type": "obs",
+              "id": "transferToFacility",
+              "questionOptions": {
+                "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "encounterLocation"
+              },
+              "hide": {
+                "hideWhenExpression": "referralTo !=='164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Department transferred to",
+              "type": "obs",
+              "id": "departmentSpecify",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "conceptMappings": [],
+                "answers": [
+                  {
+                    "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Outpatient Department"
+                  },
+                  {
+                    "concept": "167050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Inpatient Department"
+                  },
+                  {
+                    "concept": "160454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ophthalmology (Eye)Clinic"
+                  },
+                  {
+                    "concept": "160455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ear, Nose, and Throat(ENT)Clinic"
+                  },
+                  {
+                    "concept": "2a030791-14b4-4996-95ad-39c54b25f2b6",
+                    "label": "Physiotherapy clinic"
+                  },
+                  {
+                    "concept": "164164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Surgical Outpatient Clinic"
+                  },
+                  {
+                    "concept": "160457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Paediatrics clinics"
+                  },
+                  {
+                    "concept": "1d7d7c76-d807-4f33-8c7e-2531e28126ed",
+                    "label": "Maxillofacial Clinic"
+                  },
+                  {
+                    "concept": "160448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Medical Outpatient clinic"
+                  },
+                  {
+                    "concept": "66710a6d-5894-4f7d-a874-b449df77314d",
+                    "label": "Oncology Clinic"
+                  },
+                  {
+                    "concept": "30aff715-92de-4662-aa33-fa6b6179fed0",
+                    "label": "Dental clinic"
+                  },
+                  {
+                    "concept": "160475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Renal Clinic"
+                  },
+                  {
+                    "concept": "5489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mental Health"
+                  },
+                  {
+                    "concept": "160460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dermatology Clinic"
+                  },
+                  {
+                    "concept": "164103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetic Clinic"
+                  },
+                  {
+                    "concept": "c2f85aed-695f-49b1-973e-002c37cbdebf",
+                    "label": "Occupational Therapy Clinic"
+                  },
+                  {
+                    "concept": "160465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Orthopaedic Clinic"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others specify"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "referralTo !=='9008cf1c-8631-440b-8fde-061ff273c04c'"
               }
             },
             {
