@@ -1,0 +1,876 @@
+{
+  "name": "KVP Initial Form",
+  "description": "Initial form for Key and Vulnerable Population (KVP) patients",
+  "version": "2.0",
+  "published": true,
+  "uuid": "ead9e306-f1e5-4ed8-aa7d-be9a55309b3c",
+  "retired": false,
+  "encounter": "KP Contact",
+  "meta": {},
+  "pages": [
+    {
+      "label": "KVP Contact Form",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Contact Form",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Patient Type?",
+              "type": "obs",
+              "id": "patientType",
+              "required": "true",
+              "questionOptions": {
+                "concept": "423c034e-14ac-4243-ae75-80d1daddce55",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New Patient"
+                  },
+                  {
+                    "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transfer in"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Transfer in date:",
+              "type": "obs",
+              "id": "transferInDate",
+              "questionOptions": {
+                "concept": "160534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientType) || patientType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Transferred from facility:",
+              "type": "obs",
+              "id": "transferredFrom",
+              "questionOptions": {
+                "concept": "160535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientType) || patientType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date first enrolled in KP program:",
+              "type": "obs",
+              "id": "firstEnrolledDate",
+              "questionOptions": {
+                "concept": "160555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(patientType) || patientType !== '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Key and Vulnerable population type:",
+              "type": "obs",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550",
+                "conceptMappings": [
+                  {
+                    "type": "MCL/CIEL",
+                    "value": "160581"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People who inject drugs (PWID)"
+                  },
+                  {
+                    "concept": "642945a8-045a-4010-b3f3-bc50aaaab386",
+                    "label": "People who use drugs (PWUD)"
+                  },
+                  {
+                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fisher folk"
+                  },
+                  {
+                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Truck driver"
+                  },
+                  {
+                    "concept": "160549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Adolescent and young women"
+                  },
+                  {
+                    "concept": "166513AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Female sex worker (FSW)"
+                  },
+                  {
+                    "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Discordant Couple"
+                  },
+                  {
+                    "label": "People in Prison",
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }                 
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "sex !=='F'"
+              },
+              "id": "femaleKeyPop"
+            },
+            {
+              "label": "People in prison",
+              "type": "obs",
+              "required": "true",
+              "id": "peopleInprisonFemale",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "answers": [
+                  {
+                    "label": "Inmates",
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Staff",
+                    "concept": "1142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Community"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(femaleKeyPop) || femaleKeyPop !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+              }
+            },
+            {
+              "label": "Key and Vulnerable population:",
+              "type": "obs",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550",
+                "conceptMappings": [
+                  {
+                    "type": "MCL/CIEL",
+                    "value": "160581"
+                  }
+                ],
+                "answers": [
+                  {
+                    "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "People who inject drugs (PWID)"
+                  },
+                  {
+                    "concept": "642945a8-045a-4010-b3f3-bc50aaaab386",
+                    "label": "People who use drugs (PWUD)"
+                  },
+                  {
+                    "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fisher folk"
+                  },
+                  {
+                    "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Truck driver"
+                  },
+                  {
+                    "concept": "973e5b6c-ae5e-4d6a-a624-2d259763771f",
+                    "label": "MSW"
+                  },
+                  {
+                    "concept": "160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Men who has sex with men (MSM)"
+                  },
+                  {
+                    "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Discordant Couple"
+                  },
+                  {
+                    "label": "People in Prison",
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "sex !=='M'"
+              },
+              "id": "maleKeyPop"
+            },
+            {
+              "label": "People in prison",
+              "type": "obs",
+              "required": "true",
+              "id": "peopleinprisonmaleKeyPop",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+                "answers": [
+                  {
+                    "label": "Inmates",
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Staff",
+                    "concept": "1142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Community"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(maleKeyPop) || maleKeyPop !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
+              }
+            },
+            {
+              "label": "Implementation county",
+              "type": "obs",
+              "id": "county",
+              "required": "true",
+              "questionOptions": {
+                "concept": "167131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Implementation sub-county",
+              "type": "obs",
+              "id": "subCounty",
+              "required": "true",
+              "questionOptions": {
+                "concept": "161551AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Implementation ward",
+              "type": "obs",
+              "id": "ward",
+              "required": "true",
+              "questionOptions": {
+                "concept": "161550AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Hotspot/Operating Site Code",
+              "type": "control",
+              "required": false,
+              "id": "hotSpotCode",
+              "questionOptions": {
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "type": "patientIdentifier",
+              "label": "Unique Identifier Code",
+              "questionInfo": "",
+              "id": "uniqueIdentifierCode",
+              "default": "",
+              "questionOptions": {
+                "rendering": "text",
+                "identifierType": "b7bfefd0-239b-11e9-ab14-d663bd873d93",
+                "calculate": {
+                  "calculateExpression": "ward && subCounty && (femaleKeyPop || maleKeyPop) && hotSpotCode && fetchData(`/openmrs/ws/rest/v1/kenyaemr/kpIdentifier?patientUuid=${patientUuid}&kpType=${femaleKeyPop ? femaleKeyPop : maleKeyPop}&ward=${ward}&hotspotCode=${hotSpotCode}&subCounty=${subCounty}`,'kpIdentifier')"
+                }
+              },
+              "hide": {
+                "hideWhenExpression": "femaleKeyPop ===  '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || femaleKeyPop ===  '162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || femaleKeyPop === '160549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || femaleKeyPop ===  '6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || femaleKeyPop ===  '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || maleKeyPop ===  '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || maleKeyPop ===  '162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || maleKeyPop ===  '6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || maleKeyPop ===  '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Alternative Contact Person Name",
+              "type": "obs",
+              "id": "altname",
+              "questionOptions": {
+                "concept": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Alternative Contact Person Tel",
+              "type": "obs",
+              "id": "mobile",
+              "questionOptions": {
+                "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Have you been contacted by a peer educator?",
+              "type": "obs",
+              "id": "contactedByPeerEducator",
+              "questionOptions": {
+                "concept": "d83bca86-6734-4b26-b67c-c2133948fbac",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(maleKeyPop) && isEmpty(femaleKeyPop)"
+              }
+            },
+            {
+              "label": "If yes, which programme do you receive service from?",
+              "type": "obs",
+              "id": "serviceProgram",
+              "questionOptions": {
+                "concept": "844bf107-32e6-4d5d-8d40-de8978f79cb3",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(contactedByPeerEducator) || contactedByPeerEducator === '1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Where do you MOSTLY operate? (Name and physical address of the Hotspot/Operating site mostly frequented)",
+              "type": "obs",
+              "id": "hotspotFrequented",
+              "required": "true",
+              "questionOptions": {
+                "concept": "07944782-2ad1-4319-b3bd-b5acd097a328",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(maleKeyPop) && isEmpty(femaleKeyPop)"
+              }
+            },
+            {
+              "label": "Type of Hotspot",
+              "type": "obs",
+              "id": "hotspotType",
+              "questionOptions": {
+                "concept": "8e636ff6-6907-4c7e-965a-5c178c3237c6",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "0eb70f95-c0bb-480a-b0c5-dc987c740940",
+                    "label": "Street"
+                  },
+                  {
+                    "concept": "c3231eda-d525-40b5-81ef-323d7ebec324",
+                    "label": "Injecting den"
+                  },
+                  {
+                    "concept": "c31e2ac5-edcb-4f5e-a5a3-09e6158332bb",
+                    "label": "Uninhabitable building"
+                  },
+                  {
+                    "concept": "0a802027-c3db-4c89-a06a-5172a5f57611",
+                    "label": "Parks"
+                  },
+                  {
+                    "concept": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Homes"
+                  },
+                  {
+                    "concept": "4da6617b-0bce-4653-932f-b9aa85794f19",
+                    "label": "Casino"
+                  },
+                  {
+                    "concept": "8fa3458f-217d-41ec-99a1-e80cb9e76963",
+                    "label": "Bar with lodging"
+                  },
+                  {
+                    "concept": "8361b9dd-a67b-46cd-a7d8-4a49dc732a17",
+                    "label": "Bar without lodging"
+                  },
+                  {
+                    "concept": "500e6361-47d3-4239-81ae-cccca6999f08",
+                    "label": "Sex den"
+                  },
+                  {
+                    "concept": "7f9ab5d9-b95b-4341-9d99-3cd1a2d45752",
+                    "label": "Strip club"
+                  },
+                  {
+                    "concept": "17a0e078-4f8e-4993-ba93-26bbd6480069",
+                    "label": "Highways"
+                  },
+                  {
+                    "concept": "52fcebd8-62b1-4b4a-be41-2f0ed5cd0a77",
+                    "label": "Brothel"
+                  },
+                  {
+                    "concept": "50e3f356-04b7-47a6-89d4-b46b74fa68ac",
+                    "label": "Guest house"
+                  },
+                  {
+                    "concept": "48ca7119-3535-48f7-877d-acd7c1d193dd",
+                    "label": "Massage parlor"
+                  },
+                  {
+                    "concept": "c042a7d4-a8fb-4b33-b638-15c4687912e7",
+                    "label": "Chang'aa den"
+                  },
+                  {
+                    "concept": "7e77fe7a-978a-48ba-b0ce-b5226fe61e25",
+                    "label": "Barber Shop/Salon"
+                  },
+                  {
+                    "concept": "4d543570-a831-403d-a6c7-b054bf71440e",
+                    "label": "Virtual Space"
+                  },
+                  {
+                    "concept": "160635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Truck Stops"
+                  },
+                  {
+                    "concept": "160547AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Factories/Companies"
+                  },
+                  {
+                    "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Prison Block"
+                  },
+                  {
+                    "concept": "164406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Landing Sites"
+                  },
+                  {
+                    "concept": "45bd1bea-367d-45d5-b596-a81a4f095808",
+                    "label": "Beach"
+                  },
+                  {
+                    "concept": "bd06bd90-8380-49f9-8814-d5d087e9afdd",
+                    "label": "Parade Ground"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(maleKeyPop) || maleKeyPop === '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(femaleKeyPop) || femaleKeyPop === '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify Hotspot",
+              "type": "obs",
+              "id": "otherHotspotSpecify",
+              "questionOptions": {
+                "concept": "bae7d54d-4944-4be0-93fa-021b4a70cb0b",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hotspotType) || hotspotType !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Type of Operating Site",
+              "type": "obs",
+              "id": "hotspotTypeFisherfolk",
+              "questionOptions": {
+                "concept": "8e636ff6-6907-4c7e-965a-5c178c3237c6",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "45bd1bea-367d-45d5-b596-a81a4f095808",
+                    "label": "Beach"
+                  },
+                  {
+                    "concept": "164406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Landing Sites"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": " maleKeyPop !== '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && femaleKeyPop !== '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify operating site",
+              "type": "obs",
+              "id": "otherHotspotSpecifyFisherfolk",
+              "questionOptions": {
+                "concept": "bae7d54d-4944-4be0-93fa-021b4a70cb0b",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hotspotTypeFisherfolk) || hotspotTypeFisherfolk !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Which type of fish business do you primarily conduct?",
+              "type": "obs",
+              "id": "fishBusiness",
+              "questionOptions": {
+                "concept": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "140107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fishers",
+                    "disableWhenExpression": "myValue === '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "165411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fish mongers, Fish traders and Marketers",
+                    "disableWhenExpression": "myValue === '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "160128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fish Transporters",
+                    "disableWhenExpression": "myValue === '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "161382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Boat Owners",
+                    "disableWhenExpression": "myValue === '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "157820AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Boat crews",
+                    "disableWhenExpression": "myValue === '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "159613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fish processors(cleaning, drying, scaling, smoking, ice making ",
+                    "disableWhenExpression": "myValue === '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "165410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Beach hoteliers",
+                    "disableWhenExpression": "myValue === '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "45bd1bea-367d-45d5-b596-a81a4f095808",
+                    "label": "Beach boys and girls",
+                    "disableWhenExpression": "myValue === '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "159673AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fishing net makers /Repairers of local fishing equipment",
+                    "disableWhenExpression": "myValue === '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": " maleKeyPop !== '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && femaleKeyPop !== '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify other fish business",
+              "type": "obs",
+              "id": "otherFishBusiness",
+              "questionOptions": {
+                "concept": "20395601-257c-490c-86c2-acffb627f91f",
+                "rendering": "textarea"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(fishBusiness) || !arrayContains(fishBusiness, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "The name of your Beach/ landing site",
+              "type": "obs",
+              "id": "nameBeach",
+              "required": "true",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": " maleKeyPop !== '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && femaleKeyPop !== '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Prison setting typologies ",
+              "type": "obs",
+              "id": "prisonTypologies",
+              "questionOptions": {
+                "concept": "d83bca86-6734-4b26-b67c-c2133948fbac",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "160516AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Remandees"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Convicted"
+                  },
+                  {
+                    "concept": "167062AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Staff working in prison settings and their families "
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": " maleKeyPop !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && femaleKeyPop !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Which year did you start sex work?",
+              "type": "obs",
+              "id": "startSex",
+              "questionOptions": {
+                "concept": "c453778e-d2f0-4c58-939a-518af10badd2",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(femaleKeyPop) || femaleKeyPop !== '160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Which year did you start having sex with men?(MSM only)",
+              "type": "obs",
+              "id": "sexWithMen",
+              "questionOptions": {
+                "concept": "68bfa3f3-1fc7-4d9d-bb41-e897c3c430ef",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "moment(myValue).isBefore(moment(birthdate), 'day')",
+                  "message": "Should not be less than the date of birth."
+                },
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "isEmpty(maleKeyPop) || maleKeyPop !== '160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Have you ever injected drugs?",
+              "type": "obs",
+              "id": "everInjectedDrugs",
+              "questionOptions": {
+                "concept": "c8ae2850-abab-4b9c-927c-129ecc2c2752",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": " maleKeyPop !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && femaleKeyPop !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && maleKeyPop !== '642945a8-045a-4010-b3f3-bc50aaaab386' && femaleKeyPop !== '642945a8-045a-4010-b3f3-bc50aaaab386'"
+              }
+            },
+            {
+              "label": "Which Year Did You Start Using Drugs (Injecting Or Smoking)?",
+              "type": "obs",
+              "id": "usingDrugs",
+              "questionOptions": {
+                "concept": "224521b9-c88a-4355-bd32-323996fcbb87",
+                "rendering": "number"
+              },
+              "validators": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": " maleKeyPop !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && femaleKeyPop !== '105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && maleKeyPop !== '642945a8-045a-4010-b3f3-bc50aaaab386' && femaleKeyPop !== '642945a8-045a-4010-b3f3-bc50aaaab386'"
+              }
+            },
+            {
+              "label": "Which Year did you start Trucking?",
+              "type": "obs",
+              "id": "yearstartTruckig",
+              "questionOptions": {
+                "concept": "164393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": " maleKeyPop !== '162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && femaleKeyPop !== '162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Which Year did you start Fishing)?",
+              "type": "obs",
+              "id": "yearstartFishing",
+              "questionOptions": {
+                "concept": "68bfa3f3-1fc7-4d9d-bb41-e897c3c430ef",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                },
+                {
+                  "type": "js_expression",
+                  "failsWhenExpression": "moment(myValue).isBefore(moment(birthdate), 'day')",
+                  "message": "Should not be less than the date of birth."
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": " maleKeyPop !== '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && femaleKeyPop !== '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Which Year were you tested as Discordant Couple? ?",
+              "type": "obs",
+              "id": "yearDiscordantCouple",
+              "questionOptions": {
+                "concept": "159932AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "hide": {
+                "hideWhenExpression": " maleKeyPop !== '6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && femaleKeyPop !== '6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "How long is your sentence ?",
+              "type": "obs",
+              "id": "longYourSentence",
+              "questionOptions": {
+                "concept": "1734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": [
+                {
+                  "type": "number"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": " peopleinprisonmaleKeyPop !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && peopleInprisonFemale !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Have you ever engaged in Anal Sex?",
+              "type": "obs",
+              "id": "everEngagedAnalsex",
+              "questionOptions": {
+                "concept": "0d2f24cd-0bd9-4159-b71d-a92f2c11a396",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(maleKeyPop) || maleKeyPop !== '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || maleKeyPop !== '162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || maleKeyPop !== '6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && isEmpty(femaleKeyPop) || femaleKeyPop !== '159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || femaleKeyPop !== '162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || femaleKeyPop !== '6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": [],
+  "encounterType": "ea68aad6-4655-4dc5-80f2-780e33055a9e"
+}
