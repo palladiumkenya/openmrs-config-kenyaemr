@@ -1,0 +1,838 @@
+{
+	"name": "PrEP Enrollment",
+	"description": "PrEP Initial Enrollment Form",
+	"version": "1",
+	"published": true,
+	"uuid": "d63eb2ee-d5e8-4ea4-b5ea-ea3670af03ac",
+	"retired": false,
+	"encounter": "PrEP Enrollment",
+	"meta": {},
+	"pages": [
+	  {
+		"label": "Prep Enrollment",
+		"sections": [
+		  {
+			"label": "Visit Details",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Date:",
+				"type": "encounterDatetime",
+				"required": "true",
+				"questionOptions": {
+				  "rendering": "ui-select-extended"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				],
+				"id": "encDate"
+			  },
+			  {
+				"label": "Provider:",
+				"type": "encounterProvider",
+				"required": "true",
+				"questionOptions": {
+				  "rendering": "encounter-provider"
+				},
+				"id": "encProvider "
+			  },
+			  {
+				"label": "Location:",
+				"type": "encounterLocation",
+				"required": "true",
+				"questionOptions": {
+				  "rendering": "encounter-location"
+				},
+				"id": "encLocation"
+			  }
+			]
+		  },
+		  {
+			"label": "Client Source",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Client Type",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "423c034e-14ac-4243-ae75-80d1daddce55",
+				  "answers": [
+					{
+					  "concept": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "New Client"
+					},
+					{
+					  "concept": "160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Transfer in"
+					},
+					{
+					  "concept": "162904AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Re-start"
+					}
+				  ]
+				},
+				"id": "clientType",
+				"required": "true"
+			  },
+			  {
+				"label": "Population type:",
+				"required": "true",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "cf543666-ce76-4e91-8b8d-c0b54a436a2e",
+				  "conceptMappings": [
+					{
+					  "type": "local",
+					  "value": "9782"
+					}
+				  ],
+				  "answers": [
+					{
+					  "label": "General population",
+					  "concept": "5d308c8c-ad49-45e1-9885-e5d09a8e5587"
+					},
+					{
+					  "label": "Key and Vulnerable population:",
+					  "concept": "bf850dd4-309b-4cbd-9470-9d8110ea5550"
+					}
+				  ]
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "personPresent !== '978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				},
+				"id": "popType"
+			  },
+			  {
+				"label": "Key and Vulnerable population:",
+				"type": "obs",
+				"required": "true",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "conceptMappings": [
+					{
+					  "type": "MCL/CIEL",
+					  "value": "160581"
+					}
+				  ],
+				  "answers": [
+					{
+					  "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "People who inject drugs",
+					  "conceptMappings": [
+						{
+						  "type": "local",
+						  "value": "105"
+						},
+						{
+						  "type": "MCL/CIEL",
+						  "value": "105"
+						}
+					  ]
+					},
+					{
+					  "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "People who use drugs"
+					},
+					{
+					  "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Fisher folk",
+					  "conceptMappings": [
+						{
+						  "type": "local",
+						  "value": "105"
+						},
+						{
+						  "type": "MCL/CIEL",
+						  "value": "105"
+						}
+					  ]
+					},
+					{
+					  "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Truck driver",
+					  "conceptMappings": [
+						{
+						  "type": "local",
+						  "value": "9785"
+						},
+						{
+						  "type": "MCL/CIEL",
+						  "value": "160578"
+						}
+					  ]
+					},
+					{
+					  "concept": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Female sex worker",
+					  "conceptMappings": [
+						{
+						  "type": "local",
+						  "value": "1832"
+						},
+						{
+						  "type": "MCL/CIEL",
+						  "value": "160579"
+						}
+					  ]
+					},
+					{
+					  "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Discordant Couple",
+					  "conceptMappings": [
+						{
+						  "type": "local",
+						  "value": "1832"
+						},
+						{
+						  "type": "MCL/CIEL",
+						  "value": "160579"
+						}
+					  ]
+					},
+					{
+					  "label": "People in Prison",
+					  "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				  ]
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(popType) || popType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || sex !=='F'"
+				},
+				"id": "femaleKeyPop"
+			  },
+			  {
+				"label": "People in prison",
+				"type": "obs",
+				"required": "true",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+				  "answers": [
+					{
+					  "label": "Inmates",
+					  "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Staff",
+					  "concept": "1142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Community"
+					}
+				  ]
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(femaleKeyPop) || femaleKeyPop !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+				}
+			  },
+			  {
+				"label": "Key and Vulnerable population:",
+				"type": "obs",
+				"required": "true",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "conceptMappings": [
+					{
+					  "type": "MCL/CIEL",
+					  "value": "160581"
+					}
+				  ],
+				  "answers": [
+					{
+					  "concept": "105AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "People who inject drugs",
+					  "conceptMappings": [
+						{
+						  "type": "local",
+						  "value": "105"
+						},
+						{
+						  "type": "MCL/CIEL",
+						  "value": "105"
+						}
+					  ]
+					},
+					{
+					  "concept": "160666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "People who use drugs"
+					},
+					{
+					  "concept": "159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Fisher folk",
+					  "conceptMappings": [
+						{
+						  "type": "local",
+						  "value": "105"
+						},
+						{
+						  "type": "MCL/CIEL",
+						  "value": "105"
+						}
+					  ]
+					},
+					{
+					  "concept": "162198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Truck driver",
+					  "conceptMappings": [
+						{
+						  "type": "local",
+						  "value": "9785"
+						},
+						{
+						  "type": "MCL/CIEL",
+						  "value": "160578"
+						}
+					  ]
+					},
+					{
+					  "concept": "160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Men who has sex with men",
+					  "conceptMappings": [
+						{
+						  "type": "local",
+						  "value": "9785"
+						},
+						{
+						  "type": "MCL/CIEL",
+						  "value": "160578"
+						}
+					  ]
+					},
+					{
+					  "concept": "973e5b6c-ae5e-4d6a-a624-2d259763771f",
+					  "label": "Male sex worker"
+					},
+					{
+					  "concept": "6096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Discordant Couple",
+					  "conceptMappings": [
+						{
+						  "type": "local",
+						  "value": "1832"
+						},
+						{
+						  "type": "MCL/CIEL",
+						  "value": "160579"
+						}
+					  ]
+					},
+					{
+					  "label": "People in Prison",
+					  "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				  ]
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(popType) || popType !== 'bf850dd4-309b-4cbd-9470-9d8110ea5550' || sex !=='M'"
+				},
+				"id": "maleKeyPop"
+			  },
+			  {
+				"label": "People in prison",
+				"type": "obs",
+				"required": "true",
+				"id": "peopleinprisonmaleKeyPop",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+				  "answers": [
+					{
+					  "label": "Inmates",
+					  "concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "label": "Staff",
+					  "concept": "1142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+					  "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Community"
+					}
+				  ]
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(maleKeyPop) || maleKeyPop !== '162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
+				}
+			  },
+			  {
+				"label": "Referred from:",
+				"type": "obs",
+				"id": "entryPoint",
+				"required": "true",
+				"questionOptions": {
+				  "rendering": "select",
+				  "concept": "160540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "answers": [
+					{
+					  "concept": "159938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "HBTC"
+					},
+					{
+					  "concept": "162050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "CCC"
+					},
+					{
+					  "concept": "160536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "IPD-Adult"
+					},
+					{
+					  "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Community"
+					},
+					{
+					  "concept": "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "MCH"
+					},
+					{
+					  "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "OPD"
+					},
+					{
+					  "concept": "159927AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Outreach"
+					},
+					{
+					  "concept": "160551AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Self Referral"
+					},
+					{
+					  "concept": "27b7ea34-4ea9-48b5-82a3-9981c430c808",
+					  "label": "Peer"
+					},
+					{
+					  "concept": "160541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "TB Clinic"
+					},
+					{
+					  "concept": "160539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "VCT Site"
+					},
+					{
+					  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Other(eg STI)"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(clientType) || !arrayContains(clientType, '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+				}
+			  },
+			  {
+				"label": "Other Specify:",
+				"type": "obs",
+				"id": "otherSpecify",
+				"questionOptions": {
+				  "concept": "c67be9a5-f497-4082-af81-11753f65ed4b",
+				  "rendering": "Text"
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(entryPoint) || entryPoint != '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"type": "patientIdentifier",
+				"label": "Unique Prep Number (UPN):",
+				"questionInfo": "",
+				"id": "uniquePrepNumber",
+				"required": "true",
+				"default": "",
+				"questionOptions": {
+				  "rendering": "string",
+				  "identifierType": "ac64e5cb-e3e2-4efa-9060-0dd715a843a1"
+				},
+				"validators": [
+				  {
+					"type": "js_expression",
+					"failsWhenExpression": "doesNotMatchExpression('^\\\\\\d{14}$', uniquePrepNumber)",
+					"message": "Invalid Unique Patient Number(UPN) Format! Should be 5 digit MFL Code, 4 digit year and 5 digit client number e.g.10829202200001"
+				  }
+				]
+			  },
+			  {
+				"type": "patientIdentifier",
+				"label": "NHIF Number:",
+				"questionInfo": "",
+				"id": "nhifNumber",
+				"default": "",
+				"questionOptions": {
+				  "rendering": "string",
+				  "identifierType": "09ebf4f9-b673-4d97-b39b-04f94088ba64"
+				},
+				"validators": [
+				  {
+					"type": "js_expression",
+					"failsWhenExpression": "!isEmpty(myValue) && doesNotMatchExpression('^\\\\d+$', nhifNumber)",
+					"message": "NHIF number should contain digits only e.g.10829202"
+				  }
+				]
+			  }
+			]
+		  },
+		  {
+			"label": "Transfer Status",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Transfer in date:",
+				"type": "obs",
+				"id": "transferInDate",
+				"questionOptions": {
+				  "concept": "160534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(clientType) || clientType != '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Transferred from facility:",
+				"type": "obs",
+				"id": "transferFromFacility",
+				"questionOptions": {
+				  "concept": "160535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "text"
+				},
+				"validators": [],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(clientType) || clientType != '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Date initiated in PrEP care:",
+				"type": "obs",
+				"id": "firstEnrolledDate",
+				"questionOptions": {
+				  "concept": "160555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(clientType) || clientType != '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  },
+			  {
+				"label": "Date started PrEP at transferring facility:",
+				"type": "obs",
+				"id": "artStartDate",
+				"questionOptions": {
+				  "concept": "159599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(clientType) || clientType != '160563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+				}
+			  }
+			]
+		  },
+		  {
+			"label": "PrEP Initiation Details",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Client has previously been on PrEP",
+				"type": "obs",
+				"id": "artStatus",
+				"questionOptions": {
+				  "concept": "160533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "true",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "false",
+					  "label": "No"
+					}
+				  ]
+				}
+			  },
+			  {
+				"label": "Type of PrEP",
+				"type": "obs",
+				"id": "prepTypeMale",
+				"questionOptions": {
+				  "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+					  "label": "Daily Oral PrEP"
+					},
+					{
+					  "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+					  "label": "CAB-LA"
+					},
+					{
+					  "concept": "5424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "Event Driven"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(artStatus) || artStatus !== 'true' || sex !=='M'"
+				}
+			  },
+			  {
+				"label": "Regimen prescribed",
+				"type": "obs",
+				"id": "regimenOptionsMale",
+				"questionOptions": {
+				  "concept": "164515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "TDF/3TC"
+					},
+					{
+					  "concept": "84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "TDF"
+					},
+					{
+					  "concept": "104567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "TDF/FTC(Preferred)"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(prepTypeMale) || prepTypeMale !== 'cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7' || sex !=='M'"
+				}
+			  },
+			  {
+				"label": "Type of PrEP",
+				"type": "obs",
+				"id": "prepTypeFemale",
+				"questionOptions": {
+				  "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "radio",
+				  "answers": [
+					{
+					  "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+					  "label": "Daily Oral PrEP"
+					},
+					{
+					  "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+					  "label": "CAB-LA"
+					},
+					{
+					  "concept": "b3f6eab2-93bd-4fe0-81ce-5b7ec633a55a",
+					  "label": "Dapivirine ring"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(artStatus) || artStatus !== 'true' || sex !=='F'"
+				}
+			  },
+			  {
+				"label": "Regimen prescribed",
+				"type": "obs",
+				"id": "regimenOptions",
+				"questionOptions": {
+				  "concept": "164515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "select",
+				  "answers": [
+					{
+					  "concept": "161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "TDF/3TC"
+					},
+					{
+					  "concept": "84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "TDF"
+					},
+					{
+					  "concept": "104567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "label": "TDF/FTC(Preferred)"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "isEmpty(prepTypeFemale) || prepTypeFemale !== 'cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7' || sex !=='F'"
+				}
+			  },
+			  {
+				"label": "Date Last Used",
+				"type": "obs",
+				"id": "name",
+				"questionOptions": {
+				  "concept": "162881AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "date"
+				},
+				"validators": [
+				  {
+					"type": "date",
+					"allowFutureDates": "false"
+				  }
+				],
+				"hide": {
+				  "hideWhenExpression": "isEmpty(prepTypeFemale) && isEmpty(prepTypeMale)"
+				}
+			  }
+			]
+		  },
+		  {
+			"label": "Client Social Status",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "In school :",
+				"type": "obs",
+				"questionOptions": {
+				  "rendering": "radio",
+				  "concept": "5629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "answers": [
+					{
+					  "concept": "true",
+					  "label": "Yes"
+					},
+					{
+					  "concept": "false",
+					  "label": "No"
+					}
+				  ]
+				},
+				"hide": {
+				  "hideWhenExpression": "age > 17"
+				},
+				"id": "inSchool",
+				"required": "true"
+			  }
+			]
+		  },
+		  {
+			"label": "Adherence Buddy",
+			"isExpanded": "true",
+			"questions": [
+			  {
+				"label": "Adherence Buddy",
+				"type": "obsGroup",
+				"questionOptions": {
+				  "concept": "161642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				  "rendering": "repeating"
+				},
+				"questions": [
+				  {
+					"label": "Name",
+					"type": "obs",
+					"id": "name",
+					"questionOptions": {
+					  "concept": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "text"
+					}
+				  },
+				  {
+					"label": "Alias",
+					"type": "obs",
+					"id": "alias",
+					"questionOptions": {
+					  "concept": "7a7fb83f-d5b7-4755-b080-6142e27fedc9",
+					  "rendering": "text"
+					}
+				  },
+				  {
+					"label": "Relationship",
+					"type": "obs",
+					"id": "treatmentSupporterRelationship",
+					"questionOptions": {
+					  "concept": "160640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "select",
+					  "answers": [
+						{
+						  "concept": "5617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Spouse"
+						},
+						{
+						  "concept": "973AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Grandparent"
+						},
+						{
+						  "concept": "972AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Sibling"
+						},
+						{
+						  "concept": "160639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Guardian"
+						},
+						{
+						  "concept": "1527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Parent"
+						},
+						{
+						  "concept": "163565AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Partner"
+						},
+						{
+						  "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						  "label": "Other"
+						}
+					  ]
+					}
+				  },
+				  {
+					"label": "Telephone Number",
+					"type": "obs",
+					"id": "tsTelephone",
+					"questionOptions": {
+					  "concept": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "text"
+					},
+					"validators": [
+					  {
+						"type": "js_expression",
+						"failsWhenExpression": "myValue && doesNotMatchExpression('^0([0-9](?:(?:[0-9][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$',myValue)",
+						"message": "Please enter the telephone number in the correct format e.g 0720200200 thats is 10 digits"
+					  }
+					]
+				  },
+				  {
+					"label": "Alternative Phone Number",
+					"type": "obs",
+					"id": "alternativePhoneNumber",
+					"questionOptions": {
+					  "concept": "160641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+					  "rendering": "text"
+					}
+				  }
+				],
+				"id": "__FxDEynELt"
+			  }
+			]
+		  }
+		]
+	  }
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}

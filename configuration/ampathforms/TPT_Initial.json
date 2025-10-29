@@ -1,0 +1,132 @@
+{
+	"name": "TPT Initial",
+	"description": "TPT Initial Form",
+	"version": "1",
+	"published": true,
+	"uuid": "9d75d6c7-2db8-44ba-8068-f1b3601a1cb9",
+	"retired": false,
+	"encounter": "IPT Initiation",
+	"meta": {},
+	"pages": [
+		{
+			"label": "TPT Initiial",
+			"sections": [
+				{
+					"label": "Visit Details",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Date Started on TPT:",
+							"type": "encounterDatetime",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encDate",
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								}
+							]
+						},
+						{
+							"label": "Provider:",
+							"type": "encounterProvider",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encProvider "
+						},
+						{
+							"label": "Location:",
+							"type": "encounterLocation",
+							"required": "true",
+							"questionOptions": {
+								"rendering": "ui-select-extended"
+							},
+							"id": "encLocation"
+						}
+					]
+				},
+				{
+					"label": "Indication for TPT",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"label": "Indication for TPT",
+							"type": "obs",
+							"id": "tptIndication",
+							"questionOptions": {
+								"concept": "162276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "select",
+								"answers": [
+									{
+										"concept": "162277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Prison setting"
+									},
+									{
+										"concept": "162278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Household contact"
+									},
+									{
+										"concept": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "PLHIV"
+									},
+									{
+										"concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "HCW and other Facility staff"
+									},
+									{
+										"concept": "5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+										"label": "Other clinical risk group"
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"label": "Sub-County Registration",
+					"isExpanded": "true",
+					"questions": [
+						{
+							"type": "patientIdentifier",
+							"label": "Registration Number",
+							"questionInfo": "",
+							"id": "regNumber",
+							"default": "",
+							"questionOptions": {
+								"rendering": "text",
+								"identifierType": "d8ee3b8c-a8fc-4d6b-af6a-9423be5f8906"
+							}
+						},
+						{
+							"label": "Registration Date:",
+							"type": "obs",
+							"id": "regDate",
+							"questionOptions": {
+								"concept": "161552AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+								"rendering": "date"
+							},
+							"validators": [
+								{
+									"type": "date",
+									"allowFutureDates": "false"
+								},
+								{
+									"type": "js_expression",
+									"failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day'))",
+									"message": "Registration date should not be before the encounter date."
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"processor": "EncounterFormProcessor",
+	"referencedForms": []
+}
