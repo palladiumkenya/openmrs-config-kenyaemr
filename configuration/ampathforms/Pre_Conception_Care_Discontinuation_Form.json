@@ -1,0 +1,151 @@
+{
+  "name": "Pre-Conception Care Discontinuation",
+  "description": "Pre-Conception Discontinuation",
+  "version": "1.0",
+  "published": true,
+  "uuid": "a9128c54-3a05-4d66-ba50-149565eadfd7",
+  "retired": false,
+  "encounter": "Pre-Conception Care",
+  "meta": {
+		"programs": {
+		  "uuid": "fd549de0-2e6d-4e76-a2c1-64df26351bdd",
+		  "isEnrollment": false,
+		  "discontinuationDateQuestionId": "encDate"
+		}
+  },
+  "pages": [
+    {
+      "label": "Pre-Conception Discontinuation",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Reason for Discontinuation",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Reason:",
+              "type": "obs",
+              "id": "DiscontinuationReason",
+              "questionOptions": {
+                "concept": "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Confirmed pregnant"
+                  },
+                  {
+                    "concept": "bd0dfa46-6d4e-46a1-a03f-fbeadda52947",
+                    "label": "Client request"
+                  },
+                  {
+                    "concept": "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Transfer out"
+                  },
+                  {
+                    "concept": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Lost to follow up"
+                  },
+                  {
+                    "concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Died"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Transfer to Facility(if transferred out):",
+              "type": "obs",
+              "id": "transferFacility",
+              "questionOptions": {
+                "concept": "159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "remote-select",
+                "dataSource": "location"
+              },
+              "hide": {
+                "hideWhenExpression": "DiscontinuationReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Date Transferred Out",
+              "type": "obs",
+              "id": "dateTransferredOut",
+              "questionOptions": {
+                "concept": "160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "DiscontinuationReason !== '159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Please provide Date of Death if Known:",
+              "type": "obs",
+              "id": "dateDeath",
+              "questionOptions": {
+                "concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "hide": {
+                "hideWhenExpression": "DiscontinuationReason !== '160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && DiscontinuationReason !== '129321AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && DiscontinuationReason !== '162076AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": [],
+  "encounterType": "ba25f357-764b-45f7-a8d3-6c1d50325bc7"
+}

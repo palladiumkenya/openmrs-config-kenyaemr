@@ -68,10 +68,11 @@
               }
             },
             {
-              "label": "Date of Procedure",
-              "type": "encounterDatetime",
+              "label": "Date and Time of Procedure",
+              "type": "obs",
+              "datePickerFormat": "both",
               "questionOptions": {
-                "rendering": "ui-select-extended",
+                "rendering": "date",
                 "concept": "167132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "id": "timeofProcedure",
@@ -82,20 +83,10 @@
                 },
                 {
                   "type": "js_expression",
-                  "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
-                  "message": "Time of procedure should be greater than the encounter date."
+                  "failsWhenExpression": "(new moment(encDate)).isBefore((new moment(myValue)), 'day') || (new moment(encDate)).isAfter((new moment(myValue)), 'day')",
+                  "message": "Time of procedure should not be before/greater than the encounter date."
                 }
               ]
-            },
-            {
-              "label": "Time Taken",
-              "type": "obs",
-              "id": "procTtakEn",
-              "datePickerFormat": "timer",
-              "questionOptions": {
-                "concept": "a9e7c05e-7381-4e2b-a968-05d5d6a884f6",
-                "rendering": "date"
-              }
             },
             {
               "label": "Operating Surgeon/Doctor's Name",
@@ -111,7 +102,7 @@
               "type": "obs",
               "id": "AsstDoc",
               "questionOptions": {
-                "concept": "159905AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "166688AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "text"
               }
             },
@@ -120,7 +111,7 @@
               "type": "obs",
               "questionOptions": {
                 "rendering": "text",
-                "concept": "164523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                "concept": "166688AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "id": "AssistDoc2"
             },
@@ -129,7 +120,7 @@
               "type": "obs",
               "questionOptions": {
                 "rendering": "text",
-                "concept": "166010AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                "concept": "166688AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "id": "AssistDoc3"
             },
@@ -138,7 +129,7 @@
               "type": "obs",
               "questionOptions": {
                 "rendering": "text",
-                "concept": "166689AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                "concept": "166688AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               "id": "AssistDoc4"
             },
@@ -582,7 +573,7 @@
                 {
                   "label": "Surgeon Remarks",
                   "type": "obs",
-                  "id": "BlOOdlOOs",
+                  "id": "suRgeonRemarKs",
                   "required": "true",
                   "questionOptions": {
                     "concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

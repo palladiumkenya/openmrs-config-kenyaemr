@@ -79,6 +79,7 @@
             {
               "label": "Is this Visit a referral?",
               "type": "obs",
+              "required": "true",
               "id": "visitReferral",
               "questionOptions": {
                 "rendering": "radio",
@@ -98,7 +99,7 @@
             {
               "label": "Referral from",
               "type": "obs",
-              "required": true,
+              "required": "true",
               "id": "referralSpecification",
               "questionOptions": {
                 "rendering": "radio",
@@ -1017,28 +1018,12 @@
           "label": "HIV Testing",
           "isExpanded": "true",
           "questions": [
-            {
-              "label": "Client eligible for testing :",
+           
+           {
+              "label": "Tested in PNC",
               "type": "obs",
-              "id": "eligibleTest",
-              "questionOptions": {
-                "concept": "162699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "radio",
-                "answers": [
-                  {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes"
-                  },
-                  {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No"
-                  }
-                ]
-              }
-            },
-            {
-              "label": "Which HIV test is been performed?",
-              "type": "obs",
+              "id": "HIVTestQuestion",
+              "required": "true",
               "questionOptions": {
                 "rendering": "radio",
                 "concept": "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1050,15 +1035,21 @@
                   {
                     "concept": "160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Retest"
+                  },
+                  {
+                    "concept": "6f6a5e50-6ea0-45a1-90cc-800bd858f82b",
+                    "label": "Known postive"
+                  },
+                  {
+                    "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not done"
                   }
                 ]
               },
               "validators": [],
               "hide": {
                 "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-              },
-              "id": "HIVTestQuestion",
-              "required": "true"
+              }
             },
             {
               "label": "Has consent been given? ",
@@ -1079,7 +1070,7 @@
               },
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(eligibleTest) || eligibleTest !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                "hideWhenExpression": "isEmpty(HIVTestQuestion) || HIVTestQuestion !== '164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && HIVTestQuestion !== '160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               },
               "id": "consentGiven",
               "required": "true"
@@ -1127,7 +1118,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "isEmpty(hivFinalResult) || hivFinalResult !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' "
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
               }
             },
             {
@@ -1903,6 +1894,9 @@
                     "label": "No"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(testedAs) || testedAs === 'c3eba392-6f4d-4990-809f-91000503afbc'"
               }
             },
             {
@@ -2278,6 +2272,10 @@
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
+                  },
+                  {
+                    "concept": "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Revisit"
                   }
                 ]
               },
@@ -2301,6 +2299,10 @@
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "No"
+                  },
+                  {
+                    "concept": "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Revisit"
                   }
                 ]
               },

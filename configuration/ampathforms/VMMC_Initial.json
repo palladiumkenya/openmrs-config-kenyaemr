@@ -1,0 +1,190 @@
+{
+  "name": "VMMC Initial Form",
+  "description": "VMMC Initial Form",
+  "version": "1",
+  "published": true,
+  "uuid": "8afcaac3-e9db-4501-bff6-b6a41935b46e",
+  "retired": false,
+  "encounter": "VMMC Enrollment",
+	"meta": {},
+  "pages": [
+    {
+      "label": "VMMC Initial Form",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Encounter Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "VMMC Enrollment Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Client Enrollment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Referred by:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "160482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "165650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Self referral"
+                  },
+                  {
+                    "concept": "163488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Community Health Volunteer"
+                  },
+                  {
+                    "concept": "5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health Care Worker"
+                  },
+                  {
+                    "concept": "1370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HTS Counsellors"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "id": "referralBy",
+              "required": "true"
+            },
+            {
+              "label": "Specify :",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "b7f19768-bb0e-4bd4-b24b-e53b566b6af9"
+              },
+              "id": "otherReferral",
+              "hide": {
+                "hideWhenExpression": "referralBy !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Client type:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "162728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "159833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Re-enrollment(Re-activation)"
+                  },
+                  {
+                    "concept": "164144AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New Patient"
+                  }
+                ]
+              },
+              "id": "clientType",
+              "required": "true"
+            },
+            {
+              "label": "Main source of VMMC Information:",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "167094AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "167096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Print Media"
+                  },
+                  {
+                    "concept": "160542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "OPD/MCH/HT"
+                  },
+                  {
+                    "concept": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mobilizer CHW"
+                  },
+                  {
+                    "concept": "167097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Social Media"
+                  },
+                  {
+                    "concept": "167098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Road Show"
+                  },
+                  {
+                    "concept": "167095AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Radio/Tv"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other"
+                  }
+                ]
+              },
+              "id": "informationSource",
+              "required": "true"
+            },
+            {
+              "label": "Specify :",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "otherinformationSource",
+              "hide": {
+                "hideWhenExpression": "informationSource !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+						{
+              "label": "County :",
+              "type": "obs",
+              "questionOptions": {
+                "rendering": "text",
+                "concept": "167131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "county",
+              "required": "true"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}
