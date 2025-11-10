@@ -1,14 +1,15 @@
 {
   "name": "HTS Retest Form",
   "description": "Form for HTS testing services",
-  "version": "2.1",
+  "version": "2.2",
   "published": true,
   "uuid": "b08471f6-0892-4bf7-ab2b-bf79797b8ea4",
   "retired": false,
   "encounter": "HTS",
   "pages": [
+    
     {
-      "label": "Encounter Details",
+      "label": "HTS Recordings",
       "sections": [
         {
           "label": "Encounter Details",
@@ -48,12 +49,7 @@
               "id": "encounterLocation"
             }
           ]
-        }
-      ]
-    },
-    {
-      "label": "HTS Recordings",
-      "sections": [
+        },
         {
           "label": "Population Type",
           "isExpanded": "true",
@@ -972,7 +968,7 @@
             }
           ]
         },
-        {
+       {
           "label": "HIV Testing",
           "isExpanded": "true",
           "questions": [
@@ -1022,6 +1018,7 @@
             {
               "label": "HIV Test",
               "type": "obsGroup",
+              "required": "true",
               "questionOptions": {
                 "rendering": "group",
                 "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -1045,10 +1042,6 @@
                         "label": "Trinscreen"
                       },
                       {
-                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
-                        "label": "Determine"
-                      },
-                      {
                         "concept": "5e010f25-6074-4caa-9a26-9ae93ca03e31",
                         "label": "Standard Q"
                       }
@@ -1057,7 +1050,7 @@
                   "id": "kitName",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'M'"
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || age <= 10"
                   }
                 },
                 {
@@ -1071,49 +1064,13 @@
                       {
                         "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
                         "label": "Trinscreen"
-                      },
-                      {
-                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
-                        "label": "Determine"
                       }
                     ]
                   },
                   "id": "kitNameFe",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age > 9)"
-                  }
-                },
-                {
-                  "label": "Kit 1 Name",
-                  "type": "obs",
-                  "required": "true",
-                  "questionOptions": {
-                    "rendering": "select",
-                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
-                    "answers": [
-                      {
-                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
-                        "label": "Trinscreen"
-                      },
-                      {
-                        "concept": "7cf927f8-e734-474f-b71a-1459bb566aa2",
-                        "label": "Determine"
-                      },
-                      {
-                        "concept": "2f5a80fa-6f26-4832-b8a8-f47649bb60de",
-                        "label": "Duo Kit"
-                      },
-                      {
-                        "concept": "5e010f25-6074-4caa-9a26-9ae93ca03e31",
-                        "label": "Standard Q"
-                      }
-                    ]
-                  },
-                  "id": "kitNameA",
-                  "validators": [],
-                  "hide": {
-                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || sex != 'F' || (age < 9)"
+                    "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || age >= 10"
                   }
                 },
                 {
@@ -1127,7 +1084,7 @@
                   "id": "lotNumber",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameFe)"
                   }
                 },
                 {
@@ -1152,7 +1109,7 @@
                   },
                   "id": "expiryDate",
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameFe)"
                   }
                 },
                 {
@@ -1180,7 +1137,138 @@
                   "id": "testResults",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameA) && isEmpty(kitNameFe)"
+                    "hideWhenExpression": "isEmpty(kitName) && isEmpty(kitNameFe)"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                    "message": "Check the status of the kit used. If okay, repeat the same test"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest1R",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 1 Name (Repeat)",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      }
+                    ]
+                  },
+                  "id": "kitNameR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && kitName !== '9c4011c2-2579-49cf-ab53-93d009f03e7b'"
+                  }
+                },
+                {
+                  "label": "Kit 1 Name (Repeat)",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "5e010f25-6074-4caa-9a26-9ae93ca03e31",
+                        "label": "Standard Q"
+                      }
+                    ]
+                  },
+                  "id": "kitNameRQ",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName !== '5e010f25-6074-4caa-9a26-9ae93ca03e31'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameRQ) && isEmpty(kitNameR)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "required": "true",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateR",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameRQ) && isEmpty(kitNameR)"
+                  }
+                },
+                {
+                  "label": "HIV Test 1 Repeat Results:",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameRQ) && isEmpty(kitNameR)"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                    "message": "Stop testing and consult your supervisor"
                   }
                 }
               ]
@@ -1209,17 +1297,13 @@
                       {
                         "concept": "3de9db8a-32a2-4518-8887-c8f25208dade",
                         "label": "One Step"
-                      },
-                      {
-                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
-                        "label": "First Response"
                       }
                     ]
                   },
                   "id": "kitNameB",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                    "hideWhenExpression": "isEmpty(testResults) || testResults !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsR !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1287,6 +1371,116 @@
                   "validators": [],
                   "hide": {
                     "hideWhenExpression": "isEmpty(kitNameB)"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                    "message": "Check the status of the kit used. If okay, repeat the same test"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test(s)",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest2R",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 2 Name (Repeat)",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "3de9db8a-32a2-4518-8887-c8f25208dade",
+                        "label": "One Step"
+                      }
+                    ]
+                  },
+                  "id": "kitNameBR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "testResultsB !== '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberBR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameBR)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "required": "true",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateBR",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameBR)"
+                  }
+                },
+                {
+                  "label": "HIV Test 2 Repeat Results:",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsBR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameBR)"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                    "message": "Stop testing and consult your supervisor"
                   }
                 }
               ]
@@ -1321,7 +1515,7 @@
                   "id": "kitNameD",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
+                    "hideWhenExpression": "testResultsB !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsBR !== '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1400,6 +1594,108 @@
                 "rendering": "group",
                 "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
+              "id": "hivTestA2R",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 1 Name (Repeat",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "9c4011c2-2579-49cf-ab53-93d009f03e7b",
+                        "label": "Trinscreen"
+                      }
+                    ]
+                  },
+                  "id": "kitNameDR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "testResultsD !== '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberDR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameDR)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "required": "true",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateDR",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameDR)"
+                  }
+                },
+                {
+                  "label": "HIV Test 3 Repeat Results:",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "1326AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsDR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameDR)"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
               "id": "hivTest3",
               "validators": [],
               "hide": {
@@ -1423,7 +1719,7 @@
                   "id": "kitNameC",
                   "validators": [],
                   "hide": {
-                    "hideWhenExpression": "isEmpty(testResultsB) || testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' && kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
+                    "hideWhenExpression": "testResultsB !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && testResultsBR !== '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 },
                 {
@@ -1491,6 +1787,116 @@
                   "validators": [],
                   "hide": {
                     "hideWhenExpression": "isEmpty(kitNameC)"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                    "message": "Check the status of the kit used. If okay, repeat the same test"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "HIV Test",
+              "type": "obsGroup",
+              "questionOptions": {
+                "rendering": "group",
+                "concept": "164410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "hivTest3R",
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+              },
+              "questions": [
+                {
+                  "label": "Kit 3 Name (Repeat)",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "214c83f9-435d-44f5-9ae6-d5757b7b4c7f",
+                    "answers": [
+                      {
+                        "concept": "59ef8c87-eb66-4f9e-a459-7227c01f682e",
+                        "label": "First Response"
+                      }
+                    ]
+                  },
+                  "id": "kitNameCR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "testResultsC !== '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                },
+                {
+                  "label": "Lot Number",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "text",
+                    "concept": "3d4f9e8e-46cc-4024-a1c4-d0167f2c84a4"
+                  },
+                  "id": "lotNumberCR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameCR)"
+                  }
+                },
+                {
+                  "label": "Expiry Date",
+                  "type": "obs",
+                  "required": "true",
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "true"
+                    },
+                    {
+                      "type": "js_expression",
+                      "failsWhenExpression": "(new moment(encDate)).isAfter((new moment(myValue)), 'day') || (new moment(encDate)).isSame((new moment(myValue)), 'day')",
+                      "message": "Expiry date should be greater than the encounter date."
+                    }
+                  ],
+                  "questionOptions": {
+                    "rendering": "date",
+                    "concept": "162502AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "weeksList": ""
+                  },
+                  "id": "expiryDateCR",
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameCR)"
+                  }
+                },
+                {
+                  "label": "HIV Test 3 Repeat Results:",
+                  "type": "obs",
+                  "required": "true",
+                  "questionOptions": {
+                    "rendering": "select",
+                    "concept": "83038d41-e832-498b-928f-974ec5bb23dc",
+                    "answers": [
+                      {
+                        "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Positive"
+                      },
+                      {
+                        "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Negative"
+                      },
+                      {
+                        "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "label": "Invalid"
+                      }
+                    ]
+                  },
+                  "id": "testResultsCR",
+                  "validators": [],
+                  "hide": {
+                    "hideWhenExpression": "isEmpty(kitNameCR)"
+                  },
+                  "alert": {
+                    "alertWhenExpression": "myValue === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'",
+                    "message": "Stop testing and consult your supervisor"
                   }
                 }
               ]
@@ -1503,7 +1909,7 @@
                 "rendering": "select",
                 "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "calculate": {
-                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
+                  "calculateExpression": "String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsR) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsD) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsDR) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsC) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsCR) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsCR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' :  String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsDR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsDR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsCR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsCR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' :  String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsCR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsCR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' :  String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsDR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsDR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsCR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsBR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsCR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' :  String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsCR) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResultsR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsCR) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
                 },
                 "answers": [
                   {
@@ -1517,44 +1923,17 @@
                   {
                     "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                     "label": "Inconclusive"
-                  }
-                ]
-              },
-              "id": "hivFinalResultOld",
-              "validators": [],
-              "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameFe === '9c4011c2-2579-49cf-ab53-93d009f03e7b' || kitNameA === '9c4011c2-2579-49cf-ab53-93d009f03e7b'"
-              }
-            },
-            {
-              "label": "Final Results:",
-              "type": "obs",
-              "required": "true",
-              "questionOptions": {
-                "rendering": "select",
-                "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "calculate": {
-                  "calculateExpression": "String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsD) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsB) === '703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && String(testResultsC) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : String(testResults) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsB) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsC) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || String(testResultsD) === '163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' ? '1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
-                },
-                "answers": [
-                  {
-                    "concept": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Positive"
                   },
                   {
-                    "concept": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Negative"
-                  },
-                  {
-                    "concept": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Inconclusive"
+                    "concept": "163611AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Invalid"
                   }
                 ]
               },
               "id": "hivFinalResult",
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true' || kitName ==='7cf927f8-e734-474f-b71a-1459bb566aa2' || kitNameB === '59ef8c87-eb66-4f9e-a459-7227c01f682e'"
+                "hideWhenExpression": "isEmpty(consentGiven) ||isEmpty(testResults) || consentGiven !== 'true'"
               }
             },
             {
@@ -1567,62 +1946,18 @@
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "Yes",
-                    "conceptMappings": [
-                      {
-                        "type": "PIH",
-                        "value": "1065"
-                      },
-                      {
-                        "type": "SNOMED CT",
-                        "value": "CT: 373066001"
-                      },
-                      {
-                        "type": "PIH Malawi",
-                        "value": "Malawi: 1065"
-                      },
-                      {
-                        "type": "CIEL",
-                        "value": "1065"
-                      },
-                      {
-                        "type": "AMPATH",
-                        "value": "1065"
-                      }
-                    ]
+                    "label": "Yes"
                   },
                   {
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "label": "No",
-                    "conceptMappings": [
-                      {
-                        "type": "PIH",
-                        "value": "1066"
-                      },
-                      {
-                        "type": "PIH Malawi",
-                        "value": "Malawi: 1066"
-                      },
-                      {
-                        "type": "AMPATH",
-                        "value": "1066"
-                      },
-                      {
-                        "type": "CIEL",
-                        "value": "1066"
-                      },
-                      {
-                        "type": "SNOMED CT",
-                        "value": "CT: 373067005"
-                      }
-                    ]
+                    "label": "No"
                   }
                 ]
               },
               "id": "resultsGiven",
               "validators": [],
               "hide": {
-                "hideWhenExpression": "isEmpty(consentGiven) || consentGiven !== 'true'"
+                "hideWhenExpression": "isEmpty(consentGiven) || isEmpty(hivFinalResult) || consentGiven !== 'true'"
               }
             },
             {
@@ -1634,16 +1969,6 @@
                 "calculate": {
                   "calculateExpression": "String(testedAs) === '147082f4-0662-4bfa-a54c-914f1db97373' ? '1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' : ''"
                 },
-                "conceptMappings": [
-                  {
-                    "type": "CIEL",
-                    "value": "6096"
-                  },
-                  {
-                    "type": "AMPATH",
-                    "value": "6096"
-                  }
-                ],
                 "answers": [
                   {
                     "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
