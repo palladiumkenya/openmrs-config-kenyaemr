@@ -1,0 +1,269 @@
+name: Sync Releases to Public Repository
+
+run-name: "${{ github.event.action == 'published' && '📦 Publishing' || github.event.action == 'edited' && '✏️ Updating' || '🗑️ Deleting' }} release ${{ github.event.release.tag_name }}"
+
+on:
+  release:
+    types: [published, edited, deleted]
+
+jobs:
+  sync-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Sync release to public repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUBLIC_RELEASE_TOKEN }}
+          PRIVATE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLIC_REPO: ${{ secrets.PUBLIC_REPO_NAME }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_NAME: ${{ github.event.release.name }}
+          RELEASE_BODY: ${{ github.event.release.body }}
+          IS_PRERELEASE: ${{ github.event.release.prerelease }}
+          IS_DRAFT: ${{ github.event.release.draft }}
+          ACTION: ${{ github.event.action }}
+        run: |
+          set -e
+
+          echo "==================================================="
+          echo "  Syncing Release to Public Repository"
+          echo "==================================================="
+          echo ""
+          echo "🔔 Action: $ACTION"
+
+          # Validate required environment variables
+          if [ -z "$GITHUB_TOKEN" ]; then
+            echo "❌ Error: PUBLIC_RELEASE_TOKEN secret is not set"
+            echo ""
+            echo "Please add your Personal Access Token as a secret:"
+            echo "1. Go to Settings > Secrets and variables > Actions"
+            echo "2. Click 'New repository secret'"
+            echo "3. Name: PUBLIC_RELEASE_TOKEN"
+            echo "4. Value: Your GitHub Personal Access Token with 'repo' scope"
+            echo ""
+            echo "Create token at: https://github.com/settings/tokens"
+            exit 1
+          fi
+
+          if [ -z "$PUBLIC_REPO" ]; then
+            echo "❌ Error: PUBLIC_REPO_NAME secret is not set"
+            echo ""
+            echo "Please add your public repository name as a secret:"
+            echo "1. Go to Settings > Secrets and variables > Actions"
+            echo "2. Click 'New repository secret'"
+            echo "3. Name: PUBLIC_REPO_NAME"
+            echo "4. Value: username/repo-name (e.g., enyaencha/markdown-to-measure-releases)"
+            exit 1
+          fi
+
+          echo "📋 Release: $RELEASE_NAME ($RELEASE_TAG)"
+          echo "🌍 Target: $PUBLIC_REPO"
+          echo "📊 Status: draft=$IS_DRAFT, prerelease=$IS_PRERELEASE"
+          echo ""
+
+          # Handle deletion separately
+          if [ "$ACTION" = "deleted" ]; then
+            echo "🗑️  Deleting release from public repository..."
+
+            # Check if release exists in public repo
+            EXISTING=$(curl -s \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/$PUBLIC_REPO/releases/tags/$RELEASE_TAG" \
+              2>/dev/null || echo "{}")
+
+            if echo "$EXISTING" | jq -e '.id' > /dev/null 2>&1; then
+              EXISTING_ID=$(echo "$EXISTING" | jq -r '.id')
+              echo "📍 Found release in public repo (ID: $EXISTING_ID)"
+
+              DELETE_RESPONSE=$(curl -s -w "\n%{http_code}" -X DELETE \
+                -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                "https://api.github.com/repos/$PUBLIC_REPO/releases/$EXISTING_ID")
+
+              HTTP_CODE=$(echo "$DELETE_RESPONSE" | tail -n1)
+
+              if [ "$HTTP_CODE" = "204" ]; then
+                echo "✅ Release $RELEASE_TAG deleted from public repository"
+              else
+                echo "⚠️  Failed to delete release (HTTP $HTTP_CODE)"
+              fi
+            else
+              echo "ℹ️  Release $RELEASE_TAG not found in public repo (nothing to delete)"
+            fi
+
+            echo ""
+            echo "==================================================="
+            echo "✨ Deletion sync complete!"
+            echo "==================================================="
+            exit 0
+          fi
+
+          # For published and edited actions, sync the release
+          echo "🔄 Syncing release (action: $ACTION)..."
+          echo ""
+
+          # Check if release already exists in public repo
+          echo "🔍 Checking if release already exists..."
+          EXISTING=$(curl -s \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$PUBLIC_REPO/releases/tags/$RELEASE_TAG" \
+            2>/dev/null || echo "{}")
+
+          if echo "$EXISTING" | jq -e '.id' > /dev/null 2>&1; then
+            EXISTING_ID=$(echo "$EXISTING" | jq -r '.id')
+            echo "⚠️  Release $RELEASE_TAG already exists (ID: $EXISTING_ID)"
+            echo "🗑️  Deleting existing release to re-create with latest changes..."
+
+            curl -s -X DELETE \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/$PUBLIC_REPO/releases/$EXISTING_ID"
+
+            echo "✅ Existing release deleted"
+            echo ""
+          fi
+
+          # Create release in public repo
+          echo "📤 Creating release in public repository..."
+          CREATE_RESPONSE=$(curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$PUBLIC_REPO/releases" \
+            -d @- <<EOF
+          {
+            "tag_name": "$RELEASE_TAG",
+            "name": "$RELEASE_NAME",
+            "body": $(echo "$RELEASE_BODY" | jq -R -s .),
+            "draft": $IS_DRAFT,
+            "prerelease": $IS_PRERELEASE
+          }
+          EOF
+          )
+
+          # Check if release was created successfully
+          if echo "$CREATE_RESPONSE" | jq -e '.id' > /dev/null 2>&1; then
+            echo "✅ Release created successfully"
+            RELEASE_ID=$(echo "$CREATE_RESPONSE" | jq -r '.id')
+            echo "📝 Release ID: $RELEASE_ID"
+
+            # Verify status was set correctly
+            CREATED_DRAFT=$(echo "$CREATE_RESPONSE" | jq -r '.draft')
+            CREATED_PRERELEASE=$(echo "$CREATE_RESPONSE" | jq -r '.prerelease')
+            echo "✓ Verified status: draft=$CREATED_DRAFT, prerelease=$CREATED_PRERELEASE"
+
+            # Get upload URL for assets
+            UPLOAD_URL=$(echo "$CREATE_RESPONSE" | jq -r '.upload_url' | sed 's/{?name,label}//')
+
+            # Get the private repo name
+            PRIVATE_REPO="${{ github.repository }}"
+
+            # Get assets from the current release
+            echo ""
+            echo "📎 Fetching assets from private release..."
+            ASSETS=$(curl -s \
+              -H "Authorization: token $PRIVATE_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/$PRIVATE_REPO/releases/tags/$RELEASE_TAG" | jq -r '.assets')
+
+            ASSET_COUNT=$(echo "$ASSETS" | jq '. | length')
+
+            if [ "$ASSET_COUNT" -gt 0 ]; then
+              echo "✅ Found $ASSET_COUNT asset(s) to transfer"
+              echo ""
+
+              # Transfer each asset
+              ASSET_ERRORS=0
+              echo "$ASSETS" | jq -c '.[]' | while read -r asset; do
+                ASSET_NAME=$(echo "$asset" | jq -r '.name')
+                ASSET_URL=$(echo "$asset" | jq -r '.url')
+                CONTENT_TYPE=$(echo "$asset" | jq -r '.content_type')
+                ASSET_SIZE=$(echo "$asset" | jq -r '.size')
+
+                echo "  📦 Processing: $ASSET_NAME ($(numfmt --to=iec-i --suffix=B $ASSET_SIZE 2>/dev/null || echo "$ASSET_SIZE bytes"))"
+                echo "  ⬇️  Downloading from private repo..."
+
+                # Download asset from private repo
+                if ! curl -s -L \
+                  -H "Authorization: token $PRIVATE_TOKEN" \
+                  -H "Accept: application/octet-stream" \
+                  "$ASSET_URL" \
+                  -o "/tmp/$ASSET_NAME"; then
+                  echo "  ❌ Failed to download $ASSET_NAME"
+                  ASSET_ERRORS=$((ASSET_ERRORS + 1))
+                  continue
+                fi
+
+                # Verify download
+                if [ ! -f "/tmp/$ASSET_NAME" ]; then
+                  echo "  ❌ Downloaded file not found: /tmp/$ASSET_NAME"
+                  ASSET_ERRORS=$((ASSET_ERRORS + 1))
+                  continue
+                fi
+
+                DOWNLOADED_SIZE=$(stat -f%z "/tmp/$ASSET_NAME" 2>/dev/null || stat -c%s "/tmp/$ASSET_NAME" 2>/dev/null || echo "0")
+                echo "  ✓ Downloaded successfully ($(numfmt --to=iec-i --suffix=B $DOWNLOADED_SIZE 2>/dev/null || echo "$DOWNLOADED_SIZE bytes"))"
+
+                echo "  ⬆️  Uploading to public repo..."
+
+                # Upload to public repo with progress
+                UPLOAD_RESPONSE=$(curl -s -X POST \
+                  -H "Authorization: token $GITHUB_TOKEN" \
+                  -H "Content-Type: $CONTENT_TYPE" \
+                  --data-binary @"/tmp/$ASSET_NAME" \
+                  "${UPLOAD_URL}?name=${ASSET_NAME}")
+
+                if echo "$UPLOAD_RESPONSE" | jq -e '.id' > /dev/null 2>&1; then
+                  UPLOADED_NAME=$(echo "$UPLOAD_RESPONSE" | jq -r '.name')
+                  echo "  ✅ $UPLOADED_NAME transferred successfully"
+                else
+                  echo "  ❌ Failed to upload $ASSET_NAME"
+                  echo "  Error response:"
+                  echo "$UPLOAD_RESPONSE" | jq '.' | sed 's/^/    /'
+                  ASSET_ERRORS=$((ASSET_ERRORS + 1))
+                fi
+
+                # Clean up
+                rm -f "/tmp/$ASSET_NAME"
+                echo ""
+              done
+
+              if [ $ASSET_ERRORS -gt 0 ]; then
+                echo "⚠️  Warning: $ASSET_ERRORS asset(s) failed to transfer"
+              fi
+            else
+              echo "ℹ️  No assets to transfer"
+            fi
+
+            echo ""
+            echo "==================================================="
+            echo "✨ Sync complete!"
+            echo "==================================================="
+            echo ""
+            echo "📊 Summary:"
+            echo "  - Action: $ACTION"
+            echo "  - Release: $RELEASE_NAME ($RELEASE_TAG)"
+            echo "  - Status: draft=$IS_DRAFT, prerelease=$IS_PRERELEASE"
+            echo "  - Assets transferred: $ASSET_COUNT"
+            echo ""
+            echo "🔗 View the release at:"
+            echo "   https://github.com/$PUBLIC_REPO/releases/tag/$RELEASE_TAG"
+
+          else
+            echo "❌ Failed to create release"
+            echo ""
+            echo "Response from GitHub API:"
+            echo "$CREATE_RESPONSE" | jq '.'
+            echo ""
+            echo "Debug information:"
+            echo "- Tag: $RELEASE_TAG"
+            echo "- Name: $RELEASE_NAME"
+            echo "- Draft: $IS_DRAFT"
+            echo "- Prerelease: $IS_PRERELEASE"
+            echo "- Body length: ${#RELEASE_BODY} characters"
+            exit 1
+          fi
