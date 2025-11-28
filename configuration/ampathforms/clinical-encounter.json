@@ -2388,24 +2388,8 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Differential Diagnosis",
+              "label": "Impression",
               "id": "clinicalDiagnosisId",
-              "type": "diagnosis",
-              "questionOptions": {
-                "rendering": "repeating",
-                "dataSource": "diagnoses",
-                "rank": 1,
-                "datasource": {
-                  "name": "diagnoses",
-                  "config": {
-                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
-                  }
-                }
-              }
-            },
-            {
-              "label": "Site affected",
-              "id": "SiteofClinicalDiagnosis",
               "type": "diagnosis",
               "questionOptions": {
                 "rendering": "repeating",
@@ -2489,8 +2473,8 @@
           "label": "Diagnosis",
           "isExpanded": "true",
           "questions": [
-            {
-              "label": "Primary Diagnosis",
+           {
+              "label": "Main Diagnosis",
               "id": "finalDiagnosisId",
               "type": "diagnosis",
               "questionOptions": {
@@ -2498,6 +2482,22 @@
                 "rank": 2,
                 "datasource": {
                   "name": "diagnoses",
+                  "config": {
+                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+                  }
+                }
+              }
+            },
+             {
+              "label": "Site affected",
+              "id": "siteOfDiagnosisFinal",
+              "type": "diagnosis",
+              "questionOptions": {
+                "rendering": "repeating",
+                "dataSource": "diagnoses",
+                "rank": 1,
+                "datasource": {
+                  "name": "",
                   "config": {
                     "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
                   }
@@ -2522,6 +2522,9 @@
                     "label": "Pre-Existing diagnosis"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(finalDiagnosisId)"
               }
             },
             {
@@ -2571,12 +2574,12 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Drug Order",
+              "label": "Drug Prescription",
               "required": false,
               "id": "drugsWorkspaceLauncher",
               "questionOptions": {
                 "rendering": "workspace-launcher",
-                "buttonLabel": "Add drug order",
+                "buttonLabel": "Prescribe drug",
                 "workspaceName": "add-drug-order"
               }
             },
@@ -2877,89 +2880,8 @@
           ]
         }
       ]
-    },
-    {
-      "isSubform": true,
-      "subform": {
-        "name": "Ward Admission",
-        "package": "clinical",
-        "form": {
-          "name": "Ward Admission",
-          "pages": [
-            {
-              "label": "Ward Request",
-              "sections": [
-                {
-                  "label": "Ward Details",
-                  "isExpanded": "true",
-                  "questions": [
-                    {
-                      "type": "obsGroup",
-                      "id": "inpatientDispositionConstruct",
-                      "label": "Admission RequestDetails",
-                      "questionOptions": {
-                        "concept": "CIEL:169405",
-                        "rendering": "group"
-                      },
-                      "questions": [
-                        {
-                          "id": "disposition",
-                          "label": "Disposition",
-                          "type": "obs",
-                          "required": true,
-                          "questionOptions": {
-                            "rendering": "radio",
-                            "required": true,
-                            "concept": "CIEL:169402",
-                            "answers": [
-                              {
-                                "concept": "CIEL:168619"
-                              }
-                            ]
-                          },
-                          "hide": {
-                            "hideWhenExpression": "outcomePatient !=='77eafb3f-58d3-4397-a6dc-d2c06e9062f3'"
-                          },
-                          "validators": []
-                        },
-                        {
-                          "id": "admitToLocation",
-                          "label": "Admit To Location",
-                          "type": "obs",
-                          "required": true,
-                          "questionOptions": {
-                            "rendering": "remote-select",
-                            "concept": "CIEL:169403",
-                            "datasource": {
-                              "name": "location",
-                              "config": {
-                                "tag": "Admission Location"
-                              }
-                            }
-                          },
-                          "hide": {
-                            "hideWhenExpression": "outcomePatient !=='77eafb3f-58d3-4397-a6dc-d2c06e9062f3'"
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "processor": "EncounterFormProcessor",
-          "encounter": "Transfer Request",
-          "encounterType": "b2c4d5e6-7f8a-4e9b-8c1d-2e3f8e4a3b8f",
-          "referencedForms": [],
-          "uuid": "0bae7646-b079-4cbb-8130-b24274fc16f7",
-          "description": "Create an admission request to an inpatient ward",
-          "version": "1.0.0",
-          "published": true,
-          "retired": false
-        }
-      }
     }
+    
   ],
   "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8"
 }
