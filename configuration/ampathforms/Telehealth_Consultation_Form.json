@@ -1,0 +1,581 @@
+{
+  "name": "Telehealth Consultation",
+  "description": "Telehealth Consultation Form",
+  "version": "1",
+  "published": true,
+  "uuid": "32875d86-5f93-40ac-96f0-1dd0db6f8dc3",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Encounter Date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "id": "encDate"
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Patient History",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Participant Initials",
+              "type": "obs",
+              "id": "partIicipantInit",
+              "questionOptions": {
+                "concept": "166102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Currently pregnant?",
+              "type": "obs",
+              "id": "pregnancyStatus",
+              "questionOptions": {
+                "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age < 15 || sex !== 'F'"
+              }
+            },
+            {
+              "label": "Is the participant less than 6 weeks post-partum?",
+              "type": "obs",
+              "id": "SixWeeksParticipant",
+              "questionOptions": {
+                "concept": "166421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "age < 15 || sex !== 'F'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Patient Eligibility and Evaluation",
+      "sections": [
+        {
+          "label": "Patient Evaluation",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Previously Enrolled into the NCD Program",
+              "type": "obs",
+              "id": "ncdEnrollment",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "163777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Systolic B.P",
+              "type": "obs",
+              "id": "sysBP",
+              "questionOptions": {
+                "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
+                "rendering": "number"
+              },
+              "alert": {
+                "useConceptReferenceRange": true
+              }
+            },
+            {
+              "label": "Diastolic B.P",
+              "type": "obs",
+              "id": "diasBP",
+              "questionOptions": {
+                "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
+                "rendering": "number"
+              },
+              "alert": {
+                "useConceptReferenceRange": true
+              }
+            },
+            {
+              "label": "Last Visit date:",
+              "type": "obs",
+              "required": "true",
+              "id": "LastencDate",
+              "questionOptions": {
+                "rendering": "date",
+                "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
+                "concept": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Since your last hypertension visit, have you had any new health concerns or sought medical care for a new or severe health concern?",
+              "type": "obs",
+              "id": "newHealthConcerns",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "1154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Describe here any relevant brief information about health concern and recommendations",
+              "type": "obs",
+              "id": "healthConcernDescription",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Hospitalization",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Since the last visit, was the participant hospitalized for any reason?",
+              "type": "obs",
+              "id": "hospitalized",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Select reason for hospitalization",
+              "type": "obs",
+              "id": "hospitalizationReason",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Hypertensive emergency",
+                    "concept": "161644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Heart attack / Myocardial infarction",
+                    "concept": "115432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Stroke/Cerebrovascular accident",
+                    "concept": "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Heart failure",
+                    "concept": "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Loss of Consciousness",
+                    "concept": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Angioedema",
+                    "concept": "148787AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Other",
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Add any other relevant description of the reason for hospitalization",
+              "type": "obs",
+              "id": "hospitalizationDescription",
+              "questionOptions": {
+                "rendering": "textarea",
+                "concept": "162879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hospitalizationReason) || hospitalizationReason!== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Medication Adherence & Allergies",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Has the participant been taking medications adequately/consistently?",
+              "type": "obs",
+              "id": "medicationAdherence",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Medication allergies",
+              "type": "obs",
+              "id": "medicationAllergies",
+              "questionOptions": {
+                "rendering": "workspace-launcher",
+                "buttonLabel": "Add Allergies",
+                "workspaceName": "conditions-form-workspace"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Blood Pressure Review",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Average Systolic BP (mmHg)",
+              "type": "obs",
+              "id": "sysBPAvg",
+              "questionOptions": {
+                "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "useMostRecentValue": false,
+                "autoPopulateWithMostRecentValue": false,
+                "rendering": "number"
+              },
+              "alert": {
+                "useConceptReferenceRange": true
+              }
+            },
+            {
+              "label": "Average Diastolic B.P",
+              "type": "obs",
+              "id": "diasBPAvg",
+              "questionOptions": {
+                "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "useMostRecentValue": false,
+                "autoPopulateWithMostRecentValue": false,
+                "rendering": "number"
+              },
+              "alert": {
+                "useConceptReferenceRange": true
+              }
+            },
+            {
+              "label": "BP Status",
+              "type": "obs",
+              "id": "bpStatus",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": " ",
+                "answers": [
+                  {
+                    "label": "Normal",
+                    "concept": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Elevated",
+                    "concept": "140147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Severe",
+                    "concept": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Hypertensive Urgency",
+                    "concept": "161644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Average blood pressure(avgsbp/avgdbp)",
+              "type": "obs",
+              "id": "AvGBPcalc",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text",
+                "readOnly": "true",
+                "calculate": {
+                  "calculateExpression": "((sysBPAvg + diasBPAvg) / 2)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "label": "Hypertensive Emergency Assessment",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Does participant meet criteria for hypertensive emergency? [Y/N]",
+              "type": "obs",
+              "id": "hypertensiveEmergency",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Hypertensive Emergency Symptoms (past 72 hours, acute & severe)",
+              "type": "obs",
+              "id": "hypertensiveSymptoms",
+              "required": "true",
+              "questionOptions": {
+                "concept": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "label": "None",
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "Acute onset severe headache",
+                    "concept": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "label": "Vision changes",
+                    "concept": "118939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "label": "Shortness of breath",
+                    "concept": "141600AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "label": "Chest pain",
+                    "concept": "120749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "label": "New focal neurologic deficits",
+                    "concept": "163410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Treatment Plan",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "What is your hypertension treatment plan?",
+              "type": "obs",
+              "id": "treatmentPlan",
+              "questionOptions": {
+                "rendering": "select",
+                "concept": "18ba141b-d6d0-403d-ba5e-132d8afe488f",
+                "answers": [
+                  {
+                    "concept": "33b17b69-2854-405d-b24c-7c6f42bbd3c6",
+                    "label": "Lifestyle counseling only"
+                  },
+                  {
+                    "concept": "1257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Continue current medications"
+                  },
+                  {
+                    "concept": "162904AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Restart current medications"
+                  },
+                  {
+                    "concept": "981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intensify treatment"
+                  },
+                  {
+                    "concept": "131022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intensify treatment - custom"
+                  },
+                  {
+                    "concept": "c7252511-2848-424e-b6be-7ebee2e58c05",
+                    "label": "Reduce or stop one or more current medications"
+                  },
+                  {
+                    "concept": "1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "New medication start"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Medication pack given to participant",
+              "type": "obs",
+              "id": "medPackGiven",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "label": "Yes",
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  },
+                  {
+                    "label": "No",
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Follow-Up Scheduling",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "type": "appointment",
+              "questionInfo": "Location of the facility where the appointment was scheduled",
+              "label": "Location",
+              "id": "appointmentLocation1",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "remote-select",
+                "appointmentKey": "location",
+                "dataSource": "location"
+              }
+            },
+            {
+              "label": "Service",
+              "id": "service1",
+              "questionOptions": {
+                "rendering": "remote-select",
+                "appointmentKey": "service",
+                "dataSource": "services"
+              },
+              "required": "true",
+              "type": "appointment",
+              "validators": []
+            },
+            {
+              "label": "Appointment date & time",
+              "id": "appointmentDatetime1",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "placeholder": "Enter appointment date & time",
+                "rendering": "date",
+                "appointmentKey": "startDateTime"
+              },
+              "type": "appointment",
+              "validators": [],
+              "required": "true"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8"
+}
