@@ -1,0 +1,284 @@
+{
+  "name": "Surgical Safety Checklist (Time Out)",
+  "description": "A form used to capture Surgical Safety Checklist Time Out",
+  "version": "1.0",
+  "published": true,
+  "uuid": "9027a8c3-2773-4c84-8909-ac0641c9f6df",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Surgical Safety Checklist Details",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date of Surgery",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "hide": {
+                "hideWhenExpression": "!isEmpty(encDate)"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "hide": {
+                "hideWhenExpression": "!isEmpty(encDate)"
+              },
+              "id": "encLocation"
+            },
+            {
+              "label": "Diagnosis",
+              "id": "finalDiagnosisId",
+              "readonly": true,
+              "type": "diagnosis",
+              "questionOptions": {
+                "rendering": "repeating",
+                "rank": 2,
+                "datasource": {
+                  "name": "diagnoses",
+                  "config": {
+                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+                    "useMostRecentValue": "true",
+                    "autoPopulateWithMostRecentValue": "true"
+                  }
+                }
+              }
+            },
+            {
+              "label": "Procedure",
+              "type": "obs",
+              "id": "proceDure",
+              "readonly": true,
+              "useMostRecentValue": "true",
+              "autoPopulateWithMostRecentValue": "true",
+              "questionOptions": {
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text",
+                "useMostRecentValue": "true",
+                "autoPopulateWithMostRecentValue": "true"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Before Skin Incision/Procedure ",
+      "sections": [
+        {
+          "label": "Time Out",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Time Out Time",
+              "type": "obs",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "procedureDateTime",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "required": "true"
+            },
+            {
+              "label": "Surgical team verifies",
+              "type": "obs",
+              "id": "surgVerification",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "6470c4d1-2d00-4055-9eb3-03989b21d5b1",
+                "answers": [
+                  {
+                    "concept": "0233b5df-fad5-49a4-a11e-1e2a065af184",
+                    "label": "All team members state their name and role (if not done during sign In)"
+                  },
+                  {
+                    "concept": "9b22928d-830c-4bdb-b765-861c1fb4cb9b",
+                    "label": "Correct patient, correct site and correct procedure."
+                  },
+                  {
+                    "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Written consent on the chart"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Nursing Verifies",
+              "type": "obs",
+              "id": "nurseVerification",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "165911AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "d45f28f6-741e-4e99-bea9-626b254993c7",
+                    "label": "Availability of all necessary equipment"
+                  },
+                  {
+                    "concept": "c62ccaf6-4fc3-4889-8693-2af44e38bef0",
+                    "label": "Skin prep with Chlorhexidine-alcohol or Iodine-based solution"
+                  },
+                  {
+                    "concept": "9c96c4b2-0ed9-47e5-aea3-a2102bd8cf11",
+                    "label": "Written consent on the chart"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Surgeon Verifies",
+              "type": "obs",
+              "id": "surgeonVerification",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "164226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "ca33b59d-dd86-4bb8-829e-088b5fdd8d67",
+                    "label": "Anticipated critical steps"
+                  },
+                  {
+                    "concept": "18c35945-c4b4-46f6-8139-d4ded2f05322",
+                    "label": "Anticipated procedure level of difficulty and duration"
+                  },
+                  {
+                    "concept": "227922e9-4164-4a40-be82-12ff7646d6e8",
+                    "label": "Anticipated blood loss"
+                  },
+                  {
+                    "concept": "1225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Any patient specific concerns"
+                  },
+                  {
+                    "concept": "1733d0d7-cc21-404c-addf-0fd76081ebce",
+                    "label": "Essential imaging is displayed"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Anesthetist Verifies",
+              "type": "obs",
+              "id": "anesthetistVerification",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "be16de8d-f79d-4dd4-b7e6-b220b780ffc1",
+                "answers": [
+                  {
+                    "concept": "1225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Any patient specific concerns"
+                  },
+                  {
+                    "concept": "2ae93e0c-0fba-49d6-b9f6-d29f0e14b134",
+                    "label": "ASA score"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "ASA Score finding",
+              "type": "obs",
+              "id": "asaScore",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "164253AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "160327AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ASA Physical Status Class 1"
+                  },
+                  {
+                    "concept": "160328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ASA Physical Status Class 2"
+                  },
+                  {
+                    "concept": "160329AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ASA Physical Status Class 3"
+                  },
+                  {
+                    "concept": "1882A160330AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ASA Physical Status Class 4"
+                  },
+                  {
+                    "concept": "160331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ASA Physical Status Class 5"
+                  },
+                  {
+                    "concept": "160332AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "ASA Physical Status Class 6"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(anesthetistVerification) || !arrayContains(anesthetistVerification, '2ae93e0c-0fba-49d6-b9f6-d29f0e14b134')"
+              }
+            },
+            {
+              "label": "For C-S, Newborn Provider Verifies",
+              "type": "obs",
+              "id": "csVerification",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "312b274b-4ecd-4de4-a465-c17523359d9d",
+                "answers": [
+                  {
+                    "concept": "1225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Any patient specific concerns"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify",
+              "type": "obs",
+              "id": "speCfy",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(csVerification) || !arrayContains(csVerification, '1225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8"
+}
