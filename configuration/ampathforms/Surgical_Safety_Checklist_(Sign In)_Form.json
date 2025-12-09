@@ -1,0 +1,342 @@
+{
+  "name": "Surgical Safety Checklist (Sign In)",
+  "description": "A form used to capture Surgical Safety Checklist Sign In",
+  "version": "1.0",
+  "published": true,
+  "uuid": "db6d2b13-90e4-412d-8b59-8c461fa790cd",
+  "retired": false,
+  "encounter": "Consultation",
+  "pages": [
+    {
+      "label": "Surgical Safety Checklist Details",
+      "sections": [
+        {
+          "label": "Visit Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date of Surgery",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "hide": {
+                "hideWhenExpression": "!isEmpty(encDate)"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "hide": {
+                "hideWhenExpression": "!isEmpty(encDate)"
+              },
+              "id": "encLocation"
+            },
+            {
+              "label": "Diagnosis",
+              "id": "finalDiagnosisId",
+              "type": "diagnosis",
+              "questionOptions": {
+                "rendering": "repeating",
+                "rank": 2,
+                "datasource": {
+                  "name": "diagnoses",
+                  "config": {
+                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+                  }
+                }
+              }
+            },
+            {
+              "label": "Procedure",
+              "type": "obs",
+              "id": "proceDure",
+              "questionOptions": {
+                "concept": "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Before Anesthesia Procedure ",
+      "sections": [
+        {
+          "label": "Sign In",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Sign In Time",
+              "type": "obs",
+              "datePickerFormat": "both",
+              "questionOptions": {
+                "rendering": "date",
+                "concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "id": "anesthesiaDateTime",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ],
+              "required": "true"
+            },
+            {
+              "label": "Has the following been Verified?",
+              "type": "obs",
+              "id": "verificationDetails",
+              "questionOptions": {
+                "concept": "165911AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "a5a8b7cf-d51f-417a-bb86-21adea890ba1",
+                    "label": "All operating team members have been mobilized"
+                  },
+                  {
+                    "concept": "5619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "For C-S, includes newborn provider"
+                  },
+                  {
+                    "concept": "7446f4c3-15d3-4e21-b9d9-55ae1cbe5c65",
+                    "label": "Level of urgency for surgery"
+                  },
+                  {
+                    "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Patient has confirmed her identity, procedure(s), and consent."
+                  },
+                  {
+                    "concept": "74856884-2fa8-4bca-b5a7-6493b84e5d66",
+                    "label": "Sterility of equipment and instruments"
+                  },
+                  {
+                    "concept": "414faadb-516e-4e09-9e36-f16074105d38",
+                    "label": "Anesthesia machine and medication check complete"
+                  },
+                  {
+                    "concept": "8ee3ba29-4c97-487a-a0ba-27b683584b4d",
+                    "label": "Pulse oximeter on the patient and functioning"
+                  },
+                  {
+                    "concept": "110247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Patient has known allergy"
+                  },
+                  {
+                    "concept": "161930AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Antibiotic prophylaxis given 15-60 minutes before expected skin incision"
+                  },
+                  {
+                    "concept": "eae7855f-84a8-464d-b8dd-c3fa8922530d",
+                    "label": "Antacid prophylaxis has been given"
+                  },
+                  {
+                    "concept": "f29a31c7-7b8f-4544-bcb1-f984429e63e0",
+                    "label": "Patient has a difficulty airway or aspiration risk"
+                  },
+                  {
+                    "concept": "fb10f0ba-9f73-44ef-97af-cf5769adcf1e",
+                    "label": "Risk of >500 ml blood loss (7 ml/kg in children)"
+                  },
+                  {
+                    "concept": "165397AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Haemoglobin results"
+                  },
+                  {
+                    "concept": "ac1fc824-52b0-4284-a2ee-b1780263a48d",
+                    "label": "Platelets Results"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Other critical lab results"
+                  },
+                  {
+                    "concept": "163126AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Blood group/Rh"
+                  },
+                  {
+                    "concept": "81ac1a0c-2f40-4c6a-af0b-7e6cc89dad87",
+                    "label": "For C.S, newborn resuscitation equipment and asssistance available"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Level of urgency",
+              "type": "obs",
+              "id": "urgencyLevel",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "163295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1882AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Emergency"
+                  },
+                  {
+                    "concept": "163294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Elective"
+                  },
+                  {
+                    "concept": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Urgent"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(verificationDetails) || !arrayContains(verificationDetails, '7446f4c3-15d3-4e21-b9d9-55ae1cbe5c65')"
+              }
+            },
+            {
+              "label": "Known allergy?",
+              "type": "obs",
+              "id": "knownAllergy",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "bd8fd04a-8f34-4650-9c98-745f919af272",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(verificationDetails) || !arrayContains(verificationDetails, '110247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Difficulty airway or aspiration risk?",
+              "type": "obs",
+              "id": "diffAspiration",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "fd58ec31-ff59-4e73-97ed-6fa94dda0f9f",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes, and equipment/Assistance available"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(verificationDetails) || !arrayContains(verificationDetails, 'f29a31c7-7b8f-4544-bcb1-f984429e63e0')"
+              }
+            },
+            {
+              "label": "Risk for Blood Loss",
+              "type": "obs",
+              "id": "bloodlossrisk",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "227922e9-4164-4a40-be82-12ff7646d6e8",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes, and adequate IV access & fluids plannned"
+                  },
+                  {
+                    "concept": "c29d48b6-b01a-4185-acc6-7025f429d712",
+                    "label": "Blood is available"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "N/A"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(verificationDetails) || !arrayContains(verificationDetails, 'fb10f0ba-9f73-44ef-97af-cf5769adcf1e')"
+              }
+            },
+            {
+              "label": "Hemoglobin Value (g/dL)",
+              "type": "obs",
+              "id": "hbValue",
+              "questionOptions": {
+                "concept": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "numeric"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(verificationDetails) || !arrayContains(verificationDetails, '165397AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Platelets Value (10^3/mL)",
+              "type": "obs",
+              "id": "pltValue",
+              "questionOptions": {
+                "concept": "729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "numeric"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(verificationDetails) || !arrayContains(verificationDetails, 'ac1fc824-52b0-4284-a2ee-b1780263a48d')"
+              }
+            },
+            {
+              "label": "Other critical lab",
+              "type": "obs",
+              "id": "criticalValue",
+              "questionOptions": {
+                "concept": "161577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(verificationDetails) || !arrayContains(verificationDetails, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            },
+            {
+              "label": "Blood group/Rh",
+              "type": "obs",
+              "id": "bloodGrp",
+              "questionOptions": {
+                "concept": "951c4a36-9477-400f-b1eb-3c84f1a20aa3",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(verificationDetails) || !arrayContains(verificationDetails, '163126AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "encounterType": "465a92f2-baf8-42e9-9612-53064be868e8"
+}
