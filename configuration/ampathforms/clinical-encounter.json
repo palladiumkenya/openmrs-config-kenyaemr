@@ -2498,37 +2498,28 @@
           "label": "Diagnosis",
           "isExpanded": "true",
           "questions": [
-           {
-              "label": "Main Diagnosis",
-              "id": "finalDiagnosisId",
-              "type": "diagnosis",
-              "questionOptions": {
-                "rendering": "remote-select",
-                "rank": 2,
-                "datasource": {
-                  "name": "diagnoses",
-                  "config": {
-                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
-                  }
-                }
-              }
-            },
-             {
-              "label": "Site affected",
-              "id": "siteOfDiagnosisFinal",
-              "type": "diagnosis",
-              "questionOptions": {
-                "rendering": "repeating",
-                "dataSource": "diagnoses",
-                "rank": 1,
-                "datasource": {
-                  "name": "",
-                  "config": {
-                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
-                  }
-                }
-              }
-            },
+          {
+             "label": "Main Diagnosis",
+             "id": "finalDiagnosisId",
+             "type": "diagnosis",
+             "questionOptions": {
+               "rendering": "remote-select",
+               "rank": 2,
+               "datasource": {
+                 "name": "diagnoses",
+                 "config": {
+                   "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+                 }
+               }
+             },
+             "validators": [
+               {
+                 "type": "js_expression",
+                 "failsWhenExpression": "isEmpty(myValue) && FORM_CONTEXT && FORM_CONTEXT.valueProcessingInfo && FORM_CONTEXT.valueProcessingInfo.lastFormTab >= 3",
+                 "message": "Main Diagnosis is required once you open Patient Management."
+               }
+             ]
+           },
             {
               "label": "Diagnosis Categorization",
               "required": "true",
@@ -2558,25 +2549,9 @@
               "type": "diagnosis",
               "questionOptions": {
                 "rendering": "repeating",
-                "rank": 2,
+                "rank": 3,
                 "datasource": {
                   "name": "diagnoses",
-                  "config": {
-                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
-                  }
-                }
-              }
-            },
-            {
-              "label": "Site affected",
-              "id": "siteOfDiagnosisFinal",
-              "type": "diagnosis",
-              "questionOptions": {
-                "rendering": "repeating",
-                "dataSource": "diagnoses",
-                "rank": 1,
-                "datasource": {
-                  "name": "",
                   "config": {
                     "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
                   }
