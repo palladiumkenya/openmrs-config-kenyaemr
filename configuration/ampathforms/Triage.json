@@ -1,7 +1,7 @@
 {
   "name": "Triage",
   "description": "Triage",
-  "version": "2.1",
+  "version": "2.2",
   "published": true,
 
   "uuid": "37f6bd8d-586a-4169-95fa-5781f987fe62",
@@ -678,6 +678,7 @@
               "label": "Patient mobility assessment?",
               "type": "obs",
               "id": "mobilityAdult",
+              "required": "true",
               "questionOptions": {
                 "concept": "162753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "rendering": "radio",
@@ -967,7 +968,7 @@
                 "min": "0"
               },
               "hide": {
-                "hideWhenExpression": "age <= 5"
+                "hideWhenExpression": "age <= 5 && isEmpty(mobilityAdult) || mobilityAdult === '162752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -999,7 +1000,7 @@
               },
               "historicalExpression": "HD.getObject('prevEnc').getValue('5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')",
               "hide": {
-                "hideWhenExpression": "age <= 5"
+                "hideWhenExpression": "age <= 5 && isEmpty(mobilityAdult) || mobilityAdult === '162752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1016,7 +1017,7 @@
                 }
               },
               "hide": {
-                "hideWhenExpression": "age <= 5"
+                "hideWhenExpression": "age <= 5 && isEmpty(mobilityAdult) || mobilityAdult === '162752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -1140,7 +1141,7 @@
                 ]
               },
               "hide": {
-                "hideWhenExpression": "!(age >5)"
+                "hideWhenExpression": "!(age >5) && isEmpty(mobilityAdult) || mobilityAdult === '162752AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
