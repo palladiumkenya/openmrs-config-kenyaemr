@@ -117,11 +117,14 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Systolic B.P",
+              "label": "Last visit Systolic B.P",
               "type": "obs",
               "id": "sysBP",
               "questionOptions": {
                 "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "readOnly": "true",
+                "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
                 "rendering": "number"
               },
               "alert": {
@@ -129,11 +132,14 @@
               }
             },
             {
-              "label": "Diastolic B.P",
+              "label": "Last visit Diastolic B.P",
               "type": "obs",
               "id": "diasBP",
               "questionOptions": {
                 "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "readOnly": "true",
+                "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
                 "rendering": "number"
               },
               "alert": {
@@ -338,19 +344,6 @@
                   }
                 ]
               }
-            },
-            {
-              "label": "Average blood pressure(avgsbp/avgdbp)",
-              "type": "obs",
-              "id": "AvGBPcalc",
-              "questionOptions": {
-                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text",
-                "readOnly": "true",
-                "calculate": {
-                  "calculateExpression": "((sysBPAvg + diasBPAvg) / 2)"
-                }
-              }
             }
           ]
         },
@@ -359,7 +352,7 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Does participant meet criteria for hypertensive emergency? [Y/N]",
+              "label": "Does participant meet criteria for hypertensive emergency?",
               "type": "obs",
               "id": "hypertensiveEmergency",
               "questionOptions": {
@@ -375,6 +368,9 @@
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(bpStatus) || bpStatus === '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -416,6 +412,9 @@
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hypertensiveEmergency) || hypertensiveEmergency !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
