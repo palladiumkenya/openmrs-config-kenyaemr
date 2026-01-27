@@ -54,20 +54,13 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Participant Initials",
-              "type": "obs",
-              "id": "partIicipantInit",
-              "questionOptions": {
-                "concept": "166102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text"
-              }
-            },
-            {
               "label": "Currently pregnant?",
               "type": "obs",
               "id": "pregnancyStatus",
               "questionOptions": {
                 "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
                 "rendering": "radio",
                 "answers": [
                   {
@@ -94,6 +87,8 @@
               "id": "SixWeeksParticipant",
               "questionOptions": {
                 "concept": "166421AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "useMostRecentValue": true,
+                "autoPopulateWithMostRecentValue": true,
                 "rendering": "radio",
                 "answers": [
                   {
@@ -122,30 +117,12 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Previously Enrolled into the NCD Program",
-              "type": "obs",
-              "id": "ncdEnrollment",
-              "questionOptions": {
-                "rendering": "radio",
-                "concept": "163777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "answers": [
-                  {
-                    "label": "Yes",
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                  },
-                  {
-                    "label": "No",
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                  }
-                ]
-              }
-            },
-            {
-              "label": "Systolic B.P",
+              "label": "Last visit Systolic B.P",
               "type": "obs",
               "id": "sysBP",
               "questionOptions": {
                 "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "readOnly": "true",
                 "useMostRecentValue": true,
                 "autoPopulateWithMostRecentValue": true,
                 "rendering": "number"
@@ -155,11 +132,12 @@
               }
             },
             {
-              "label": "Diastolic B.P",
+              "label": "Last visit Diastolic B.P",
               "type": "obs",
               "id": "diasBP",
               "questionOptions": {
                 "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "readOnly": "true",
                 "useMostRecentValue": true,
                 "autoPopulateWithMostRecentValue": true,
                 "rendering": "number"
@@ -167,31 +145,13 @@
               "alert": {
                 "useConceptReferenceRange": true
               }
-            },
-            {
-              "label": "Last Visit date:",
-              "type": "obs",
-              "required": "true",
-              "id": "LastencDate",
-              "questionOptions": {
-                "rendering": "date",
-                "useMostRecentValue": true,
-                "autoPopulateWithMostRecentValue": true,
-                "concept": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-              },
-              "validators": [
-                {
-                  "type": "date",
-                  "allowFutureDates": "false"
-                }
-              ]
             },
             {
               "label": "Since your last hypertension visit, have you had any new health concerns or sought medical care for a new or severe health concern?",
               "type": "obs",
               "id": "newHealthConcerns",
               "questionOptions": {
-                "rendering": "textarea",
+                "rendering": "radio",
                 "concept": "1154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {
@@ -212,6 +172,9 @@
               "questionOptions": {
                 "rendering": "textarea",
                 "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(newHealthConcerns) || newHealthConcerns !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
@@ -337,8 +300,6 @@
               "id": "sysBPAvg",
               "questionOptions": {
                 "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "useMostRecentValue": false,
-                "autoPopulateWithMostRecentValue": false,
                 "rendering": "number"
               },
               "alert": {
@@ -351,8 +312,6 @@
               "id": "diasBPAvg",
               "questionOptions": {
                 "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "useMostRecentValue": false,
-                "autoPopulateWithMostRecentValue": false,
                 "rendering": "number"
               },
               "alert": {
@@ -365,7 +324,7 @@
               "id": "bpStatus",
               "questionOptions": {
                 "rendering": "radio",
-                "concept": " ",
+                "concept": "167406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "answers": [
                   {
                     "label": "Normal",
@@ -385,19 +344,6 @@
                   }
                 ]
               }
-            },
-            {
-              "label": "Average blood pressure(avgsbp/avgdbp)",
-              "type": "obs",
-              "id": "AvGBPcalc",
-              "questionOptions": {
-                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "rendering": "text",
-                "readOnly": "true",
-                "calculate": {
-                  "calculateExpression": "((sysBPAvg + diasBPAvg) / 2)"
-                }
-              }
             }
           ]
         },
@@ -406,7 +352,7 @@
           "isExpanded": "true",
           "questions": [
             {
-              "label": "Does participant meet criteria for hypertensive emergency? [Y/N]",
+              "label": "Does participant meet criteria for hypertensive emergency?",
               "type": "obs",
               "id": "hypertensiveEmergency",
               "questionOptions": {
@@ -422,6 +368,9 @@
                     "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(bpStatus) || bpStatus === '1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             },
             {
@@ -463,6 +412,9 @@
                     "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
                 ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(hypertensiveEmergency) || hypertensiveEmergency !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
               }
             }
           ]
