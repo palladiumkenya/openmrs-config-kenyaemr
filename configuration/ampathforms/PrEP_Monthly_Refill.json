@@ -299,7 +299,7 @@
 			"isExpanded": "true",
 			"questions": [
 			  {
-				"label": "PrEP treatment plan",
+				"label": "PrEP Status",
 				"type": "obs",
 				"questionOptions": {
 				  "rendering": "radio",
@@ -381,106 +381,186 @@
 				  "hideWhenExpression": "treatmentPlan !== '1256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
 				}
 			  },
-			  {
-				"label": "Prescribed PrEP today?",
-				"type": "obs",
-				"id": "prescribedPrepToday",
-				"questionOptions": {
-				  "concept": "1417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Yes"
-					},
-					{
-					  "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "No"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan === '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-				}
-			  },
-			  {
-				"label": "Type of PrEP",
-				"type": "obs",
-				"id": "prepTypeFemale",
-				"questionOptions": {
-				  "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
-					  "label": "Daily Oral PrEP"
-					},
-					{
-					  "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
-					  "label": "CAB-LA"
-					},
-					{
-					  "concept": "b3f6eab2-93bd-4fe0-81ce-5b7ec633a55a",
-					  "label": "Dapivirine ring"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
-				}
-			  },
-			  {
-				"label": "Type of PrEP",
-				"type": "obs",
-				"id": "prepTypeMale",
-				"questionOptions": {
-				  "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "radio",
-				  "answers": [
-					{
-					  "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
-					  "label": "Daily Oral PrEP"
-					},
-					{
-					  "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
-					  "label": "CAB-LA"
-					},
-					{
-					  "concept": "5424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "Event Driven"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'  || sex !=='M'"
-				}
-			  },
-			  {
-				"label": "Regimen prescribed",
-				"type": "obs",
-				"id": "regimenOptions",
-				"questionOptions": {
-				  "concept": "164515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				  "rendering": "select",
-				  "answers": [
-					{
-					  "concept": "161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "TDF/3TC"
-					},
-					{
-					  "concept": "84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "TDF"
-					},
-					{
-					  "concept": "104567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-					  "label": "TDF/FTC(Preferred)"
-					}
-				  ]
-				},
-				"hide": {
-				  "hideWhenExpression": "isEmpty(prepType) || prepType !== 'cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7'"
-				}
-			  },
+			   {
+              "label": "Prescribed PrEP today?",
+              "type": "obs",
+              "id": "prescribedPrepToday",
+              "questionOptions": {
+                "concept": "1417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(treatmentPlan) || treatmentPlan === '1260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Dosing Strategy",
+              "type": "obs",
+              "id": "dosingStrategyMen",
+              "questionOptions": {
+                "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "5424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Event Driven"
+                  },
+                  {
+                    "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+                    "label": "Daily Oral PrEP"
+                  },
+                  {
+                    "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+                    "label": "Long acting PrEP"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='M'"
+              }
+            },
+            {
+              "label": "Dosing Strategy",
+              "type": "obs",
+              "id": "dosingStrategyFemale",
+              "questionOptions": {
+                "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+                    "label": "Daily Oral PrEP"
+                  },
+                  {
+                    "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+                    "label": "Long acting PrEP"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+              }
+            },
+            {
+              "label": "Type of PrEP",
+              "type": "obs",
+              "id": "prepTypeFemale",
+              "questionOptions": {
+                "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+                    "label": "Oral"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "dosingStrategyFemale !== 'cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7' || prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+              }
+            },
+            {
+              "label": "Type of PrEP",
+              "type": "obs",
+              "id": "prepTypeFemaleOne",
+              "questionOptions": {
+                "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+                    "label": "CAB-LA"
+                  },
+                  {
+                    "concept": "b3f6eab2-93bd-4fe0-81ce-5b7ec633a55a",
+                    "label": "Dapivirine ring"
+                  },
+                  {
+                    "concept": "e92e8fec-66fd-4b6a-a36f-0c28b28df2bc",
+                    "label": "Lenacapavir"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "dosingStrategyFemale !== '58ed1f26-430f-4922-9bcf-00c51ec7bcb1' || prescribedPrepToday !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' || sex !=='F'"
+              }
+            },
+            {
+              "label": "Type of PrEP",
+              "type": "obs",
+              "id": "prepTypeMaleOne",
+              "questionOptions": {
+                "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7",
+                    "label": "Oral"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "dosingStrategyMen !== '5424AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' && dosingStrategyMen !== 'cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7'"
+              }
+            },
+            {
+              "label": "Type of PrEP",
+              "type": "obs",
+              "id": "prepTypeMale",
+              "questionOptions": {
+                "concept": "166866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "58ed1f26-430f-4922-9bcf-00c51ec7bcb1",
+                    "label": "CAB-LA"
+                  },
+                  {
+                    "concept": "e92e8fec-66fd-4b6a-a36f-0c28b28df2bc",
+                    "label": "Lenacapavir"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "dosingStrategyMen !== '58ed1f26-430f-4922-9bcf-00c51ec7bcb1'"
+              }
+            },
+            {
+              "label": "Regimen prescribed",
+              "type": "obs",
+              "id": "regimenOptions",
+              "questionOptions": {
+                "concept": "164515AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "161364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF/3TC"
+                  },
+                  {
+                    "concept": "84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF"
+                  },
+                  {
+                    "concept": "104567AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "TDF/FTC(Preferred)"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "prepTypeMaleOne !== 'cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7' && prepTypeFemale !== 'cb583a50-2b6c-4a6a-a458-a6a3c41fa1a7'"
+              }
+            },
 			  {
 				"label": "Number of months",
 				"type": "obs",
