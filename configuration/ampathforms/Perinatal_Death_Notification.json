@@ -1,0 +1,1231 @@
+{
+  "name": "Perinatal Death Notification",
+  "description": "Notification of perinatal deaths (stillbirths and neonatal)",
+  "version": "1.0",
+  "published": true,
+  "uuid": "36dab480-a4fe-436a-a8dd-310de6d525e7",
+  "retired": false,
+  "encounter": "Perinatal Death Notification",
+  "encounterType": "REPLACE_WITH_ENCOUNTER_TYPE_UUID",
+  "pages": [
+    {
+      "label": "Facility & Notification Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date of notification (dd/mm/yyyy)",
+              "type": "encounterDatetime",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "id": "dateOfNotification",
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider"
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            }
+          ]
+        },
+        {
+          "label": "Facility Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Facility Name",
+              "type": "obs",
+              "id": "facilityName",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_FACILITY_NAME_CONCEPT_UUID",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "KMHFL Code",
+              "type": "obs",
+              "id": "kmhflCode",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_KMHFL_CODE_CONCEPT_UUID",
+                "rendering": "number",
+                "min": "0"
+              }
+            },
+            {
+              "label": "County",
+              "type": "obs",
+              "id": "county",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_COUNTY_CONCEPT_UUID",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Sub-County",
+              "type": "obs",
+              "id": "subCounty",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_SUB_COUNTY_CONCEPT_UUID",
+                "rendering": "text"
+              }
+            },
+            {
+              "label": "Locality where death occurred",
+              "type": "obs",
+              "id": "localityOfDeath",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_LOCALITY_OF_DEATH_CONCEPT_UUID",
+                "rendering": "text"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Facility Governance",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Level of care",
+              "type": "obs",
+              "id": "levelOfCare",
+              "questionOptions": {
+                "concept": "1768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dispensary 2"
+                  },
+                  {
+                    "concept": "1275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health Centre 3"
+                  },
+                  {
+                    "concept": "159670AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sub-County Hospital 4"
+                  },
+                  {
+                    "concept": "159662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "County Referral Hospital 5"
+                  },
+                  {
+                    "concept": "159671AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "National Teaching and Referral Hospital 6"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Managing Authority",
+              "type": "obs",
+              "id": "managingAuthority",
+              "questionOptions": {
+                "concept": "7770b3ea-e319-45cf-9e93-7ad037d00070",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "160480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Public"
+                  },
+                  {
+                    "concept": "166576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "NGO"
+                  },
+                  {
+                    "concept": "REPLACE_WITH_FBO_CONCEPT_UUID",
+                    "label": "FBO"
+                  },
+                  {
+                    "concept": "160479AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Private"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify (if Others)",
+              "type": "obs",
+              "id": "managingAuthoritySpecify",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "managingAuthority !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Interview Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date of interview",
+              "type": "obs",
+              "id": "dateOfInterview",
+              "questionOptions": {
+                "concept": "68bfa3f3-1fc7-4d9d-bb41-e897c3c430ef",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Mother’s Details",
+      "sections": [
+        {
+          "label": "Demographics & Outcome",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Age in years",
+              "type": "obs",
+              "id": "motherAgeYears",
+              "questionOptions": {
+                "concept": "164168AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "60"
+              }
+            },
+            {
+              "label": "Married",
+              "type": "obs",
+              "id": "motherMarried",
+              "questionOptions": {
+                "concept": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Parity",
+              "type": "obs",
+              "id": "parity",
+              "questionOptions": {
+                "concept": "1053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "20"
+              }
+            },
+            {
+              "label": "Mother’s outcome",
+              "type": "obs",
+              "id": "motherOutcome",
+              "questionOptions": {
+                "concept": "160085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Alive"
+                  },
+                  {
+                    "concept": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dead"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Not known"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Obstetric History & Care During Pregnancy",
+      "sections": [
+        {
+          "label": "Pregnancy Type & ANC",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Type of pregnancy",
+              "type": "obs",
+              "id": "typeOfPregnancy",
+              "questionOptions": {
+                "concept": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "159913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Singleton"
+                  },
+                  {
+                    "concept": "160211AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Multiple"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "ANC attendance",
+              "type": "obs",
+              "id": "ancAttendance",
+              "questionOptions": {
+                "concept": "1592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Number of ANC Contacts",
+              "type": "obs",
+              "id": "ancContacts",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_ANC_CONTACTS_CONCEPT_UUID",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "49e6f68e-5dab-4084-8fef-4c31224b5a0f",
+                    "label": "1"
+                  },
+                  {
+                    "concept": "REPLACE_WITH_ANC_CONTACTS_2_UUID",
+                    "label": "2"
+                  },
+                  {
+                    "concept": "226e8c0d-3461-42ac-bd0b-b7c4b2a4b5ff",
+                    "label": "3"
+                  },
+                  {
+                    "concept": "REPLACE_WITH_ANC_CONTACTS_4_UUID",
+                    "label": "4"
+                  },
+                  {
+                    "concept": "11876e88-0933-4968-bc2e-2a435e95e0ce",
+                    "label": "5"
+                  },
+                  {
+                    "concept": "d2df0383-257a-433d-8048-4f44111a5896",
+                    "label": "6"
+                  },
+                  {
+                    "concept": "77e0ca52-6823-4265-91cc-b167a43618e1",
+                    "label": "7"
+                  },
+                  {
+                    "concept": "a3df7486-0de4-4d1b-a845-615ca7680e30",
+                    "label": "8"
+                  },
+                  {
+                    "concept": "REPLACE_WITH_ANC_CONTACTS_8PLUS_UUID",
+                    "label": "8+"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Obstetric/Medical conditions or infections in present pregnancy",
+              "type": "obs",
+              "id": "obstetricConditions",
+              "questionOptions": {
+                "concept": "165911AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Antepartum Hemorrhage"
+                  },
+                  {
+                    "concept": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Anemia"
+                  },
+                  {
+                    "concept": "117386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Hypertensive disease"
+                  },
+                  {
+                    "concept": "119476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetes"
+                  },
+                  {
+                    "concept": "129211AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Pre-labor rupture of membranes"
+                  },
+                  {
+                    "concept": "160148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Malaria"
+                  },
+                  {
+                    "concept": "163520AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "History of trauma"
+                  },
+                  {
+                    "concept": "111633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "UTI"
+                  },
+                  {
+                    "concept": "129218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Preterm delivery"
+                  },
+                  {
+                    "concept": "138405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "HIV"
+                  },
+                  {
+                    "concept": "113890AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Post-term delivery"
+                  },
+                  {
+                    "concept": "113602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Prolonged/Obstructed Labour"
+                  },
+                  {
+                    "concept": "145548AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Chorioamnionitis"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify",
+              "type": "obs",
+              "id": "obstetricConditionsSpecify",
+              "questionOptions": {
+                "concept": "3bb426dc-7f5c-43f2-952e-8d15ab16e6a4",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "obstetricConditions !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Care During Delivery",
+      "sections": [
+        {
+          "label": "Place & Level of Care",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Place of childbirth",
+              "type": "obs",
+              "id": "placeOfChildbirth",
+              "questionOptions": {
+                "concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Home/out of health facility"
+                  },
+                  {
+                    "concept": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health facility"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify",
+              "type": "obs",
+              "id": "placeOfChildbirthSpecify",
+              "questionOptions": {
+                "concept": "162725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "placeOfChildbirth !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Health facility, level of care",
+              "type": "obs",
+              "id": "deliveryLevelOfCare",
+              "questionOptions": {
+                "concept": "160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dispensary 2"
+                  },
+                  {
+                    "concept": "1275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Health Centre 3"
+                  },
+                  {
+                    "concept": "159670AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sub-County Hospital 4"
+                  },
+                  {
+                    "concept": "159662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "County Referral Hospital 5"
+                  },
+                  {
+                    "concept": "159671AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "National Teaching and Referral Hospital 6"
+                  }
+                ]
+              },
+              "hide": {
+                "hideWhenExpression": "isEmpty(placeOfChildbirth) || placeOfChildbirth !== '1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Mode of Childbirth & FHR",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Mode of Childbirth",
+              "type": "obs",
+              "id": "modeOfChildbirth",
+              "questionOptions": {
+                "concept": "162993AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "SVD-Skilled"
+                  },
+                  {
+                    "concept": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "SVD-Unskilled"
+                  },
+                  {
+                    "concept": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AVD (Assisted Vaginal Delivery)"
+                  },
+                  {
+                    "concept": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Caesarian Section"
+                  },
+                  {
+                    "concept": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Breech Delivery"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify",
+              "type": "obs",
+              "id": "modeOfChildbirthSpecify",
+              "questionOptions": {
+                "concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "modeOfChildbirth !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Fetal heart rate at time of admission (pre- or hospital death)",
+              "type": "obs",
+              "id": "fhrOnAdmission",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_FHR_ON_ADMISSION_CONCEPT_UUID",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "159442AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Regular"
+                  },
+                  {
+                    "concept": "136522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Irregular"
+                  },
+                  {
+                    "concept": "REPLACE_WITH_NO_FHR_ON_ADMISSION_CONCEPT_UUID",
+                    "label": "No fetal heart rate on admission"
+                  },
+                  {
+                    "concept": "REPLACE_WITH_NO_RECORD_CONCEPT_UUID",
+                    "label": "No record"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Deceased Baby Details",
+      "sections": [
+        {
+          "label": "Dates & Times",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Date of death (dd/mm/yyyy)",
+              "type": "obs",
+              "id": "dateOfDeath",
+              "questionOptions": {
+                "concept": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Time of death (AM or PM)",
+              "type": "obs",
+              "id": "timeOfDeath",
+              "datePickerFormat": "timer",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_TIME_OF_DEATH_CONCEPT_UUID",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Date of birth (dd/mm/yyyy)",
+              "type": "obs",
+              "id": "dateOfBirth",
+              "questionOptions": {
+                "concept": "166575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Time of birth (AM or PM)",
+              "type": "obs",
+              "id": "timeOfBirth",
+              "datePickerFormat": "timer",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_TIME_OF_BIRTH_CONCEPT_UUID",
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Clinical Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Gestation at birth (in weeks)",
+              "type": "obs",
+              "id": "gestationWeeks",
+              "questionOptions": {
+                "concept": "159782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "50"
+              }
+            },
+            {
+              "label": "Baby outcome",
+              "type": "obs",
+              "id": "babyOutcome",
+              "questionOptions": {
+                "concept": "164807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Alive"
+                  },
+                  {
+                    "concept": "159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Fresh still-birth"
+                  },
+                  {
+                    "concept": "135436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Macerated still-birth"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Apgar Score (At 1 minute)",
+              "type": "obs",
+              "id": "apgar1",
+              "questionOptions": {
+                "concept": "159603AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "10"
+              }
+            },
+            {
+              "label": "Apgar Score (At 5 minutes)",
+              "type": "obs",
+              "id": "apgar5",
+              "questionOptions": {
+                "concept": "159604AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "10"
+              }
+            },
+            {
+              "label": "Apgar Score (At 10 minutes)",
+              "type": "obs",
+              "id": "apgar10",
+              "questionOptions": {
+                "concept": "159605AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "10"
+              }
+            },
+            {
+              "label": "Age at time of death (hours)",
+              "type": "obs",
+              "id": "ageAtDeathHours",
+              "questionOptions": {
+                "concept": "163527AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "720"
+              }
+            },
+            {
+              "label": "Birth Weight (gms)",
+              "type": "obs",
+              "id": "birthWeightGms",
+              "questionOptions": {
+                "concept": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number",
+                "min": "0",
+                "max": "8000"
+              }
+            },
+            {
+              "label": "Sex of baby",
+              "type": "obs",
+              "id": "sexOfBaby",
+              "questionOptions": {
+                "concept": "6b5ee9a1-4d71-45f6-bb74-6c489bda25df",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Male"
+                  },
+                  {
+                    "concept": "1535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Female"
+                  },
+                  {
+                    "concept": "f503f3ac-afd2-41b5-a690-59f0eced1ce8",
+                    "label": "Intersex"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify (if Others)",
+              "type": "obs",
+              "id": "sexOtherSpecify",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "sexOfBaby !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Cause of Death",
+      "sections": [
+        {
+          "label": "Period of Death",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Period of death",
+              "type": "obs",
+              "id": "periodOfDeath",
+              "questionOptions": {
+                "concept": "1177AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1178AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Antepartum"
+                  },
+                  {
+                    "concept": "1179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Intrapartum"
+                  },
+                  {
+                    "concept": "c37527bb-1233-412c-b29d-5d2fd9d04436",
+                    "label": "Early Neonatal"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Perinatal Cause of Death",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Perinatal cause of death",
+              "type": "obs",
+              "id": "perinatalCause",
+              "questionOptions": {
+                "concept": "159404AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "143849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Congenital malformations"
+                  },
+                  {
+                    "concept": "147277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Birth trauma"
+                  },
+                  {
+                    "concept": "e13b3779-8d02-4fef-b46d-8bae5a6796e8",
+                    "label": "Birth Asphyxia"
+                  },
+                  {
+                    "concept": "145047AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Infection"
+                  },
+                  {
+                    "concept": "116222AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Low birth weight"
+                  },
+                  {
+                    "concept": "1860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Prematurity"
+                  },
+                  {
+                    "concept": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Convulsions and disorders of cerebral status"
+                  },
+                  {
+                    "concept": "120005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Respiratory and cardiovascular disorders"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Unknown cause"
+                  },
+                  {
+                    "concept": "cb818364-e070-440e-b907-ecd53cb54d42",
+                    "label": "Disorders of newborn related to length of gestation or fetal growth"
+                  },
+                  {
+                    "concept": "REPLACE_WITH_BIRTH_INJURY_CONCEPT_UUID",
+                    "label": "Birth injury"
+                  },
+                  {
+                    "concept": "0102b06d-5dae-4ea0-9146-4bcb4921239e",
+                    "label": "Infections of the fetus or newborn"
+                  },
+                  {
+                    "concept": "1b0afbf4-8a08-46de-93bf-f2c529dbaef9",
+                    "label": "Haemorrhagic or haematological disorders of fetus or newborn"
+                  },
+                  {
+                    "concept": "b048e413-9c1b-4eab-a6e6-cad97bc0f766",
+                    "label": "Neurological disorders specific to the perinatal or neonatal period"
+                  },
+                  {
+                    "concept": "8a6bac2b-42c7-4044-8fec-4a66dcb972fe",
+                    "label": "Respiratory disorders specific to the perinatal or neonatal period"
+                  },
+                  {
+                    "concept": "9f1f4e0d-2e07-4da8-b578-00c4202a5f38",
+                    "label": "Cardiovascular disorders present in the perinatal or neonatal period"
+                  },
+                  {
+                    "concept": "29c73950-88ff-4267-b431-63d238e7e798",
+                    "label": "Transitory endocrine or metabolic disorders specific to fetus or newborn"
+                  },
+                  {
+                    "concept": "67721f10-a7f3-41ad-989d-d265df83241a",
+                    "label": "Digestive system disorders of fetus or newborn"
+                  },
+                  {
+                    "concept": "2be0966a-cb31-42ac-8765-61edb40329f9",
+                    "label": "Genitourinary system disorders specific to the perinatal or neonatal period"
+                  },
+                  {
+                    "concept": "cb123c44-2f7c-4110-9aa5-1cb10e2dbd66",
+                    "label": "Disorders involving the integument of fetus or newborn"
+                  },
+                  {
+                    "concept": "141861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Disturbances of temperature regulation of newborn"
+                  },
+                  {
+                    "concept": "REPLACE_WITH_CERTAIN_DISORDERS_ORIGINATING_PERINATAL_PERIOD_CONCEPT_UUID",
+                    "label": "Certain disorders originating in the perinatal period"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Underlying Cause of Death",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Specify the underlying cause of death",
+              "type": "obs",
+              "id": "underlyingCause",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_UNDERLYING_CAUSE_QUESTION_CONCEPT_UUID",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "126721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Sepsis"
+                  },
+                  {
+                    "concept": "121397AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Asphyxia"
+                  },
+                  {
+                    "concept": "REPLACE_WITH_PREMATURITY_CONCEPT_UUID",
+                    "label": "Prematurity"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others (specify)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify (if Others)",
+              "type": "obs",
+              "id": "underlyingCauseSpecify",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "underlyingCause !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Maternal Factors / Pregnancy Complications (ICD-11)",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Fetus or newborn affected by maternal factors or by complications of pregnancy, labour or delivery (ICD-11)",
+              "type": "obs",
+              "id": "maternalFactors",
+              "questionOptions": {
+                "concept": "REPLACE_WITH_UNDERLYING_MATERNAL_CONDITION_CONCEPT_UUID",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No maternal condition Identified"
+                  },
+                  {
+                    "concept": "155664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Complications of placenta, cord and membranes (Specify)"
+                  },
+                  {
+                    "concept": "1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Maternal complications of Pregnancy (specify)"
+                  },
+                  {
+                    "concept": "4cdb672a-1b10-4849-b4f1-cd7e127e3240",
+                    "label": "Other complications of labour and delivery (specify)"
+                  },
+                  {
+                    "concept": "129218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Maternal medical and surgical conditions (specify)"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others (specify)"
+                  },
+                  {
+                    "concept": "78fdc7c8-5f38-4ca8-b79c-221e932b715c",
+                    "label": "KA00 Fetus or newborn affected by maternal conditions that may be unrelated to present pregnancy"
+                  },
+                  {
+                    "concept": "118203AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "KA01 Fetus or newborn affected by maternal complications of pregnancy"
+                  },
+                  {
+                    "concept": "151768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "KA02 Fetus or newborn affected by complications of placenta"
+                  },
+                  {
+                    "concept": "45b731b2-d377-49ed-a973-bf4419134c4b",
+                    "label": "KA03 Fetus or newborn affected by complications of umbilical cord"
+                  },
+                  {
+                    "concept": "1ec907d9-80cb-4aba-9f59-b0d3117127ae",
+                    "label": "KA04 Fetus or newborn affected by other abnormalities of membranes"
+                  },
+                  {
+                    "concept": "9c562cfb-39c9-4886-9e9c-38abc86839b7",
+                    "label": "KA05 Fetus or newborn affected by certain complications of labour or delivery"
+                  },
+                  {
+                    "concept": "6cab82dd-ae4a-4f0c-82e1-7523257d6eeb",
+                    "label": "KA06 Fetus or newborn affected by noxious influences transmitted via placenta or breast milk"
+                  },
+                  {
+                    "concept": "REPLACE_WITH_NO_MATERNAL_CONDITIONS_CONCEPT_UUID",
+                    "label": "No maternal Conditions"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify: Complications of placenta, cord and membranes",
+              "type": "obs",
+              "id": "maternalFactorsPlacentaSpecify",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "maternalFactors !== '155664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify: Maternal complications of Pregnancy",
+              "type": "obs",
+              "id": "maternalFactorsPregnancySpecify",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "maternalFactors !== '1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify: Other complications of labour and delivery",
+              "type": "obs",
+              "id": "maternalFactorsLabourSpecify",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "maternalFactors !== '4cdb672a-1b10-4849-b4f1-cd7e127e3240'"
+              }
+            },
+            {
+              "label": "Specify: Maternal medical and surgical conditions",
+              "type": "obs",
+              "id": "maternalFactorsMedicalSpecify",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "maternalFactors !== '129218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Specify: Others",
+              "type": "obs",
+              "id": "maternalFactorsOthersSpecify",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "hide": {
+                "hideWhenExpression": "maternalFactors !== '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Completed by",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Completed by",
+              "type": "obsGroup",
+              "id": "completedByGroup",
+              "questionOptions": {
+                "concept": "162577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "group"
+              },
+              "questions": [
+                {
+                  "label": "Name",
+                  "type": "obs",
+                  "id": "completedByName",
+                  "questionOptions": {
+                    "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Designation",
+                  "type": "obs",
+                  "id": "completedByDesignation",
+                  "questionOptions": {
+                    "concept": "160219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Telephone",
+                  "type": "obs",
+                  "id": "completedByTelephone",
+                  "questionOptions": {
+                    "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "E-mail",
+                  "type": "obs",
+                  "id": "completedByEmail",
+                  "questionOptions": {
+                    "concept": "bd33a088-b7bb-456f-8c1a-cc0d6ebddbee",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Signature",
+                  "type": "obs",
+                  "id": "completedBySignature",
+                  "questionOptions": {
+                    "concept": "REPLACE_WITH_SIGNATURE_CONCEPT_UUID",
+                    "rendering": "text"
+                  }
+                },
+                {
+                  "label": "Date",
+                  "type": "obs",
+                  "id": "completedByDate",
+                  "questionOptions": {
+                    "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "rendering": "date"
+                  },
+                  "validators": [
+                    {
+                      "type": "date",
+                      "allowFutureDates": "false"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "processor": "EncounterFormProcessor",
+  "referencedForms": []
+}
