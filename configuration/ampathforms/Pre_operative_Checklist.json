@@ -8,223 +8,820 @@
     "encounter": "Pre-Operation Checklist",
     "pages": [
       {
-        "label": "Visit Details",
-        "sections": [
-          {
-            "label": "Encounter Details",
-            "isExpanded": "true",
-            "questions": [
-              {
-                "label": "Visit date:",
-                "type": "encounterDatetime",
-                "required": "true",
-                "id": "encDate",
-                "questionOptions": {
-                  "rendering": "date"
-                },
-                "validators": [
+      "label": "Visit Details",
+      "sections": [
+        {
+          "label": "Encounter Details",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Visit date:",
+              "type": "encounterDatetime",
+              "required": "true",
+              "id": "encDate",
+              "questionOptions": {
+                "rendering": "date"
+              },
+              "validators": [
+                {
+                  "type": "date",
+                  "allowFutureDates": "false"
+                }
+              ]
+            },
+            {
+              "label": "Provider:",
+              "type": "encounterProvider",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encProvider "
+            },
+            {
+              "label": "Location:",
+              "type": "encounterLocation",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "ui-select-extended"
+              },
+              "id": "encLocation"
+            },
+            {
+              "label": "Doctor Dept",
+              "type": "obs",
+              "id": "doctorDept",
+              "questionOptions": {
+                "concept": "164918AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
                   {
-                    "type": "date",
-                    "allowFutureDates": "false"
+                    "concept": "160454AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ophthalmology (Eye)Clinic"
+                  },
+                  {
+                    "concept": "160455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Ear, Nose, and Throat(ENT)Clinic"
+                  },
+                  {
+                    "concept": "2a030791-14b4-4996-95ad-39c54b25f2b6",
+                    "label": "Physiotherapy clinic"
+                  },
+                  {
+                    "concept": "164164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Surgical Outpatient Clinic"
+                  },
+                  {
+                    "concept": "160457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Paediatrics clinics"
+                  },
+                  {
+                    "concept": "1d7d7c76-d807-4f33-8c7e-2531e28126ed",
+                    "label": "Maxillofacial Clinic"
+                  },
+                  {
+                    "concept": "160448AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Medical Outpatient clinic"
+                  },
+                  {
+                    "concept": "66710a6d-5894-4f7d-a874-b449df77314d",
+                    "label": "Oncology Clinic"
+                  },
+                  {
+                    "concept": "30aff715-92de-4662-aa33-fa6b6179fed0",
+                    "label": "Dental clinic"
+                  },
+                  {
+                    "concept": "160475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Renal Clinic"
+                  },
+                  {
+                    "concept": "5489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Mental Health"
+                  },
+                  {
+                    "concept": "160460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dermatology Clinic"
+                  },
+                  {
+                    "concept": "164103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Diabetic Clinic"
+                  },
+                  {
+                    "concept": "c2f85aed-695f-49b1-973e-002c37cbdebf",
+                    "label": "Occupational Therapy Clinic"
+                  },
+                  {
+                    "concept": "160465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Orthopaedic Clinic"
+                  },
+                  {
+                    "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Others specify"
                   }
                 ]
               },
-              {
-                "label": "Provider:",
-                "type": "encounterProvider",
-                "required": "true",
-                "questionOptions": {
-                  "rendering": "ui-select-extended"
-                },
-                "id": "encProvider "
+              "validators": []
+            },
+            {
+              "label": "Specify other",
+              "type": "obs",
+              "id": "otherDepartment",
+              "questionOptions": {
+                "concept": "160948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "textarea"
               },
-              {
-                "label": "Location:",
-                "type": "encounterLocation",
-                "required": "true",
-                "questionOptions": {
-                  "rendering": "ui-select-extended"
-                },
-                "id": "encLocation"
+              "hide": {
+                "hideWhenExpression": "isEmpty(doctorDept) || !arrayContains(doctorDept, '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')"
               }
-            ]
-          }
-        ]
-      },
-      {
-        "label": "Preoperative Assessment",
-        "sections": [
-          {
-            "label": "General Health Assessment",
-            "isExpanded": "true",
-            "questions": [
-              {
-                "label": "Preoperative Diagnosis",
-                "type": "diagnosis",
-                "id": "prEpDx",
-                "questionOptions": {
-                "rendering": "repeating",
-                "dataSource": "diagnoses",
-                "rank": 1,
-                "datasource": {
-                  "name": "diagnoses",
-                  "config": {
-                    "conceptSourceUuid": "39ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+            },
+            {
+              "label": "Anaesthetist Name",
+              "type": "obs",
+              "id": "anaesthetist",
+              "questionOptions": {
+                "concept": "1473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "Procedure",
+              "type": "obs",
+              "id": "procedure",
+              "questionOptions": {
+                "concept": "166635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "Ward Checklist/Pre-operative procedures",
+              "type": "obs",
+              "id": "wardChecklistPreOperativeProcedures",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "checkbox",
+                "concept": "160721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "7c441996-2b90-4f08-aafc-e2e2f3aed677",
+                    "label": "Complete Anaesthetic Documentation",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "1710AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Complete Consent Form",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "bf400aa8-76d4-47cc-875a-0c99deea2373",
+                    "label": "Complete Pre-Anaesthesia Assessment",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "46c913a3-91a8-4429-a41d-d4e9e7a9bed2",
+                    "label": "Intravenous Line Satisfactory",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "14b11201-faf3-4ee8-913b-638f7c07c12a",
+                    "label": "Booked on Health soft for theatre",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "b0763039-0477-4b07-be56-6c217ef3e02a",
+                    "label": "Urinary Catheter and bag",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
                   }
-                }
+                ]
               }
-              },
-              {
-                "label": "Has the patient consumed any liquid or solid food?",
-                "type": "obs",
-                "id": "FooDsTatus",
-                "questionOptions": {
-                  "concept": "162708AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    }
-                  ]
-                }
-              },
-              {
-                "label": "Time Taken",
-                "type": "encounterDatetime",
-                "id": "TtakEn",
-                "datePickerFormat": "timer",
-                "questionOptions": {
-                  "concept": "a9e7c05e-7381-4e2b-a968-05d5d6a884f6",
-                  "rendering": "date"
-                },
-                "validators": [],
-                "hide": {
-                  "hideWhenExpression": "isEmpty(FooDsTatus) || FooDsTatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
-                }
-              },
-              {
-                "label": "Current medication given",
-                "type": "obs",
-                "id": "cuRRmeds",
-                "required": "true",
-                "questionOptions": {
-                  "concept": "163042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "text"
-                }
-              },
-              {
-                "label": "Was Urethral Catheterization done?",
-                "type": "obs",
-                "id": "CatAzised",
-                "required": "true",
-                "questionOptions": {
-                  "concept": "1651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    }
-                  ]
-                }
-              },
-              {
-                "label": "Preoperative skin preparation",
-                "type": "obs",
-                "id": "SkinPrep",
-                "required": "true",
-                "questionOptions": {
-                  "concept": "b9879725-26f6-4aa4-8777-bc7f75d388c1",
-                  "rendering": "radio",
-                  "answers": [
-                    {
-                      "concept": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Done"
-                    },
-                    {
-                      "concept": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Not Done"
-                    }
-                  ]
-                }
-              },
-              {
-                "label": "Procedure Urgency",
-                "type": "obs",
-                "id": "pRocedurgeNcy",
-                "required": "true",
-                "questionOptions": {
-                  "concept": "163295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
-                  "answers": [
-                    {
-                      "concept": "1882AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Emergency"
-                    },
-                    {
-                      "concept": "163294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Elective"
-                    }
-                  ]
-                }
-              },
-              {
-                "label": "Patient Preoperative State",
-                "type": "obs",
-                "id": "pRoState",
-                "required": "true",
-                "questionOptions": {
-                  "concept": "163088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
-                  "answers": [
-                    {
-                      "concept": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Good"
-                    },
-                    {
-                      "concept": "162133AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Fair"
-                    },
-                    {
-                      "concept": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Poor"
-                    }
-                  ]
-                }
-              },
-              {
-                "label": "Did the Patient Consent Obtained",
-                "type": "obs",
-                "id": "ConSentP",
-                "required": "true",
-                "questionOptions": {
-                  "concept": "162696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                  "rendering": "radio",
-                  "answers": [
-                    {
-                      "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "Yes"
-                    },
-                    {
-                      "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                      "label": "No"
-                    }
-                  ]
-                }
+            },
+            {
+              "label": "Nil Per Mouth",
+              "type": "obs",
+              "id": "nilPerMouth",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "162708AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
               }
-            ]
-          }
-        ]
-      }
+            },
+            {
+              "label": "Fasted From?(In hours)",
+              "type": "obs",
+              "id": "fastedFrom",
+              "questionOptions": {
+                "concept": "167162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "nilPerMouth !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Allergies",
+              "type": "obs",
+              "id": "allergies",
+              "required": "true",
+              "questionOptions": {
+                "rendering": "radio",
+                "concept": "160643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  },
+                  {
+                    "concept": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Dont Know"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "Specify allergy",
+              "type": "obs",
+              "id": "specifyAllergy",
+              "questionOptions": {
+                "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "allergies !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": " Blood Results",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "UECs",
+              "type": "obs",
+              "id": "uecs",
+              "questionOptions": {
+                "concept": "165399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "HB",
+              "type": "obs",
+              "id": "hb",
+              "questionOptions": {
+                "concept": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "Blood Sugar",
+              "type": "obs",
+              "id": "bloodSugar",
+              "questionOptions": {
+                "concept": "d0d107f7-9452-4129-a209-b9a4d1b46d4a",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "PCV",
+              "type": "obs",
+              "id": "pcv",
+              "questionOptions": {
+                "concept": "1015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "X-Match status",
+              "type": "obs",
+              "id": "xmatchStatus",
+              "questionOptions": {
+                "concept": "1e403ae5-2a58-4509-acbf-9fbab75bba81",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Blood Group",
+              "type": "obs",
+              "id": "bloodGroup",
+              "questionOptions": {
+                "concept": "300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "select",
+                "answers": [
+                  {
+                    "concept": "690AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "A+"
+                  },
+                  {
+                    "concept": "692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "A-"
+                  },
+                  {
+                    "concept": "694AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "B+"
+                  },
+                  {
+                    "concept": "696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "B-"
+                  },
+                  {
+                    "concept": "699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "O+"
+                  },
+                  {
+                    "concept": "701AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "O-"
+                  },
+                  {
+                    "concept": "1230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AB+"
+                  },
+                  {
+                    "concept": "1231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "AB-"
+                  }
+                ]
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "xmatchStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Units Available",
+              "type": "obs",
+              "id": "unitsAvailable",
+              "questionOptions": {
+                "concept": "430db2b5-b2f2-4adb-86d5-405ec39d9c7d",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "xmatchStatus !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Medication",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Pre medication",
+              "type": "obs",
+              "id": "preMedication",
+              "questionOptions": {
+                "concept": "160742AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Time Given",
+              "type": "obs",
+              "id": "timeGiven",
+              "questionOptions": {
+                "concept": "bb3724c9-fbcc-49c5-9702-6cde0be325ca",
+                "rendering": "Time"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "preMedication !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Regular Medication",
+              "type": "obs",
+              "id": "regularMedication",
+              "questionOptions": {
+                "concept": "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Name",
+              "type": "obs",
+              "id": "regularMedicationName",
+              "questionOptions": {
+                "concept": "c3082af8-f935-40c5-aa5b-74c684e81aea",
+                "rendering": "text"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "regularMedication !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Time Given",
+              "type": "obs",
+              "id": "regularMedicationtimeGiven",
+              "questionOptions": {
+                "concept": "bb3724c9-fbcc-49c5-9702-6cde0be325ca",
+                "rendering": "Time"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "regularMedication !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Items check/Surgical safety checklist",
+              "type": "obs",
+              "id": "itemsCheck",
+              "questionOptions": {
+                "concept": "d898ff91-4c91-4aab-9ea6-ef094039922a",
+                "rendering": "checkbox",
+                "answers": [
+                  {
+                    "concept": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "None"
+                  },
+                  {
+                    "concept": "500a464c-9208-4922-bc66-41c852ed91ed",
+                    "label": "Contact Lense removed",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "35706fef-7778-414d-b2d7-2b1128796e76",
+                    "label": "Hearing Aid/Limb Removed",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "162422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Implant/Prosthetics",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "fd74aa19-bf32-4e9d-ac84-eacc9f8f6579",
+                    "label": "Dental caps/Crowns/bridge work present",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "34cb40b4-2ecc-4517-910e-6de7360ba2c8",
+                    "label": "Denture removed/Loose teeth",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "ed49db3d-eceb-4939-9627-d8b402a6b45b",
+                    "label": "Jewellery/Valuables removed",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "794d4e31-f6cc-4f9e-9c86-1e12ab99be6c",
+                    "label": "Makeup/nail vanish removed",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "d1a2d364-c1a7-4ab1-a540-4f6fb9f10bda",
+                    "label": "Bath/shower/gown On",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "51bbed28-7012-4799-9aed-9950ac9ae103",
+                    "label": "Shave/Skin in preparation",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "0d0711d7-f26a-47d9-8e7f-55a03a07bc14",
+                    "label": "Surgical Site marked",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  },
+                  {
+                    "concept": "b365afbb-78bf-4831-b10c-7be71433f0ee",
+                    "label": "ID Band",
+                    "disableWhenExpression": "myValue === '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+                  }
+                ]
+              },
+              "validators": []
+            }
+          ]
+        },
+        {
+          "label": "Immediate Pre-Operation Observation",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "Time Done",
+              "type": "obs",
+              "id": "timeDone",
+              "questionOptions": {
+                "concept": "bb3724c9-fbcc-49c5-9702-6cde0be325ca",
+                "rendering": "Time"
+              },
+              "validators": []
+            },
+            {
+              "label": "Temperature",
+              "type": "obs",
+              "id": "temperature",
+              "questionOptions": {
+                "concept": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "Pulse",
+              "type": "obs",
+              "id": "pulse",
+              "questionOptions": {
+                "concept": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "Respiratory",
+              "type": "obs",
+              "id": "respiratory",
+              "questionOptions": {
+                "concept": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "Systolic Bp",
+              "type": "obs",
+              "id": "systolicBp",
+              "questionOptions": {
+                "concept": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "Diastolic Bp",
+              "type": "obs",
+              "id": "diastolicBp",
+              "questionOptions": {
+                "concept": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "Fetal Heart Rate",
+              "type": "obs",
+              "id": "fetalHeartRate",
+              "questionOptions": {
+                "concept": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "CVP(Central Venous Pressure)",
+              "type": "obs",
+              "id": "cvp",
+              "questionOptions": {
+                "concept": "4663eea7-e5c7-4905-b06c-b613f69ee89c",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "Height",
+              "type": "obs",
+              "id": "height",
+              "questionOptions": {
+                "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "Weight in KGs",
+              "type": "obs",
+              "id": "weightInKgs",
+              "questionOptions": {
+                "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "number"
+              },
+              "validators": []
+            },
+            {
+              "label": "X-ray & Scans present/ECG Other form as required",
+              "type": "obs",
+              "id": "xrayScans",
+              "questionOptions": {
+                "concept": "b872476a-e85c-4ad6-a038-5e5077895b6e",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Bladder emptied",
+              "type": "obs",
+              "id": "bladderEmptied",
+              "questionOptions": {
+                "concept": "c19eebbb-9f83-4d0c-863b-1ffac785c502",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Time emptied",
+              "type": "obs",
+              "id": "timeEmptied",
+              "questionOptions": {
+                "concept": "e79f14c5-2c93-4287-bf06-2024026d6108",
+                "rendering": "time"
+              },
+              "validators": [],
+              "hide": {
+                "hideWhenExpression": "bladderEmptied !== '1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+              }
+            },
+            {
+              "label": "Urinalysis",
+              "type": "obs",
+              "id": "urinalysis",
+              "questionOptions": {
+                "concept": "160987AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "Pre-op visit done",
+              "type": "obs",
+              "id": "preopVisitDone",
+              "questionOptions": {
+                "concept": "a3591444-b7b3-4d7b-9f65-d93176a21878",
+                "rendering": "radio",
+                "answers": [
+                  {
+                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "Yes"
+                  },
+                  {
+                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "label": "No"
+                  }
+                ]
+              },
+              "validators": []
+            },
+            {
+              "label": "Comments",
+              "type": "obs",
+              "id": "commentsPreop",
+              "questionOptions": {
+                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": []
+            }
+          ]
+        },
+        {
+          "label": "Handover",
+          "isExpanded": "true",
+          "questions": [
+            {
+              "label": "O.R Nurse Name",
+              "type": "obs",
+              "id": "orNurseName",
+              "questionOptions": {
+                "concept": "166690AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "Prepared by",
+              "type": "obs",
+              "id": "preparedBy",
+              "questionOptions": {
+                "concept": "96bfe964-f54d-4a9a-978d-5d7d916d4097",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "Handed Over By",
+              "type": "obs",
+              "id": "handedOverBy",
+              "questionOptions": {
+                "concept": "badc74ee-120d-4f4d-9b6f-98fd3acc6865",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "Time Arrived Reception",
+              "type": "obs",
+              "id": "timeArrivedReception",
+              "questionOptions": {
+                "concept": "18156183-80d5-46dc-8d30-040ac520ea2d",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "Received By",
+              "type": "obs",
+              "id": "receivedBy",
+              "questionOptions": {
+                "concept": "2b537713-298c-4b60-83c3-8006ea622d70",
+                "rendering": "text"
+              },
+              "validators": []
+            },
+            {
+              "label": "Comments",
+              "type": "obs",
+              "id": "comments",
+              "questionOptions": {
+                "concept": "162749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "rendering": "text"
+              },
+              "validators": []
+            }
+          ]
+        }
+      ]
+    }
     ],
     "encounterType": "9023e0cd-78ef-44af-ba54-47f30f739b4a"
   }
